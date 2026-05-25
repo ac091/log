@@ -88,7 +88,7 @@ input.key {
   background: rgba(255,255,255,.09);
 }
 
-/* ===== 过去 ===== */
+/* ===== 过去（✅ 日期 + 内容同时显示） ===== */
 #past {
   display: none;
   position: fixed;
@@ -133,6 +133,12 @@ input.key {
   font-size: 14px;
   color: #38bdf8;
   margin-bottom: 6px;
+}
+
+.node-text {
+  font-size: 14px;
+  color: #94a3b8;
+  line-height: 1.8;
 }
 
 /* ===== 弹窗 ===== */
@@ -222,21 +228,25 @@ input.key {
   </div>
 </div>
 
-<!-- 过去（✅ 只显示日期） -->
+<!-- 过去（✅ 日期 + 内容同时显示） -->
 <div id="past">
   <div class="past-header" onclick="closePast()">◀ BACK</div>
   <div class="timeline">
-    <div class="node" onclick="openModal('2023-09-11','在武警院我们相遇。不管过去多久我还是想说，很高兴认识你。')">
+    <div class="node">
       <div class="node-time">2023-09-11</div>
-      <div style="margin-top:6px;">
-        <a href="javascript:void(0);" onclick="event.stopPropagation(); openPhoto('https://raw.githubusercontent.com/你的名字/仓库名/main/qu.jpg')">📷</a>
+      <div class="node-text">
+        在武警院我们相遇。不管过去多久我还是想说，很高兴认识你。
+        <br><br>
+        <a href="javascript:void(0);" onclick="openPhoto('https://raw.githubusercontent.com/你的名字/仓库名/main/qu.jpg')">📷</a>
       </div>
     </div>
-    <div class="node" onclick="openModal('2023-06-15','那时候我们还不知道，后来会发生这么多事。')">
+    <div class="node">
       <div class="node-time">2023-06-15</div>
+      <div class="node-text">那时候我们还不知道，后来会发生这么多事。</div>
     </div>
-    <div class="node" onclick="openModal('2023-08-21','夏天的晚风吹过，带来了远方的消息。')">
+    <div class="node">
       <div class="node-time">2023-08-21</div>
+      <div class="node-text">夏天的晚风吹过，带来了远方的消息。</div>
     </div>
   </div>
 </div>
@@ -268,13 +278,20 @@ const modal = document.getElementById("modal");
 const modalTime = document.getElementById("modal-time");
 const modalContent = document.getElementById("modal-content");
 
+/* ✅ 正确：直接进；错误：回车才提示 */
+input.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    if (input.value !== KEY) {
+      alert("密钥错误");
+      input.value = "";
+    }
+  }
+});
+
 input.addEventListener("input", () => {
   if (input.value === KEY) {
     login.style.display = "none";
     main.style.display = "block";
-  } else if (input.value.length === 4) {
-    alert("密钥错误");
-    input.value = "";
   }
 });
 
