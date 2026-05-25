@@ -52,12 +52,12 @@ input.key {
   outline: none;
 }
 
-/* ===== 主界面 ===== */
+/* ===== 现在 ===== */
 #main {
   display: none;
   position: fixed;
   inset: 0;
-  background: #111827;
+  background: #1f2937;
   z-index: 10;
   padding: 60px 80px;
   overflow-y: auto;
@@ -70,34 +70,25 @@ input.key {
   letter-spacing: 2px;
 }
 
-.main-content {
-  max-width: 600px;
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
-/* 时间轴 */
-.timeline {
-  border-left: 2px solid rgba(255,255,255,.1);
-  padding-left: 30px;
+.item {
+  padding: 18px 22px;
+  background: rgba(255,255,255,.04);
+  border-left: 3px solid rgba(56,189,248,.5);
+  border-radius: 6px;
+  cursor: pointer;
 }
 
-.event {
-  margin-bottom: 50px;
-  opacity: .9;
+.item:hover {
+  background: rgba(255,255,255,.07);
 }
 
-.event-time {
-  font-size: 14px;
-  color: #38bdf8;
-  margin-bottom: 8px;
-}
-
-.event-text {
-  font-size: 15px;
-  line-height: 1.8;
-  color: #9ca3af;
-}
-
-/* ===== 过去页面 ===== */
+/* ===== 过去 ===== */
 #past {
   display: none;
   position: fixed;
@@ -109,28 +100,82 @@ input.key {
 }
 
 .past-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  font-size: 13px;
+  color: #475569;
   margin-bottom: 50px;
-  font-size: 13px;
-  color: #64748b;
-}
-
-.back {
-  background: none;
-  border: none;
-  color: #64748b;
   cursor: pointer;
-  font-size: 13px;
 }
 
-.back:hover {
-  color: #fff;
+/* 时间线 */
+.timeline {
+  position: relative;
+  padding-left: 30px;
+  border-left: 2px solid rgba(255,255,255,.08);
 }
 
-/* 隐藏入口 */
-#gate {
+.node {
+  position: relative;
+  margin-bottom: 50px;
+  cursor: pointer;
+}
+
+.node::before {
+  content: "";
+  position: absolute;
+  left: -41px;
+  top: 4px;
+  width: 10px;
+  height: 10px;
+  background: #38bdf8;
+  border-radius: 50%;
+}
+
+.node-time {
+  font-size: 14px;
+  color: #38bdf8;
+  margin-bottom: 6px;
+}
+
+.node-text {
+  font-size: 14px;
+  color: #94a3b8;
+}
+
+/* ===== 弹窗 ===== */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.75);
+  z-index: 999;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-box {
+  background: #1e293b;
+  padding: 30px 36px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 460px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.modal-time {
+  font-size: 14px;
+  color: #38bdf8;
+  margin-bottom: 15px;
+}
+
+.modal-content {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #cbd5e1;
+}
+
+/* 入口 */
+.gate {
   position: fixed;
   bottom: 30px;
   right: 30px;
@@ -140,15 +185,6 @@ input.key {
   border-radius: 50%;
   cursor: pointer;
   z-index: 20;
-}
-
-.fade {
-  animation: fade .8s ease forwards;
-}
-
-@keyframes fade {
-  from { opacity: 0; }
-  to { opacity: 1; }
 }
 </style>
 </head>
@@ -164,48 +200,44 @@ input.key {
 </div>
 
 <!-- 现在 -->
-<div id="main" class="fade">
-  <div class="main-header">2026 / 05 / 25</div>
-  <div class="main-content">
-    <p style="line-height:1.8; color:#9ca3af;">
-      网页已经通了。<br>
-      接下来的内容，只属于我们。
-    </p >
+<div id="main">
+  <div class="main-header">RECENT LOGS</div>
+  <div class="list">
+    <div class="item" onclick="openModal('2026-05-25','网页已经通了。接下来的内容，只属于我们。')">2026-05-25</div>
+    <div class="item" onclick="openModal('2026-06-01','系统开始记录新的轨迹。')">2026-06-01</div>
+    <div class="item" onclick="openModal('2026-06-12','某些信号在远处闪烁。')">2026-06-12</div>
   </div>
 </div>
 
 <!-- 过去 -->
 <div id="past">
-  <div class="past-header">
-    <span>◎ 时光回溯</span>
-    <button class="back" onclick="closePast()">← 返回</button>
-  </div>
-
+  <div class="past-header" onclick="closePast()">◀ BACK</div>
   <div class="timeline">
-    <div class="event">
-      <div class="event-time">2023-09-11</div>
-      <div class="event-text">武警院相遇。</div>
+    <div class="node" onclick="openModal('2023-09-11','武警院相遇。那是第一个锚点。')">
+      <div class="node-time">2023-09-11</div>
+      <div class="node-text">武警院相遇</div>
     </div>
-
-    <div class="event">
-      <div class="event-time">2023-06-15</div>
-      <div class="event-text">那时候我们还不知道，后来会发生这么多事。</div>
+    <div class="node" onclick="openModal('2023-06-15','那时候我们还不知道，后来会发生这么多事。')">
+      <div class="node-time">2023-06-15</div>
+      <div class="node-text">初识</div>
     </div>
-
-    <div class="event">
-      <div class="event-time">2023-08-21</div>
-      <div class="event-text">夏天的晚风吹过，带来了远方的消息。</div>
-    </div>
-
-    <div class="event">
-      <div class="event-time">2024-05-20</div>
-      <div class="event-text">天空很蓝，云走得很慢，时间仿佛停驻。</div>
+    <div class="node" onclick="openModal('2023-08-21','夏天的晚风吹过，带来了远方的消息。')">
+      <div class="node-time">2023-08-21</div>
+      <div class="node-text">夏夜</div>
     </div>
   </div>
 </div>
 
-<!-- 隐藏入口 -->
-<div id="gate" onclick="openPast()"></div>
+<!-- 入口 -->
+<div class="gate" onclick="openPast()"></div>
+
+<!-- 弹窗 -->
+<div class="modal" id="modal" onclick="closeModal()">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-time" id="modal-time"></div>
+    <div class="modal-content" id="modal-content"></div>
+  </div>
+</div>
 
 <script>
 const KEY = "56";
@@ -214,17 +246,29 @@ const login = document.getElementById("login");
 const main = document.getElementById("main");
 const past = document.getElementById("past");
 const input = document.getElementById("key");
+const modal = document.getElementById("modal");
+const modalTime = document.getElementById("modal-time");
+const modalContent = document.getElementById("modal-content");
 
 input.addEventListener("input", () => {
   if (input.value === KEY) {
     login.style.display = "none";
-    main.classList.add("fade");
     main.style.display = "block";
   } else if (input.value.length === 4) {
     alert("密钥错误");
     input.value = "";
   }
 });
+
+function openModal(time, content) {
+  modalTime.innerText = time;
+  modalContent.innerText = content;
+  modal.style.display = "flex";
+}
+
+function closeModal() {
+  modal.style.display = "none";
+}
 
 function openPast() {
   main.style.display = "none";
