@@ -52,12 +52,12 @@ input.key {
   outline: none;
 }
 
-/* ===== 现在（✅ 已提亮） ===== */
+/* ===== 现在 ===== */
 #main {
   display: none;
   position: fixed;
   inset: 0;
-  background: #2a3649; /* ← 这里变亮了 */
+  background: #2a3649;
   z-index: 10;
   padding: 60px 80px;
   overflow-y: auto;
@@ -106,7 +106,6 @@ input.key {
   cursor: pointer;
 }
 
-/* 时间线 */
 .timeline {
   position: relative;
   padding-left: 30px;
@@ -134,11 +133,6 @@ input.key {
   font-size: 14px;
   color: #38bdf8;
   margin-bottom: 6px;
-}
-
-.node-text {
-  font-size: 14px;
-  color: #94a3b8;
 }
 
 /* ===== 弹窗 ===== */
@@ -174,7 +168,25 @@ input.key {
   color: #cbd5e1;
 }
 
-/* 入口 */
+/* ===== 照片 ===== */
+#photo {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 3000;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+#photo img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 8px;
+}
+
+/* ===== 入口 ===== */
 .gate {
   position: fixed;
   bottom: 30px;
@@ -210,21 +222,21 @@ input.key {
   </div>
 </div>
 
-<!-- 过去 -->
+<!-- 过去（✅ 只显示日期） -->
 <div id="past">
   <div class="past-header" onclick="closePast()">◀ BACK</div>
   <div class="timeline">
     <div class="node" onclick="openModal('2023-09-11','在武警院我们相遇。不管过去多久我还是想说，很高兴认识你。')">
       <div class="node-time">2023-09-11</div>
-      <div class="node-text">武警院相遇</div>
+      <div style="margin-top:6px;">
+        <a href="javascript:void(0);" onclick="event.stopPropagation(); openPhoto('https://raw.githubusercontent.com/你的名字/仓库名/main/qu.jpg')">📷</a>
+      </div>
     </div>
     <div class="node" onclick="openModal('2023-06-15','那时候我们还不知道，后来会发生这么多事。')">
       <div class="node-time">2023-06-15</div>
-      <div class="node-text">初识</div>
     </div>
     <div class="node" onclick="openModal('2023-08-21','夏天的晚风吹过，带来了远方的消息。')">
       <div class="node-time">2023-08-21</div>
-      <div class="node-text">夏夜</div>
     </div>
   </div>
 </div>
@@ -238,6 +250,11 @@ input.key {
     <div class="modal-time" id="modal-time"></div>
     <div class="modal-content" id="modal-content"></div>
   </div>
+</div>
+
+<!-- 照片 -->
+<div id="photo" onclick="this.style.display='none'">
+  <img id="photo-img" src="">
 </div>
 
 <script>
@@ -279,6 +296,11 @@ function openPast() {
 function closePast() {
   past.style.display = "none";
   main.style.display = "block";
+}
+
+function openPhoto(url) {
+  document.getElementById("photo-img").src = url;
+  document.getElementById("photo").style.display = "flex";
 }
 </script>
 
