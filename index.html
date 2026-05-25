@@ -15,7 +15,6 @@ body {
   overflow: hidden;
 }
 
-/* ===== 登录 ===== */
 #login {
   position: fixed;
   inset: 0;
@@ -52,7 +51,6 @@ input.key {
   outline: none;
 }
 
-/* ===== 现在 ===== */
 #main {
   display: none;
   position: fixed;
@@ -88,7 +86,6 @@ input.key {
   background: rgba(255,255,255,.09);
 }
 
-/* ===== 过去 ===== */
 #past {
   display: none;
   position: fixed;
@@ -135,7 +132,6 @@ input.key {
   margin-bottom: 6px;
 }
 
-/* ===== 弹窗 ===== */
 .modal {
   display: none;
   position: fixed;
@@ -168,7 +164,6 @@ input.key {
   color: #cbd5e1;
 }
 
-/* ===== 相机 ===== */
 .camera {
   margin-top: 20px;
   width: 60px;
@@ -182,7 +177,6 @@ input.key {
   font-size: 26px;
 }
 
-/* ===== 图片页 ===== */
 #photo {
   display: none;
   position: fixed;
@@ -200,7 +194,6 @@ input.key {
   border-radius: 8px;
 }
 
-/* ===== 入口 ===== */
 .gate {
   position: fixed;
   bottom: 30px;
@@ -217,7 +210,6 @@ input.key {
 
 <body>
 
-<!-- 登录 -->
 <div id="login">
   <div class="login-inner">
     <p>SYSTEM SECURED</p>
@@ -225,7 +217,6 @@ input.key {
   </div>
 </div>
 
-<!-- 现在 -->
 <div id="main">
   <div class="main-header">RECENT LOGS</div>
   <div class="list">
@@ -236,34 +227,27 @@ input.key {
   </div>
 </div>
 
-<!-- 过去 -->
 <div id="past">
   <div class="past-header" onclick="closePast()">◀ BACK</div>
   <div class="timeline">
-    <!-- 2023-09-11 -->
     <div class="node" onclick="openModal('2023-09-11','在武警院我们相遇。不管过去多久我还是想说，很高兴认识你。<br><br><div class=&quot;camera&quot; onclick=&quot;event.stopPropagation(); openPhoto(&apos;qu.jpg&apos;)&quot;>📷</div>')">
       <div class="node-time">2023-09-11</div>
     </div>
-    <!-- 2023-06-15 -->
-    <div class="node" onclick="openModal('2023-06-15','那时候我们还不知道，后来会发生这么多事。')">
-   <div class="node-time">2023-06-15</div>
+    <div class="node" onclick="openModal('2023-06-15','那时候我们还不知道，后来会发生这么多事。<br><br><div class=&quot;camera&quot; onclick=&quot;event.stopPropagation(); openPhoto(&apos;yi.jpg&apos;)&quot;>📷</div>')">
+      <div class="node-time">2023-06-15</div>
     </div>
-    <!-- 2023-08-21 -->
-    <div class="node" onclick="openModal('2023-08-21','夏天的晚风吹过，带来了远方的消息。')">
+    <div class="node" onclick="openModal('2023-08-21','夏天的晚风吹过，带来了远方的消息。<br><br><div class=&quot;camera&quot; onclick=&quot;event.stopPropagation(); openPhoto(&apos;san.jpg&apos;)&quot;>📷</div>')">
       <div class="node-time">2023-08-21</div>
     </div>
   </div>
 </div>
 
-<!-- 图片页 -->
 <div id="photo" onclick="closePhoto()">
-  <img src="qu.jpg">
+  <img src="">
 </div>
 
-<!-- 入口 -->
 <div class="gate" onclick="openPast()"></div>
 
-<!-- 弹窗 -->
 <div class="modal" id="modal" onclick="closeModal()">
   <div class="modal-box" onclick="event.stopPropagation()">
     <div class="modal-time" id="modal-time"></div>
@@ -282,13 +266,10 @@ const modal = document.getElementById("modal");
 const modalTime = document.getElementById("modal-time");
 const modalContent = document.getElementById("modal-content");
 
-/* 登录 */
 input.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
-    if (input.value !== KEY) {
-      alert("密钥错误");
-      input.value = "";
-    }
+  if (e.key === "Enter" && input.value !== KEY) {
+    alert("密钥错误");
+    input.value = "";
   }
 });
 
