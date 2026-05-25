@@ -164,6 +164,20 @@ input.key {
   color: #cbd5e1;
 }
 
+/* ✅ 小相机图标 */
+.camera {
+  margin-top: 18px;
+  width: 48px;
+  height: 48px;
+  background: rgba(255,255,255,.08);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 22px;
+}
+
 #photo {
   display: none;
   position: fixed;
@@ -262,12 +276,14 @@ input.addEventListener("input", () => {
   }
 });
 
-/* ✅ 日期 → 图片映射（只改这里） */
+/* ✅ 日期 → 图片 */
 const photosByDate = {
   "2023-09-11": [
     "https://raw.githubusercontent.com/ac091/log/main/qu.jpg"
   ],
   "2023-06-15": [
+   "https://raw.githubusercontent.com/ac091/log/main/qu.jpg"
+  ],
     "https://raw.githubusercontent.com/ac091/log/main/yi.jpg"
   ]
 };
@@ -277,17 +293,16 @@ function openModal(time, content) {
   modalContent.innerHTML = content;
 
   if (photosByDate[time]) {
-    photosByDate[time].forEach(url => {
-      const img = document.createElement("img");
-      img.src = url;
-      img.style.cssText =
-        "width:100%;border-radius:8px;margin-top:15px;cursor:pointer;";
-      img.onclick = () => {
-        document.querySelector("#photo img").src = url;
-        document.getElementById("photo").style.display = "flex";
-      };
-      modalContent.appendChild(img);
-    });
+    const camera = document.createElement("div");
+    camera.className = "camera";
+    camera.innerHTML = "📷";
+
+    camera.onclick = () => {
+      document.querySelector("#photo img").src = photosByDate[time][0];
+      document.getElementById("photo").style.display = "flex";
+    };
+
+    modalContent.appendChild(camera);
   }
 
   modal.style.display = "flex";
