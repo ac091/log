@@ -164,19 +164,6 @@ input.key {
   color: #cbd5e1;
 }
 
-.camera {
-  margin-top: 20px;
-  width: 60px;
-  height: 60px;
-  background: rgba(255,255,255,.08);
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  font-size: 26px;
-}
-
 #photo {
   display: none;
   position: fixed;
@@ -220,24 +207,19 @@ input.key {
 <div id="main">
   <div class="main-header">RECENT LOGS</div>
   <div class="list">
-    <div class="item" onclick="openModal('2026-05-25','今天这个小网站正式可以运行了，好有成就感。这是我做的第一个网站，也是第一次正儿八经跑代码，惊喜吧应该，其实这个想法不算突然，只是没法确定代码可以跑起来，可我前两天还是决定先悄悄藏在戒指上，你应该暂时发现不了，上次的八千字讲了很多人很多事，但我想说那并不是全部，这个网站会保持更新的，也会有很多可以探索的地方，这个网站，只关于你，也只属于我们。')">2026-05-25</div>
+    <div class="item" onclick="openModal('2026-05-25','今天这个小网站正式可以运行了，好有成就感。')">2026-05-25</div>
     <div class="item" onclick="openModal('2026-06-01','系统开始记录新的轨迹。')">2026-06-01</div>
-    <div class="item" onclick="openModal('2026-06-12','某些信号在远处闪烁。')">2026-06-12</div>
-    <div class="item" onclick="openModal('2026-07-01','今天天气很好，我想你了。')">2026-07-01</div>
   </div>
 </div>
 
 <div id="past">
   <div class="past-header" onclick="closePast()">◀ BACK</div>
   <div class="timeline">
-    <div class="node" onclick="openModal('2023-09-11','在武警院我们相遇。不管过去多久我还是想说，很高兴认识你。<br><br><div class=&quot;camera&quot; onclick=&quot;event.stopPropagation(); openPhoto(&apos;qu.jpg&apos;)&quot;>📷</div>')">
+    <div class="node" onclick="openModal('2023-09-11','在武警院我们相遇。不管过去多久我还是想说，很高兴认识你。')">
       <div class="node-time">2023-09-11</div>
     </div>
-    <div class="node" onclick="openModal('2023-06-15','那时候我们还不知道，后来会发生这么多事。<br><br><div class=&quot;camera&quot; onclick=&quot;event.stopPropagation(); openPhoto(&apos;yi.jpg&apos;)&quot;>📷</div>')">
+    <div class="node" onclick="openModal('2023-06-15','那时候我们还不知道，后来会发生这么多事。')">
       <div class="node-time">2023-06-15</div>
-    </div>
-    <div class="node" onclick="openModal('2023-08-21','夏天的晚风吹过，带来了远方的消息。
-      <div class="node-time">2023-08-21</div>
     </div>
   </div>
 </div>
@@ -280,9 +262,34 @@ input.addEventListener("input", () => {
   }
 });
 
+/* ✅ 日期 → 图片映射（只改这里） */
+const photosByDate = {
+  "2023-09-11": [
+    "https://raw.githubusercontent.com/ac091/log/main/qu.jpg"
+  ],
+  "2023-06-15": [
+    "https://raw.githubusercontent.com/ac091/log/main/yi.jpg"
+  ]
+};
+
 function openModal(time, content) {
   modalTime.innerText = time;
   modalContent.innerHTML = content;
+
+  if (photosByDate[time]) {
+    photosByDate[time].forEach(url => {
+      const img = document.createElement("img");
+      img.src = url;
+      img.style.cssText =
+        "width:100%;border-radius:8px;margin-top:15px;cursor:pointer;";
+      img.onclick = () => {
+        document.querySelector("#photo img").src = url;
+        document.getElementById("photo").style.display = "flex";
+      };
+      modalContent.appendChild(img);
+    });
+  }
+
   modal.style.display = "flex";
 }
 
@@ -300,23 +307,9 @@ function closePast() {
   main.style.display = "block";
 }
 
-function openPhoto(img) {
-  event.stopPropagation();
-  document.getElementById("photo").querySelector("img").src = img;
-  document.getElementById("photo").style.display = "flex";
-}
-
 function closePhoto() {
   document.getElementById("photo").style.display = "none";
 }
-const photosByDate = {
-  "2023-09-11": [
-    "https://raw.githubusercontent.com/ac091/log/main/qu.jpg"
-  ],
-  "2023-06-15": [
-    "https://raw.githubusercontent.com/ac091/log/main/yi.jpg"
-  ]
-};
 </script>
 
 </body>
