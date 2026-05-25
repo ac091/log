@@ -222,19 +222,30 @@ input.key {
   </div>
 </div>
 
-<!-- 过去（✅ 内容已补全） -->
+<!-- 过去（✅ 9月12已恢复 + 相机图标 + 图片） -->
 <div id="past">
   <div class="past-header" onclick="closePast()">◀ BACK</div>
   <div class="timeline">
-    <div class="node" onclick="openModal('2023-06-15','那时候我们还不知道，后来会发生这么多事。')">
+    <!-- 2023-06-15 -->
+    <div class="node" onclick="openModal('2023-06-15','那时候我们还不知道，后来会发生这么多事。<br><br><a href=&quot;javascript:void(0);&quot; onclick=&quot;event.stopPropagation(); openPhoto(&apos;https://raw.githubusercontent.com/ac091/log/main/photo1.jpg&apos;)&quot;>📷</a>')">
       <div class="node-time">2023-06-15</div>
     </div>
-    <div class="node" onclick="openModal('2023-08-21','夏天的晚风吹过，带来了远方的消息。')">
+
+    <!-- 2023-08-21 -->
+    <div class="node" onclick="openModal('2023-08-21','夏天的晚风吹过，带来了远方的消息。<br><br><a href=&quot;javascript:void(0);&quot; onclick=&quot;event.stopPropagation(); openPhoto(&apos;https://raw.githubusercontent.com/ac091/log/main/photo2.jpg&apos;)&quot;>📷</a>')">
       <div class="node-time">2023-08-21</div>
     </div>
-    <div class="node" onclick="openModal('2023-09-11','在武警院我们相遇。不管过去多久我还是想说，很高兴认识你。<br><br><a href=&quot;javascript:void(0);&quot; onclick=&quot;event.stopPropagation(); openPhoto(&apos;https://raw.githubusercontent.com/ac091/log/main/qu.jpg&apos;)&quot;>📷</a>')">
+
+    <!-- 2023-09-11 -->
+    <div class="node" onclick="openModal('2023-09-11','在武警院我们相遇。不管过去多久我还是想说，很高兴认识你。<br><br><a href=&quot;javascript:void(0);&quot; onclick=&quot;event.stopPropagation(); openPhoto(&apos;https://raw.githubusercontent.com/ac091/log/main/photo3.jpg&apos;)&quot;>📷</a>')">
       <div class="node-time">2023-09-11</div>
     </div>
+
+    <!-- ✅ 2023-09-12 已恢复 -->
+    <div class="node" onclick="openModal('2023-09-12','那天阳光很好，我们聊了很久，谁也没想到这会成为后来所有故事的起点。<br><br><a href=&quot;javascript:void(0);&quot; onclick=&quot;event.stopPropagation(); openPhoto(&apos;https://raw.githubusercontent.com/ac091/log/main/photo4.jpg&apos;)&quot;>📷</a>')">
+      <div class="node-time">2023-09-12</div>
+    </div>
+
   </div>
 </div>
 
