@@ -15,24 +15,21 @@ body {
   overflow: hidden;
 }
 
+/* ===== 背景 ===== */
 .bg {
   position: fixed;
   inset: 0;
-  background: linear-gradient(120deg, #0a0a14, #121826, #0f172a);
+  background: linear-gradient(120deg, #0f172a, #1e293b, #0f172a);
   background-size: 400% 400%;
   animation: gradient 20s ease infinite;
   z-index: -1;
 }
-@keyframes gradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
 
+/* ===== 登录 ===== */
 #login {
   position: fixed;
   inset: 0;
-  background: #000;
+  background: rgba(15,23,42,.85);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -42,51 +39,69 @@ body {
 #login.fade-out { opacity: 0; pointer-events: none; }
 
 .login-box p {
-  font-size: 13px;
-  opacity: .6;
-  margin-bottom: 20px;
-  letter-spacing: 2px;
+  font-size: 14px;
+  opacity: .7;
+  margin-bottom: 24px;
+  letter-spacing: 3px;
 }
+
 .login-box input {
   background: transparent;
   border: 1px solid #38bdf8;
   color: #38bdf8;
-  padding: 12px 16px;
-  width: 220px;
-  border-radius: 8px;
+  padding: 18px 22px;
+  width: 260px;
+  font-size: 22px;
+  border-radius: 10px;
   text-align: center;
-  letter-spacing: 6px;
+  letter-spacing: 8px;
   outline: none;
 }
 
+/* ===== 主内容 ===== */
 #main {
   display: none;
-  padding: 80px 20px;
-  max-width: 800px;
+  padding: 80px 20px 120px;
+  max-width: 600px;
   margin: auto;
 }
 
-.time-btn {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  background: rgba(56,189,248,.15);
-  border: 1px solid rgba(56,189,248,.4);
-  color: #38bdf8;
-  padding: 10px 18px;
-  border-radius: 20px;
+/* ===== 时间列表 ===== */
+.time {
+  padding: 18px 20px;
+  border-left: 3px solid #38bdf8;
+  margin-bottom: 14px;
   cursor: pointer;
-  backdrop-filter: blur(10px);
+  background: rgba(255,255,255,.02);
+  transition: background .2s;
+}
+.time:hover {
+  background: rgba(56,189,248,.08);
 }
 
-.entry {
-  border-left: 3px solid #38bdf8;
-  padding: 15px 20px;
-  margin-bottom: 20px;
-  background: rgba(255,255,255,.02);
+/* ===== 弹出内容 ===== */
+.popup {
+  display: none;
+  margin-top: 12px;
+  padding: 16px 20px;
+  border-left: 2px solid rgba(56,189,248,.6);
+  background: rgba(0,0,0,.25);
+  font-size: 14px;
+  line-height: 1.9;
 }
-.date { font-size: 12px; opacity: .5; margin-bottom: 6px; }
-.text { font-size: 14px; line-height: 1.8; }
+
+/* ===== 隐藏的时光按钮 ===== */
+.secret {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(56,189,248,.25);
+  cursor: pointer;
+  z-index: 100;
+}
 </style>
 </head>
 
@@ -94,30 +109,29 @@ body {
 
 <div class="bg"></div>
 
+<!-- 登录 -->
 <div id="login">
   <div class="login-box">
     <p>SYSTEM SECURED</p >
-    <input id="pass" type="password" placeholder="ACCESS KEY" maxlength="4">
+    <input id="pass" type="password" placeholder="KEY" maxlength="4">
   </div>
 </div>
 
+<!-- 主内容 -->
 <div id="main">
-  <div id="now">
-    <div class="entry">
-      <div class="date">2026-05-25</div>
-      <div class="text">这是现在的内容。<br>网页已经通了，接下来只属于我们。</div>
-    </div>
+  <div class="time" onclick="toggle(this)">
+    <div>2026-05-25</div>
+    <div class="popup">这是现在的内容。<br>网页已经通了，接下来只属于我们。</div>
   </div>
 
-  <div id="past" style="display:none;">
-    <div class="entry">
-      <div class="date">很久以前</div>
-      <div class="text">那时候我们还不知道，后来会发生这么多事。</div>
-    </div>
+  <div class="time" onclick="toggle(this)">
+    <div>很久以前</div>
+    <div class="popup">那时候我们还不知道，后来会发生这么多事。</div>
   </div>
 </div>
 
-<div class="time-btn" onclick="toggle()">🌌 时光切换</div>
+<!-- 隐藏按钮 -->
+<div class="secret" onclick="toggleSecret()"></div>
 
 <script>
 const PASSWORD = "56";
@@ -131,11 +145,15 @@ document.getElementById("pass").addEventListener("keyup", e => {
   }
 });
 
-let now = true;
-function toggle() {
-  now = !now;
-  document.getElementById("now").style.display = now ? "block" : "none";
-  document.getElementById("past").style.display = now ? "none" : "block";
+function toggle(el) {
+  const popup = el.querySelector(".popup");
+  popup.style.display = popup.style.display === "block" ? "none" : "block";
+}
+
+let secret = false;
+function toggleSecret() {
+  secret = !secret;
+  alert(secret ? "你找到了过去的入口" : "已回到现在");
 }
 </script>
 
