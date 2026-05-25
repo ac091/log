@@ -2,78 +2,140 @@
 <html lang="zh">
 <head>
 <meta charset="UTF-8">
-<title>ACCESS</title>
+<title>MEMORY SYSTEM</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
 body {
-    background: #0d1117;
-    color: #c9d1d9;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: #c9d1d9;
+  overflow: hidden;
 }
-.box {
-    background: rgba(22, 27, 34, 0.8);
-    border: 1px solid rgba(56, 189, 248, 0.2);
-    padding: 40px 60px;
-    border-radius: 16px;
-    text-align: center;
+
+.bg {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(120deg, #0a0a14, #121826, #0f172a);
+  background-size: 400% 400%;
+  animation: gradient 20s ease infinite;
+  z-index: -1;
 }
-input {
-    background: transparent;
-    border: 1px solid #30363d;
-    color: #38bdf8;
-    padding: 12px 15px;
-    width: 200px;
-    border-radius: 8px;
-    outline: none;
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
-button {
-    background: linear-gradient(135deg, #38bdf8, #818cf8);
-    border: none;
-    color: white;
-    padding: 12px 30px;
-    cursor: pointer;
-    border-radius: 8px;
-    margin-top: 20px;
+
+#login {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  transition: opacity .8s ease;
 }
-.content { display: none; margin-top: 30px; }
-.entry { border-left: 3px solid #38bdf8; padding: 15px 20px; margin-bottom: 20px; }
+#login.fade-out { opacity: 0; pointer-events: none; }
+
+.login-box p {
+  font-size: 13px;
+  opacity: .6;
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+}
+.login-box input {
+  background: transparent;
+  border: 1px solid #38bdf8;
+  color: #38bdf8;
+  padding: 12px 16px;
+  width: 220px;
+  border-radius: 8px;
+  text-align: center;
+  letter-spacing: 6px;
+  outline: none;
+}
+
+#main {
+  display: none;
+  padding: 80px 20px;
+  max-width: 800px;
+  margin: auto;
+}
+
+.time-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: rgba(56,189,248,.15);
+  border: 1px solid rgba(56,189,248,.4);
+  color: #38bdf8;
+  padding: 10px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+}
+
+.entry {
+  border-left: 3px solid #38bdf8;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  background: rgba(255,255,255,.02);
+}
+.date { font-size: 12px; opacity: .5; margin-bottom: 6px; }
+.text { font-size: 14px; line-height: 1.8; }
 </style>
 </head>
+
 <body>
 
-<div class="box" id="login">
-  <div>SYSTEM LOGIN</div>
-  <input type="password" id="pass" placeholder="Access Key">
-  <button onclick="check()">ENTER</button>
+<div class="bg"></div>
+
+<div id="login">
+  <div class="login-box">
+    <p>SYSTEM SECURED</p >
+    <input id="pass" type="password" placeholder="ACCESS KEY" maxlength="4">
+  </div>
 </div>
 
-<div class="box content" id="main">
-  <h2>MEMORY FRAGMENTS</h2>
-  <div class="entry">
-    <div>2026-05-24</div>
-    这是测试内容。如果看到这段话，说明网页已经通了！
+<div id="main">
+  <div id="now">
+    <div class="entry">
+      <div class="date">2026-05-25</div>
+      <div class="text">这是现在的内容。<br>网页已经通了，接下来只属于我们。</div>
+    </div>
   </div>
-  <div class="entry">
-    <div>2026-05-25</div>
-    以后我会在这里写下更多的话。
+
+  <div id="past" style="display:none;">
+    <div class="entry">
+      <div class="date">很久以前</div>
+      <div class="text">那时候我们还不知道，后来会发生这么多事。</div>
+    </div>
   </div>
 </div>
+
+<div class="time-btn" onclick="toggle()">🌌 时光切换</div>
 
 <script>
-const PASSWORD = "0521"; 
-function check() {
-  const input = document.getElementById("pass").value;
-  if (input === PASSWORD) {
-    document.getElementById("login").style.display = "none";
-    document.getElementById("main").style.display = "block";
-  } else {
-    alert("Access Denied");
+const PASSWORD = "56";
+
+document.getElementById("pass").addEventListener("keyup", e => {
+  if (e.target.value === PASSWORD) {
+    document.getElementById("login").classList.add("fade-out");
+    setTimeout(() => {
+      document.getElementById("main").style.display = "block";
+    }, 800);
   }
+});
+
+let now = true;
+function toggle() {
+  now = !now;
+  document.getElementById("now").style.display = now ? "block" : "none";
+  document.getElementById("past").style.display = now ? "none" : "block";
 }
 </script>
 
