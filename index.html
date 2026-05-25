@@ -241,10 +241,11 @@ input.key {
 <div id="past">
   <div class="past-header" onclick="closePast()">◀ BACK</div>
   <div class="timeline">
-    <div class="node" onclick="openModal('2023-09-11','在武警院我们相遇。不管过去多久我还是想说，很高兴认识你。
-                                         。 <a href="javascript:void(0);" onclick="openPhoto('https://raw.githubusercontent.com/ac091/log/main/qu.jpg.jpg')">📷</a>
-      <div class="node-time">2023-09-11</div>
-    </div>
+   <div class="node" onclick="openModal('2023-09-11','在武警院我们相遇。不管过去多久我还是想说，很高兴认识你。')">
+  <div class="node-time">2023-09-11</div>
+  <div class="node-text">
+    <a href="javascript:void(0);" onclick="event.stopPropagation(); openPhoto('https://raw.githubusercontent.com/ac091/log/main/qu.jpg.jpg')">📷</a>
+  </div>
     <div class="node" onclick="openModal('2023-06-15','那时候我们还不知道，后来会发生这么多事。')">
       <div class="node-time">2023-06-15</div>
     </div>
