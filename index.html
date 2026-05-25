@@ -164,7 +164,7 @@ input.key {
   color: #cbd5e1;
 }
 
-/* ✅ 小相机图标 */
+/* 相机图标 */
 .camera {
   margin-top: 18px;
   width: 48px;
@@ -178,21 +178,38 @@ input.key {
   font-size: 22px;
 }
 
-#photo {
+/* 相册 */
+#album {
   display: none;
   position: fixed;
   inset: 0;
   background: #000;
-  z-index: 2000;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
+  z-index: 3000;
 }
 
-#photo img {
+#album img {
   max-width: 90%;
   max-height: 90%;
   border-radius: 8px;
+}
+
+.album-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fff;
+  font-size: 40px;
+  cursor: pointer;
+  user-select: none;
+}
+
+#album-close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 28px;
+  color: #fff;
+  cursor: pointer;
 }
 
 .gate {
@@ -238,8 +255,14 @@ input.key {
   </div>
 </div>
 
-<div id="photo" onclick="closePhoto()">
-  <img src="">
+<!-- 相册 -->
+<div id="album">
+  <div class="album-btn" style="left:20px;" onclick="prevImg()">‹</div>
+  <div style="display:flex;justify-content:center;align-items:center;height:100%;">
+    <img src="">
+  </div>
+  <div class="album-btn" style="right:20px;" onclick="nextImg()">›</div>
+  <div id="album-close" onclick="closeAlbum()">✕</div>
 </div>
 
 <div class="gate" onclick="openPast()"></div>
@@ -276,15 +299,19 @@ input.addEventListener("input", () => {
   }
 });
 
-/* ✅ 日期 → 图片 */
+/* ✅ 日期 → 多张图片 */
 const photosByDate = {
   "2023-09-11": [
-    "https://raw.githubusercontent.com/ac091/log/main/qu.jpg"
+    "https://raw.githubusercontent.com/ac091/log/main/qu.jpg",
+    "https://raw.githubusercontent.com/ac091/log/main/qu2.jpg"
   ],
   "2023-06-15": [
     "https://raw.githubusercontent.com/ac091/log/main/yi.jpg"
   ]
 };
+
+let currentPhotos = [];
+let currentIndex = 0;
 
 function openModal(time, content) {
   modalTime.innerText = time;
@@ -296,8 +323,7 @@ function openModal(time, content) {
     camera.innerHTML = "📷";
 
     camera.onclick = () => {
-      document.querySelector("#photo img").src = photosByDate[time][0];
-      document.getElementById("photo").style.display = "flex";
+      openAlbum(photosByDate[time]);
     };
 
     modalContent.appendChild(camera);
@@ -320,8 +346,29 @@ function closePast() {
   main.style.display = "block";
 }
 
-function closePhoto() {
-  document.getElementById("photo").style.display = "none";
+function openAlbum(photos) {
+  currentPhotos = photos;
+  currentIndex = 0;
+  document.querySelector("#album img").src = currentPhotos[currentIndex];
+  document.getElementById("album").style.display = "block";
+}
+
+function prevImg() {
+  if (currentIndex > 0) {
+    currentIndex--;
+    document.querySelector("#album img").src = currentPhotos[currentIndex];
+  }
+}
+
+function nextImg() {
+  if (currentIndex < currentPhotos.length - 1) {
+    currentIndex++;
+    document.querySelector("#album img").src = currentPhotos[currentIndex];
+  }
+}
+
+function closeAlbum() {
+  document.getElementById("album").style.display = "none";
 }
 </script>
 
