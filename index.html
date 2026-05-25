@@ -52,12 +52,12 @@ input.key {
   outline: none;
 }
 
-/* ===== 现在 ===== */
+/* ===== 现在（✅ 已提亮） ===== */
 #main {
   display: none;
   position: fixed;
   inset: 0;
-  background: #1f2937;
+  background: #2a3649; /* ← 这里变亮了 */
   z-index: 10;
   padding: 60px 80px;
   overflow-y: auto;
@@ -78,14 +78,14 @@ input.key {
 
 .item {
   padding: 18px 22px;
-  background: rgba(255,255,255,.04);
-  border-left: 3px solid rgba(56,189,248,.5);
+  background: rgba(255,255,255,.06);
+  border-left: 3px solid rgba(56,189,248,.6);
   border-radius: 6px;
   cursor: pointer;
 }
 
 .item:hover {
-  background: rgba(255,255,255,.07);
+  background: rgba(255,255,255,.09);
 }
 
 /* ===== 过去 ===== */
