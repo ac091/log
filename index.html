@@ -106,7 +106,6 @@ input.key {
   cursor: pointer;
 }
 
-/* 时间线 */
 .timeline {
   position: relative;
   padding-left: 30px;
@@ -201,7 +200,7 @@ input.key {
   border-radius: 8px;
 }
 
-/* 入口 */
+/* ===== 入口 ===== */
 .gate {
   position: fixed;
   bottom: 30px;
@@ -237,7 +236,7 @@ input.key {
   </div>
 </div>
 
-<!-- 过去（✅ 只显示时间） -->
+<!-- 过去 -->
 <div id="past">
   <div class="past-header" onclick="closePast()">◀ BACK</div>
   <div class="timeline">
@@ -280,13 +279,20 @@ const modal = document.getElementById("modal");
 const modalTime = document.getElementById("modal-time");
 const modalContent = document.getElementById("modal-content");
 
+/* ✅ 输对直接进；输错回车才提示 */
+input.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    if (input.value !== KEY) {
+      alert("密钥错误");
+      input.value = "";
+    }
+  }
+});
+
 input.addEventListener("input", () => {
   if (input.value === KEY) {
     login.style.display = "none";
     main.style.display = "block";
-  } else if (input.value.length === 4) {
-    alert("密钥错误");
-    input.value = "";
   }
 });
 
