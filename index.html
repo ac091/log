@@ -240,7 +240,7 @@ input.key {
 <div id="past">
   <div class="past-header" onclick="closePast()">◀ BACK</div>
   <div class="timeline">
-    <div class="node" onclick="openModal('2023-09-11','在武警院我们相遇。不管过去多久我还是想说，很高兴认识你。<br><br><div class=&quot;camera&quot; onclick=&quot;showPhoto(&apos;https://raw.githubusercontent.com/ac091/log/refs/heads/main/qu.jpg&apos;)&quot;>📷</div>')">
+    <div class="node" onclick="openModal('2023-09-11','在武警院我们相遇。不管过去多久我还是想说，很高兴认识你。<br><br><div class=&quot;camera&quot; onclick=&quot;showPhoto(&apos;https://raw.githubusercontent.com/ac091/log/main/qu.jpg&apos;)&quot;>📷</div>')">
       <div class="node-time">2023-09-11</div>
     </div>
     <div class="node" onclick="openModal('2023-06-15','那时候我们还不知道，后来会发生这么多事。<br><br><div class=&quot;camera&quot; onclick=&quot;showPhoto(&apos;https://raw.githubusercontent.com/ac091/log/refs/heads/main/yi.jpg&apos;)&quot;>📷</div>')">
@@ -254,7 +254,7 @@ input.key {
 
 <!-- 图片页 -->
 <div id="photo" onclick="closePhoto()">
-  <img src="https://raw.githubusercontent.com/ac091/log/refs/heads/main/qu.jpg">
+  <img src="">
 </div>
 
 <!-- 入口 -->
@@ -279,7 +279,7 @@ const modal = document.getElementById("modal");
 const modalTime = document.getElementById("modal-time");
 const modalContent = document.getElementById("modal-content");
 
-/* ✅ 输对直接进；输错回车才提示 */
+/* 登录 */
 input.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
     if (input.value !== KEY) {
@@ -296,6 +296,7 @@ input.addEventListener("input", () => {
   }
 });
 
+/* 弹窗 */
 function openModal(time, content) {
   modalTime.innerText = time;
   modalContent.innerHTML = content;
@@ -306,6 +307,7 @@ function closeModal() {
   modal.style.display = "none";
 }
 
+/* 过去 */
 function openPast() {
   main.style.display = "none";
   past.style.display = "block";
@@ -316,12 +318,13 @@ function closePast() {
   main.style.display = "block";
 }
 
+/* 图片 */
 function showPhoto(url) {
   event.stopPropagation();
   document.getElementById("photo").querySelector("img").src = url;
   document.getElementById("photo").style.display = "flex";
 }
-  
+
 function closePhoto() {
   document.getElementById("photo").style.display = "none";
 }
