@@ -9,41 +9,38 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  min-height: 100vh;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   color: #e5e7eb;
   overflow: hidden;
 }
 
-/* ===== 登录页（更深） ===== */
+/* ===== 登录页（极深灰） ===== */
 #login-screen {
   position: fixed;
   inset: 0;
-  background-color: #111111;
+  background-color: #0d0d0d;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 100;
 }
 
-/* 登录框（加宽、简约） */
 .login-box {
   width: 420px;
   padding: 50px 40px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 14px;
   text-align: center;
 }
 
 .login-box p {
-  font-size: 13px;
+  font-size: 12px;
   letter-spacing: 3px;
-  opacity: .5;
+  opacity: .4;
   margin-bottom: 30px;
 }
 
-/* 密码输入 */
 .password-input {
   width: 100%;
   padding: 16px 20px;
@@ -57,32 +54,31 @@ body {
   outline: none;
 }
 
-/* ===== 主界面 ===== */
+/* ===== 主界面（深蓝灰） ===== */
 #main-screen {
   display: none;
   position: fixed;
   inset: 0;
-  background: #1e293b;
+  background: #1a2332;
   z-index: 10;
   padding: 40px;
   overflow-y: auto;
 }
 
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   margin-bottom: 30px;
+  font-size: 14px;
+  opacity: .7;
 }
 
-/* 隐蔽按钮 */
+/* 隐蔽按钮（更小更淡） */
 .time-dot {
   position: fixed;
   bottom: 30px;
   right: 30px;
-  width: 12px;
-  height: 12px;
-  background: #38bdf8;
+  width: 10px;
+  height: 10px;
+  background: rgba(56, 189, 248, 0.6);
   border-radius: 50%;
   cursor: pointer;
   z-index: 20;
@@ -92,30 +88,31 @@ body {
 .memory-list {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 12px;
 }
 
 .memory-item {
-  padding: 20px;
+  padding: 18px 20px;
   background: rgba(255, 255, 255, 0.03);
-  border-radius: 8px;
+  border-left: 3px solid rgba(56, 189, 248, 0.5);
+  border-radius: 6px;
   cursor: pointer;
 }
 
 .memory-time {
-  font-size: 18px;
-  font-weight: bold;
-  color: #38bdf8;
+  font-size: 16px;
+  font-weight: 500;
+  color: #c9d1d9;
 }
 
-/* ===== 过去界面 ===== */
+/* ===== 过去界面（比主界面再深一度） ===== */
 #past-screen {
   display: none;
   position: fixed;
   inset: 0;
-  background: #2c1b47;
+  background: #141b27; /* 仅比主界面深一点 */
   z-index: 200;
-  padding: 60px 40px;
+  padding: 40px;
   overflow-y: auto;
 }
 
@@ -123,22 +120,40 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 40px;
-  color: #e9d5ff;
+  margin-bottom: 30px;
+  font-size: 14px;
+  color: #888;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.back-btn:hover {
+  color: #fff;
 }
 
 .past-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 25px;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 15px;
 }
 
 .past-card {
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(168, 85, 247, 0.3);
-  border-radius: 12px;
-  padding: 20px;
+  padding: 18px 20px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
   cursor: pointer;
+}
+
+.past-time {
+  font-size: 16px;
+  color: #888;
 }
 
 /* ===== 弹窗 ===== */
@@ -146,30 +161,32 @@ body {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.8);
   z-index: 500;
   justify-content: center;
   align-items: center;
 }
 
 .modal-content {
-  background: #1e293b;
+  background: #1a2332;
   border-radius: 10px;
   padding: 30px;
-  width: 80%;
-  max-width: 500px;
+  width: 90%;
+  max-width: 480px;
+  max-height: 70vh;
+  overflow-y: auto;
 }
 
 .modal-title {
-  font-size: 20px;
+  font-size: 18px;
   margin-bottom: 15px;
-  color: #38bdf8;
+  color: #c9d1d9;
 }
 
 .modal-text {
-  font-size: 16px;
-  line-height: 1.6;
-  color: #cbd5e1;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #888;
 }
 </style>
 </head>
@@ -180,21 +197,13 @@ body {
 <div id="login-screen">
   <div class="login-box">
     <p>SYSTEM SECURED</p >
-    <input
-      type="password"
-      id="password-input"
-      class="password-input"
-      placeholder="KEY"
-      maxlength="4"
-    >
+    <input type="password" id="password-input" class="password-input" placeholder="KEY" maxlength="4">
   </div>
 </div>
 
 <!-- 主界面 -->
 <div id="main-screen">
-  <div class="header">
-    <h1>记忆存档</h1>
-  </div>
+  <div class="header">现在</div>
   <div class="memory-list" id="memory-list"></div>
   <div class="time-dot" onclick="showPastScreen()"></div>
 </div>
@@ -202,8 +211,8 @@ body {
 <!-- 过去界面 -->
 <div id="past-screen">
   <div class="past-header">
-    <h2>◎ 时光回溯</h2>
-    <button onclick="hidePastScreen()" style="background:none;border:none;color:#e9d5ff;cursor:pointer;">← 返回</button>
+    <span>过去</span>
+    <button class="back-btn" onclick="hidePastScreen()">← 返回</button>
   </div>
   <div class="past-grid" id="past-grid"></div>
 </div>
@@ -226,9 +235,9 @@ const memoryList = document.getElementById('memory-list');
 const pastGrid = document.getElementById('past-grid');
 
 const memories = [
+  { time: "2023-09-11", content: "武警院相遇" },
   { time: "2023-06-15", content: "那时候我们还不知道，后来会发生这么多事。" },
   { time: "2023-08-21", content: "夏天的晚风吹过，带来了远方的消息。" },
-  { time: "2023-10-05", content: "雨后的街道，倒映着城市的霓虹。" },
   { time: "2024-05-20", content: "天空很蓝，云走得很慢，时间仿佛停驻。" }
 ];
 
@@ -239,7 +248,7 @@ passwordInput.addEventListener('input', () => {
     renderMain();
     renderPast();
   } else if (passwordInput.value.length === 4) {
-    alert("密码错误");
+    alert("密钥错误");
     passwordInput.value = '';
   }
 });
