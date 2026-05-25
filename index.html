@@ -52,12 +52,12 @@ input.key {
   outline: none;
 }
 
-/* ===== 现在（✅ 已提亮） ===== */
+/* ===== 现在 ===== */
 #main {
   display: none;
   position: fixed;
   inset: 0;
-  background: #2a3649; /* ← 这里变亮了 */
+  background: #2a3649;
   z-index: 10;
   padding: 60px 80px;
   overflow-y: auto;
@@ -106,7 +106,6 @@ input.key {
   cursor: pointer;
 }
 
-/* 时间线 */
 .timeline {
   position: relative;
   padding-left: 30px;
@@ -116,8 +115,7 @@ input.key {
 .node {
   position: relative;
   margin-bottom: 50px;
-  /* 这里的 cursor: default 是因为我们内部有链接了 */
-  cursor: default; 
+  cursor: pointer;
 }
 
 .node::before {
@@ -135,27 +133,6 @@ input.key {
   font-size: 14px;
   color: #38bdf8;
   margin-bottom: 6px;
-  font-weight: bold;
-}
-
-.node-text {
-  font-size: 14px;
-  color: #94a3b8;
-  line-height: 1.6;
-  margin-bottom: 10px;
-}
-
-/* 新增：图片图标样式 */
-.img-icon {
-  font-size: 24px;
-  color: #38bdf8;
-  cursor: pointer;
-  display: inline-block;
-  margin-top: 5px;
-}
-
-.img-icon:hover {
-  opacity: 0.7;
 }
 
 /* ===== 弹窗 ===== */
@@ -177,7 +154,6 @@ input.key {
   max-width: 460px;
   max-height: 70vh;
   overflow-y: auto;
-  position: relative;
 }
 
 .modal-time {
@@ -192,7 +168,25 @@ input.key {
   color: #cbd5e1;
 }
 
-/* 入口 */
+/* ===== 照片 ===== */
+#photo {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 3000;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+#photo img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 8px;
+}
+
+/* ===== 入口 ===== */
 .gate {
   position: fixed;
   bottom: 30px;
@@ -204,11 +198,6 @@ input.key {
   cursor: pointer;
   z-index: 20;
 }
-
-/* 用于阻止冒泡的小技巧 */
-.stop-click {
-  pointer-events: none;
-}
 </style>
 </head>
 
@@ -217,7 +206,7 @@ input.key {
 <!-- 登录 -->
 <div id="login">
   <div class="login-inner">
-    SYSTEM SECURED
+    <p>SYSTEM SECURED</p >
     <input class="key" id="key" type="password" maxlength="4" placeholder="KEY">
   </div>
 </div>
@@ -233,40 +222,26 @@ input.key {
   </div>
 </div>
 
-<!-- 过去 -->
+<!-- 过去（✅ 只显示日期） -->
 <div id="past">
   <div class="past-header" onclick="closePast()">◀ BACK</div>
   <div class="timeline">
-    
-    <!-- 节点 1 -->
-    <div class="node">
+    <div class="node" onclick="openModal('2023-09-11','在武警院我们相遇。不管过去多久我还是想说，很高兴认识你。<br><br><a href=&quot;javascript:void(0);&quot; onclick=&quot;event.stopPropagation(); openPhoto(&apos;https://raw.githubusercontent.com/你的名字/仓库名/main/qu.jpg&apos;)&quot;>📷</a>')">
       <div class="node-time">2023-09-11</div>
-      <div class="node-text">在武警院我们相遇。不管过去多久我还是想说，很高兴认识你。</div>
-      <!-- 相机图标，注意 href 里的链接要换成你自己的 -->
-      <span class="img-icon" onclick="openPhoto('https://raw.githubusercontent.com/ac091/log/main/qu.jpg')">📷</span>
     </div>
-
-    <!-- 节点 2 -->
-    <div class="node">
+    <div class="node" onclick="openModal('2023-06-15','那时候我们还不知道，后来会发生这么多事。<br><br><a href=&quot;javascript:void(0);&quot; onclick=&quot;event.stopPropagation(); openPhoto(&apos;https://raw.githubusercontent.com/你的名字/仓库名/main/photo2.jpg&apos;)&quot;>📷</a>')">
       <div class="node-time">2023-06-15</div>
-      <div class="node-text">那时候我们还不知道，后来会发生这么多事。</div>
-      <span class="img-icon" onclick="openPhoto('https://raw.githubusercontent.com/ac091/log/main/photo2.jpg')">📷</span>
     </div>
-
-    <!-- 节点 3 -->
-    <div class="node">
+    <div class="node" onclick="openModal('2023-08-21','夏天的晚风吹过，带来了远方的消息。<br><br><a href=&quot;javascript:void(0);&quot; onclick=&quot;event.stopPropagation(); openPhoto(&apos;https://raw.githubusercontent.com/你的名字/仓库名/main/photo3.jpg&apos;)&quot;>📷</a>')">
       <div class="node-time">2023-08-21</div>
-      <div class="node-text">夏天的晚风吹过，带来了远方的消息。</div>
-      <span class="img-icon" onclick="openPhoto('https://raw.githubusercontent.com/ac091/log/main/photo3.jpg')">📷</span>
     </div>
-
   </div>
 </div>
 
 <!-- 入口 -->
 <div class="gate" onclick="openPast()"></div>
 
-<!-- 弹窗：文字内容 -->
+<!-- 弹窗 -->
 <div class="modal" id="modal" onclick="closeModal()">
   <div class="modal-box" onclick="event.stopPropagation()">
     <div class="modal-time" id="modal-time"></div>
@@ -274,11 +249,9 @@ input.key {
   </div>
 </div>
 
-<!-- 弹窗：图片 -->
-<div class="modal" id="photo-modal" onclick="closePhotoModal()">
-  <div class="modal-box" onclick="event.stopPropagation()" style="text-align: center;">
-    <img id="photo-img" src="" style="max-width: 100%; max-height: 400px; border-radius: 8px;">
-  </div>
+<!-- 照片 -->
+<div id="photo" onclick="this.style.display='none'">
+  <img id="photo-img" src="">
 </div>
 
 <script>
@@ -291,25 +264,34 @@ const input = document.getElementById("key");
 const modal = document.getElementById("modal");
 const modalTime = document.getElementById("modal-time");
 const modalContent = document.getElementById("modal-content");
-const photoModal = document.getElementById("photo-modal");
-const photoImg = document.getElementById("photo-img");
 
-// --- 登录逻辑 ---
-input.addEventListener("input", () => {
-  // 只要输满4位，无论对错，都触发检查
-  if (input.value.length === 4) {
-    if (input.value === KEY) {
-      login.style.display = "none";
-      main.style.display = "block";
-    } else {
-      // 密码错误，清空并提示
+/* ✅ 输对直接进；输错回车才提示 */
+input.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    if (input.value !== KEY) {
       alert("密钥错误");
       input.value = "";
     }
   }
 });
 
-// --- 过去页面逻辑 ---
+input.addEventListener("input", () => {
+  if (input.value === KEY) {
+    login.style.display = "none";
+    main.style.display = "block";
+  }
+});
+
+function openModal(time, content) {
+  modalTime.innerText = time;
+  modalContent.innerHTML = content;
+  modal.style.display = "flex";
+}
+
+function closeModal() {
+  modal.style.display = "none";
+}
+
 function openPast() {
   main.style.display = "none";
   past.style.display = "block";
@@ -320,25 +302,9 @@ function closePast() {
   main.style.display = "block";
 }
 
-// --- 弹窗逻辑 ---
-function openModal(time, content) {
-  modalTime.innerText = time;
-  modalContent.innerText = content;
-  modal.style.display = "flex";
-}
-
-function closeModal() {
-  modal.style.display = "none";
-}
-
-// --- 图片弹窗逻辑 ---
 function openPhoto(url) {
-  photoImg.src = url;
-  photoModal.style.display = "flex";
-}
-
-function closePhotoModal() {
-  photoModal.style.display = "none";
+  document.getElementById("photo-img").src = url;
+  document.getElementById("photo").style.display = "flex";
 }
 </script>
 
