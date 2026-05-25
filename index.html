@@ -12,83 +12,60 @@ body {
   min-height: 100vh;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   color: #e5e7eb;
-  overflow: hidden; /* 防止滚动 */
+  overflow: hidden;
 }
 
-/* ===== 登录页背景 (静态黑灰) ===== */
+/* ===== 登录页（更深） ===== */
 #login-screen {
   position: fixed;
   inset: 0;
-  background-color: #1a1a1a; /* 静态深黑灰 */
+  background-color: #111111;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 100;
 }
 
-/* 登录框样式 */
+/* 登录框（加宽、简约） */
 .login-box {
-  background: rgba(255, 255, 255, 0.05);
-  padding: 40px;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 420px;
+  padding: 50px 40px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
   text-align: center;
-  width: 320px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
-.login-box h2 {
-  margin-bottom: 25px;
-  font-weight: 300;
-  letter-spacing: 2px;
-  color: #c9d1d9;
+.login-box p {
+  font-size: 13px;
+  letter-spacing: 3px;
+  opacity: .5;
+  margin-bottom: 30px;
 }
 
-/* 密码输入框 */
+/* 密码输入 */
 .password-input {
   width: 100%;
-  padding: 12px 15px;
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid #444;
-  border-radius: 6px;
+  padding: 16px 20px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
   color: #fff;
-  font-size: 16px;
-  margin-bottom: 20px;
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 8px;
   outline: none;
 }
 
-.password-input::placeholder {
-  color: #666;
-}
-
-/* 登录按钮 */
-.login-btn {
-  width: 100%;
-  padding: 12px;
-  background: #2563a7;
-  border: none;
-  border-radius: 6px;
-  color: #fff;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.login-btn:hover {
-  background: #1d4ed8;
-}
-
-/* ===== 主界面背景 (静谧蓝) ===== */
+/* ===== 主界面 ===== */
 #main-screen {
-  display: none; /* 默认隐藏 */
+  display: none;
   position: fixed;
   inset: 0;
-  background: #1e293b; /* 静谧蓝 */
+  background: #1e293b;
   z-index: 10;
   padding: 40px;
-  display: flex;
-  flex-direction: column;
+  overflow-y: auto;
 }
 
 .header {
@@ -98,69 +75,45 @@ body {
   margin-bottom: 30px;
 }
 
-/* 隐蔽的时光按钮 (右下角小圆点) */
+/* 隐蔽按钮 */
 .time-dot {
   position: fixed;
   bottom: 30px;
   right: 30px;
   width: 12px;
   height: 12px;
-  background: #38bdf8; /* 亮蓝色小点 */
+  background: #38bdf8;
   border-radius: 50%;
   cursor: pointer;
-  box-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
   z-index: 20;
-  transition: transform 0.3s;
 }
 
-.time-dot:hover {
-  transform: scale(1.5);
-}
-
-/* 记忆列表 */
+/* 列表 */
 .memory-list {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  margin-top: 20px;
 }
 
 .memory-item {
   padding: 20px;
   background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s;
-  position: relative;
-}
-
-.memory-item:hover {
-  background: rgba(255, 255, 255, 0.08);
-  transform: translateX(5px);
 }
 
 .memory-time {
   font-size: 18px;
   font-weight: bold;
   color: #38bdf8;
-  margin-bottom: 5px;
 }
 
-.memory-preview {
-  font-size: 14px;
-  color: #94a3b8;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* ===== 过去的界面 (新全屏) ===== */
+/* ===== 过去界面 ===== */
 #past-screen {
   display: none;
   position: fixed;
   inset: 0;
-  background: #2c1b47; /* 暗紫色背景 */
+  background: #2c1b47;
   z-index: 200;
   padding: 60px 40px;
   overflow-y: auto;
@@ -185,37 +138,10 @@ body {
   border: 1px solid rgba(168, 85, 247, 0.3);
   border-radius: 12px;
   padding: 20px;
-  color: #ddd;
-  transition: transform 0.3s, box-shadow 0.3s;
   cursor: pointer;
 }
 
-.past-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-  border-color: rgba(168, 85, 247, 0.6);
-}
-
-.past-time {
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #c084fc;
-}
-
-.past-content {
-  font-size: 14px;
-  line-height: 1.6;
-  color: #aaa;
-  max-height: 80px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 4; /* 限制行数 */
-  -webkit-box-orient: vertical;
-}
-
-/* 弹窗样式 (用于主界面点击) */
+/* ===== 弹窗 ===== */
 .modal-overlay {
   display: none;
   position: fixed;
@@ -228,14 +154,10 @@ body {
 
 .modal-content {
   background: #1e293b;
-  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 10px;
   padding: 30px;
   width: 80%;
   max-width: 500px;
-  max-height: 80vh;
-  overflow-y: auto;
-  position: relative;
 }
 
 .modal-title {
@@ -249,93 +171,121 @@ body {
   line-height: 1.6;
   color: #cbd5e1;
 }
-
-.close-btn {
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  background: none;
-  border: none;
-  color: #94a3b8;
-  font-size: 24px;
-  cursor: pointer;
-}
-
-.close-btn:hover {
-  color: #fff;
-}
 </style>
-
 </head>
+
 <body>
 
-<!-- 1. 登录界面 -->
+<!-- 登录 -->
 <div id="login-screen">
   <div class="login-box">
-    <h2>SYSTEM LOGIN</h2>
-    <input type="password" id="password-input" class="password-input" placeholder="请输入访问密钥">
-    <button id="login-btn" class="login-btn">AUTHENTICATE</button>
+    <p>SYSTEM SECURED</p >
+    <input
+      type="password"
+      id="password-input"
+      class="password-input"
+      placeholder="KEY"
+      maxlength="4"
+    >
   </div>
 </div>
 
-<!-- 2. 主界面 -->
+<!-- 主界面 -->
 <div id="main-screen">
   <div class="header">
-    <h1 style="font-weight: 300; letter-spacing: 2px;">记忆存档</h1>
-    <small>已登录</small>
+    <h1>记忆存档</h1>
   </div>
-  
-  <div class="memory-list" id="memory-list">
-    <!-- 这里的内容由JS生成 -->
-  </div>
-
-  <!-- 隐蔽的时光按钮 -->
+  <div class="memory-list" id="memory-list"></div>
   <div class="time-dot" onclick="showPastScreen()"></div>
 </div>
 
-<!-- 3. 过去的界面 (全屏新布局) -->
+<!-- 过去界面 -->
 <div id="past-screen">
   <div class="past-header">
     <h2>◎ 时光回溯</h2>
-    <button onclick="hidePastScreen()" style="background:none; border:none; color:#e9d5ff; font-size:16px; cursor:pointer;">← 返回主界面</button>
+    <button onclick="hidePastScreen()" style="background:none;border:none;color:#e9d5ff;cursor:pointer;">← 返回</button>
   </div>
-  <div class="past-grid" id="past-grid">
-    <!-- 这里的内容由JS生成 -->
-  </div>
+  <div class="past-grid" id="past-grid"></div>
 </div>
 
-<!-- 4. 主界面点击弹出的小框 -->
-<div id="modal-overlay" class="modal-overlay">
-  <div class="modal-content">
-    <button class="close-btn" onclick="closeModal()">×</button>
+<!-- 弹窗 -->
+<div id="modal-overlay" class="modal-overlay" onclick="closeModal()">
+  <div class="modal-content" onclick="event.stopPropagation()">
     <div class="modal-title" id="modal-title"></div>
     <div class="modal-text" id="modal-text"></div>
   </div>
 </div>
 
 <script>
-// 配置
-const CORRECT_PASSWORD = "56"; // 密码
+const PASSWORD = "56";
 
-// 模拟数据
-const memories = [
-  { time: "2023-06-15 12:30", content: "那时候我们还不知道，后来会发生这么多事。" },
-  { time: "2023-08-21 18:45", content: "夏天的晚风吹过，带来了远方的消息。" },
-  { time: "2023-10-05 09:10", content: "雨后的街道，倒映着城市的霓虹，像一场梦。" },
-  { time: "2023-12-24 23:59", content: "平安夜的钟声敲响，世界安静了下来。" },
-  { time: "2024-02-14 16:20", content: "阳光洒在书桌上，这是最平静的一个下午。" },
-  { time: "2024-04-01 11:00", content: "愚人节的玩笑，最后成了最真实的回忆。" },
-  { time: "2024-05-20 14:30", content: "天空很蓝，云走得很慢，时间仿佛停驻。" },
-  { time: "2024-06-01 08:00", content: "新的一个月开始了，带着未知的希望。" }
-];
-
-// DOM 元素
 const loginScreen = document.getElementById('login-screen');
 const mainScreen = document.getElementById('main-screen');
 const passwordInput = document.getElementById('password-input');
-const loginBtn = document.getElementById('login-btn');
 const memoryList = document.getElementById('memory-list');
-const pastScreen = document.getElementById('past-screen');
 const pastGrid = document.getElementById('past-grid');
-const modalOverlay = document.getElementById('modal-overlay');
-const modalTit
+
+const memories = [
+  { time: "2023-06-15", content: "那时候我们还不知道，后来会发生这么多事。" },
+  { time: "2023-08-21", content: "夏天的晚风吹过，带来了远方的消息。" },
+  { time: "2023-10-05", content: "雨后的街道，倒映着城市的霓虹。" },
+  { time: "2024-05-20", content: "天空很蓝，云走得很慢，时间仿佛停驻。" }
+];
+
+passwordInput.addEventListener('input', () => {
+  if (passwordInput.value === PASSWORD) {
+    loginScreen.style.display = 'none';
+    mainScreen.style.display = 'block';
+    renderMain();
+    renderPast();
+  } else if (passwordInput.value.length === 4) {
+    alert("密码错误");
+    passwordInput.value = '';
+  }
+});
+
+function renderMain() {
+  memoryList.innerHTML = '';
+  memories.forEach(m => {
+    const div = document.createElement('div');
+    div.className = 'memory-item';
+    div.innerHTML = `<div class="memory-time">${m.time}</div>`;
+    div.onclick = () => openModal(m.time, m.content);
+    memoryList.appendChild(div);
+  });
+}
+
+function renderPast() {
+  pastGrid.innerHTML = '';
+  memories.forEach(m => {
+    const div = document.createElement('div');
+    div.className = 'past-card';
+    div.innerHTML = `<div class="past-time">${m.time}</div>`;
+    div.onclick = () => openModal(m.time, m.content);
+    pastGrid.appendChild(div);
+  });
+}
+
+function openModal(title, text) {
+  document.getElementById('modal-title').innerText = title;
+  document.getElementById('modal-text').innerText = text;
+  document.getElementById('modal-overlay').style.display = 'flex';
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').style.display = 'none';
+}
+
+function showPastScreen() {
+  mainScreen.style.display = 'none';
+  pastScreen.style.display = 'block';
+}
+
+function hidePastScreen() {
+  pastScreen.style.display = 'none';
+  mainScreen.style.display = 'block';
+}
+</script>
+
+</body>
+</html>
