@@ -12,178 +12,330 @@ body {
   min-height: 100vh;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   color: #e5e7eb;
-  overflow: hidden;
+  overflow: hidden; /* 防止滚动 */
 }
 
-/* ===== 背景（亮一点） ===== */
-.bg {
+/* ===== 登录页背景 (静态黑灰) ===== */
+#login-screen {
   position: fixed;
   inset: 0;
-  background: linear-gradient(120deg, #1e3a5f, #2563a7, #1e3a5f);
-  background-size: 400% 400%;
-  animation: gradient 20s ease infinite;
-  z-index: -1;
-}
-@keyframes gradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* ===== 登录（黑灰） ===== */
-#login {
-  position: fixed;
-  inset: 0;
-  background: rgba(30,30,30,.75);
-  backdrop-filter: blur(6px);
+  background-color: #1a1a1a; /* 静态深黑灰 */
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  transition: opacity .8s ease;
-}
-#login.fade-out { opacity: 0; pointer-events: none; }
-
-.login-box p {
-  font-size: 13px;
-  opacity: .6;
-  margin-bottom: 20px;
-  letter-spacing: 2px;
+  z-index: 100;
 }
 
-.login-box input {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,.25);
-  color: #fff;
-  padding: 14px 18px;
-  width: 240px;
-  font-size: 20px;
-  border-radius: 8px;
+/* 登录框样式 */
+.login-box {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 40px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   text-align: center;
-  letter-spacing: 6px;
+  width: 320px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.login-box h2 {
+  margin-bottom: 25px;
+  font-weight: 300;
+  letter-spacing: 2px;
+  color: #c9d1d9;
+}
+
+/* 密码输入框 */
+.password-input {
+  width: 100%;
+  padding: 12px 15px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid #444;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 16px;
+  margin-bottom: 20px;
   outline: none;
 }
 
-/* ===== 主内容 ===== */
-#main {
-  display: none;
-  padding: 80px 20px 120px;
-  max-width: 600px;
-  margin: auto;
+.password-input::placeholder {
+  color: #666;
 }
 
-/* ===== 时间 ===== */
-.time {
-  padding: 18px 20px;
-  border-left: 3px solid rgba(255,255,255,.6);
-  margin-bottom: 14px;
+/* 登录按钮 */
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  background: #2563a7;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 16px;
   cursor: pointer;
-  background: rgba(255,255,255,.06);
+  transition: background 0.3s;
 }
 
-/* ===== 弹出框 ===== */
-.popup {
+.login-btn:hover {
+  background: #1d4ed8;
+}
+
+/* ===== 主界面背景 (静谧蓝) ===== */
+#main-screen {
+  display: none; /* 默认隐藏 */
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,.6);
+  background: #1e293b; /* 静谧蓝 */
+  z-index: 10;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+/* 隐蔽的时光按钮 (右下角小圆点) */
+.time-dot {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 12px;
+  height: 12px;
+  background: #38bdf8; /* 亮蓝色小点 */
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
+  z-index: 20;
+  transition: transform 0.3s;
+}
+
+.time-dot:hover {
+  transform: scale(1.5);
+}
+
+/* 记忆列表 */
+.memory-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.memory-item {
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+}
+
+.memory-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateX(5px);
+}
+
+.memory-time {
+  font-size: 18px;
+  font-weight: bold;
+  color: #38bdf8;
+  margin-bottom: 5px;
+}
+
+.memory-preview {
+  font-size: 14px;
+  color: #94a3b8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ===== 过去的界面 (新全屏) ===== */
+#past-screen {
   display: none;
+  position: fixed;
+  inset: 0;
+  background: #2c1b47; /* 暗紫色背景 */
+  z-index: 200;
+  padding: 60px 40px;
+  overflow-y: auto;
+}
+
+.past-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  color: #e9d5ff;
+}
+
+.past-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+.past-card {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  border-radius: 12px;
+  padding: 20px;
+  color: #ddd;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.past-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  border-color: rgba(168, 85, 247, 0.6);
+}
+
+.past-time {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #c084fc;
+}
+
+.past-content {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #aaa;
+  max-height: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* 限制行数 */
+  -webkit-box-orient: vertical;
+}
+
+/* 弹窗样式 (用于主界面点击) */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 500;
   justify-content: center;
   align-items: center;
-  z-index: 999;
 }
-.popup-content {
-  background: rgba(20,20,20,.95);
-  padding: 30px 36px;
-  border-radius: 14px;
-  max-width: 420px;
-  color: #e5e7eb;
-  line-height: 1.9;
-  font-size: 14px;
+
+.modal-content {
+  background: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 30px;
+  width: 80%;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
 }
-.close {
-  margin-top: 20px;
-  text-align: right;
-  font-size: 13px;
-  opacity: .6;
+
+.modal-title {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #38bdf8;
+}
+
+.modal-text {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #cbd5e1;
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 24px;
   cursor: pointer;
 }
 
-/* ===== 隐藏按钮 ===== */
-.secret {
-  position: fixed;
-  bottom: 18px;
-  right: 18px;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: rgba(255,255,255,.25);
-  cursor: pointer;
-  z-index: 100;
+.close-btn:hover {
+  color: #fff;
 }
 </style>
-</head>
 
+</head>
 <body>
 
-<div class="bg"></div>
-
-<!-- 登录 -->
-<div id="login">
+<!-- 1. 登录界面 -->
+<div id="login-screen">
   <div class="login-box">
-    <p>SYSTEM SECURED</p >
-    <input id="pass" type="password" placeholder="KEY" maxlength="4">
+    <h2>SYSTEM LOGIN</h2>
+    <input type="password" id="password-input" class="password-input" placeholder="请输入访问密钥">
+    <button id="login-btn" class="login-btn">AUTHENTICATE</button>
   </div>
 </div>
 
-<!-- 主内容 -->
-<div id="main">
-  <div class="time" onclick="openPopup('现在的内容<br><br>网页已经通了，接下来只属于我们。')">
-    <div>2026-05-25</div>
+<!-- 2. 主界面 -->
+<div id="main-screen">
+  <div class="header">
+    <h1 style="font-weight: 300; letter-spacing: 2px;">记忆存档</h1>
+    <small>已登录</small>
+  </div>
+  
+  <div class="memory-list" id="memory-list">
+    <!-- 这里的内容由JS生成 -->
   </div>
 
-  <div class="time" onclick="openPopup('那时候我们还不知道，<br>后来会发生这么多事。')">
-    <div>很久以前</div>
+  <!-- 隐蔽的时光按钮 -->
+  <div class="time-dot" onclick="showPastScreen()"></div>
+</div>
+
+<!-- 3. 过去的界面 (全屏新布局) -->
+<div id="past-screen">
+  <div class="past-header">
+    <h2>◎ 时光回溯</h2>
+    <button onclick="hidePastScreen()" style="background:none; border:none; color:#e9d5ff; font-size:16px; cursor:pointer;">← 返回主界面</button>
+  </div>
+  <div class="past-grid" id="past-grid">
+    <!-- 这里的内容由JS生成 -->
   </div>
 </div>
 
-<!-- 弹出框 -->
-<div class="popup" id="popup" onclick="closePopup()">
-  <div class="popup-content" onclick="event.stopPropagation()">
-    <div id="popup-text"></div>
-    <div class="close">关闭</div>
+<!-- 4. 主界面点击弹出的小框 -->
+<div id="modal-overlay" class="modal-overlay">
+  <div class="modal-content">
+    <button class="close-btn" onclick="closeModal()">×</button>
+    <div class="modal-title" id="modal-title"></div>
+    <div class="modal-text" id="modal-text"></div>
   </div>
 </div>
-
-<!-- 隐藏按钮 -->
-<div class="secret" onclick="toggleSecret()"></div>
 
 <script>
-const PASSWORD = "56";
+// 配置
+const CORRECT_PASSWORD = "56"; // 密码
 
-document.getElementById("pass").addEventListener("keyup", e => {
-  if (e.target.value === PASSWORD) {
-    document.getElementById("login").classList.add("fade-out");
-    setTimeout(() => {
-      document.getElementById("main").style.display = "block";
-    }, 800);
-  }
-});
+// 模拟数据
+const memories = [
+  { time: "2023-06-15 12:30", content: "那时候我们还不知道，后来会发生这么多事。" },
+  { time: "2023-08-21 18:45", content: "夏天的晚风吹过，带来了远方的消息。" },
+  { time: "2023-10-05 09:10", content: "雨后的街道，倒映着城市的霓虹，像一场梦。" },
+  { time: "2023-12-24 23:59", content: "平安夜的钟声敲响，世界安静了下来。" },
+  { time: "2024-02-14 16:20", content: "阳光洒在书桌上，这是最平静的一个下午。" },
+  { time: "2024-04-01 11:00", content: "愚人节的玩笑，最后成了最真实的回忆。" },
+  { time: "2024-05-20 14:30", content: "天空很蓝，云走得很慢，时间仿佛停驻。" },
+  { time: "2024-06-01 08:00", content: "新的一个月开始了，带着未知的希望。" }
+];
 
-function openPopup(text) {
-  document.getElementById("popup-text").innerHTML = text;
-  document.getElementById("popup").style.display = "flex";
-}
-
-function closePopup() {
-  document.getElementById("popup").style.display = "none";
-}
-
-let secret = false;
-function toggleSecret() {
-  secret = !secret;
-  alert(secret ? "你找到了过去的入口" : "已回到现在");
-}
-</script>
-
-</body>
-</html>
+// DOM 元素
+const loginScreen = document.getElementById('login-screen');
+const mainScreen = document.getElementById('main-screen');
+const passwordInput = document.getElementById('password-input');
+const loginBtn = document.getElementById('login-btn');
+const memoryList = document.getElementById('memory-list');
+const pastScreen = document.getElementById('past-screen');
+const pastGrid = document.getElementById('past-grid');
+const modalOverlay = document.getElementById('modal-overlay');
+const modalTit
