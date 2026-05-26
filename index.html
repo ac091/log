@@ -76,14 +76,15 @@ input.key {
   gap: 14px;
 }
 
+/* ✅ 现在时间线日期明显变大 */
 .item {
-  padding: 22px 26px;
+  padding: 24px 28px;
   background: rgba(255,255,255,.06);
   border-left: 3px solid rgba(56,189,248,.6);
   border-radius: 6px;
   cursor: pointer;
   transition: all .3s ease;
-  font-size: 18px;
+  font-size: 24px;
 }
 
 .item:hover {
@@ -251,7 +252,7 @@ input.key {
   text-align: center;
 }
 
-/* ✅ 6.4 入口（更方正、更稳） */
+/* ✅ 6.4 入口（强制居中 + 明显可点） */
 #entry {
   display: none;
   position: fixed;
@@ -260,16 +261,17 @@ input.key {
   z-index: 501;
   justify-content: center;
   align-items: center;
-  font-size: 84px;
+  font-size: 88px;
   font-family: Georgia, serif;
   color: #ffffff;
   cursor: pointer;
-  letter-spacing: 10px;
+  letter-spacing: 12px;
 }
 
 #entry:hover {
   color: #38bdf8;
-  text-shadow: 0 0 40px #38bdf8;
+  text-shadow: 0 0 50px #38bdf8;
+  transform: scale(1.05);
 }
 
 /* ===== 生日页面 ===== */
@@ -299,13 +301,13 @@ input.key {
   letter-spacing: 16px;
   color: #ffd1dc;
   opacity: 0;
-  transition: opacity 1.8s ease;
+  transition: opacity 2s ease;
   text-align: center;
 }
 
 #message {
   position: absolute;
-  top: 28%;
+  top: 26%;
   left: 50%;
   transform: translateX(-50%);
   font-size: 30px;
@@ -342,7 +344,7 @@ input.key {
 <div id="entry" onclick="startBirthday()">6.4</div>
 
 <div id="birthday">
-  <div id="cake">🧁</div>
+  <div id="cake">🎂</div>
   <div id="happy">生日快乐</div>
   <div id="message"></div>
   <div id="closeHint" onclick="closeBirthday()">✕</div>
@@ -553,8 +555,8 @@ function startBirthday() {
   setTimeout(() => cake.style.opacity = "1", 300);
   setTimeout(() => cake.style.opacity = "0", 3300);
   setTimeout(() => happy.style.opacity = "1", 4300);
-  setTimeout(() => happy.style.opacity = "0", 7300);
-  setTimeout(() => typeMessage("首先祝你生日快乐"), 8300);
+  setTimeout(() => happy.style.opacity = "0", 7800);
+  setTimeout(() => typeMessage("首先祝你生日快乐"), 9800);
 }
 
 function typeMessage(text) {
@@ -568,7 +570,7 @@ function typeMessage(text) {
       clearInterval(timer);
       closeHint.style.display = "block";
     }
-  }, 180);
+  }, 200);
 }
 
 function closeBirthday() {
