@@ -38,7 +38,7 @@ input.key {
   outline: none;
 }
 
-/* ✅ 新弹窗样式 */
+/* ✅ 问题弹窗 */
 #question {
   display: none;
   position: fixed; inset: 0;
@@ -97,34 +97,174 @@ input.key {
   filter: brightness(1.1);
 }
 
-/* 其余原样式保持不变 */
-#main { display: none; position: fixed; inset: 0; background: #2a3649; z-index: 10; padding: 60px 80px; overflow-y: auto; }
-.main-header { font-size: 13px; opacity: .5; margin-bottom: 40px; letter-spacing: 2px; }
-.list { display: flex; flex-direction: column; gap: 14px; }
-.item { padding: 18px 22px; background: rgba(255,255,255,.06); border-left: 3px solid rgba(56,189,248,.6); border-radius: 6px; cursor: pointer; }
-.item:hover { background: rgba(255,255,255,.09); }
+/* 主界面 */
+#main {
+  display: none;
+  position: fixed; inset: 0;
+  background: #2a3649;
+  z-index: 10;
+  padding: 60px 80px;
+  overflow-y: auto;
+}
 
-#past { display: none; position: fixed; inset: 0; background: #0f172a; z-index: 200; padding: 60px 80px; overflow-y: auto; }
-.past-header { font-size: 13px; color: #475569; margin-bottom: 50px; cursor: pointer; }
-.timeline { position: relative; padding-left: 30px; border-left: 2px solid rgba(255,255,255,.08); }
-.node { position: relative; margin-bottom: 50px; cursor: pointer; }
-.node::before { content:""; position: absolute; left:-41px; top:4px; width:10px; height:10px; background:#38bdf8; border-radius:50%; }
-.node-time { font-size: 14px; color: #38bdf8; margin-bottom: 6px; }
+.main-header {
+  font-size: 13px;
+  opacity: .5;
+  margin-bottom: 40px;
+  letter-spacing: 2px;
+}
 
-.modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.75); z-index: 999; justify-content: center; align-items: center; }
-.modal-box { background: #1e293b; padding: 30px 36px; border-radius: 12px; width: 90%; max-width: 460px; max-height: 70vh; overflow-y: auto; }
-.modal-time { font-size: 14px; color: #38bdf8; margin-bottom: 15px; }
-.modal-content { font-size: 15px; line-height: 1.8; color: #cbd5e1; }
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
 
-.camera { margin-top: 18px; width: 48px; height: 48px; background: rgba(255,255,255,.08); border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; font-size: 22px; }
+.item {
+  padding: 18px 22px;
+  background: rgba(255,255,255,.06);
+  border-left: 3px solid rgba(56,189,248,.6);
+  border-radius: 6px;
+  cursor: pointer;
+}
 
-#album { display: none; position: fixed; inset: 0; background: #000; z-index: 3000; }
-#album img { max-width: 90%; max-height: 90%; border-radius: 8px; }
-.album-btn { position: absolute; top: 50%; transform: translateY(-50%); color: #fff; font-size: 40px; cursor: pointer; user-select: none; }
-#album-close { position: absolute; top: 20px; right: 30px; font-size: 28px; color: #fff; cursor: pointer; }
-#album-page { position: absolute; top: 20px; left: 30px; color: #fff; font-size: 14px; letter-spacing: 1px; }
+.item:hover {
+  background: rgba(255,255,255,.09);
+}
 
-.gate { position: fixed; bottom: 30px; right: 30px; width: 10px; height: 10px; background: rgba(56,189,248,.5); border-radius: 50%; cursor: pointer; z-index: 20; }
+/* 过去时间线 */
+#past {
+  display: none;
+  position: fixed; inset: 0;
+  background: #0f172a;
+  z-index: 200;
+  padding: 60px 80px;
+  overflow-y: auto;
+}
+
+.past-header {
+  font-size: 13px;
+  color: #475569;
+  margin-bottom: 50px;
+  cursor: pointer;
+}
+
+.timeline {
+  position: relative;
+  padding-left: 30px;
+  border-left: 2px solid rgba(255,255,255,.08);
+}
+
+.node {
+  position: relative;
+  margin-bottom: 50px;
+  cursor: pointer;
+}
+
+.node::before {
+  content: "";
+  position: absolute;
+  left: -41px;
+  top: 4px;
+  width: 10px;
+  height: 10px;
+  background: #38bdf8;
+  border-radius: 50%;
+}
+
+.node-time {
+  font-size: 14px;
+  color: #38bdf8;
+  margin-bottom: 6px;
+}
+
+/* 模态框 */
+.modal {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.75);
+  z-index: 999;
+  justify-content: center; align-items: center;
+}
+
+.modal-box {
+  background: #1e293b;
+  padding: 30px 36px;
+  border-radius: 12px;
+  width: 90%; max-width: 460px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.modal-time {
+  font-size: 14px;
+  color: #38bdf8;
+  margin-bottom: 15px;
+}
+
+.modal-content {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #cbd5e1;
+}
+
+.camera {
+  margin-top: 18px;
+  width: 48px; height: 48px;
+  background: rgba(255,255,255,.08);
+  border-radius: 50%;
+  display: flex; justify-content: center; align-items: center;
+  cursor: pointer; font-size: 22px;
+}
+
+/* 相册 */
+#album {
+  display: none;
+  position: fixed; inset: 0;
+  background: #000;
+  z-index: 3000;
+}
+
+#album img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 8px;
+}
+
+.album-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fff;
+  font-size: 40px;
+  cursor: pointer;
+}
+
+#album-close {
+  position: absolute;
+  top: 20px; right: 30px;
+  font-size: 28px;
+  color: #fff;
+  cursor: pointer;
+}
+
+#album-page {
+  position: absolute;
+  top: 20px; left: 30px;
+  color: #fff;
+  font-size: 14px;
+}
+
+/* 右下角入口 */
+.gate {
+  position: fixed;
+  bottom: 30px; right: 30px;
+  width: 10px; height: 10px;
+  background: rgba(56,189,248,.5);
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 20;
+}
 </style>
 </head>
 
@@ -137,7 +277,7 @@ input.key {
   </div>
 </div>
 
-<!-- ✅ 新弹窗 -->
+<!-- ✅ 问题弹窗 -->
 <div id="question">
   <div class="q-box">
     <h3>
@@ -191,7 +331,7 @@ input.key {
 <script>
 const KEY = "56";
 
-/* ✅ GitHub 配置 */
+/* ✅ GitHub */
 const GITHUB_TOKEN = "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";
 const OWNER = "ac091";
 const REPO = "log";
@@ -201,16 +341,11 @@ const main = document.getElementById("main");
 const question = document.getElementById("question");
 const input = document.getElementById("key");
 
-input.addEventListener("keydown", e => {
-  if (e.key === "Enter" && input.value !== KEY) {
-    alert("密钥错误");
-    input.value = "";
-  }
-});
-
+/* ✅ 登录逻辑（核心） */
 input.addEventListener("input", () => {
   if (input.value === KEY) {
     login.style.display = "none";
+
     if (!localStorage.getItem("asked")) {
       question.style.display = "flex";
     } else {
@@ -245,7 +380,7 @@ function submitAnswer() {
   });
 }
 
-/* ===== 原有逻辑 ===== */
+/* ===== 原有功能 ===== */
 const photosByDate = {
   "2023-09-11": [
     "https://raw.githubusercontent.com/ac091/log/main/qu.jpg",
@@ -261,6 +396,7 @@ let currentPhotos = [], currentIndex = 0;
 function openModal(time, content) {
   document.getElementById("modal-time").innerText = time;
   document.getElementById("modal-content").innerHTML = content;
+
   if (photosByDate[time]) {
     const camera = document.createElement("div");
     camera.className = "camera";
@@ -268,35 +404,54 @@ function openModal(time, content) {
     camera.onclick = () => openAlbum(photosByDate[time]);
     document.getElementById("modal-content").appendChild(camera);
   }
+
   document.getElementById("modal").style.display = "flex";
 }
 
-function closeModal() { document.getElementById("modal").style.display = "none"; }
-function openPast() { main.style.display="none"; past.style.display="block"; }
-function closePast() { past.style.display="none"; main.style.display="block"; }
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+}
+
+function openPast() {
+  main.style.display = "none";
+  document.getElementById("past").style.display = "block";
+}
+
+function closePast() {
+  document.getElementById("past").style.display = "none";
+  main.style.display = "block";
+}
 
 function openAlbum(photos) {
-  currentPhotos = photos; currentIndex = 0;
+  currentPhotos = photos;
+  currentIndex = 0;
   document.querySelector("#album img").src = currentPhotos[currentIndex];
-  document.getElementById("album-page").innerText = `${currentIndex+1} / ${currentPhotos.length}`;
+  document.getElementById("album-page").innerText =
+    `${currentIndex + 1} / ${currentPhotos.length}`;
   document.getElementById("album").style.display = "block";
 }
 
-function prevImg(){
-  if(currentIndex>0){
+function prevImg() {
+  if (currentIndex > 0) {
     currentIndex--;
-    document.querySelector("#album img").src=currentPhotos[currentIndex];
-    document.getElementById("album-page").innerText=`${currentIndex+1} / ${currentPhotos.length}`;
+    document.querySelector("#album img").src = currentPhotos[currentIndex];
+    document.getElementById("album-page").innerText =
+      `${currentIndex + 1} / ${currentPhotos.length}`;
   }
 }
-function nextImg(){
-  if(currentIndex<currentPhotos.length-1){
+
+function nextImg() {
+  if (currentIndex < currentPhotos.length - 1) {
     currentIndex++;
-    document.querySelector("#album img").src=currentPhotos[currentIndex];
-    document.getElementById("album-page").innerText=`${currentIndex+1} / ${currentPhotos.length}`;
+    document.querySelector("#album img").src = currentPhotos[currentIndex];
+    document.getElementById("album-page").innerText =
+      `${currentIndex + 1} / ${currentPhotos.length}`;
   }
 }
-function closeAlbum(){ document.getElementById("album").style.display="none"; }
+
+function closeAlbum() {
+  document.getElementById("album").style.display = "none";
+}
 </script>
 
 </body>
