@@ -249,7 +249,7 @@ input.key {
   text-align: center;
 }
 
-/* ===== 6.4 入口（明显突出） ===== */
+/* ===== 6.4 入口 ===== */
 #entry {
   display: none;
   position: fixed;
@@ -277,30 +277,32 @@ input.key {
 }
 
 #cake {
-  font-size: 160px;
+  font-size: 220px;
   opacity: 0;
-  transition: opacity 3s ease;
+  transition: opacity 4s ease;
 }
 
 #happy {
-  margin-top: 40px;
-  font-size: 40px;
+  margin-top: 60px;
+  font-size: 52px;
   color: #ffd1dc;
   opacity: 0;
-  transition: opacity 2s ease;
+  transition: opacity 2.5s ease;
+  text-align: center;
 }
 
 #message {
-  margin-top: 40px;
-  font-size: 28px;
+  margin-top: 60px;
+  font-size: 30px;
   color: #7dd3fc;
   opacity: 0;
   text-align: center;
   max-width: 80%;
+  line-height: 1.8;
 }
 
 #closeHint {
-  margin-top: 60px;
+  margin-top: 80px;
   font-size: 26px;
   color: rgba(255,255,255,.4);
   cursor: pointer;
@@ -528,12 +530,14 @@ function startBirthday() {
   setTimeout(() => cake.style.opacity = "1", 600);
   setTimeout(() => {
     cake.style.opacity = "0";
-    happy.style.opacity = "1";
-  }, 5200);
+  }, 6500);
+  setTimeout(() => happy.style.opacity = "1", 8500);
   setTimeout(() => {
     happy.style.opacity = "0";
+  }, 11500);
+  setTimeout(() => {
     typeMessage("首先祝你生日快乐");
-  }, 7600);
+  }, 13500);
 }
 
 function typeMessage(text) {
@@ -545,7 +549,7 @@ function typeMessage(text) {
       clearInterval(timer);
       closeHint.style.display = "block";
     }
-  }, 130);
+  }, 150);
 }
 
 function closeBirthday() {
@@ -555,5 +559,7 @@ function closeBirthday() {
 }
 </script>
 
+</body>
+</html>
 </body>
 </html>
