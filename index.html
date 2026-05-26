@@ -277,15 +277,18 @@ input.key {
 }
 
 #cake {
-  font-size: 220px;
+  font-size: 240px;
   opacity: 0;
   transition: opacity 2.5s ease;
 }
 
 #happy {
-  margin-top: 60px;
-  font-size: 56px;
-  letter-spacing: 12px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 64px;
+  letter-spacing: 16px;
   color: #ffd1dc;
   opacity: 0;
   transition: opacity 2s ease;
@@ -293,7 +296,10 @@ input.key {
 }
 
 #message {
-  margin-top: 60px;
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translateX(-50%);
   font-size: 30px;
   color: #7dd3fc;
   opacity: 0;
@@ -303,7 +309,10 @@ input.key {
 }
 
 #closeHint {
-  margin-top: 80px;
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
   font-size: 26px;
   color: rgba(255,255,255,.4);
   cursor: pointer;
@@ -545,6 +554,8 @@ function typeMessage(text) {
   message.style.opacity = "1";
   const timer = setInterval(() => {
     message.innerHTML += text.charAt(i++);
+    typeSound.currentTime = 0;
+    typeSound.play();
     if (i >= text.length) {
       clearInterval(timer);
       closeHint.style.display = "block";
