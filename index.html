@@ -76,7 +76,6 @@ input.key {
   gap: 14px;
 }
 
-/* ✅ 现在时间线日期明显变大 */
 .item {
   padding: 24px 28px;
   background: rgba(255,255,255,.06);
@@ -93,6 +92,7 @@ input.key {
   transform: translateX(6px);
 }
 
+/* ===== 过去时间段（只改这里） ===== */
 #past {
   display: none;
   position: fixed;
@@ -133,8 +133,9 @@ input.key {
   border-radius: 50%;
 }
 
+/* ✅ 过去日期明显变大 */
 .node-time {
-  font-size: 16px;
+  font-size: 20px;
   color: #38bdf8;
   margin-bottom: 6px;
 }
@@ -252,7 +253,7 @@ input.key {
   text-align: center;
 }
 
-/* ✅ 6.4 入口（强制居中 + 明显可点） */
+/* ✅ 6.4 入口（选项感） */
 #entry {
   display: none;
   position: fixed;
@@ -261,17 +262,21 @@ input.key {
   z-index: 501;
   justify-content: center;
   align-items: center;
-  font-size: 88px;
-  font-family: Georgia, serif;
-  color: #ffffff;
-  cursor: pointer;
-  letter-spacing: 12px;
 }
 
-#entry:hover {
+.entry-box {
+  padding: 30px 60px;
+  border: 1px solid rgba(56,189,248,.6);
+  border-radius: 12px;
+  font-size: 28px;
   color: #38bdf8;
-  text-shadow: 0 0 50px #38bdf8;
-  transform: scale(1.05);
+  cursor: pointer;
+  transition: all .3s ease;
+}
+
+.entry-box:hover {
+  background: rgba(56,189,248,.15);
+  box-shadow: 0 0 30px rgba(56,189,248,.4);
 }
 
 /* ===== 生日页面 ===== */
@@ -341,7 +346,9 @@ input.key {
 </div>
 
 <div id="typewriter"></div>
-<div id="entry" onclick="startBirthday()">6.4</div>
+<div id="entry" onclick="startBirthday()">
+  <div class="entry-box">6.4</div>
+</div>
 
 <div id="birthday">
   <div id="cake">🎂</div>
