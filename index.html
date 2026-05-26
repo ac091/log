@@ -258,14 +258,14 @@ input.key {
   z-index: 501;
   justify-content: center;
   align-items: center;
-  font-size: 56px;
+  font-size: 64px;
   color: #7dd3fc;
   cursor: pointer;
 }
 
 #entry:hover {
   color: #38bdf8;
-  text-shadow: 0 0 30px #38bdf8;
+  text-shadow: 0 0 40px #38bdf8;
 }
 
 /* ===== 生日页面 ===== */
@@ -279,46 +279,47 @@ input.key {
   align-items: center;
 }
 
-.candle {
-  width: 10px;
-  height: 40px;
-  background: #fff;
+#cakeWrap {
   position: relative;
-}
-
-.flame {
-  width: 14px;
-  height: 20px;
-  background: orange;
-  border-radius: 50% 50% 50% 50%;
-  position: absolute;
-  top: -22px;
-  left: -2px;
-  animation: flicker 1s infinite;
-  opacity: 0;
-}
-
-@keyframes flicker {
-  0% { transform: scaleY(1); }
-  50% { transform: scaleY(1.1); }
-  100% { transform: scaleY(1); }
-}
-
-#cakeImg {
-  margin-top: 30px;
   opacity: 0;
   transition: opacity 2.5s ease;
 }
 
+#cake {
+  width: 320px;
+  display: block;
+}
+
+#candle {
+  position: absolute;
+  top: -36px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 36px;
+  background: #fff;
+}
+
+#flame {
+  position: absolute;
+  top: -22px;
+  left: -3px;
+  width: 14px;
+  height: 20px;
+  background: orange;
+  border-radius: 50%;
+  opacity: 0;
+}
+
 #happy {
-  margin-top: 30px;
-  font-size: 32px;
+  margin-top: 40px;
+  font-size: 34px;
   color: #ffd1dc;
   opacity: 0;
 }
 
-#finalText {
-  margin-top: 30px;
+#message {
+  margin-top: 40px;
   font-size: 22px;
   color: #7dd3fc;
   opacity: 0;
@@ -347,12 +348,14 @@ input.key {
 <div id="entry" onclick="startBirthday()">6.4</div>
 
 <div id="birthday">
-  <div class="candle">
-    <div class="flame" id="flame"></div>
+  <div id="cakeWrap">
+    <img id="cake" src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&q=80">
+    <div id="candle">
+      <div id="flame"></div>
+    </div>
   </div>
-  <img id="cakeImg" src="https://images.unsplash.com/photo-1601979031925-424e53b6caaa?auto=format&fit=crop&w=600&q=80">
   <div id="happy">生日快乐</div>
-  <div id="finalText"></div>
+  <div id="message"></div>
   <div id="closeHint" onclick="closeBirthday()">点击关闭</div>
 </div>
 
@@ -541,9 +544,9 @@ function eraseText(cb) {
 
 /* 生日 */
 const flame = document.getElementById("flame");
-const cakeImg = document.getElementById("cakeImg");
+const cakeWrap = document.getElementById("cakeWrap");
 const happy = document.getElementById("happy");
-const finalText = document.getElementById("finalText");
+const message = document.getElementById("message");
 const closeHint = document.getElementById("closeHint");
 
 function startBirthday() {
@@ -553,28 +556,27 @@ function startBirthday() {
   const audio = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-lighter-click-1124.mp3");
   audio.play();
 
-  setTimeout(() => flame.style.opacity = "1", 600);
-  setTimeout(() => cakeImg.style.opacity = "1", 2200);
+  setTimeout(() => flame.style.opacity = "1", 800);
+  setTimeout(() => cakeWrap.style.opacity = "1", 2000);
   setTimeout(() => {
-    cakeImg.style.opacity = "0";
+    flame.style.opacity = "0";
+    cakeWrap.style.opacity = "0";
     happy.style.opacity = "1";
-  }, 4800);
+  }, 5200);
   setTimeout(() => {
     happy.style.opacity = "0";
-    typeFinalText("首先祝你生日快乐", () => {
-      closeHint.style.display = "block";
-    });
-  }, 7000);
+    typeMessage("首先祝你生日快乐");
+  }, 7800);
 }
 
-function typeFinalText(text, cb) {
+function typeMessage(text) {
   let i = 0;
-  finalText.style.opacity = "1";
+  message.style.opacity = "1";
   const timer = setInterval(() => {
-    finalText.innerHTML += text.charAt(i++);
+    message.innerHTML += text.charAt(i++);
     if (i >= text.length) {
       clearInterval(timer);
-      cb();
+      closeHint.style.display = "block";
     }
   }, 120);
 }
