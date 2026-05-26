@@ -10,11 +10,12 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background: #0b0b0b;
-  color: #d1d5db;
+  background: radial-gradient(circle at 30% 20%, #1b263b, #0d1525);
+  color: #e5e7eb;
   overflow: hidden;
 }
 
+/* 登录页 */
 #login {
   position: fixed;
   inset: 0;
@@ -27,79 +28,87 @@ body {
 }
 
 .login-inner {
-  width: 420px;
+  width: 400px;
   text-align: center;
 }
 
 .login-inner p {
   font-size: 12px;
-  letter-spacing: 4px;
-  opacity: .4;
-  margin-bottom: 35px;
+  letter-spacing: 6px;
+  opacity: .35;
+  margin-bottom: 40px;
 }
 
 input.key {
   width: 100%;
-  padding: 16px;
+  padding: 18px;
   background: transparent;
-  border: 1px solid rgba(255,255,255,.15);
-  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 10px;
   color: #fff;
-  font-size: 18px;
+  font-size: 22px;
   text-align: center;
-  letter-spacing: 10px;
+  letter-spacing: 14px;
   outline: none;
 }
 
+/* 主页面 */
 #main {
   display: none;
   position: fixed;
   inset: 0;
-  background: #2a3649;
-  z-index: 10;
-  padding: 60px 80px;
+  padding: 70px 100px;
   overflow-y: auto;
 }
 
 .main-header {
-  font-size: 13px;
+  font-size: 14px;
+  letter-spacing: 3px;
   opacity: .5;
-  margin-bottom: 40px;
-  letter-spacing: 2px;
+  margin-bottom: 50px;
 }
 
 .list {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
 }
 
 .item {
-  padding: 18px 22px;
-  background: rgba(255,255,255,.06);
-  border-left: 3px solid rgba(56,189,248,.6);
-  border-radius: 6px;
+  padding: 24px;
+  background: rgba(255,255,255,.05);
+  border-radius: 14px;
   cursor: pointer;
+  transition: all .3s ease;
 }
 
 .item:hover {
-  background: rgba(255,255,255,.09);
+  background: rgba(255,255,255,.1);
+  transform: translateY(-4px);
 }
 
+.date {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #7dd3fc;
+}
+
+/* 过往页 */
 #past {
   display: none;
   position: fixed;
   inset: 0;
   background: #0f172a;
   z-index: 200;
-  padding: 60px 80px;
+  padding: 70px 100px;
   overflow-y: auto;
 }
 
 .past-header {
   font-size: 13px;
-  color: #475569;
-  margin-bottom: 50px;
+  color: #94a3b8;
+  margin-bottom: 60px;
   cursor: pointer;
 }
 
@@ -111,7 +120,7 @@ input.key {
 
 .node {
   position: relative;
-  margin-bottom: 50px;
+  margin-bottom: 60px;
   cursor: pointer;
 }
 
@@ -119,24 +128,26 @@ input.key {
   content: "";
   position: absolute;
   left: -41px;
-  top: 4px;
-  width: 10px;
-  height: 10px;
+  top: 6px;
+  width: 12px;
+  height: 12px;
   background: #38bdf8;
   border-radius: 50%;
+  box-shadow: 0 0 10px #38bdf8;
 }
 
 .node-time {
-  font-size: 14px;
+  font-size: 18px;
+  font-weight: 500;
   color: #38bdf8;
-  margin-bottom: 6px;
 }
 
+/* 弹窗 */
 .modal {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,.75);
+  background: rgba(0,0,0,.7);
   z-index: 999;
   justify-content: center;
   align-items: center;
@@ -144,38 +155,24 @@ input.key {
 
 .modal-box {
   background: #1e293b;
-  padding: 30px 36px;
-  border-radius: 12px;
+  padding: 36px 42px;
+  border-radius: 16px;
   width: 90%;
-  max-width: 460px;
+  max-width: 480px;
   max-height: 70vh;
   overflow-y: auto;
+  line-height: 1.9;
 }
 
 .modal-time {
   font-size: 14px;
   color: #38bdf8;
-  margin-bottom: 15px;
+  margin-bottom: 16px;
 }
 
 .modal-content {
   font-size: 15px;
-  line-height: 1.8;
-  color: #cbd5e1;
-}
-
-/* 相机图标 */
-.camera {
-  margin-top: 18px;
-  width: 48px;
-  height: 48px;
-  background: rgba(255,255,255,.08);
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  font-size: 22px;
+  color: #e5e7eb;
 }
 
 /* 相册 */
@@ -190,17 +187,16 @@ input.key {
 #album img {
   max-width: 90%;
   max-height: 90%;
-  border-radius: 8px;
+  border-radius: 10px;
 }
 
 .album-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+  font-size: 44px;
   color: #fff;
-  font-size: 40px;
   cursor: pointer;
-  user-select: none;
 }
 
 #album-close {
@@ -218,18 +214,18 @@ input.key {
   left: 30px;
   color: #fff;
   font-size: 14px;
-  letter-spacing: 1px;
 }
 
 .gate {
   position: fixed;
   bottom: 30px;
   right: 30px;
-  width: 10px;
-  height: 10px;
-  background: rgba(56,189,248,.5);
+  width: 12px;
+  height: 12px;
+  background: #38bdf8;
   border-radius: 50%;
   cursor: pointer;
+  box-shadow: 0 0 12px #38bdf8;
   z-index: 20;
 }
 </style>
@@ -247,8 +243,12 @@ input.key {
 <div id="main">
   <div class="main-header">RECENT LOGS</div>
   <div class="list">
-    <div class="item" onclick="openModal('2026-05-25','今天这个小网站正式可以运行了，好有成就感。这是我做的第一个网站，也是第一次正儿八经跑代码，惊喜吧应该，其实这个想法不算突然，只是没法确定代码可以跑起来，可我前两天还是决定先悄悄藏在戒指上，你应该暂时发现不了，上次的八千字讲了很多人很多事，但我想说那并不是全部，这个网站会保持更新的，也会有很多可以探索的地方，这个网站，只关于你，也只属于我们。')">2026-05-25</div>
-    <div class="item" onclick="openModal('2026-06-01','系统开始记录新的轨迹。')">2026-06-01</div>
+    <div class="item" onclick="openModal('2026-05-25','今天这个小网站正式可以运行了，好有成就感。这是我做的第一个网站，也是第一次正儿八经跑代码，惊喜吧应该，其实这个想法不算突然，只是没法确定代码可以跑起来，可我前两天还是决定先悄悄藏在戒指上，你应该暂时发现不了，上次的八千字讲了很多人很多事，但我想说那并不是全部，这个网站会保持更新的，也会有很多可以探索的地方，这个网站，只关于你，也只属于我们。')">
+      <div class="date">2026.05.25</div>
+    </div>
+    <div class="item" onclick="openModal('2026-06-01','系统开始记录新的轨迹。')">
+      <div class="date">2026.06.01</div>
+    </div>
   </div>
 </div>
 
@@ -256,15 +256,14 @@ input.key {
   <div class="past-header" onclick="closePast()">◀ BACK</div>
   <div class="timeline">
     <div class="node" onclick="openModal('2023-09-11','在武警院我们相遇。不管过去多久我还是想说，很高兴认识你。')">
-      <div class="node-time">2023-09-11</div>
+      <div class="node-time">2023 · 09 · 11</div>
     </div>
     <div class="node" onclick="openModal('2023-06-15','那时候我们还不知道，后来会发生这么多事。')">
-      <div class="node-time">2023-06-15</div>
+      <div class="node-time">2023 · 06 · 15</div>
     </div>
   </div>
 </div>
 
-<!-- 相册 -->
 <div id="album">
   <div id="album-page"></div>
   <div class="album-btn" style="left:20px;" onclick="prevImg()">‹</div>
@@ -289,7 +288,6 @@ const KEY = "56";
 
 const login = document.getElementById("login");
 const main = document.getElementById("main");
-const past = document.getElementById("past");
 const input = document.getElementById("key");
 const modal = document.getElementById("modal");
 const modalTime = document.getElementById("modal-time");
@@ -309,7 +307,6 @@ input.addEventListener("input", () => {
   }
 });
 
-/* ✅ 日期 → 多张图片 */
 const photosByDate = {
   "2023-09-11": [
     "https://raw.githubusercontent.com/ac091/log/main/qu.jpg",
@@ -329,13 +326,9 @@ function openModal(time, content) {
 
   if (photosByDate[time]) {
     const camera = document.createElement("div");
-    camera.className = "camera";
+    camera.style.cssText = "margin-top:18px;font-size:22px;cursor:pointer;";
     camera.innerHTML = "📷";
-
-    camera.onclick = () => {
-      openAlbum(photosByDate[time]);
-    };
-
+    camera.onclick = () => openAlbum(photosByDate[time]);
     modalContent.appendChild(camera);
   }
 
