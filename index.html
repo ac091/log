@@ -13,6 +13,7 @@ body {
   background: #0b0b0b;
   color: #d1d5db;
   overflow: hidden;
+  cursor: default;
 }
 
 /* ===== 你原来的样式，一字未动 ===== */
@@ -75,7 +76,6 @@ input.key {
   gap: 14px;
 }
 
-/* ✅ 日期字体变大 */
 .item {
   padding: 22px 26px;
   background: rgba(255,255,255,.06);
@@ -132,7 +132,6 @@ input.key {
   border-radius: 50%;
 }
 
-/* ✅ 过去日期字体变大 */
 .node-time {
   font-size: 16px;
   color: #38bdf8;
@@ -252,7 +251,7 @@ input.key {
   text-align: center;
 }
 
-/* ✅ 6.4 入口（更方正、更明显） */
+/* ✅ 6.4 入口（更方正、更稳） */
 #entry {
   display: none;
   position: fixed;
@@ -261,11 +260,11 @@ input.key {
   z-index: 501;
   justify-content: center;
   align-items: center;
-  font-size: 88px;
+  font-size: 84px;
   font-family: Georgia, serif;
   color: #ffffff;
   cursor: pointer;
-  letter-spacing: 8px;
+  letter-spacing: 10px;
 }
 
 #entry:hover {
@@ -286,7 +285,7 @@ input.key {
 }
 
 #cake {
-  font-size: 240px;
+  font-size: 260px;
   opacity: 0;
   transition: opacity 1.8s ease;
 }
@@ -306,7 +305,7 @@ input.key {
 
 #message {
   position: absolute;
-  top: 35%;
+  top: 28%;
   left: 50%;
   transform: translateX(-50%);
   font-size: 30px;
@@ -343,7 +342,7 @@ input.key {
 <div id="entry" onclick="startBirthday()">6.4</div>
 
 <div id="birthday">
-  <div id="cake">🎂</div>
+  <div id="cake">🧁</div>
   <div id="happy">生日快乐</div>
   <div id="message"></div>
   <div id="closeHint" onclick="closeBirthday()">✕</div>
@@ -569,7 +568,7 @@ function typeMessage(text) {
       clearInterval(timer);
       closeHint.style.display = "block";
     }
-  }, 160);
+  }, 180);
 }
 
 function closeBirthday() {
