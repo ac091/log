@@ -249,7 +249,7 @@ input.key {
   text-align: center;
 }
 
-/* ===== 6.4 ===== */
+/* ===== 6.4 入口（明显突出） ===== */
 #entry {
   display: none;
   position: fixed;
@@ -258,15 +258,10 @@ input.key {
   z-index: 501;
   justify-content: center;
   align-items: center;
-  font-size: 72px;
-  color: #7dd3fc;
+  font-size: 96px;
+  color: #ffffff;
   cursor: pointer;
-  letter-spacing: 6px;
-}
-
-#entry:hover {
-  color: #38bdf8;
-  text-shadow: 0 0 40px #38bdf8;
+  text-shadow: 0 0 60px #38bdf8;
 }
 
 /* ===== 生日页面 ===== */
@@ -281,32 +276,18 @@ input.key {
   flex-direction: column;
 }
 
-.cake-wrap {
-  position: relative;
+#cake {
+  font-size: 160px;
   opacity: 0;
-  transition: opacity 2.5s ease;
-  font-size: 80px;
-}
-
-.candle {
-  position: absolute;
-  top: -50px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.flame {
-  font-size: 24px;
-  opacity: 0;
-  transition: opacity 1.2s ease;
+  transition: opacity 3s ease;
 }
 
 #happy {
   margin-top: 40px;
-  font-size: 36px;
+  font-size: 40px;
   color: #ffd1dc;
   opacity: 0;
-  transition: opacity 1.8s ease;
+  transition: opacity 2s ease;
 }
 
 #message {
@@ -319,8 +300,8 @@ input.key {
 }
 
 #closeHint {
-  margin-top: 50px;
-  font-size: 22px;
+  margin-top: 60px;
+  font-size: 26px;
   color: rgba(255,255,255,.4);
   cursor: pointer;
   display: none;
@@ -341,10 +322,7 @@ input.key {
 <div id="entry" onclick="startBirthday()">6.4</div>
 
 <div id="birthday">
-  <div class="cake-wrap" id="cakeWrap">
-    <div class="candle" id="candle">🕯️<span class="flame" id="flame">🔥</span></div>
-    🎂
-  </div>
+  <div id="cake">🎂</div>
   <div id="happy">生日快乐</div>
   <div id="message"></div>
   <div id="closeHint" onclick="closeBirthday()">✕</div>
@@ -355,7 +333,7 @@ input.key {
   <div class="list">
     <div class="item" onclick="openModal('2026-05-25','今天这个小网站正式可以运行了，好有成就感。这是我做的第一个网站，也是第一次正儿八经跑代码，惊喜吧应该，其实这个想法不算突然，只是没法确定代码可以跑起来，可我前两天还是决定先悄悄藏在戒指上，你应该暂时发现不了，上次的八千字讲了很多人很多事，但我想说那并不是全部，这个网站会保持更新的，也会有很多可以探索的地方，这个网站，只关于你，也只属于我们。')">2026-05-25</div>
     <div class="item" onclick="openModal('2026-06-01','系统开始记录新的轨迹。')">2026-06-01</div>
-    <div class="item" onclick="openModal('2024-06-04','这是只属于你的一天。')">2024-06-04</div>
+    <div class="item" onclick="openModal('2024-06-04','首先祝你生日快乐')">2024-06-04</div>
   </div>
 </div>
 
@@ -504,7 +482,11 @@ function playTypewriter() {
       typeText("想想就会发现根本想不完。", () => {
         setTimeout(() => {
           tw.style.display = "none";
-          entry.style.display = "flex";
+          if (!localStorage.getItem("asked")) {
+            entry.style.display = "flex";
+          } else {
+            main.style.display = "block";
+          }
         }, 1800);
       });
     }), 1400);
@@ -534,8 +516,7 @@ function eraseText(cb) {
 }
 
 /* 生日 */
-const flame = document.getElementById("flame");
-const cakeWrap = document.getElementById("cakeWrap");
+const cake = document.getElementById("cake");
 const happy = document.getElementById("happy");
 const message = document.getElementById("message");
 const closeHint = document.getElementById("closeHint");
@@ -544,21 +525,15 @@ function startBirthday() {
   entry.style.display = "none";
   birthday.style.display = "flex";
 
-  const audio = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-lighter-click-1124.mp3");
-  audio.volume = 1;
-  audio.play();
-
-  setTimeout(() => flame.style.opacity = "1", 900);
-  setTimeout(() => cakeWrap.style.opacity = "1", 2400);
+  setTimeout(() => cake.style.opacity = "1", 600);
   setTimeout(() => {
-    flame.style.opacity = "0";
-    cakeWrap.style.opacity = "0";
+    cake.style.opacity = "0";
     happy.style.opacity = "1";
-  }, 5800);
+  }, 5200);
   setTimeout(() => {
     happy.style.opacity = "0";
     typeMessage("首先祝你生日快乐");
-  }, 8200);
+  }, 7600);
 }
 
 function typeMessage(text) {
