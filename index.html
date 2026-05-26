@@ -75,7 +75,6 @@ input.key {
   gap: 14px;
 }
 
-/* ✅ 日期 hover 明显可点 */
 .item {
   padding: 18px 22px;
   background: rgba(255,255,255,.06);
@@ -236,7 +235,7 @@ input.key {
   z-index: 20;
 }
 
-/* ===== 只新增：打字机 & 6.4 ===== */
+/* ===== 新增：打字机 & 6.4 ===== */
 #typewriter {
   display: none;
   position: fixed;
@@ -260,14 +259,47 @@ input.key {
   z-index: 501;
   justify-content: center;
   align-items: center;
-  font-size: 28px;
+  font-size: 46px;
   color: #7dd3fc;
   cursor: pointer;
 }
 
 #entry:hover {
   color: #38bdf8;
-  text-shadow: 0 0 12px #38bdf8;
+  text-shadow: 0 0 20px #38bdf8;
+}
+
+/* ===== 新增：6.4 页面 ===== */
+#birthday {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 600;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#cake {
+  font-size: 80px;
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+
+#happyText {
+  font-size: 32px;
+  color: #ffd1dc;
+  margin-top: 30px;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+}
+
+#finalText {
+  font-size: 24px;
+  color: #7dd3fc;
+  margin-top: 30px;
+  opacity: 0;
 }
 </style>
 </head>
@@ -281,18 +313,27 @@ input.key {
   </div>
 </div>
 
-<!-- ✅ 打字机 -->
+<!-- 打字机 -->
 <div id="typewriter"></div>
 
-<!-- ✅ 6.4 -->
-<div id="entry" onclick="enterMain()">6.4</div>
+<!-- 6.4 -->
+<div id="entry" onclick="enterBirthday()">6.4</div>
 
-<!-- ✅ 你原来的内容，一字未动 -->
+<!-- 6.4 页面 -->
+<div id="birthday">
+  <div id="cake">🎂</div>
+  <div id="happyText">生日快乐</div>
+  <div id="finalText"></div>
+</div>
+
+<!-- 你原来的内容 -->
 <div id="main">
   <div class="main-header">RECENT LOGS</div>
   <div class="list">
     <div class="item" onclick="openModal('2026-05-25','今天这个小网站正式可以运行了，好有成就感。这是我做的第一个网站，也是第一次正儿八经跑代码，惊喜吧应该，其实这个想法不算突然，只是没法确定代码可以跑起来，可我前两天还是决定先悄悄藏在戒指上，你应该暂时发现不了，上次的八千字讲了很多人很多事，但我想说那并不是全部，这个网站会保持更新的，也会有很多可以探索的地方，这个网站，只关于你，也只属于我们。')">2026-05-25</div>
     <div class="item" onclick="openModal('2026-06-01','系统开始记录新的轨迹。')">2026-06-01</div>
+    <!-- ✅ 6.4 作为普通日期加入 -->
+    <div class="item" onclick="openModal('2024-06-04','这是只属于你的一天。')">2024-06-04</div>
   </div>
 </div>
 
@@ -328,7 +369,7 @@ input.key {
 </div>
 
 <script>
-/* ✅ 你原来的 JS，一字未动 */
+/* ===== 你原来的 JS，一字未动 ===== */
 const KEY = "56";
 
 const login = document.getElementById("login");
@@ -430,7 +471,7 @@ function closeAlbum() {
   document.getElementById("album").style.display = "none";
 }
 
-/* ✅ 新增：打字机（速度按你说的放慢） */
+/* ===== 新增：打字机 ===== */
 const tw = document.getElementById("typewriter");
 const entry = document.getElementById("entry");
 
@@ -458,7 +499,7 @@ function typeText(text, cb) {
       clearInterval(timer);
       cb();
     }
-  }, 110); // ✅ 更慢
+  }, 110);
 }
 
 function eraseText(cb) {
@@ -468,13 +509,56 @@ function eraseText(cb) {
       clearInterval(timer);
       cb();
     }
-  }, 60); // ✅ 更慢
+  }, 60);
 }
 
-function enterMain() {
+/* ===== 新增：6.4 页面 ===== */
+const birthday = document.getElementById("birthday");
+const cake = document.getElementById("cake");
+const happyText = document.getElementById("happyText");
+const finalText = document.getElementById("finalText");
+
+function enterBirthday() {
   entry.style.display = "none";
+  birthday.style.display = "flex";
+
+  const audio = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-lighter-click-1124.mp3");
+  audio.play();
+
+  setTimeout(() => {
+    cake.style.opacity = "1";
+  }, 800);
+
+  setTimeout(() => {
+    happyText.style.opacity = "1";
+  }, 2800);
+
+  setTimeout(() => {
+    cake.style.opacity = "0";
+    happyText.style.opacity = "0";
+    setTimeout(() => {
+      typeFinalText("首先祝你生日快乐", () => {
+        birthday.onclick = closeBirthday;
+      });
+    }, 1000);
+  }, 4500);
+}
+
+function typeFinalText(text, cb) {
+  let i = 0;
+  finalText.style.opacity = "1";
+  const timer = setInterval(() => {
+    finalText.innerHTML += text.charAt(i++);
+    if (i >= text.length) {
+      clearInterval(timer);
+      cb();
+    }
+  }, 100);
+}
+
+function closeBirthday() {
+  birthday.style.display = "none";
   main.style.display = "block";
-  localStorage.setItem("asked", "1");
 }
 </script>
 
