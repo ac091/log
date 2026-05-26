@@ -53,6 +53,7 @@ input.key {
   outline: none;
 }
 
+/* ===== 现在时间段（更酷的排列） ===== */
 #main {
   display: none;
   position: fixed;
@@ -70,29 +71,44 @@ input.key {
   letter-spacing: 2px;
 }
 
-.list {
+.timeline-now {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 30px;
 }
 
-.item {
-  padding: 24px 28px;
+/* ✅ 更酷的时间块 */
+.time-block {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+}
+
+.time {
+  width: 140px;
+  font-size: 22px;
+  font-weight: 600;
+  color: #38bdf8;
+  flex-shrink: 0;
+}
+
+.time-line {
+  width: 2px;
+  height: 100%;
+  background: rgba(56,189,248,.3);
+  margin-top: 10px;
+}
+
+.time-content {
+  flex: 1;
+  padding: 20px 24px;
   background: rgba(255,255,255,.06);
-  border-left: 3px solid rgba(56,189,248,.6);
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all .3s ease;
-  font-size: 24px;
+  border-radius: 8px;
+  font-size: 18px;
+  line-height: 1.6;
 }
 
-.item:hover {
-  background: rgba(255,255,255,.12);
-  border-left-color: #38bdf8;
-  transform: translateX(6px);
-}
-
-/* ===== 过去时间段（只改这里） ===== */
+/* ===== 过去时间段 ===== */
 #past {
   display: none;
   position: fixed;
@@ -133,9 +149,9 @@ input.key {
   border-radius: 50%;
 }
 
-/* ✅ 过去日期明显变大 */
+/* ✅ 过去日期明显再放大 */
 .node-time {
-  font-size: 20px;
+  font-size: 26px;
   color: #38bdf8;
   margin-bottom: 6px;
 }
@@ -253,7 +269,7 @@ input.key {
   text-align: center;
 }
 
-/* ✅ 6.4 入口（选项感） */
+/* ✅ 6.4 入口（加粗 + 放大） */
 #entry {
   display: none;
   position: fixed;
@@ -265,18 +281,19 @@ input.key {
 }
 
 .entry-box {
-  padding: 30px 60px;
-  border: 1px solid rgba(56,189,248,.6);
-  border-radius: 12px;
-  font-size: 28px;
+  padding: 36px 80px;
+  border: 2px solid rgba(56,189,248,.8);
+  border-radius: 14px;
+  font-size: 36px;
+  font-weight: 700;
   color: #38bdf8;
   cursor: pointer;
   transition: all .3s ease;
 }
 
 .entry-box:hover {
-  background: rgba(56,189,248,.15);
-  box-shadow: 0 0 30px rgba(56,189,248,.4);
+  background: rgba(56,189,248,.2);
+  box-shadow: 0 0 40px rgba(56,189,248,.5);
 }
 
 /* ===== 生日页面 ===== */
@@ -357,12 +374,25 @@ input.key {
   <div id="closeHint" onclick="closeBirthday()">✕</div>
 </div>
 
+<!-- ✅ 现在时间段（更酷的排列） -->
 <div id="main">
   <div class="main-header">RECENT LOGS</div>
-  <div class="list">
-    <div class="item" onclick="openModal('2026-05-25','今天这个小网站正式可以运行了，好有成就感。这是我做的第一个网站，也是第一次正儿八经跑代码，惊喜吧应该，其实这个想法不算突然，只是没法确定代码可以跑起来，可我前两天还是决定先悄悄藏在戒指上，你应该暂时发现不了，上次的八千字讲了很多人很多事，但我想说那并不是全部，这个网站会保持更新的，也会有很多可以探索的地方，这个网站，只关于你，也只属于我们。')">2026-05-25</div>
-    <div class="item" onclick="openModal('2026-06-01','系统开始记录新的轨迹。')">2026-06-01</div>
-    <div class="item" onclick="openModal('2024-06-04','首先祝你生日快乐')">2024-06-04</div>
+  <div class="timeline-now">
+    <div class="time-block" onclick="openModal('2026-05-25','今天这个小网站正式可以运行了，好有成就感。这是我做的第一个网站，也是第一次正儿八经跑代码，惊喜吧应该，其实这个想法不算突然，只是没法确定代码可以跑起来，可我前两天还是决定先悄悄藏在戒指上，你应该暂时发现不了，上次的八千字讲了很多人很多事，但我想说那并不是全部，这个网站会保持更新的，也会有很多可以探索的地方，这个网站，只关于你，也只属于我们。')">
+      <div class="time">2026-05-25</div>
+      <div class="time-line"></div>
+      <div class="time-content">点击展开</div>
+    </div>
+    <div class="time-block" onclick="openModal('2026-06-01','系统开始记录新的轨迹。')">
+      <div class="time">2026-06-01</div>
+      <div class="time-line"></div>
+      <div class="time-content">点击展开</div>
+    </div>
+    <div class="time-block" onclick="openModal('2024-06-04','首先祝你生日快乐')">
+      <div class="time">2024-06-04</div>
+      <div class="time-line"></div>
+      <div class="time-content">点击展开</div>
+    </div>
   </div>
 </div>
 
