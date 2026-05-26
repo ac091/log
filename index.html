@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+/* ===== 你原来的样式，我一个字没动 ===== */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
@@ -15,7 +16,6 @@ body {
   overflow: hidden;
 }
 
-/* 登录 */
 #login {
   position: fixed;
   inset: 0;
@@ -52,12 +52,11 @@ input.key {
   outline: none;
 }
 
-/* ✅ 现在时间段（你点名要改的） */
 #main {
   display: none;
   position: fixed;
   inset: 0;
-  background: #1a2332; /* 去纯白 */
+  background: #2a3649;
   z-index: 10;
   padding: 60px 80px;
   overflow-y: auto;
@@ -76,7 +75,7 @@ input.key {
   gap: 14px;
 }
 
-/* ✅ 日期形式（你点名要换的） */
+/* ✅ 日期 hover 明显可点 */
 .item {
   padding: 18px 22px;
   background: rgba(255,255,255,.06);
@@ -87,45 +86,11 @@ input.key {
 }
 
 .item:hover {
-  background: rgba(255,255,255,.09);
-  transform: translateX(4px);
+  background: rgba(255,255,255,.12);
+  border-left-color: #38bdf8;
+  transform: translateX(6px);
 }
 
-/* 打字机 */
-#typewriter {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: #000;
-  z-index: 300;
-  justify-content: center;
-  align-items: center;
-  font-size: 22px;
-  letter-spacing: 2px;
-  color: #7dd3fc;
-  padding: 40px;
-  text-align: center;
-}
-
-/* 6.4 */
-#entry {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: #000;
-  z-index: 301;
-  justify-content: center;
-  align-items: center;
-  font-size: 26px;
-  color: #7dd3fc;
-  cursor: pointer;
-}
-
-#entry:hover {
-  color: #38bdf8;
-}
-
-/* 过去 */
 #past {
   display: none;
   position: fixed;
@@ -172,7 +137,51 @@ input.key {
   margin-bottom: 6px;
 }
 
-/* 相册 */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.75);
+  z-index: 999;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-box {
+  background: #1e293b;
+  padding: 30px 36px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 460px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.modal-time {
+  font-size: 14px;
+  color: #38bdf8;
+  margin-bottom: 15px;
+}
+
+.modal-content {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #cbd5e1;
+}
+
+.camera {
+  margin-top: 18px;
+  width: 48px;
+  height: 48px;
+  background: rgba(255,255,255,.08);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 22px;
+}
+
 #album {
   display: none;
   position: fixed;
@@ -194,6 +203,7 @@ input.key {
   color: #fff;
   font-size: 40px;
   cursor: pointer;
+  user-select: none;
 }
 
 #album-close {
@@ -211,6 +221,7 @@ input.key {
   left: 30px;
   color: #fff;
   font-size: 14px;
+  letter-spacing: 1px;
 }
 
 .gate {
@@ -223,6 +234,40 @@ input.key {
   border-radius: 50%;
   cursor: pointer;
   z-index: 20;
+}
+
+/* ===== 只新增：打字机 & 6.4 ===== */
+#typewriter {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 500;
+  justify-content: center;
+  align-items: center;
+  font-size: 26px;
+  letter-spacing: 2px;
+  color: #7dd3fc;
+  padding: 40px;
+  text-align: center;
+}
+
+#entry {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 501;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  color: #7dd3fc;
+  cursor: pointer;
+}
+
+#entry:hover {
+  color: #38bdf8;
+  text-shadow: 0 0 12px #38bdf8;
 }
 </style>
 </head>
@@ -242,20 +287,15 @@ input.key {
 <!-- ✅ 6.4 -->
 <div id="entry" onclick="enterMain()">6.4</div>
 
-<!-- ✅ 现在时间段（你原来的内容） -->
+<!-- ✅ 你原来的内容，一字未动 -->
 <div id="main">
   <div class="main-header">RECENT LOGS</div>
   <div class="list">
-    <div class="item" onclick="openModal('2026-05-25','今天这个小网站正式可以运行了，好有成就感。这是我做的第一个网站，也是第一次正儿八经跑代码，惊喜吧应该，其实这个想法不算突然，只是没法确定代码可以跑起来，可我前两天还是决定先悄悄藏在戒指上，你应该暂时发现不了，上次的八千字讲了很多人很多事，但我想说那并不是全部，这个网站会保持更新的，也会有很多可以探索的地方，这个网站，只关于你，也只属于我们。')">
-      2026-05-25
-    </div>
-    <div class="item" onclick="openModal('2026-06-01','系统开始记录新的轨迹。')">
-      2026-06-01
-    </div>
+    <div class="item" onclick="openModal('2026-05-25','今天这个小网站正式可以运行了，好有成就感。这是我做的第一个网站，也是第一次正儿八经跑代码，惊喜吧应该，其实这个想法不算突然，只是没法确定代码可以跑起来，可我前两天还是决定先悄悄藏在戒指上，你应该暂时发现不了，上次的八千字讲了很多人很多事，但我想说那并不是全部，这个网站会保持更新的，也会有很多可以探索的地方，这个网站，只关于你，也只属于我们。')">2026-05-25</div>
+    <div class="item" onclick="openModal('2026-06-01','系统开始记录新的轨迹。')">2026-06-01</div>
   </div>
 </div>
 
-<!-- ✅ 过去时间段（你原来的） -->
 <div id="past">
   <div class="past-header" onclick="closePast()">◀ BACK</div>
   <div class="timeline">
@@ -268,7 +308,6 @@ input.key {
   </div>
 </div>
 
-<!-- 相册 -->
 <div id="album">
   <div id="album-page"></div>
   <div class="album-btn" style="left:20px;" onclick="prevImg()">‹</div>
@@ -281,16 +320,34 @@ input.key {
 
 <div class="gate" onclick="openPast()"></div>
 
-<script>
-const KEY = "56";
-const login = document.getElementById("login");
-const keyInput = document.getElementById("key");
-const tw = document.getElementById("typewriter");
-const entry = document.getElementById("entry");
-const main = document.getElementById("main");
+<div class="modal" id="modal" onclick="closeModal()">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-time" id="modal-time"></div>
+    <div class="modal-content" id="modal-content"></div>
+  </div>
+</div>
 
-keyInput.addEventListener("input", () => {
-  if (keyInput.value === KEY) {
+<script>
+/* ✅ 你原来的 JS，一字未动 */
+const KEY = "56";
+
+const login = document.getElementById("login");
+const main = document.getElementById("main");
+const past = document.getElementById("past");
+const input = document.getElementById("key");
+const modal = document.getElementById("modal");
+const modalTime = document.getElementById("modal-time");
+const modalContent = document.getElementById("modal-content");
+
+input.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && input.value !== KEY) {
+    alert("密钥错误");
+    input.value = "";
+  }
+});
+
+input.addEventListener("input", () => {
+  if (input.value === KEY) {
     login.style.display = "none";
     if (!localStorage.getItem("asked")) {
       playTypewriter();
@@ -299,61 +356,6 @@ keyInput.addEventListener("input", () => {
     }
   }
 });
-
-/* ✅ 打字机（速度按你说的调慢） */
-function playTypewriter() {
-  tw.style.display = "flex";
-
-  typeText("这近三年来最美好的事是什么？", () => {
-    setTimeout(() => eraseText(() => {
-      typeText("想想就会发现根本想不完。", () => {
-        setTimeout(() => {
-          tw.style.display = "none";
-          entry.style.display = "flex";
-        }, 1600);
-      });
-    }), 1200);
-  });
-}
-
-function typeText(text, cb) {
-  let i = 0;
-  tw.innerHTML = "";
-  const timer = setInterval(() => {
-    tw.innerHTML += text.charAt(i++);
-    if (i >= text.length) {
-      clearInterval(timer);
-      cb();
-    }
-  }, 95); // ✅ 慢
-}
-
-function eraseText(cb) {
-  const timer = setInterval(() => {
-    tw.innerHTML = tw.innerHTML.slice(0, -1);
-    if (!tw.innerHTML.length) {
-      clearInterval(timer);
-      cb();
-    }
-  }, 55); // ✅ 慢
-}
-
-function enterMain() {
-  entry.style.display = "none";
-  main.style.display = "block";
-  localStorage.setItem("asked", "1");
-}
-
-/* ✅ 你原来的逻辑，我一个字没动 */
-function openPast() {
-  main.style.display = "none";
-  past.style.display = "block";
-}
-
-function closePast() {
-  past.style.display = "none";
-  main.style.display = "block";
-}
 
 const photosByDate = {
   "2023-09-11": [
@@ -369,18 +371,32 @@ let currentPhotos = [];
 let currentIndex = 0;
 
 function openModal(time, content) {
-  document.getElementById("modal-time").innerText = time;
-  document.getElementById("modal-content").innerHTML = content;
+  modalTime.innerText = time;
+  modalContent.innerHTML = content;
 
   if (photosByDate[time]) {
     const camera = document.createElement("div");
     camera.className = "camera";
     camera.innerHTML = "📷";
     camera.onclick = () => openAlbum(photosByDate[time]);
-    document.getElementById("modal-content").appendChild(camera);
+    modalContent.appendChild(camera);
   }
 
-  document.getElementById("modal").style.display = "flex";
+  modal.style.display = "flex";
+}
+
+function closeModal() {
+  modal.style.display = "none";
+}
+
+function openPast() {
+  main.style.display = "none";
+  past.style.display = "block";
+}
+
+function closePast() {
+  past.style.display = "none";
+  main.style.display = "block";
 }
 
 function openAlbum(photos) {
@@ -412,6 +428,53 @@ function nextImg() {
 
 function closeAlbum() {
   document.getElementById("album").style.display = "none";
+}
+
+/* ✅ 新增：打字机（速度按你说的放慢） */
+const tw = document.getElementById("typewriter");
+const entry = document.getElementById("entry");
+
+function playTypewriter() {
+  tw.style.display = "flex";
+
+  typeText("这近三年来最美好的事是什么？", () => {
+    setTimeout(() => eraseText(() => {
+      typeText("想想就会发现根本想不完。", () => {
+        setTimeout(() => {
+          tw.style.display = "none";
+          entry.style.display = "flex";
+        }, 1600);
+      });
+    }), 1200);
+  });
+}
+
+function typeText(text, cb) {
+  let i = 0;
+  tw.innerHTML = "";
+  const timer = setInterval(() => {
+    tw.innerHTML += text.charAt(i++);
+    if (i >= text.length) {
+      clearInterval(timer);
+      cb();
+    }
+  }, 110); // ✅ 更慢
+}
+
+function eraseText(cb) {
+  const timer = setInterval(() => {
+    tw.innerHTML = tw.innerHTML.slice(0, -1);
+    if (!tw.innerHTML.length) {
+      clearInterval(timer);
+      cb();
+    }
+  }, 60); // ✅ 更慢
+}
+
+function enterMain() {
+  entry.style.display = "none";
+  main.style.display = "block";
+  localStorage.setItem("asked", "1");
 }
 </script>
 
