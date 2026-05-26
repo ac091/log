@@ -15,7 +15,7 @@ body {
   overflow: hidden;
 }
 
-/* 登录页 */
+/* 登录 */
 #login {
   position: fixed;
   inset: 0;
@@ -52,6 +52,48 @@ input.key {
   outline: none;
 }
 
+/* 打字机 */
+#typewriter {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 200;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  letter-spacing: 2px;
+  color: #7dd3fc;
+  padding: 40px;
+  text-align: center;
+}
+
+/* 选项 */
+#choice {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 201;
+  justify-content: center;
+  align-items: center;
+}
+
+.choice-btn {
+  font-size: 26px;
+  padding: 18px 40px;
+  border: 1px solid rgba(56,189,248,.6);
+  border-radius: 12px;
+  color: #7dd3fc;
+  cursor: pointer;
+  transition: all .3s ease;
+}
+
+.choice-btn:hover {
+  background: rgba(56,189,248,.15);
+  transform: scale(1.05);
+}
+
 /* 主页面 */
 #main {
   display: none;
@@ -74,27 +116,30 @@ input.key {
   gap: 20px;
 }
 
+/* ✅ 日期 hover 反馈 */
 .item {
   padding: 24px;
   background: rgba(255,255,255,.05);
   border-radius: 14px;
   cursor: pointer;
   transition: all .3s ease;
+  border: 1px solid transparent;
 }
 
 .item:hover {
   background: rgba(255,255,255,.1);
+  border-color: rgba(56,189,248,.6);
   transform: translateY(-4px);
+  box-shadow: 0 0 18px rgba(56,189,248,.25);
 }
 
 .date {
   font-size: 20px;
   font-weight: 600;
-  margin-bottom: 10px;
   color: #7dd3fc;
 }
 
-/* 过往页 */
+/* 过往 */
 #past {
   display: none;
   position: fixed;
@@ -142,80 +187,6 @@ input.key {
   color: #38bdf8;
 }
 
-/* 弹窗 */
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.7);
-  z-index: 999;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-box {
-  background: #1e293b;
-  padding: 36px 42px;
-  border-radius: 16px;
-  width: 90%;
-  max-width: 480px;
-  max-height: 70vh;
-  overflow-y: auto;
-  line-height: 1.9;
-}
-
-.modal-time {
-  font-size: 14px;
-  color: #38bdf8;
-  margin-bottom: 16px;
-}
-
-.modal-content {
-  font-size: 15px;
-  color: #e5e7eb;
-}
-
-/* 相册 */
-#album {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: #000;
-  z-index: 3000;
-}
-
-#album img {
-  max-width: 90%;
-  max-height: 90%;
-  border-radius: 10px;
-}
-
-.album-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 44px;
-  color: #fff;
-  cursor: pointer;
-}
-
-#album-close {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  font-size: 28px;
-  color: #fff;
-  cursor: pointer;
-}
-
-#album-page {
-  position: absolute;
-  top: 20px;
-  left: 30px;
-  color: #fff;
-  font-size: 14px;
-}
-
 .gate {
   position: fixed;
   bottom: 30px;
@@ -240,105 +211,91 @@ input.key {
   </div>
 </div>
 
+<!-- 打字机 -->
+<div id="typewriter"></div>
+
+<!-- 单选项 -->
+<div id="choice">
+  <div class="choice-btn" onclick="enterMain()">6.4</div>
+</div>
+
+<!-- 主页面 -->
 <div id="main">
   <div class="main-header">RECENT LOGS</div>
   <div class="list">
-    <div class="item" onclick="openModal('2026-05-25','今天这个小网站正式可以运行了，好有成就感。这是我做的第一个网站，也是第一次正儿八经跑代码，惊喜吧应该，其实这个想法不算突然，只是没法确定代码可以跑起来，可我前两天还是决定先悄悄藏在戒指上，你应该暂时发现不了，上次的八千字讲了很多人很多事，但我想说那并不是全部，这个网站会保持更新的，也会有很多可以探索的地方，这个网站，只关于你，也只属于我们。')">
+    <div class="item" onclick="alert('打开日志')">
       <div class="date">2026.05.25</div>
     </div>
-    <div class="item" onclick="openModal('2026-06-01','系统开始记录新的轨迹。')">
+    <div class="item" onclick="alert('打开日志')">
       <div class="date">2026.06.01</div>
     </div>
   </div>
 </div>
 
-<div id="past">
-  <div class="past-header" onclick="closePast()">◀ BACK</div>
-  <div class="timeline">
-    <div class="node" onclick="openModal('2023-09-11','在武警院我们相遇。不管过去多久我还是想说，很高兴认识你。')">
-      <div class="node-time">2023 · 09 · 11</div>
-    </div>
-    <div class="node" onclick="openModal('2023-06-15','那时候我们还不知道，后来会发生这么多事。')">
-      <div class="node-time">2023 · 06 · 15</div>
-    </div>
-  </div>
-</div>
-
-<div id="album">
-  <div id="album-page"></div>
-  <div class="album-btn" style="left:20px;" onclick="prevImg()">‹</div>
-  <div style="display:flex;justify-content:center;align-items:center;height:100%;">
-    <img src="">
-  </div>
-  <div class="album-btn" style="right:20px;" onclick="nextImg()">›</div>
-  <div id="album-close" onclick="closeAlbum()">✕</div>
-</div>
-
 <div class="gate" onclick="openPast()"></div>
-
-<div class="modal" id="modal" onclick="closeModal()">
-  <div class="modal-box" onclick="event.stopPropagation()">
-    <div class="modal-time" id="modal-time"></div>
-    <div class="modal-content" id="modal-content"></div>
-  </div>
-</div>
 
 <script>
 const KEY = "56";
-
 const login = document.getElementById("login");
-const main = document.getElementById("main");
-const input = document.getElementById("key");
-const modal = document.getElementById("modal");
-const modalTime = document.getElementById("modal-time");
-const modalContent = document.getElementById("modal-content");
+const keyInput = document.getElementById("key");
+const tw = document.getElementById("typewriter");
+const choice = document.getElementById("choice");
 
-input.addEventListener("keydown", (e) => {
-  if (e.key === "Enter" && input.value !== KEY) {
-    alert("密钥错误");
-    input.value = "";
-  }
-});
-
-input.addEventListener("input", () => {
-  if (input.value === KEY) {
+keyInput.addEventListener("input", () => {
+  if (keyInput.value === KEY) {
     login.style.display = "none";
-    main.style.display = "block";
+    if (!localStorage.getItem("asked")) {
+      playTypewriter();
+    } else {
+      main.style.display = "block";
+    }
   }
 });
 
-const photosByDate = {
-  "2023-09-11": [
-    "https://raw.githubusercontent.com/ac091/log/main/qu.jpg",
-    "https://raw.githubusercontent.com/ac091/log/main/yi.jpg"
-  ],
-  "2023-06-15": [
-    "https://raw.githubusercontent.com/ac091/log/main/yi.jpg"
-  ]
-};
-
-let currentPhotos = [];
-let currentIndex = 0;
-
-function openModal(time, content) {
-  modalTime.innerText = time;
-  modalContent.innerHTML = content;
-
-  if (photosByDate[time]) {
-    const camera = document.createElement("div");
-    camera.style.cssText = "margin-top:18px;font-size:22px;cursor:pointer;";
-    camera.innerHTML = "📷";
-    camera.onclick = () => openAlbum(photosByDate[time]);
-    modalContent.appendChild(camera);
-  }
-
-  modal.style.display = "flex";
+/* 打字机 */
+function playTypewriter() {
+  tw.style.display = "flex";
+  typeText("这近三年来最美好的事是什么？", () => {
+    setTimeout(() => eraseText(() => {
+      typeText("想想就会发现根本想不完。", () => {
+        setTimeout(() => {
+          tw.style.display = "none";
+          choice.style.display = "flex";
+          localStorage.setItem("asked", "1");
+        }, 1600);
+      });
+    }), 1200);
+  });
 }
 
-function closeModal() {
-  modal.style.display = "none";
+function typeText(text, cb) {
+  let i = 0;
+  tw.innerHTML = "";
+  const timer = setInterval(() => {
+    tw.innerHTML += text.charAt(i++);
+    if (i >= text.length) {
+      clearInterval(timer);
+      cb();
+    }
+  }, 70);
 }
 
+function eraseText(cb) {
+  const timer = setInterval(() => {
+    tw.innerHTML = tw.innerHTML.slice(0, -1);
+    if (!tw.innerHTML.length) {
+      clearInterval(timer);
+      cb();
+    }
+  }, 40);
+}
+
+function enterMain() {
+  choice.style.display = "none";
+  document.getElementById("main").style.display = "block";
+}
+
+/* 过往页 */
 function openPast() {
   main.style.display = "none";
   past.style.display = "block";
@@ -347,37 +304,6 @@ function openPast() {
 function closePast() {
   past.style.display = "none";
   main.style.display = "block";
-}
-
-function openAlbum(photos) {
-  currentPhotos = photos;
-  currentIndex = 0;
-  document.querySelector("#album img").src = currentPhotos[currentIndex];
-  document.getElementById("album-page").innerText =
-    (currentIndex + 1) + " / " + currentPhotos.length;
-  document.getElementById("album").style.display = "block";
-}
-
-function prevImg() {
-  if (currentIndex > 0) {
-    currentIndex--;
-    document.querySelector("#album img").src = currentPhotos[currentIndex];
-    document.getElementById("album-page").innerText =
-      (currentIndex + 1) + " / " + currentPhotos.length;
-  }
-}
-
-function nextImg() {
-  if (currentIndex < currentPhotos.length - 1) {
-    currentIndex++;
-    document.querySelector("#album img").src = currentPhotos[currentIndex];
-    document.getElementById("album-page").innerText =
-      (currentIndex + 1) + " / " + currentPhotos.length;
-  }
-}
-
-function closeAlbum() {
-  document.getElementById("album").style.display = "none";
 }
 </script>
 
