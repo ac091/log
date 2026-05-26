@@ -16,222 +16,95 @@ body {
 }
 
 #login {
-  position: fixed;
-  inset: 0;
+  position: fixed; inset: 0;
   background: #0b0b0b;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  display: flex; justify-content: center; align-items: center; flex-direction: column;
   z-index: 100;
 }
 
-.login-inner {
-  width: 420px;
-  text-align: center;
-}
-
-.login-inner p {
-  font-size: 12px;
-  letter-spacing: 4px;
-  opacity: .4;
-  margin-bottom: 35px;
-}
+.login-inner { width: 420px; text-align: center; }
+.login-inner p { font-size: 12px; letter-spacing: 4px; opacity: .4; margin-bottom: 35px; }
 
 input.key {
-  width: 100%;
-  padding: 16px;
+  width: 100%; padding: 16px;
   background: transparent;
   border: 1px solid rgba(255,255,255,.15);
+  border-radius: 8px; color: #fff;
+  font-size: 18px; text-align: center; letter-spacing: 10px; outline: none;
+}
+
+/* 提问弹窗 */
+#question {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.85);
+  z-index: 500;
+  justify-content: center; align-items: center;
+}
+
+.q-box {
+  background: #1e293b;
+  padding: 30px 32px;
+  border-radius: 12px;
+  width: 90%; max-width: 440px;
+}
+
+.q-box h3 {
+  font-size: 15px;
+  color: #38bdf8;
+  margin-bottom: 18px;
+  line-height: 1.6;
+}
+
+.q-box textarea {
+  width: 100%; height: 90px;
+  background: #0f172a;
+  border: 1px solid rgba(255,255,255,.1);
   border-radius: 8px;
+  padding: 12px;
   color: #fff;
-  font-size: 18px;
-  text-align: center;
-  letter-spacing: 10px;
+  font-size: 14px;
+  resize: none;
   outline: none;
 }
 
-#main {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: #2a3649;
-  z-index: 10;
-  padding: 60px 80px;
-  overflow-y: auto;
-}
-
-.main-header {
-  font-size: 13px;
-  opacity: .5;
-  margin-bottom: 40px;
-  letter-spacing: 2px;
-}
-
-.list {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.item {
-  padding: 18px 22px;
-  background: rgba(255,255,255,.06);
-  border-left: 3px solid rgba(56,189,248,.6);
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.item:hover {
-  background: rgba(255,255,255,.09);
-}
-
-#past {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: #0f172a;
-  z-index: 200;
-  padding: 60px 80px;
-  overflow-y: auto;
-}
-
-.past-header {
-  font-size: 13px;
-  color: #475569;
-  margin-bottom: 50px;
-  cursor: pointer;
-}
-
-.timeline {
-  position: relative;
-  padding-left: 30px;
-  border-left: 2px solid rgba(255,255,255,.08);
-}
-
-.node {
-  position: relative;
-  margin-bottom: 50px;
-  cursor: pointer;
-}
-
-.node::before {
-  content: "";
-  position: absolute;
-  left: -41px;
-  top: 4px;
-  width: 10px;
-  height: 10px;
-  background: #38bdf8;
-  border-radius: 50%;
-}
-
-.node-time {
-  font-size: 14px;
-  color: #38bdf8;
-  margin-bottom: 6px;
-}
-
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.75);
-  z-index: 999;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-box {
-  background: #1e293b;
-  padding: 30px 36px;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 460px;
-  max-height: 70vh;
-  overflow-y: auto;
-}
-
-.modal-time {
-  font-size: 14px;
-  color: #38bdf8;
-  margin-bottom: 15px;
-}
-
-.modal-content {
-  font-size: 15px;
-  line-height: 1.8;
-  color: #cbd5e1;
-}
-
-/* 相机图标 */
-.camera {
-  margin-top: 18px;
-  width: 48px;
-  height: 48px;
-  background: rgba(255,255,255,.08);
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  font-size: 22px;
-}
-
-/* 相册 */
-#album {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: #000;
-  z-index: 3000;
-}
-
-#album img {
-  max-width: 90%;
-  max-height: 90%;
+.q-box button {
+  margin-top: 16px;
+  width: 100%;
+  padding: 12px;
+  border: none;
   border-radius: 8px;
-}
-
-.album-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  background: rgba(56,189,248,.7);
   color: #fff;
-  font-size: 40px;
-  cursor: pointer;
-  user-select: none;
-}
-
-#album-close {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  font-size: 28px;
-  color: #fff;
+  font-size: 15px;
   cursor: pointer;
 }
 
-#album-page {
-  position: absolute;
-  top: 20px;
-  left: 30px;
-  color: #fff;
-  font-size: 14px;
-  letter-spacing: 1px;
-}
+.q-box button:hover { background: rgba(56,189,248,.9); }
 
-.gate {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 10px;
-  height: 10px;
-  background: rgba(56,189,248,.5);
-  border-radius: 50%;
-  cursor: pointer;
-  z-index: 20;
-}
+/* 原有样式 */
+#main { display: none; position: fixed; inset: 0; background: #2a3649; z-index: 10; padding: 60px 80px; overflow-y: auto; }
+.main-header { font-size: 13px; opacity: .5; margin-bottom: 40px; letter-spacing: 2px; }
+.list { display: flex; flex-direction: column; gap: 14px; }
+.item { padding: 18px 22px; background: rgba(255,255,255,.06); border-left: 3px solid rgba(56,189,248,.6); border-radius: 6px; cursor: pointer; }
+.item:hover { background: rgba(255,255,255,.09); }
+#past { display: none; position: fixed; inset: 0; background: #0f172a; z-index: 200; padding: 60px 80px; overflow-y: auto; }
+.past-header { font-size: 13px; color: #475569; margin-bottom: 50px; cursor: pointer; }
+.timeline { position: relative; padding-left: 30px; border-left: 2px solid rgba(255,255,255,.08); }
+.node { position: relative; margin-bottom: 50px; cursor: pointer; }
+.node::before { content:""; position: absolute; left:-41px; top:4px; width:10px; height:10px; background:#38bdf8; border-radius:50%; }
+.node-time { font-size: 14px; color: #38bdf8; margin-bottom: 6px; }
+.modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.75); z-index: 999; justify-content: center; align-items: center; }
+.modal-box { background: #1e293b; padding: 30px 36px; border-radius: 12px; width: 90%; max-width: 460px; max-height: 70vh; overflow-y: auto; }
+.modal-time { font-size: 14px; color: #38bdf8; margin-bottom: 15px; }
+.modal-content { font-size: 15px; line-height: 1.8; color: #cbd5e1; }
+.camera { margin-top: 18px; width: 48px; height: 48px; background: rgba(255,255,255,.08); border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; font-size: 22px; }
+#album { display: none; position: fixed; inset: 0; background: #000; z-index: 3000; }
+#album img { max-width: 90%; max-height: 90%; border-radius: 8px; }
+.album-btn { position: absolute; top: 50%; transform: translateY(-50%); color: #fff; font-size: 40px; cursor: pointer; user-select: none; }
+#album-close { position: absolute; top: 20px; right: 30px; font-size: 28px; color: #fff; cursor: pointer; }
+#album-page { position: absolute; top: 20px; left: 30px; color: #fff; font-size: 14px; letter-spacing: 1px; }
+.gate { position: fixed; bottom: 30px; right: 30px; width: 10px; height: 10px; background: rgba(56,189,248,.5); border-radius: 50%; cursor: pointer; z-index: 20; }
 </style>
 </head>
 
@@ -244,12 +117,20 @@ input.key {
   </div>
 </div>
 
+<!-- 提问弹窗 -->
+<div id="question">
+  <div class="q-box">
+    <h3>将近三年来，你印象最深的事情<br>是什么？</h3>
+    <textarea id="answer" placeholder="写下你的答案…"></textarea>
+    <button onclick="submitAnswer()">提交</button>
+  </div>
+</div>
+
 <div id="main">
   <div class="main-header">RECENT LOGS</div>
   <div class="list">
-    <div class="item" onclick="openModal('2026-05-25','今天这个小网站正式可以运行了，好有成就感。这是我做的第一个网站，也是第一次正儿八经跑代码，惊喜吧应该，其实这个想法不算突然，只是没法确定代码可以跑起来，可我前两天还是决定先悄悄藏在戒指上，你应该暂时发现不了，上次的八千字讲了很多人很多事，但我想说那并不是全部，这个网站会保持更新的，也会有很多可以探索的地方，这个网站，只关于你，也只属于我们。')">2026-05-25</div>
+    <div class="item" onclick="openModal('2026-05-25','今天这个小网站正式可以运行了，好有成就感。')">2026-05-25</div>
     <div class="item" onclick="openModal('2026-06-01','系统开始记录新的轨迹。')">2026-06-01</div>
-    <div class="item" onclick="openModal('2026-06-07','好想念以前的生活。')">2026-06-07</div>
   </div>
 </div>
 
@@ -262,13 +143,9 @@ input.key {
     <div class="node" onclick="openModal('2023-06-15','那时候我们还不知道，后来会发生这么多事。')">
       <div class="node-time">2023-06-15</div>
     </div>
-     <div class="node" onclick="openModal('2023-06-17','希望明天能一切顺利。')">
-      <div class="node-time">2023-06-17</div>
-    </div>
   </div>
 </div>
 
-<!-- 相册 -->
 <div id="album">
   <div id="album-page"></div>
   <div class="album-btn" style="left:20px;" onclick="prevImg()">‹</div>
@@ -291,6 +168,11 @@ input.key {
 <script>
 const KEY = "56";
 
+/* ✅ 你的 Token（已填入） */
+const GITHUB_TOKEN = "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";
+const OWNER = "ac091";
+const REPO = "log";
+
 const login = document.getElementById("login");
 const main = document.getElementById("main");
 const past = document.getElementById("past");
@@ -298,8 +180,9 @@ const input = document.getElementById("key");
 const modal = document.getElementById("modal");
 const modalTime = document.getElementById("modal-time");
 const modalContent = document.getElementById("modal-content");
+const question = document.getElementById("question");
 
-input.addEventListener("keydown", (e) => {
+input.addEventListener("keydown", e => {
   if (e.key === "Enter" && input.value !== KEY) {
     alert("密钥错误");
     input.value = "";
@@ -309,20 +192,45 @@ input.addEventListener("keydown", (e) => {
 input.addEventListener("input", () => {
   if (input.value === KEY) {
     login.style.display = "none";
-    main.style.display = "block";
+    /* 只问一次 */
+    if (!localStorage.getItem("asked")) {
+      question.style.display = "flex";
+    } else {
+      main.style.display = "block";
+    }
   }
 });
 
-/* ✅ 日期 → 多张图片 */
+function submitAnswer() {
+  const text = document.getElementById("answer").value.trim();
+  if (!text) return alert("写点什么嘛～");
+
+  fetch(`https://api.github.com/repos/${OWNER}/${REPO}/issues`, {
+    method: "POST",
+    headers: {
+      "Authorization": `token ${GITHUB_TOKEN}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      title: "💌 登录回答",
+      body: `> ${text}\n\n---\n_来自网页登录_`
+    })
+  }).then(() => {
+    localStorage.setItem("asked", "1");
+    question.style.display = "none";
+    main.style.display = "block";
+  }).catch(() => {
+    alert("发送失败，检查 Token 权限");
+  });
+}
+
+/* ===== 原有相册逻辑 ===== */
 const photosByDate = {
   "2023-09-11": [
     "https://raw.githubusercontent.com/ac091/log/main/qu.jpg",
     "https://raw.githubusercontent.com/ac091/log/main/yi.jpg"
   ],
   "2023-06-15": [
-    "https://raw.githubusercontent.com/ac091/log/main/yi.jpg"
-  ],
-   "2023-06-17": [
     "https://raw.githubusercontent.com/ac091/log/main/yi.jpg"
   ]
 };
@@ -333,66 +241,43 @@ let currentIndex = 0;
 function openModal(time, content) {
   modalTime.innerText = time;
   modalContent.innerHTML = content;
-
   if (photosByDate[time]) {
     const camera = document.createElement("div");
     camera.className = "camera";
     camera.innerHTML = "📷";
-
-    camera.onclick = () => {
-      openAlbum(photosByDate[time]);
-    };
-
+    camera.onclick = () => openAlbum(photosByDate[time]);
     modalContent.appendChild(camera);
   }
-
   modal.style.display = "flex";
 }
 
-function closeModal() {
-  modal.style.display = "none";
-}
-
-function openPast() {
-  main.style.display = "none";
-  past.style.display = "block";
-}
-
-function closePast() {
-  past.style.display = "none";
-  main.style.display = "block";
-}
+function closeModal() { modal.style.display = "none"; }
+function openPast() { main.style.display="none"; past.style.display="block"; }
+function closePast() { past.style.display="none"; main.style.display="block"; }
 
 function openAlbum(photos) {
-  currentPhotos = photos;
-  currentIndex = 0;
+  currentPhotos = photos; currentIndex = 0;
   document.querySelector("#album img").src = currentPhotos[currentIndex];
   document.getElementById("album-page").innerText =
-    (currentIndex + 1) + " / " + currentPhotos.length;
-  document.getElementById("album").style.display = "block";
+    (currentIndex+1)+" / "+currentPhotos.length;
+  document.getElementById("album").style.display="block";
 }
 
-function prevImg() {
-  if (currentIndex > 0) {
+function prevImg(){
+  if(currentIndex>0){
     currentIndex--;
-    document.querySelector("#album img").src = currentPhotos[currentIndex];
-    document.getElementById("album-page").innerText =
-      (currentIndex + 1) + " / " + currentPhotos.length;
+    document.querySelector("#album img").src=currentPhotos[currentIndex];
+    document.getElementById("album-page").innerText=(currentIndex+1)+" / "+currentPhotos.length;
   }
 }
-
-function nextImg() {
-  if (currentIndex < currentPhotos.length - 1) {
+function nextImg(){
+  if(currentIndex<currentPhotos.length-1){
     currentIndex++;
-    document.querySelector("#album img").src = currentPhotos[currentIndex];
-    document.getElementById("album-page").innerText =
-      (currentIndex + 1) + " / " + currentPhotos.length;
+    document.querySelector("#album img").src=currentPhotos[currentIndex];
+    document.getElementById("album-page").innerText=(currentIndex+1)+" / "+currentPhotos.length;
   }
 }
-
-function closeAlbum() {
-  document.getElementById("album").style.display = "none";
-}
+function closeAlbum(){ document.getElementById("album").style.display="none"; }
 </script>
 
 </body>
