@@ -233,7 +233,7 @@ input.key {
   z-index: 20;
 }
 
-/* ===== 新增：打字机 ===== */
+/* ===== 打字机 ===== */
 #typewriter {
   display: none;
   position: fixed;
@@ -258,9 +258,10 @@ input.key {
   z-index: 501;
   justify-content: center;
   align-items: center;
-  font-size: 64px;
+  font-size: 72px;
   color: #7dd3fc;
   cursor: pointer;
+  letter-spacing: 6px;
 }
 
 #entry:hover {
@@ -277,58 +278,50 @@ input.key {
   z-index: 600;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
-#cakeWrap {
+.cake-wrap {
   position: relative;
   opacity: 0;
   transition: opacity 2.5s ease;
+  font-size: 80px;
 }
 
-#cake {
-  width: 320px;
-  display: block;
-}
-
-#candle {
+.candle {
   position: absolute;
-  top: -36px;
+  top: -50px;
   left: 50%;
   transform: translateX(-50%);
-  width: 8px;
-  height: 36px;
-  background: #fff;
 }
 
-#flame {
-  position: absolute;
-  top: -22px;
-  left: -3px;
-  width: 14px;
-  height: 20px;
-  background: orange;
-  border-radius: 50%;
+.flame {
+  font-size: 24px;
   opacity: 0;
+  transition: opacity 1.2s ease;
 }
 
 #happy {
   margin-top: 40px;
-  font-size: 34px;
+  font-size: 36px;
   color: #ffd1dc;
   opacity: 0;
+  transition: opacity 1.8s ease;
 }
 
 #message {
   margin-top: 40px;
-  font-size: 22px;
+  font-size: 28px;
   color: #7dd3fc;
   opacity: 0;
+  text-align: center;
+  max-width: 80%;
 }
 
 #closeHint {
-  margin-top: 40px;
-  font-size: 14px;
-  opacity: .5;
+  margin-top: 50px;
+  font-size: 22px;
+  color: rgba(255,255,255,.4);
   cursor: pointer;
   display: none;
 }
@@ -348,15 +341,13 @@ input.key {
 <div id="entry" onclick="startBirthday()">6.4</div>
 
 <div id="birthday">
-  <div id="cakeWrap">
-    <img id="cake" src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&q=80">
-    <div id="candle">
-      <div id="flame"></div>
-    </div>
+  <div class="cake-wrap" id="cakeWrap">
+    <div class="candle" id="candle">🕯️<span class="flame" id="flame">🔥</span></div>
+    🎂
   </div>
   <div id="happy">生日快乐</div>
   <div id="message"></div>
-  <div id="closeHint" onclick="closeBirthday()">点击关闭</div>
+  <div id="closeHint" onclick="closeBirthday()">✕</div>
 </div>
 
 <div id="main">
@@ -554,19 +545,20 @@ function startBirthday() {
   birthday.style.display = "flex";
 
   const audio = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-lighter-click-1124.mp3");
+  audio.volume = 1;
   audio.play();
 
-  setTimeout(() => flame.style.opacity = "1", 800);
-  setTimeout(() => cakeWrap.style.opacity = "1", 2000);
+  setTimeout(() => flame.style.opacity = "1", 900);
+  setTimeout(() => cakeWrap.style.opacity = "1", 2400);
   setTimeout(() => {
     flame.style.opacity = "0";
     cakeWrap.style.opacity = "0";
     happy.style.opacity = "1";
-  }, 5200);
+  }, 5800);
   setTimeout(() => {
     happy.style.opacity = "0";
     typeMessage("首先祝你生日快乐");
-  }, 7800);
+  }, 8200);
 }
 
 function typeMessage(text) {
@@ -578,7 +570,7 @@ function typeMessage(text) {
       clearInterval(timer);
       closeHint.style.display = "block";
     }
-  }, 120);
+  }, 130);
 }
 
 function closeBirthday() {
