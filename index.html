@@ -279,15 +279,16 @@ input.key {
 #cake {
   font-size: 220px;
   opacity: 0;
-  transition: opacity 4s ease;
+  transition: opacity 2.5s ease;
 }
 
 #happy {
   margin-top: 60px;
-  font-size: 52px;
+  font-size: 56px;
+  letter-spacing: 12px;
   color: #ffd1dc;
   opacity: 0;
-  transition: opacity 2.5s ease;
+  transition: opacity 2s ease;
   text-align: center;
 }
 
@@ -476,6 +477,9 @@ function closeAlbum() {
 const tw = document.getElementById("typewriter");
 const entry = document.getElementById("entry");
 
+const typeSound = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-typewriter-key-1368.mp3");
+typeSound.volume = 0.3;
+
 function playTypewriter() {
   tw.style.display = "flex";
 
@@ -500,6 +504,8 @@ function typeText(text, cb) {
   tw.innerHTML = "";
   const timer = setInterval(() => {
     tw.innerHTML += text.charAt(i++);
+    typeSound.currentTime = 0;
+    typeSound.play();
     if (i >= text.length) {
       clearInterval(timer);
       cb();
@@ -527,17 +533,11 @@ function startBirthday() {
   entry.style.display = "none";
   birthday.style.display = "flex";
 
-  setTimeout(() => cake.style.opacity = "1", 600);
-  setTimeout(() => {
-    cake.style.opacity = "0";
-  }, 6500);
-  setTimeout(() => happy.style.opacity = "1", 8500);
-  setTimeout(() => {
-    happy.style.opacity = "0";
-  }, 11500);
-  setTimeout(() => {
-    typeMessage("首先祝你生日快乐");
-  }, 13500);
+  setTimeout(() => cake.style.opacity = "1", 400);
+  setTimeout(() => cake.style.opacity = "0", 4400);
+  setTimeout(() => happy.style.opacity = "1", 6400);
+  setTimeout(() => happy.style.opacity = "0", 11400);
+  setTimeout(() => typeMessage("首先祝你生日快乐"), 13400);
 }
 
 function typeMessage(text) {
@@ -549,7 +549,7 @@ function typeMessage(text) {
       clearInterval(timer);
       closeHint.style.display = "block";
     }
-  }, 150);
+  }, 160);
 }
 
 function closeBirthday() {
@@ -559,7 +559,5 @@ function closeBirthday() {
 }
 </script>
 
-</body>
-</html>
 </body>
 </html>
