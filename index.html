@@ -82,7 +82,7 @@ input.key {
 
 .q-box button:hover { background: rgba(56,189,248,.9); }
 
-/* 原有样式 */
+/* 其余样式不变 */
 #main { display: none; position: fixed; inset: 0; background: #2a3649; z-index: 10; padding: 60px 80px; overflow-y: auto; }
 .main-header { font-size: 13px; opacity: .5; margin-bottom: 40px; letter-spacing: 2px; }
 .list { display: flex; flex-direction: column; gap: 14px; }
@@ -168,19 +168,10 @@ input.key {
 <script>
 const KEY = "56";
 
-/* ✅ 你的 Token（已填入） */
-const GITHUB_TOKEN = "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";
-const OWNER = "ac091";
-const REPO = "log";
-
 const login = document.getElementById("login");
 const main = document.getElementById("main");
-const past = document.getElementById("past");
-const input = document.getElementById("key");
-const modal = document.getElementById("modal");
-const modalTime = document.getElementById("modal-time");
-const modalContent = document.getElementById("modal-content");
 const question = document.getElementById("question");
+const input = document.getElementById("key");
 
 input.addEventListener("keydown", e => {
   if (e.key === "Enter" && input.value !== KEY) {
@@ -192,7 +183,6 @@ input.addEventListener("keydown", e => {
 input.addEventListener("input", () => {
   if (input.value === KEY) {
     login.style.display = "none";
-    /* 只问一次 */
     if (!localStorage.getItem("asked")) {
       question.style.display = "flex";
     } else {
@@ -201,30 +191,28 @@ input.addEventListener("input", () => {
   }
 });
 
+/* ✅ 关键：只请求你自己的 Worker */
 function submitAnswer() {
   const text = document.getElementById("answer").value.trim();
   if (!text) return alert("写点什么嘛～");
 
-  fetch(`https://api.github.com/repos/${OWNER}/${REPO}/issues`, {
+  fetch("https://answer.ac091.workers.dev", {
     method: "POST",
-    headers: {
-      "Authorization": `token ${GITHUB_TOKEN}`,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      title: "💌 登录回答",
-      body: `> ${text}\n\n---\n_来自网页登录_`
-    })
-  }).then(() => {
-    localStorage.setItem("asked", "1");
-    question.style.display = "none";
-    main.style.display = "block";
-  }).catch(() => {
-    alert("发送失败，检查 Token 权限");
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ answer: text })
+  })
+  .then(res => {
+    if (res.ok) {
+      localStorage.setItem("asked", "1");
+      question.style.display = "none";
+      main.style.display = "block";
+    } else {
+      alert("提交失败，稍后再试");
+    }
   });
 }
 
-/* ===== 原有相册逻辑 ===== */
+/* ===== 原有逻辑不变 ===== */
 const photosByDate = {
   "2023-09-11": [
     "https://raw.githubusercontent.com/ac091/log/main/qu.jpg",
@@ -235,23 +223,22 @@ const photosByDate = {
   ]
 };
 
-let currentPhotos = [];
-let currentIndex = 0;
+let currentPhotos = [], currentIndex = 0;
 
 function openModal(time, content) {
-  modalTime.innerText = time;
-  modalContent.innerHTML = content;
+  document.getElementById("modal-time").innerText = time;
+  document.getElementById("modal-content").innerHTML = content;
   if (photosByDate[time]) {
     const camera = document.createElement("div");
     camera.className = "camera";
     camera.innerHTML = "📷";
     camera.onclick = () => openAlbum(photosByDate[time]);
-    modalContent.appendChild(camera);
+    document.getElementById("modal-content").appendChild(camera);
   }
-  modal.style.display = "flex";
+  document.getElementById("modal").style.display = "flex";
 }
 
-function closeModal() { modal.style.display = "none"; }
+function closeModal() { document.getElementById("modal").style.display = "none"; }
 function openPast() { main.style.display="none"; past.style.display="block"; }
 function closePast() { past.style.display="none"; main.style.display="block"; }
 
