@@ -8,81 +8,125 @@
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+/* ✅ 背景升级 */
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background: #0b0b0b;
-  color: #d1d5db;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: radial-gradient(circle at 30% 30%, #121826, #08090d);
+  color: #cfd8e3;
   overflow: hidden;
 }
 
+/* ✅ 噪点质感 */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 登录 */
 #login {
   position: fixed; inset: 0;
-  background: #0b0b0b;
   display: flex; justify-content: center; align-items: center; flex-direction: column;
   z-index: 100;
 }
 
-.login-inner { width: 420px; text-align: center; }
-.login-inner p { font-size: 12px; letter-spacing: 4px; opacity: .4; margin-bottom: 35px; }
-
-input.key {
-  width: 100%; padding: 16px;
-  background: transparent;
-  border: 1px solid rgba(255,255,255,.15);
-  border-radius: 8px; color: #fff;
-  font-size: 18px; text-align: center; letter-spacing: 10px; outline: none;
+.login-inner {
+  width: 420px; text-align: center;
 }
 
-/* 提问弹窗 */
+.login-inner p {
+  font-size: 11px;
+  letter-spacing: 6px;
+  opacity: .35;
+  margin-bottom: 40px;
+  font-weight: 300;
+}
+
+input.key {
+  width: 100%;
+  padding: 18px 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255,255,255,.15);
+  color: #fff;
+  font-size: 22px;
+  text-align: center;
+  letter-spacing: 14px;
+  outline: none;
+  transition: border .3s;
+}
+
+input.key:focus {
+  border-color: rgba(56,189,248,.6);
+}
+
+/* ✅ 提问弹窗 */
 #question {
   display: none;
   position: fixed; inset: 0;
-  background: rgba(0,0,0,.85);
+  background: rgba(0,0,0,.82);
+  backdrop-filter: blur(6px);
   z-index: 500;
   justify-content: center; align-items: center;
 }
 
 .q-box {
-  background: #1e293b;
-  padding: 30px 32px;
-  border-radius: 12px;
   width: 90%; max-width: 440px;
+  padding: 44px 36px;
+  background: rgba(12,14,18,.92);
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 14px;
+  text-align: center;
 }
 
 .q-box h3 {
   font-size: 15px;
-  color: #38bdf8;
-  margin-bottom: 18px;
-  line-height: 1.6;
+  font-weight: 400;
+  line-height: 1.9;
+  color: #cbd5e1;
+  margin-bottom: 30px;
+  letter-spacing: .5px;
 }
 
 .q-box textarea {
-  width: 100%; height: 90px;
-  background: #0f172a;
-  border: 1px solid rgba(255,255,255,.1);
-  border-radius: 8px;
-  padding: 12px;
+  width: 100%;
+  height: 90px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255,255,255,.2);
+  padding: 12px 0;
   color: #fff;
   font-size: 14px;
-  resize: none;
   outline: none;
+  resize: none;
+}
+
+.q-box textarea::placeholder {
+  color: rgba(255,255,255,.25);
 }
 
 .q-box button {
-  margin-top: 16px;
+  margin-top: 28px;
   width: 100%;
-  padding: 12px;
+  padding: 14px;
   border: none;
   border-radius: 8px;
-  background: rgba(56,189,248,.7);
-  color: #fff;
-  font-size: 15px;
+  background: rgba(56,189,248,.15);
+  color: #38bdf8;
+  font-size: 14px;
+  letter-spacing: 2px;
   cursor: pointer;
+  transition: background .3s;
 }
 
-.q-box button:hover { background: rgba(56,189,248,.9); }
+.q-box button:hover {
+  background: rgba(56,189,248,.3);
+}
 
-/* 原有样式 */
+/* 其余样式保持不变（你原来的） */
 #main { display: none; position: fixed; inset: 0; background: #2a3649; z-index: 10; padding: 60px 80px; overflow-y: auto; }
 .main-header { font-size: 13px; opacity: .5; margin-bottom: 40px; letter-spacing: 2px; }
 .list { display: flex; flex-direction: column; gap: 14px; }
@@ -117,10 +161,13 @@ input.key {
   </div>
 </div>
 
-<!-- 提问弹窗 -->
 <div id="question">
   <div class="q-box">
-    <h3>将近三年来，你印象最深的事情<br>是什么？</h3>
+    <h3>
+      将近三年来<br><br>
+      你印象最深的事情<br><br>
+      是什么
+    </h3>
     <textarea id="answer" placeholder="写下你的答案…"></textarea>
     <button onclick="submitAnswer()">提交</button>
   </div>
@@ -168,7 +215,6 @@ input.key {
 <script>
 const KEY = "56";
 
-/* ✅ 你的 Token（已填入） */
 const GITHUB_TOKEN = "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";
 const OWNER = "ac091";
 const REPO = "log";
@@ -192,7 +238,6 @@ input.addEventListener("keydown", e => {
 input.addEventListener("input", () => {
   if (input.value === KEY) {
     login.style.display = "none";
-    /* 只问一次 */
     if (!localStorage.getItem("asked")) {
       question.style.display = "flex";
     } else {
@@ -224,7 +269,6 @@ function submitAnswer() {
   });
 }
 
-/* ===== 原有相册逻辑 ===== */
 const photosByDate = {
   "2023-09-11": [
     "https://raw.githubusercontent.com/ac091/log/main/qu.jpg",
