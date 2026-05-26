@@ -75,13 +75,15 @@ input.key {
   gap: 14px;
 }
 
+/* ✅ 日期字体变大 */
 .item {
-  padding: 18px 22px;
+  padding: 22px 26px;
   background: rgba(255,255,255,.06);
   border-left: 3px solid rgba(56,189,248,.6);
   border-radius: 6px;
   cursor: pointer;
   transition: all .3s ease;
+  font-size: 18px;
 }
 
 .item:hover {
@@ -130,8 +132,9 @@ input.key {
   border-radius: 50%;
 }
 
+/* ✅ 过去日期字体变大 */
 .node-time {
-  font-size: 14px;
+  font-size: 16px;
   color: #38bdf8;
   margin-bottom: 6px;
 }
@@ -249,7 +252,7 @@ input.key {
   text-align: center;
 }
 
-/* ===== 6.4 入口 ===== */
+/* ✅ 6.4 入口（更方正、更明显） */
 #entry {
   display: none;
   position: fixed;
@@ -258,10 +261,16 @@ input.key {
   z-index: 501;
   justify-content: center;
   align-items: center;
-  font-size: 96px;
+  font-size: 88px;
+  font-family: Georgia, serif;
   color: #ffffff;
   cursor: pointer;
-  text-shadow: 0 0 60px #38bdf8;
+  letter-spacing: 8px;
+}
+
+#entry:hover {
+  color: #38bdf8;
+  text-shadow: 0 0 40px #38bdf8;
 }
 
 /* ===== 生日页面 ===== */
@@ -279,7 +288,7 @@ input.key {
 #cake {
   font-size: 240px;
   opacity: 0;
-  transition: opacity 2.5s ease;
+  transition: opacity 1.8s ease;
 }
 
 #happy {
@@ -291,7 +300,7 @@ input.key {
   letter-spacing: 16px;
   color: #ffd1dc;
   opacity: 0;
-  transition: opacity 2s ease;
+  transition: opacity 1.8s ease;
   text-align: center;
 }
 
@@ -542,11 +551,11 @@ function startBirthday() {
   entry.style.display = "none";
   birthday.style.display = "flex";
 
-  setTimeout(() => cake.style.opacity = "1", 400);
-  setTimeout(() => cake.style.opacity = "0", 4400);
-  setTimeout(() => happy.style.opacity = "1", 6400);
-  setTimeout(() => happy.style.opacity = "0", 11400);
-  setTimeout(() => typeMessage("首先祝你生日快乐"), 13400);
+  setTimeout(() => cake.style.opacity = "1", 300);
+  setTimeout(() => cake.style.opacity = "0", 3300);
+  setTimeout(() => happy.style.opacity = "1", 4300);
+  setTimeout(() => happy.style.opacity = "0", 7300);
+  setTimeout(() => typeMessage("首先祝你生日快乐"), 8300);
 }
 
 function typeMessage(text) {
