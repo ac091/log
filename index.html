@@ -53,7 +53,109 @@ input.key {
   outline: none;
 }
 
-/* ===== 现在时间段（✅ 纵向时间轴 B） ===== */
+/* ===== 导航页（✅ 全新） ===== */
+#nav {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at center, #0a0e27 0%, #000000 70%);
+  z-index: 50;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* 星空粒子背景 */
+#nav::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,.8), transparent),
+    radial-gradient(1px 1px at 30% 50%, rgba(255,255,255,.6), transparent),
+    radial-gradient(1.5px 1.5px at 50% 10%, rgba(56,189,248,.8), transparent),
+    radial-gradient(1px 1px at 70% 40%, rgba(255,255,255,.5), transparent),
+    radial-gradient(1px 1px at 90% 80%, rgba(255,255,255,.7), transparent),
+    radial-gradient(1.5px 1.5px at 20% 70%, rgba(56,189,248,.6), transparent),
+    radial-gradient(1px 1px at 60% 90%, rgba(255,255,255,.4), transparent),
+    radial-gradient(1px 1px at 80% 15%, rgba(255,255,255,.6), transparent),
+    radial-gradient(1.5px 1.5px at 40% 85%, rgba(56,189,248,.5), transparent),
+    radial-gradient(1px 1px at 15% 45%, rgba(255,255,255,.5), transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.nav-title {
+  font-size: 14px;
+  letter-spacing: 8px;
+  color: rgba(255,255,255,.3);
+  margin-bottom: 60px;
+  z-index: 1;
+}
+
+.nav-grid {
+  display: flex;
+  gap: 60px;
+  z-index: 1;
+}
+
+.nav-item {
+  width: 260px;
+  height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 6px;
+  color: #7dd3fc;
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(56,189,248,.25);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all .4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(56,189,248,.1), transparent);
+  opacity: 0;
+  transition: opacity .4s ease;
+}
+
+.nav-item:hover::before {
+  opacity: 1;
+}
+
+.nav-item:hover {
+  transform: translateY(-8px);
+  border-color: rgba(56,189,248,.7);
+  box-shadow: 
+    0 0 40px rgba(56,189,248,.3),
+    0 0 80px rgba(56,189,248,.15),
+    inset 0 0 40px rgba(56,189,248,.05);
+}
+
+.nav-item span {
+  position: relative;
+  z-index: 2;
+}
+
+.nav-item .sub {
+  position: absolute;
+  bottom: 16px;
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: rgba(255,255,255,.25);
+  z-index: 2;
+}
+
+/* ===== 现在时间段（✅ 纵向时间轴） ===== */
 #main {
   display: none;
   position: fixed;
@@ -69,6 +171,21 @@ input.key {
   opacity: .6;
   margin-bottom: 20px;
   letter-spacing: 2px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main-header .back-btn {
+  cursor: pointer;
+  color: #475569;
+  font-size: 13px;
+  letter-spacing: 2px;
+  transition: color .3s ease;
+}
+
+.main-header .back-btn:hover {
+  color: #38bdf8;
 }
 
 .timeline-now {
@@ -113,7 +230,6 @@ input.key {
   align-items: center;
 }
 
-/* 节点 */
 .dot {
   width: 16px;
   height: 16px;
@@ -131,7 +247,6 @@ input.key {
   box-shadow: 0 0 35px rgba(56,189,248,1);
 }
 
-/* 日期标签 */
 .label {
   position: absolute;
   font-size: 20px;
@@ -147,7 +262,6 @@ input.key {
   opacity: 1;
 }
 
-/* 奇数放右边，偶数放左边 */
 .timeline-item:nth-child(odd) .dot {
   order: 2;
 }
@@ -166,7 +280,7 @@ input.key {
   left: calc(50% + 30px);
 }
 
-/* ===== 过去时间段（✅ 残影 + hover 出字） ===== */
+/* ===== 过去时间段 ===== */
 #past {
   display: none;
   position: fixed;
@@ -449,6 +563,21 @@ input.key {
   <div class="entry-box">6.4</div>
 </div>
 
+<!-- ✅ 导航页 -->
+<div id="nav">
+  <div class="nav-title">SELECT TIMELINE</div>
+  <div class="nav-grid">
+    <div class="nav-item" onclick="goToMain()">
+      <span>现 在</span>
+      <div class="sub">RECENT LOGS</div>
+    </div>
+    <div class="nav-item" onclick="goToPast()">
+      <span>过 去</span>
+      <div class="sub">MEMORY</div>
+    </div>
+  </div>
+</div>
+
 <div id="birthday">
   <div id="cake">🎂</div>
   <div id="happy">生日快乐</div>
@@ -456,15 +585,18 @@ input.key {
   <div id="closeHint" onclick="closeBirthday()">✕</div>
 </div>
 
-<!-- ✅ 现在时间段（纵向时间轴） -->
+<!-- ✅ 现在时间段 -->
 <div id="main">
-  <div class="main-header">RECENT LOGS</div>
+  <div class="main-header">
+    RECENT LOGS
+    <span class="back-btn" onclick="goToNav()">◀ BACK</span>
+  </div>
   <div class="timeline-now" id="timelineNow"></div>
 </div>
 
 <!-- ✅ 过去时间段 -->
 <div id="past">
-  <div class="past-header" onclick="closePast()">◀ BACK</div>
+  <div class="past-header" onclick="goToNav()">◀ BACK</div>
   <div class="timeline">
     <div class="memory" onclick="openModal('2023-09-11','在武警院我们相遇。不管过去多久我还是想说，很高兴认识你。')">
       <div class="memory-date">2023-09-11</div>
@@ -487,7 +619,7 @@ input.key {
   <div id="album-close" onclick="closeAlbum()">✕</div>
 </div>
 
-<div class="gate" onclick="openPast()"></div>
+<div class="gate" onclick="goToPast()"></div>
 
 <div class="modal" id="modal" onclick="closeModal()">
   <div class="modal-box" onclick="event.stopPropagation()">
@@ -497,7 +629,7 @@ input.key {
 </div>
 
 <script>
-/* ===== 时间轴数据（新日期放上面 = 数组前面） ===== */
+/* ===== 时间轴数据 ===== */
 const timelineData = [
   {
     date: "2026-06-01",
@@ -510,10 +642,6 @@ const timelineData = [
   {
     date: "2024-06-04",
     content: "首先祝你生日快乐"
-  },
-   {
-    date: "2024-06-07",
-    content: "首先祝你生日快乐"
   }
 ];
 
@@ -522,7 +650,7 @@ function renderTimeline() {
   const container = document.getElementById("timelineNow");
   container.innerHTML = "";
 
-  timelineData.forEach((item, index) => {
+  timelineData.forEach((item) => {
     const div = document.createElement("div");
     div.className = "timeline-item";
     div.innerHTML = `
@@ -532,15 +660,30 @@ function renderTimeline() {
     container.appendChild(div);
   });
 
-  /* 默认滚动到顶部（最新日期） */
   container.scrollTop = 0;
 }
 
-/* ===== 原有 JS 完全不动，只加一句调用 ===== */
+/* ===== 导航跳转 ===== */
+function goToNav() {
+  document.getElementById("main").style.display = "none";
+  document.getElementById("past").style.display = "none";
+  document.getElementById("nav").style.display = "flex";
+}
+
+function goToMain() {
+  document.getElementById("nav").style.display = "none";
+  document.getElementById("main").style.display = "block";
+  renderTimeline();
+}
+
+function goToPast() {
+  document.getElementById("nav").style.display = "none";
+  document.getElementById("past").style.display = "block";
+}
+
+/* ===== 原有 JS ===== */
 const KEY = "56";
 const login = document.getElementById("login");
-const main = document.getElementById("main");
-const past = document.getElementById("past");
 const input = document.getElementById("key");
 const modal = document.getElementById("modal");
 const modalTime = document.getElementById("modal-time");
@@ -559,8 +702,7 @@ input.addEventListener("input", () => {
     if (!localStorage.getItem("asked")) {
       playTypewriter();
     } else {
-      main.style.display = "block";
-      renderTimeline();
+      goToNav();
     }
   }
 });
@@ -595,16 +737,6 @@ function openModal(time, content) {
 
 function closeModal() {
   modal.style.display = "none";
-}
-
-function openPast() {
-  main.style.display = "none";
-  past.style.display = "block";
-}
-
-function closePast() {
-  past.style.display = "none";
-  main.style.display = "block";
 }
 
 function openAlbum(photos) {
@@ -654,8 +786,7 @@ function playTypewriter() {
           if (!localStorage.getItem("asked")) {
             document.getElementById("entry").style.display = "flex";
           } else {
-            main.style.display = "block";
-            renderTimeline();
+            goToNav();
           }
         }, 1800);
       });
@@ -719,8 +850,7 @@ function typeMessage(text) {
 
 function closeBirthday() {
   document.getElementById("birthday").style.display = "none";
-  main.style.display = "block";
-  renderTimeline();
+  goToNav();
   localStorage.setItem("asked", "1");
 }
 
