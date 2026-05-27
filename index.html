@@ -844,7 +844,7 @@ function goToNav() {
 
 function goToMain() {
   document.getElementById("nav").style.display = "none";
-  document.getElementById("past").style.display = "none;
+  document.getElementById("past").style.display = "none";
   document.getElementById("csPage").style.display = "none";
   document.getElementById("idea").style.display = "none";
   document.getElementById("other").style.display = "none";
@@ -887,15 +887,10 @@ function goToOther() {
   document.getElementById("other").style.display = "flex";
 }
 
-/* ===== 登录 ===== */
+/* ===== ✅ 登录（已恢复为你原来的逻辑） ===== */
 const KEY = "56";
 const input = document.getElementById("key");
-input.addEventListener("keydown", e => {
-  if (e.key === "Enter" && input.value !== KEY) {
-    alert("密钥错误");
-    input.value = "";
-  }
-});
+
 input.addEventListener("input", () => {
   if (input.value === KEY) {
     login.style.display = "none";
