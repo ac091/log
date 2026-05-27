@@ -324,7 +324,7 @@ input.key {
   transform: translateY(0);
 }
 
-/* ===== C / S 页面 ===== */
+/* ===== C / S 页面（并排 + 中线） ===== */
 #csPage {
   display: none;
   position: fixed;
@@ -335,30 +335,30 @@ input.key {
   align-items: center;
 }
 
-.cs-container {
+.cs-row {
   display: flex;
-  flex-direction: column;
   align-items: center;
   gap: 0;
+  position: relative;
 }
 
-.cs-top, .cs-bottom {
+.cs-left, .cs-right {
   font-size: 96px;
   font-weight: 900;
   color: #9ca3af;
   letter-spacing: 8px;
-  cursor: pointer;
-  transition: color .4s ease;
+  padding: 0 60px;
 }
 
-.cs-top:hover { color: #38bdf8; }
-.cs-bottom:hover { color: #38bdf8; }
-
+/* ✅ 中线在字母中间下方 */
 .cs-divider {
-  width: 240px;
-  height: 1px;
+  position: absolute;
+  left: 50%;
+  top: 60%;
+  transform: translate(-50%, -50%);
+  width: 1px;
+  height: 80px;
   background: rgba(255,255,255,.15);
-  margin: 40px 0;
 }
 
 /* ===== idea / 其他 ===== */
@@ -601,12 +601,12 @@ input.key {
   display: none;
 }
 
-/* ===== ✅ 时空驿站弹窗（酷版 · 大） ===== */
+/* ===== ✅ 时空驿站弹窗（极大、极简、酷） ===== */
 #pastModal {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,.9);
+  background: #000;
   z-index: 1000;
   justify-content: center;
   align-items: center;
@@ -617,39 +617,39 @@ input.key {
 }
 
 #pastModal .title {
-  font-size: 16px;
-  color: rgba(255,255,255,.4);
-  letter-spacing: 8px;
-  margin-bottom: 50px;
+  font-size: 20px;
+  color: rgba(255,255,255,.5);
+  letter-spacing: 10px;
+  margin-bottom: 60px;
 }
 
 #pastModal .btns {
   display: flex;
-  gap: 60px;
+  gap: 80px;
   justify-content: center;
 }
 
 #pastModal .btn {
-  font-size: 15px;
-  letter-spacing: 4px;
+  font-size: 16px;
+  letter-spacing: 6px;
   cursor: pointer;
-  padding: 12px 40px;
-  border-radius: 30px;
+  padding: 14px 50px;
+  border-radius: 0;
   transition: all .3s ease;
 }
 
 #pastModal .enter {
   color: #38bdf8;
-  border: 1px solid rgba(56,189,248,.3);
+  border: 1px solid rgba(56,189,248,.4);
 }
 
 #pastModal .enter:hover {
-  background: rgba(56,189,248,.2);
+  background: rgba(56,189,248,.15);
 }
 
 #pastModal .cancel {
   color: rgba(255,255,255,.35);
-  border: 1px solid rgba(255,255,255,.2);
+  border: 1px solid rgba(255,255,255,.25);
 }
 
 #pastModal .cancel:hover {
@@ -736,10 +736,10 @@ input.key {
 <!-- C / S 页面 -->
 <div id="csPage">
   <div class="back-btn" onclick="goToNav()">◀ BACK</div>
-  <div class="cs-container">
-    <div class="cs-top" onclick="goToC()">C</div>
+  <div class="cs-row">
+    <div class="cs-left">C</div>
     <div class="cs-divider"></div>
-    <div class="cs-bottom" onclick="goToS()">S</div>
+    <div class="cs-right">S</div>
   </div>
 </div>
 
@@ -865,14 +865,6 @@ function goToOther() {
   document.getElementById("csPage").style.display = "none";
   document.getElementById("idea").style.display = "none";
   document.getElementById("other").style.display = "flex";
-}
-
-function goToC() {
-  alert("C");
-}
-
-function goToS() {
-  alert("S");
 }
 
 /* ===== 登录 ===== */
