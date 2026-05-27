@@ -5,7 +5,6 @@
 <title>ACCESS</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- ✅ 你原有的样式，我一个字都没改 -->
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -324,7 +323,7 @@ input.key {
   transform: translateY(0);
 }
 
-/* ===== C / S 页面（并排 + 中线） ===== */
+/* ===== C / S 页面 ===== */
 #csPage {
   display: none;
   position: fixed;
@@ -338,8 +337,7 @@ input.key {
 .cs-row {
   display: flex;
   align-items: center;
-  gap: 0;
-  position: relative;
+  gap: 80px;
 }
 
 .cs-left, .cs-right {
@@ -347,15 +345,9 @@ input.key {
   font-weight: 900;
   color: #9ca3af;
   letter-spacing: 8px;
-  padding: 0 60px;
 }
 
-/* ✅ 中线在字母中间下方 */
 .cs-divider {
-  position: absolute;
-  left: 50%;
-  top: 60%;
-  transform: translate(-50%, -50%);
   width: 1px;
   height: 80px;
   background: rgba(255,255,255,.15);
@@ -601,59 +593,45 @@ input.key {
   display: none;
 }
 
-/* ===== ✅ 时空驿站弹窗（极大、极简、酷） ===== */
+/* ===== ✅ 时空驿站弹窗（酷版 · 右下角） ===== */
 #pastModal {
   display: none;
   position: fixed;
   inset: 0;
-  background: #000;
+  background: rgba(0,0,0,.6);
   z-index: 1000;
-  justify-content: center;
-  align-items: center;
 }
 
 #pastModal .box {
-  text-align: center;
+  position: fixed;
+  right: 60px;
+  bottom: 60px;
+  text-align: left;
 }
 
 #pastModal .title {
-  font-size: 20px;
+  font-size: 18px;
   color: rgba(255,255,255,.5);
-  letter-spacing: 10px;
-  margin-bottom: 60px;
-}
-
-#pastModal .btns {
-  display: flex;
-  gap: 80px;
-  justify-content: center;
-}
-
-#pastModal .btn {
-  font-size: 16px;
   letter-spacing: 6px;
-  cursor: pointer;
-  padding: 14px 50px;
-  border-radius: 0;
-  transition: all .3s ease;
+  margin-bottom: 18px;
 }
 
-#pastModal .enter {
-  color: #38bdf8;
-  border: 1px solid rgba(56,189,248,.4);
+#pastModal .options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-#pastModal .enter:hover {
-  background: rgba(56,189,248,.15);
-}
-
-#pastModal .cancel {
+#pastModal .opt {
+  font-size: 14px;
   color: rgba(255,255,255,.35);
-  border: 1px solid rgba(255,255,255,.25);
+  letter-spacing: 4px;
+  cursor: pointer;
+  transition: color .3s;
 }
 
-#pastModal .cancel:hover {
-  color: rgba(255,255,255,.6);
+#pastModal .opt:hover {
+  color: #38bdf8;
 }
 
 /* ===== 英文提示 ===== */
@@ -774,9 +752,9 @@ input.key {
 <div id="pastModal" onclick="closePastModal()">
   <div class="box" onclick="event.stopPropagation()">
     <div class="title">时空驿站</div>
-    <div class="btns">
-      <div class="btn enter" onclick="confirmEnterPast()">进入</div>
-      <div class="btn cancel" onclick="closePastModal()">取消</div>
+    <div class="options">
+      <div class="opt" onclick="confirmEnterPast()">进入</div>
+      <div class="opt" onclick="closePastModal()">取消</div>
     </div>
   </div>
 </div>
