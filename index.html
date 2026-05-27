@@ -274,7 +274,7 @@ input.key {
   z-index: 10;
 }
 
-/* ✅ 年份旁小倒三角 */
+/* ✅ 年份旁倒三角 */
 #yearToggle {
   display: none;
   position: absolute;
@@ -355,7 +355,7 @@ input.key {
   align-items: center;
 }
 
-/* ✅ 关键字无框 */
+/* ✅ 关键字无框，仅文字可点 */
 .keyword-box {
   font-size: 56px;
   font-weight: 800;
@@ -370,7 +370,7 @@ input.key {
   transform: scale(1.08);
 }
 
-/* ===== 模态框内容 ===== */
+/* ===== 模态框 ===== */
 .modal {
   display: none;
   position: fixed;
@@ -394,14 +394,13 @@ input.key {
   color: #d1d5db;
 }
 
-/* ✅ 内容底部关闭按钮 */
+/* ✅ 关闭在最底 */
 .modal-close {
-  margin-top: 50px;
-  font-size: 16px;
-  letter-spacing: 6px;
+  margin-top: 60px;
+  font-size: 14px;
+  letter-spacing: 8px;
   color: rgba(255,255,255,.35);
   cursor: pointer;
-  transition: color .3s;
 }
 
 .modal-close:hover {
@@ -421,7 +420,7 @@ input.key {
   font-size: 26px;
 }
 
-/* ===== 其余页面（原样保留） ===== */
+/* ===== 其余页面保持原样 ===== */
 #csPage {
   display: none;
   position: fixed;
@@ -769,6 +768,7 @@ input.key {
 <div id="past">
   <div class="past-header" onclick="goToMain()">◀ BACK</div>
 
+  <!-- ✅ 年份旁倒三角 -->
   <div id="yearToggle" onclick="toggleIndex()">▾</div>
   <div id="indexList"></div>
 
@@ -781,8 +781,8 @@ input.key {
 </div>
 
 <!-- ===== 关键字页面 ===== -->
-<div id="keywordPage" onclick="openContent()">
-  <div class="keyword-box" id="keywordBox"></div>
+<div id="keywordPage">
+  <div class="keyword-box" id="keywordBox" onclick="openContent()"></div>
 </div>
 
 <div id="csPage">
@@ -819,7 +819,7 @@ input.key {
 <div class="modal" id="modal" onclick="closeModal()">
   <div class="modal-box" onclick="event.stopPropagation()">
     <div class="modal-content" id="modal-content"></div>
-    <div class="modal-close" onclick="closeModal()">✕ CLOSE</div>
+    <div class="modal-close" onclick="closeModal()">CLOSE</div>
   </div>
 </div>
 
@@ -899,7 +899,8 @@ function goToPast() {
 
   currentIndex = 0;
   updateDateDisplay();
-  document.getElementById("yearToggle").style.display = "none";
+  buildIndex();
+  document.getElementById("yearToggle").style.display = "block";
   document.getElementById("indexList").style.display = "none";
 }
 
@@ -1130,9 +1131,25 @@ function openContent() {
   document.getElementById("modal").style.display = "flex";
 }
 
+/* ✅ 倒三角列表 */
 function toggleIndex() {
   const list = document.getElementById("indexList");
   list.style.display = list.style.display === "none" ? "flex" : "none";
+}
+
+function buildIndex() {
+  const list = document.getElementById("indexList");
+  list.innerHTML = "";
+  pastDates.forEach((k, i) => {
+    const div = document.createElement("div");
+    div.innerText = k;
+    div.onclick = () => {
+      currentIndex = i;
+      updateDateDisplay();
+      toggleIndex();
+    };
+    list.appendChild(div);
+  });
 }
 
 renderTimeline();
