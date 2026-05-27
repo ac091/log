@@ -274,7 +274,19 @@ input.key {
   z-index: 10;
 }
 
-.index-panel {
+/* ✅ INDEX 按钮（在日期框架内） */
+#indexBtn {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  font-size: 14px;
+  color: #38bdf8;
+  cursor: pointer;
+  z-index: 10;
+  display: none;
+}
+
+#indexList {
   position: absolute;
   top: 70px;
   left: 30px;
@@ -284,14 +296,13 @@ input.key {
   z-index: 10;
 }
 
-.index-panel div {
+#indexList div {
   font-size: 14px;
   color: #38bdf8;
   cursor: pointer;
-  letter-spacing: 1px;
 }
 
-.index-panel div:hover {
+#indexList div:hover {
   color: #7dd3fc;
 }
 
@@ -324,6 +335,26 @@ input.key {
 
 .confirm-btn:hover {
   background: rgba(56,189,248,.1);
+}
+
+/* ===== 关键字页面 ===== */
+#keywordPage {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #0b0f1a;
+  z-index: 250;
+  justify-content: center;
+  align-items: center;
+}
+
+.keyword-box {
+  font-size: 36px;
+  font-weight: 800;
+  color: #ffffff;
+  border: 1px solid rgba(255,255,255,.2);
+  padding: 30px 60px;
+  cursor: pointer;
 }
 
 /* ===== SONG 页面 ===== */
@@ -689,9 +720,8 @@ input.key {
 <div id="past">
   <div class="past-header" onclick="goToMain()">◀ BACK</div>
 
-  <div class="index-panel" id="indexPanel">
-    <div onclick="toggleIndex()">INDEX ▾</div>
-  </div>
+  <div id="indexBtn" onclick="toggleIndex()">INDEX ▾</div>
+  <div id="indexList"></div>
 
   <div class="picker-center" id="picker" onwheel="scrollDate(event)">
     <div>
@@ -699,6 +729,11 @@ input.key {
       <div class="confirm-btn" onclick="confirmPast()">CONFIRM</div>
     </div>
   </div>
+</div>
+
+<!-- ===== 关键字页面 ===== -->
+<div id="keywordPage" onclick="openContent()">
+  <div class="keyword-box" id="keywordBox"></div>
 </div>
 
 <div id="csPage">
@@ -774,7 +809,6 @@ const pastData = {
 // ✅ 排序日期（最早在上）
 const pastDates = Object.keys(pastData).sort();
 let currentIndex = 0;
-let firstClosed = false;
 
 function renderTimeline() {
   const container = document.getElementById("timelineNow");
@@ -813,11 +847,12 @@ function goToPast() {
   document.getElementById("other").style.display = "none";
   document.getElementById("past").style.display = "block";
 
-  currentIndex = 0;          // ✅ 默认最早日期
-  firstClosed = false;       // ✅ 重置 INDEX 状态
+  currentIndex = 0;
   updateDateDisplay();
   buildIndex();
-  document.getElementById("indexPanel").style.display = "none";
+  document.getElementById("indexBtn").style.display = "none";
+  document.getElementById("indexList").style.display = "none";
+  document.getElementById("keywordPage").style.display = "none";
 }
 
 function goToCS() {
@@ -886,10 +921,8 @@ function openModal(time, content) {
 
 function closeModal() {
   document.getElementById("modal").style.display = "none";
-  if (!firstClosed) {
-    firstClosed = true;
-    document.getElementById("indexPanel").style.display = "flex";
-  }
+  document.getElementById("past").style.display = "block";
+  document.getElementById("indexBtn").style.display = "block";
 }
 
 function openAlbum(p) {
@@ -1040,17 +1073,21 @@ function updateDateDisplay() {
 
 function confirmPast() {
   const key = pastDates[currentIndex];
-  document.getElementById("modal-content").innerHTML =
-    `<div style="font-size:36px;font-weight:800;color:#fff;border:1px solid rgba(255,255,255,.2);padding:30px 60px;cursor:pointer;"
-         onclick="openModal('${key}','${pastData[key].content.replace(/'/g,"\\'")}')">
-      ${pastData[key].keyword}
-    </div>`;
+  document.getElementById("keywordBox").innerText = `[ ${pastData[key].keyword} ]`;
+  document.getElementById("past").style.display = "none";
+  document.getElementById("keywordPage").style.display = "flex";
+}
+
+function openContent() {
+  const key = pastDates[currentIndex];
+  document.getElementById("modal-content").innerHTML = pastData[key].content;
+  document.getElementById("keywordPage").style.display = "none";
   document.getElementById("modal").style.display = "flex";
 }
 
 function buildIndex() {
-  const panel = document.getElementById("indexPanel");
-  panel.innerHTML = "<div onclick='toggleIndex()'>INDEX ▾</div>";
+  const list = document.getElementById("indexList");
+  list.innerHTML = "";
   pastDates.forEach((k, i) => {
     const div = document.createElement("div");
     div.innerText = k;
@@ -1059,13 +1096,13 @@ function buildIndex() {
       updateDateDisplay();
       toggleIndex();
     };
-    panel.appendChild(div);
+    list.appendChild(div);
   });
 }
 
 function toggleIndex() {
-  const p = document.getElementById("indexPanel");
-  p.style.display = p.style.display === "none" ? "flex" : "none";
+  const list = document.getElementById("indexList");
+  list.style.display = list.style.display === "none" ? "flex" : "none";
 }
 
 renderTimeline();
