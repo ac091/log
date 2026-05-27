@@ -254,76 +254,89 @@ input.key {
   left: calc(50% + 30px);
 }
 
-/* ===== 过去时间段 ===== */
+/* ===== 过去时间段：日期选择器 ===== */
 #past {
   display: none;
   position: fixed;
   inset: 0;
   background: #0b0f1a;
   z-index: 200;
-  padding: 60px 80px;
-  overflow-y: auto;
+  overflow: hidden;
 }
 
 #past .past-header {
-  font-size: 16px;
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  font-size: 14px;
   color: #475569;
-  margin-bottom: 50px;
   cursor: pointer;
-  padding: 8px 16px;
-  border-radius: 6px;
-  display: inline-block;
-  transition: all .3s ease;
+  z-index: 10;
 }
 
-#past .past-header:hover {
-  color: #38bdf8;
-  background: rgba(56,189,248,.1);
-}
-
-/* ✅ 居中模块 */
-.timeline {
-  display: flex;
+.index-panel {
+  position: absolute;
+  top: 70px;
+  left: 30px;
+  display: none;
   flex-direction: column;
-  gap: 50px;
-  align-items: center;
-  padding-top: 40px;
+  gap: 10px;
+  z-index: 10;
 }
 
-/* ✅ 记忆卡片 */
-.memory {
+.index-panel div {
+  font-size: 14px;
+  color: #38bdf8;
   cursor: pointer;
+  letter-spacing: 1px;
 }
 
-.memory-inner {
-  width: 320px;
-  padding: 30px 40px;
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: 14px;
-  background: rgba(255,255,255,.02);
+.index-panel div:hover {
+  color: #7dd3fc;
+}
+
+.picker-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.picker {
+  display: flex;
+  gap: 50px;
   text-align: center;
 }
 
-.memory-date {
-  font-size: 22px;
+.col label {
+  font-size: 12px;
+  color: #555;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+
+.val {
+  font-size: 56px;
   font-weight: 800;
   color: #38bdf8;
-  margin-bottom: 18px;
+  cursor: ns-resize;
+  user-select: none;
 }
 
-.memory-tag {
-  font-size: 26px;
-  font-weight: 800;
-  color: #ffffff;
-  opacity: 0;
-  transition: opacity .4s ease;
+.confirm-btn {
+  margin-top: 70px;
+  font-family: monospace;
+  font-size: 16px;
+  letter-spacing: 8px;
+  color: #38bdf8;
+  border: 1px solid rgba(56,189,248,.4);
+  padding: 14px 70px;
+  cursor: pointer;
+  transition: all .3s ease;
 }
 
-.memory-tag::before { content: "["; margin-right: 10px; color: rgba(255,255,255,.25); }
-.memory-tag::after  { content: "]"; margin-left: 10px; color: rgba(255,255,255,.25); }
-
-.memory:hover .memory-tag {
-  opacity: 1;
+.confirm-btn:hover {
+  background: rgba(56,189,248,.1);
 }
 
 /* ===== SONG 页面 ===== */
@@ -390,7 +403,7 @@ input.key {
   text-align: center;
 }
 
-/* ===== 模态框（酷版） ===== */
+/* ===== 模态框 ===== */
 .modal {
   display: none;
   position: fixed;
@@ -685,26 +698,31 @@ input.key {
   <div class="gate" onclick="openPastModal()"></div>
 </div>
 
+<!-- ===== 过去时间段 ===== -->
 <div id="past">
   <div class="past-header" onclick="goToMain()">◀ BACK</div>
-  <div class="timeline">
-    <div class="memory" onclick="openModal('2023-09-11','在武警院我们相遇。不管过去多久我还是想说，很高兴认识你。')">
-      <div class="memory-inner">
-        <div class="memory-date">2023-09-11</div>
-        <div class="memory-tag">初见</div>
+
+  <div class="index-panel" id="indexPanel">
+    <!-- JS 生成 -->
+  </div>
+
+  <div class="picker-center">
+    <div>
+      <div class="picker">
+        <div class="col">
+          <label>YEAR</label>
+          <div class="val" id="y">2023</div>
+        </div>
+        <div class="col">
+          <label>MONTH</label>
+          <div class="val" id="m">09</div>
+        </div>
+        <div class="col">
+          <label>DAY</label>
+          <div class="val" id="d">11</div>
+        </div>
       </div>
-    </div>
-    <div class="memory" onclick="openModal('2023-06-15','那时候我们还不知道，后来会发生这么多事。')">
-      <div class="memory-inner">
-        <div class="memory-date">2023-06-15</div>
-        <div class="memory-tag">未知</div>
-      </div>
-    </div>
-    <div class="memory" onclick="openModal('2024-01-03','这是一个测试条目，用来验证大量内容时的布局效果。')">
-      <div class="memory-inner">
-        <div class="memory-date">2024-01-03</div>
-        <div class="memory-tag">测试</div>
-      </div>
+      <div class="confirm-btn" onclick="confirmPast()">CONFIRM</div>
     </div>
   </div>
 </div>
@@ -773,6 +791,14 @@ const timelineData = [
   { date: "2026-05-25", content: "今天这个小网站正式可以运行了，好有成就感。这是我做的第一个网站，也是第一次正儿八经跑代码，惊喜吧应该，其实这个想法不算突然，只是没法确定代码可以跑起来，可我前两天还是决定先悄悄藏在戒指上，你应该暂时发现不了，上次的八千字讲了很多人很多事，但我想说那并不是全部，这个网站会保持更新的，也会有很多可以探索的地方，这个网站，只关于你，也只属于我们。" }
 ];
 
+const pastData = {
+  "2023-09-11": { keyword: "初见", content: "在武警院我们相遇。不管过去多久我还是想说，很高兴认识你。" },
+  "2023-06-15": { keyword: "未知", content: "那时候我们还不知道，后来会发生这么多事。" },
+  "2024-01-03": { keyword: "测试", content: "这是一个测试条目，用来验证大量内容时的布局效果。" }
+};
+
+let y = 2023, m = 9, d = 11;
+
 function renderTimeline() {
   const container = document.getElementById("timelineNow");
   container.innerHTML = "";
@@ -809,6 +835,7 @@ function goToPast() {
   document.getElementById("idea").style.display = "none";
   document.getElementById("other").style.display = "none";
   document.getElementById("past").style.display = "block";
+  buildIndex();
 }
 
 function goToCS() {
@@ -1008,6 +1035,70 @@ function enterPastSequence() {
     hint.classList.remove("show");
     goToPast();
   }, 2000);
+}
+
+/* ===== 过去时间段逻辑 ===== */
+function step(v, min, max) {
+  v += this.deltaY > 0 ? 1 : -1;
+  return Math.max(min, Math.min(max, v));
+}
+
+function bindWheel(id, setter, min, max) {
+  document.getElementById(id).addEventListener("wheel", e => {
+    e.preventDefault();
+    setter(step(e, min, max));
+    updateUI();
+  });
+}
+
+function updateUI() {
+  document.getElementById("y").innerText = y;
+  document.getElementById("m").innerText = String(m).padStart(2,"0");
+  document.getElementById("d").innerText = String(d).padStart(2,"0");
+}
+
+function changeYear(dir) { y = clamp(y + dir, 2023, 2024); updateUI(); }
+function changeMonth(dir) { m = clamp(m + dir, 1, 12); updateUI(); }
+function changeDay(dir) { d = clamp(d + dir, 1, 31); updateUI(); }
+
+function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
+
+bindWheel("y", v=>y=v, 2023, 2024);
+bindWheel("m", v=>m=v, 1, 12);
+bindWheel("d", v=>d=v, 1, 31);
+
+document.getElementById("y").onclick = ()=>changeYear(1);
+document.getElementById("m").onclick = ()=>changeMonth(1);
+document.getElementById("d").onclick = ()=>changeDay(1);
+
+function confirmPast() {
+  const key = `${y}-${String(m).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+  if (pastData[key]) {
+    openModal(key, pastData[key].content);
+  } else {
+    alert("该日期无记录");
+  }
+}
+
+function buildIndex() {
+  const panel = document.getElementById("indexPanel");
+  panel.innerHTML = "<div onclick='toggleIndex()'>INDEX ▾</div>";
+  Object.keys(pastData).forEach(k => {
+    const div = document.createElement("div");
+    div.innerText = k;
+    div.onclick = ()=>{
+      [y,m,d] = k.split("-").map(Number);
+      updateUI();
+      toggleIndex();
+    };
+    panel.appendChild(div);
+  });
+  panel.style.display = "none";
+}
+
+function toggleIndex() {
+  const p = document.getElementById("indexPanel");
+  p.style.display = p.style.display === "none" ? "flex" : "none";
 }
 
 renderTimeline();
