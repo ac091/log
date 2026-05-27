@@ -274,13 +274,13 @@ input.key {
   z-index: 10;
 }
 
-/* ✅ 倒三角：紧贴 2023 左边，放大 */
+/* ✅ 倒三角：紧贴年份左侧 */
 #yearToggle {
   display: none;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-380px, -50%);
+  transform: translate(-340px, -50%);
   font-size: 28px;
   color: rgba(255,255,255,.45);
   cursor: pointer;
@@ -291,7 +291,7 @@ input.key {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-380px, 30px);
+  transform: translate(-340px, 30px);
   display: none;
   flex-direction: column;
   gap: 8px;
@@ -756,7 +756,7 @@ input.key {
 <div id="past">
   <div class="past-header" onclick="goToMain()">◀ BACK</div>
 
-  <!-- ✅ 倒三角在 2023 左边，放大 -->
+  <!-- ✅ 倒三角紧贴年份 -->
   <div id="yearToggle" onclick="toggleIndex()">▾</div>
   <div id="indexList"></div>
 
@@ -1119,7 +1119,7 @@ function openContent() {
   document.getElementById("modal").style.display = "flex";
 }
 
-/* ✅ 倒三角列表 */
+/* ✅ 倒三角列表 + 点空白关闭 */
 function toggleIndex() {
   const list = document.getElementById("indexList");
   list.style.display = list.style.display === "none" ? "flex" : "none";
