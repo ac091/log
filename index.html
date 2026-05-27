@@ -424,50 +424,54 @@ input.key {
   letter-spacing: 4px;
 }
 
-/* ===== 模态框 ===== */
+/* ===== ✅ 模态框（大、酷版） ===== */
 .modal {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,.75);
+  background: rgba(0,0,0,.85);
   z-index: 999;
   justify-content: center;
   align-items: center;
 }
 
 .modal-box {
-  background: #1e293b;
-  padding: 30px 36px;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 460px;
-  max-height: 70vh;
+  width: 80vw;
+  max-width: 900px;
+  height: 80vh;
+  max-height: 700px;
+  background: rgba(20,25,40,.95);
+  border: 1px solid rgba(56,189,248,.15);
+  box-shadow: 0 0 60px rgba(56,189,248,.1);
+  padding: 50px 60px;
+  border-radius: 14px;
   overflow-y: auto;
 }
 
 .modal-time {
-  font-size: 14px;
+  font-size: 22px;
   color: #38bdf8;
-  margin-bottom: 15px;
+  margin-bottom: 30px;
+  letter-spacing: 2px;
 }
 
 .modal-content {
-  font-size: 15px;
-  line-height: 1.8;
+  font-size: 20px;
+  line-height: 1.9;
   color: #cbd5e1;
 }
 
 .camera {
-  margin-top: 18px;
-  width: 48px;
-  height: 48px;
+  margin-top: 30px;
+  width: 54px;
+  height: 54px;
   background: rgba(255,255,255,.08);
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  font-size: 22px;
+  font-size: 24px;
 }
 
 /* ===== 相册 ===== */
@@ -840,7 +844,7 @@ function goToNav() {
 
 function goToMain() {
   document.getElementById("nav").style.display = "none";
-  document.getElementById("past").style.display = "none";
+  document.getElementById("past").style.display = "none;
   document.getElementById("csPage").style.display = "none";
   document.getElementById("idea").style.display = "none";
   document.getElementById("other").style.display = "none";
