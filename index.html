@@ -288,31 +288,37 @@ input.key {
   align-items: center;
 }
 
-/* ✅ memory 新结构 */
+/* ✅ memory 覆盖式 hover */
 .memory {
+  position: relative;
   width: 280px;
-  text-align: center;
+  height: 80px;
   cursor: pointer;
 }
 
-.memory-date {
+.memory-date,
+.memory-tag {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 32px;
   font-weight: 800;
   color: #38bdf8;
+  transition: opacity .4s ease;
 }
 
 .memory-tag {
-  font-size: 32px;
-  font-weight: 800;
-  color: #38bdf8;
   opacity: 0;
-  transform: translateY(-10px);
-  transition: all .4s ease;
+}
+
+.memory:hover .memory-date {
+  opacity: 0;
 }
 
 .memory:hover .memory-tag {
   opacity: 1;
-  transform: translateY(0);
 }
 
 /* ===== SONG 页面 ===== */
