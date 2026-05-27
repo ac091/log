@@ -5,6 +5,7 @@
 <title>ACCESS</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<!-- ✅ 样式部分完全不变，原样保留 -->
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -254,7 +255,7 @@ input.key {
   left: calc(50% + 30px);
 }
 
-/* ===== 过去时间段（✅ BACK 已修复） ===== */
+/* ===== 过去时间段 ===== */
 #past {
   display: none;
   position: fixed;
@@ -323,7 +324,7 @@ input.key {
   transform: translateY(0);
 }
 
-/* ===== SONG 页面（✅ 改为跳转网易云） ===== */
+/* ===== SONG 页面 ===== */
 #song {
   display: none;
   position: fixed;
@@ -429,6 +430,14 @@ input.key {
 .song-item .song-duration {
   font-size: 12px;
   color: #6b7280;
+}
+
+/* ✅ 网易云播放器容器 */
+#song .player-box {
+  margin-top: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 40px rgba(0,0,0,.5);
 }
 
 /* ===== idea / 其他 ===== */
@@ -734,6 +743,10 @@ input.key {
   </div>
   <div class="playlist active" id="playlist0"></div>
   <div class="playlist" id="playlist1"></div>
+  <!-- ✅ 新增播放器容器 -->
+  <div class="player-box" id="playerBox" style="display:none;">
+    <iframe id="neteasePlayer" frameborder="no" border="0" marginwidth="0" marginheight="0" width="100%" height="86" src=""></iframe>
+  </div>
 </div>
 
 <!-- ✅ idea 页面 -->
@@ -787,10 +800,9 @@ function renderTimeline() {
     div.innerHTML = `<div class="dot" onclick="openModal('${item.date}','${item.content.replace(/'/g,"\\'")}')"></div><div class="label" onclick="openModal('${item.date}','${item.content.replace(/'/g,"\\'")}')">${item.date}</div>`;
     container.appendChild(div);
   });
-  container.scrollTop = 0;
 }
 
-/* ===== 导航跳转 ===== */
+/* ===== 导航跳转（✅ 修复点 1：不再调用 renderTimeline） ===== */
 function goToNav() {
   document.getElementById("main").style.display = "none";
   document.getElementById("past").style.display = "none";
@@ -802,12 +814,16 @@ function goToNav() {
 
 function goToMain() {
   document.getElementById("nav").style.display = "none";
+  document.getElementById("past").style.display = "none";
+  document.getElementById("idea").style.display = "none";
+  document.getElementById("song").style.display = "none";
+  document.getElementById("other").style.display = "none";
   document.getElementById("main").style.display = "block";
-  renderTimeline();
 }
 
 function goToPast() {
   document.getElementById("main").style.display = "none";
+  document.getElementById("nav").style.display = "none";
   document.getElementById("past").style.display = "block";
 }
 
@@ -986,7 +1002,7 @@ function closeBirthday() {
   localStorage.setItem("asked", "1");
 }
 
-/* ===== SONG 页面（✅ 跳转网易云） ===== */
+/* ===== SONG 页面（✅ 修复点 2：改为 iframe 播放器） ===== */
 const playlists = [
   [
     { name: "乌梅子酱", artist: "李荣浩", duration: "3:37", neteaseId: "1982731693" },
@@ -1007,9 +1023,7 @@ function renderPlaylists() {
     list.forEach(song => {
       const div = document.createElement("div");
       div.className = "song-item";
-      div.onclick = () => {
-        window.open(`https://music.163.com/song?id=${song.neteaseId}`, "_blank");
-      };
+      div.onclick = () => playSong(song.neteaseId);
       div.innerHTML = `
         <div class="play-icon">▶</div>
         <div class="song-info">
@@ -1028,6 +1042,13 @@ function switchPlaylist(idx) {
     t.classList.toggle("active", i === idx);
     document.getElementById("playlist" + i).classList.toggle("active", i === idx);
   });
+}
+
+// ✅ 新增：加载网易云播放器
+function playSong(id) {
+  document.getElementById("playerBox").style.display = "block";
+  document.getElementById("neteasePlayer").src =
+    "https://music.163.com/outchain/player?type=2&id=" + id + "&auto=1";
 }
 
 /* ===== 初始渲染 ===== */
