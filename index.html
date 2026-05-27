@@ -672,7 +672,7 @@ input.key {
   display: none;
 }
 
-/* ===== ✅ 时空驿站提示（大字、慢节奏） ===== */
+/* ===== ✅ 时空驿站提示（大字、慢节奏、永久可触发） ===== */
 #pastHint {
   display: none;
   position: fixed;
@@ -1042,13 +1042,13 @@ function closeBirthday() {
   localStorage.setItem("asked", "1");
 }
 
-/* ===== ✅ SONG 页面（歌单一：冠军 / 歌单二：梦） ===== */
+/* ===== ✅ SONG 页面（仅占位，无网易云） ===== */
 const playlists = [
   [
-    { name: "冠军", artist: "时代少年团", duration: "3:20", id: "1889363945" }
+    { name: "冠军", artist: "时代少年团", duration: "3:20" }
   ],
   [
-    { name: "梦", artist: "时代少年团", duration: "3:47", id: "1432635451" }
+    { name: "梦", artist: "时代少年团", duration: "3:47" }
   ]
 ];
 
@@ -1060,16 +1060,12 @@ function renderPlaylists() {
       const div = document.createElement("div");
       div.className = "song-item";
       div.innerHTML = `
-        <a href="https://music.163.com/song?id=${song.id}&autoplay=true"
-           target="_blank"
-           style="display:flex; align-items:center; gap:16px; width:100%; text-decoration:none; color:inherit;">
-          <div class="play-icon">▶</div>
-          <div class="song-info">
-            <div class="song-name">${song.name}</div>
-            <div class="song-artist">${song.artist}</div>
-          </div>
-          <div class="song-duration">${song.duration}</div>
-        </a>
+        <div class="play-icon">▶</div>
+        <div class="song-info">
+          <div class="song-name">${song.name}</div>
+          <div class="song-artist">${song.artist}</div>
+        </div>
+        <div class="song-duration">${song.duration}</div>
       `;
       container.appendChild(div);
     });
@@ -1083,23 +1079,30 @@ function switchPlaylist(idx) {
   });
 }
 
-/* ===== ✅ 时空驿站（慢节奏、大字、不突兀） ===== */
+/* ===== ✅ 时空驿站（修复第二次失效 + 更长动画） ===== */
 function enterPastSequence() {
   const hint = document.getElementById("pastHint");
   const step1 = document.getElementById("hintStep1");
   const step2 = document.getElementById("hintStep2");
 
-  hint.classList.add("show");
+  // 强制重置
+  hint.classList.remove("show");
+  step1.style.display = "block";
+  step2.style.display = "none";
 
-  setTimeout(() => {
-    step1.style.display = "none";
-    step2.style.display = "block";
+  requestAnimationFrame(() => {
+    hint.classList.add("show");
 
     setTimeout(() => {
-      hint.classList.remove("show");
-      enterPast();
-    }, 1400);
-  }, 1600);
+      step1.style.display = "none";
+      step2.style.display = "block";
+
+      setTimeout(() => {
+        hint.classList.remove("show");
+        enterPast();
+      }, 2200);
+    }, 2200);
+  });
 }
 
 function enterPast() {
