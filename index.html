@@ -281,41 +281,56 @@ input.key {
   background: rgba(56,189,248,.1);
 }
 
-/* ✅ 左对齐，适合大量内容 */
+/* ✅ 左对齐 + 舒适间距 */
 .timeline {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 50px;
   align-items: flex-start;
-  padding-left: 10%;
+  padding-left: 12%;
 }
 
 /* ✅ memory 覆盖式 hover */
 .memory {
   position: relative;
-  width: 220px;
-  height: 44px;
+  width: 260px;
+  height: 50px;
   cursor: pointer;
 }
 
-.memory-date,
+.memory-date {
+  font-size: 26px;
+  font-weight: 800;
+  color: #38bdf8;
+}
+
 .memory-tag {
   position: absolute;
   inset: 0;
   display: flex;
+  justify-content: center;
   align-items: center;
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 800;
+  color: #ffffff;
+  opacity: 0;
   transition: opacity .4s ease;
 }
 
-.memory-date {
-  color: #38bdf8; /* 日期蓝 */
+/* ✅ 淡色方框【】 */
+.memory-tag::before,
+.memory-tag::after {
+  content: "[";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 26px;
+  color: rgba(255,255,255,.25);
+  letter-spacing: 30px;
 }
 
-.memory-tag {
-  color: #ffffff; /* ✅ 关键词白 */
-  opacity: 0;
+.memory-tag::after {
+  content: "]";
 }
 
 .memory:hover .memory-date {
