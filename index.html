@@ -324,7 +324,7 @@ input.key {
   transform: translateY(0);
 }
 
-/* ===== SONG 页面（空） ===== */
+/* ===== SONG 页面 ===== */
 #song {
   display: none;
   position: fixed;
@@ -357,6 +357,61 @@ input.key {
   letter-spacing: 6px;
   color: rgba(255,255,255,.3);
   margin-bottom: 30px;
+}
+
+/* ===== 阿承 / 阿舒 导航 ===== */
+.song-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.song-nav-item {
+  font-size: 42px;
+  font-weight: 600;
+  color: #9ca3af;
+  letter-spacing: 4px;
+  cursor: pointer;
+  transition: color .4s ease;
+}
+
+.song-nav-item:hover {
+  color: #38bdf8;
+}
+
+/* ===== 阿承 / 阿舒 页面（空白） ===== */
+.song-page {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #0b0b0b;
+  z-index: 20;
+  justify-content: center;
+  align-items: center;
+}
+
+.song-page .back-btn {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  cursor: pointer;
+  color: #475569;
+  font-size: 16px;
+  letter-spacing: 2px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: all .3s ease;
+}
+
+.song-page .back-btn:hover {
+  color: #38bdf8;
+  background: rgba(56,189,248,.1);
+}
+
+.song-page .content {
+  font-size: 24px;
+  color: #555;
+  letter-spacing: 4px;
 }
 
 /* ===== idea / 其他 ===== */
@@ -599,65 +654,58 @@ input.key {
   display: none;
 }
 
-/* ===== ✅ 时空驿站弹窗 ===== */
+/* ===== ✅ 时空驿站弹窗（酷版） ===== */
 #pastModal {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,.85);
+  background: rgba(0,0,0,.9);
   z-index: 1000;
   justify-content: center;
   align-items: center;
 }
 
 #pastModal .box {
-  background: rgba(20,25,40,.95);
-  padding: 36px 56px;
-  border-radius: 14px;
   text-align: center;
-  border: 1px solid rgba(56,189,248,.15);
 }
 
 #pastModal .title {
-  font-size: 18px;
-  color: rgba(255,255,255,.6);
-  letter-spacing: 4px;
-  margin-bottom: 30px;
+  font-size: 13px;
+  color: rgba(255,255,255,.35);
+  letter-spacing: 6px;
+  margin-bottom: 40px;
 }
 
 #pastModal .btns {
   display: flex;
-  gap: 24px;
+  gap: 40px;
   justify-content: center;
 }
 
 #pastModal .btn {
-  padding: 10px 36px;
-  border-radius: 24px;
+  font-size: 14px;
+  letter-spacing: 2px;
   cursor: pointer;
-  font-size: 13px;
-  letter-spacing: 1px;
+  padding: 8px 24px;
+  border-radius: 20px;
   transition: all .3s ease;
 }
 
 #pastModal .enter {
-  background: rgba(56,189,248,.12);
   color: #38bdf8;
   border: 1px solid rgba(56,189,248,.25);
 }
 
 #pastModal .enter:hover {
-  background: rgba(56,189,248,.25);
+  background: rgba(56,189,248,.15);
 }
 
 #pastModal .cancel {
-  background: transparent;
+  color: rgba(255,255,255,.35);
   border: 1px solid rgba(255,255,255,.15);
-  color: rgba(255,255,255,.4);
 }
 
 #pastModal .cancel:hover {
-  border-color: rgba(255,255,255,.3);
   color: rgba(255,255,255,.6);
 }
 
@@ -738,10 +786,26 @@ input.key {
   </div>
 </div>
 
-<!-- SONG 页面（空） -->
+<!-- SONG 页面 -->
 <div id="song">
   <div class="back-btn" onclick="goToNav()">◀ BACK</div>
   <div class="song-title">SONG</div>
+  <div class="song-nav">
+    <div class="song-nav-item" onclick="goToAchen()">阿 承</div>
+    <div class="song-nav-item" onclick="goToAshu()">阿 舒</div>
+  </div>
+</div>
+
+<!-- 阿承页面 -->
+<div id="achen" class="song-page">
+  <div class="back-btn" onclick="goToSong()">◀ BACK</div>
+  <div class="content">ACHENG</div>
+</div>
+
+<!-- 阿舒页面 -->
+<div id="ashu" class="song-page">
+  <div class="back-btn" onclick="goToSong()">◀ BACK</div>
+  <div class="content">ASHU</div>
 </div>
 
 <!-- idea 页面 -->
@@ -817,40 +881,79 @@ function renderTimeline() {
 function goToNav() {
   document.getElementById("main").style.display = "none";
   document.getElementById("past").style.display = "none";
-  document.getElementById("idea").style.display = "none";
   document.getElementById("song").style.display = "none";
+  document.getElementById("idea").style.display = "none";
   document.getElementById("other").style.display = "none";
+  document.getElementById("achen").style.display = "none";
+  document.getElementById("ashu").style.display = "none";
   document.getElementById("nav").style.display = "flex";
 }
 
 function goToMain() {
   document.getElementById("nav").style.display = "none";
   document.getElementById("past").style.display = "none";
-  document.getElementById("idea").style.display = "none";
   document.getElementById("song").style.display = "none";
+  document.getElementById("idea").style.display = "none";
   document.getElementById("other").style.display = "none";
+  document.getElementById("achen").style.display = "none";
+  document.getElementById("ashu").style.display = "none";
   document.getElementById("main").style.display = "block";
 }
 
 function goToPast() {
   document.getElementById("main").style.display = "none";
   document.getElementById("nav").style.display = "none";
+  document.getElementById("song").style.display = "none";
+  document.getElementById("idea").style.display = "none";
+  document.getElementById("other").style.display = "none";
+  document.getElementById("achen").style.display = "none";
+  document.getElementById("ashu").style.display = "none";
   document.getElementById("past").style.display = "block";
-}
-
-function goToIdea() {
-  document.getElementById("nav").style.display = "none";
-  document.getElementById("idea").style.display = "flex";
 }
 
 function goToSong() {
   document.getElementById("nav").style.display = "none";
+  document.getElementById("main").style.display = "none";
+  document.getElementById("past").style.display = "none";
+  document.getElementById("idea").style.display = "none";
+  document.getElementById("other").style.display = "none";
+  document.getElementById("achen").style.display = "none";
+  document.getElementById("ashu").style.display = "none";
   document.getElementById("song").style.display = "block";
+}
+
+function goToIdea() {
+  document.getElementById("nav").style.display = "none";
+  document.getElementById("main").style.display = "none";
+  document.getElementById("past").style.display = "none";
+  document.getElementById("song").style.display = "none";
+  document.getElementById("other").style.display = "none";
+  document.getElementById("song").style.display = "none";
+  document.getElementById("achen").style.display = "none";
+  document.getElementById("ashu").style.display = "none";
+  document.getElementById("idea").style.display = "flex";
 }
 
 function goToOther() {
   document.getElementById("nav").style.display = "none";
+  document.getElementById("main").style.display = "none";
+  document.getElementById("past").style.display = "none";
+  document.getElementById("song").style.display = "none";
+  document.getElementById("idea").style.display = "none";
+  document.getElementById("song").style.display = "none";
+  document.getElementById("achen").style.display = "none";
+  document.getElementById("ashu").style.display = "none";
   document.getElementById("other").style.display = "flex";
+}
+
+function goToAchen() {
+  document.getElementById("song").style.display = "none";
+  document.getElementById("achen").style.display = "flex";
+}
+
+function goToAshu() {
+  document.getElementById("song").style.display = "none";
+  document.getElementById("ashu").style.display = "flex";
 }
 
 /* ===== 登录 ===== */
