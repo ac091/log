@@ -53,107 +53,60 @@ input.key {
   outline: none;
 }
 
-/* ===== 导航页 ===== */
+/* ===== 导航页（✅ 去人机感） ===== */
 #nav {
   display: none;
   position: fixed;
   inset: 0;
-  background: radial-gradient(ellipse at center, #0a0e27 0%, #000000 70%);
+  background:
+    url("https://www.transparenttextures.com/patterns/asfalt-dark.png"),
+    #0f0f0f;
   z-index: 50;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  overflow: hidden;
-}
-
-#nav::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,.8), transparent),
-    radial-gradient(1px 1px at 30% 50%, rgba(255,255,255,.6), transparent),
-    radial-gradient(1.5px 1.5px at 50% 10%, rgba(56,189,248,.8), transparent),
-    radial-gradient(1px 1px at 70% 40%, rgba(255,255,255,.5), transparent),
-    radial-gradient(1px 1px at 90% 80%, rgba(255,255,255,.7), transparent),
-    radial-gradient(1.5px 1.5px at 20% 70%, rgba(56,189,248,.6), transparent),
-    radial-gradient(1px 1px at 60% 90%, rgba(255,255,255,.4), transparent),
-    radial-gradient(1px 1px at 80% 15%, rgba(255,255,255,.6), transparent),
-    radial-gradient(1.5px 1.5px at 40% 85%, rgba(56,189,248,.5), transparent),
-    radial-gradient(1px 1px at 15% 45%, rgba(255,255,255,.5), transparent);
-  pointer-events: none;
-  z-index: 0;
 }
 
 .nav-title {
-  font-size: 14px;
-  letter-spacing: 8px;
-  color: rgba(255,255,255,.3);
+  font-size: 12px;
+  letter-spacing: 10px;
+  color: rgba(255,255,255,.2);
   margin-bottom: 60px;
-  z-index: 1;
 }
 
-.nav-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  z-index: 1;
-}
-
-.nav-item {
-  width: 240px;
-  height: 160px;
+.nav-links {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 26px;
-  font-weight: 700;
-  letter-spacing: 6px;
-  color: #7dd3fc;
-  background: rgba(255,255,255,.03);
-  border: 1px solid rgba(56,189,248,.25);
-  border-radius: 16px;
-  cursor: pointer;
-  transition: all .4s ease;
-  position: relative;
-  overflow: hidden;
+  gap: 32px;
 }
 
-.nav-item::before {
+.nav-link {
+  font-size: 42px;
+  font-weight: 600;
+  color: #9ca3af;
+  letter-spacing: 4px;
+  cursor: pointer;
+  position: relative;
+  transition: color .4s ease;
+}
+
+.nav-link::after {
   content: "";
   position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(56,189,248,.1), transparent);
-  opacity: 0;
-  transition: opacity .4s ease;
+  left: 0;
+  bottom: -6px;
+  width: 0;
+  height: 2px;
+  background: #38bdf8;
+  transition: width .4s ease;
 }
 
-.nav-item:hover::before {
-  opacity: 1;
+.nav-link:hover {
+  color: #38bdf8;
 }
 
-.nav-item:hover {
-  transform: translateY(-8px);
-  border-color: rgba(56,189,248,.7);
-  box-shadow:
-    0 0 40px rgba(56,189,248,.3),
-    0 0 80px rgba(56,189,248,.15),
-    inset 0 0 40px rgba(56,189,248,.05);
-}
-
-.nav-item span {
-  position: relative;
-  z-index: 2;
-}
-
-.nav-item .sub {
-  position: relative;
-  z-index: 2;
-  margin-top: 8px;
-  font-size: 11px;
-  letter-spacing: 3px;
-  color: rgba(255,255,255,.25);
+.nav-link:hover::after {
+  width: 100%;
 }
 
 /* ===== 现在时间段 ===== */
@@ -237,14 +190,12 @@ input.key {
   background: #38bdf8;
   box-shadow: 0 0 20px rgba(56,189,248,.8);
   cursor: pointer;
-  transition: transform .3s ease, box-shadow .3s ease;
+  transition: transform .3s ease;
   z-index: 2;
-  flex-shrink: 0;
 }
 
 .dot:hover {
   transform: scale(1.5);
-  box-shadow: 0 0 35px rgba(56,189,248,1);
 }
 
 .label {
@@ -253,34 +204,16 @@ input.key {
   font-weight: 700;
   color: #7dd3fc;
   opacity: .7;
-  transition: opacity .3s ease;
   cursor: pointer;
   z-index: 2;
 }
 
-.label:hover {
-  opacity: 1;
-}
+.timeline-item:nth-child(odd) .dot { order: 2; }
+.timeline-item:nth-child(odd) .label { order: 1; right: calc(50% + 30px); }
+.timeline-item:nth-child(even) .dot { order: 1; }
+.timeline-item:nth-child(even) .label { order: 2; left: calc(50% + 30px); }
 
-.timeline-item:nth-child(odd) .dot {
-  order: 2;
-}
-
-.timeline-item:nth-child(odd) .label {
-  order: 1;
-  right: calc(50% + 30px);
-}
-
-.timeline-item:nth-child(even) .dot {
-  order: 1;
-}
-
-.timeline-item:nth-child(even) .label {
-  order: 2;
-  left: calc(50% + 30px);
-}
-
-/* ===== 过去时间段（✅ 隐藏彩蛋，只保留右下角入口） ===== */
+/* ===== 过去时间段 ===== */
 #past {
   display: none;
   position: fixed;
@@ -305,7 +238,6 @@ input.key {
 }
 
 .memory {
-  position: relative;
   width: 280px;
   padding: 24px;
   background: rgba(255,255,255,.06);
@@ -319,8 +251,6 @@ input.key {
 .memory:hover {
   transform: rotateX(0) scale(1);
   opacity: 1;
-  background: rgba(255,255,255,.12);
-  box-shadow: 0 20px 60px rgba(56,189,248,.25);
 }
 
 .memory-date {
@@ -343,16 +273,15 @@ input.key {
   transform: translateY(0);
 }
 
-/* ===== idea / song / 其他 页面（占位） ===== */
+/* ===== idea / song / 其他 ===== */
 .page-placeholder {
   display: none;
   position: fixed;
   inset: 0;
-  background: linear-gradient(135deg, #0f172a, #1a1a2e);
+  background: #0f0f0f;
   z-index: 10;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
 }
 
 .page-placeholder .back-btn {
@@ -363,18 +292,12 @@ input.key {
   color: #475569;
   font-size: 13px;
   letter-spacing: 2px;
-  transition: color .3s ease;
-}
-
-.page-placeholder .back-btn:hover {
-  color: #38bdf8;
 }
 
 .page-placeholder .content {
   font-size: 24px;
-  color: #7dd3fc;
+  color: #555;
   letter-spacing: 4px;
-  opacity: .5;
 }
 
 /* ===== 模态框 ===== */
@@ -464,7 +387,7 @@ input.key {
   font-size: 14px;
 }
 
-/* 右下角彩蛋入口 */
+/* ===== 右下角彩蛋 ===== */
 .gate {
   position: fixed;
   bottom: 30px;
@@ -514,11 +437,6 @@ input.key {
     0 0 60px rgba(56,189,248,.5),
     0 0 120px rgba(56,189,248,.3);
   animation: pulse 2.5s infinite;
-  transition: transform .3s ease;
-}
-
-#entry:hover .entry-box {
-  transform: scale(1.08);
 }
 
 @keyframes pulse {
@@ -554,7 +472,6 @@ input.key {
   color: #ffd1dc;
   opacity: 0;
   transition: opacity 2s ease;
-  text-align: center;
 }
 
 #message {
@@ -601,38 +518,26 @@ input.key {
 <!-- ✅ 导航页 -->
 <div id="nav">
   <div class="nav-title">SELECT</div>
-  <div class="nav-grid">
-    <div class="nav-item" onclick="goToMain()">
-      <span>现 在</span>
-      <div class="sub">RECENT LOGS</div>
-    </div>
-    <div class="nav-item" onclick="goToIdea()">
-      <span>IDEA</span>
-      <div class="sub">灵 感</div>
-    </div>
-    <div class="nav-item" onclick="goToSong()">
-      <span>SONG</span>
-      <div class="sub">歌 曲</div>
-    </div>
-    <div class="nav-item" onclick="goToOther()">
-      <span>其 他</span>
-      <div class="sub">MORE</div>
-    </div>
+  <div class="nav-links">
+    <div class="nav-link" onclick="goToMain()">现在</div>
+    <div class="nav-link" onclick="goToIdea()">IDEA</div>
+    <div class="nav-link" onclick="goToSong()">SONG</div>
+    <div class="nav-link" onclick="goToOther()">其他</div>
   </div>
 </div>
 
 <!-- ✅ 现在时间段 -->
 <div id="main">
   <div class="main-header">
-    RECENT LOGS
-    <span class="back-btn" onclick="goToNav()">◀ BACK</span>
+    <span>现在</span>
+    <span class="back-btn" onclick="goToNav()">←</span>
   </div>
   <div class="timeline-now" id="timelineNow"></div>
 </div>
 
-<!-- ✅ 过去时间段（彩蛋，仅右下角入口） -->
+<!-- ✅ 过去时间段 -->
 <div id="past">
-  <div class="past-header" onclick="goToNav()">◀ BACK</div>
+  <div class="past-header" onclick="goToMain()">←</div>
   <div class="timeline">
     <div class="memory" onclick="openModal('2023-09-11','在武警院我们相遇。不管过去多久我还是想说，很高兴认识你。')">
       <div class="memory-date">2023-09-11</div>
@@ -645,22 +550,20 @@ input.key {
   </div>
 </div>
 
-<!-- ✅ idea 页面 -->
+<!-- ✅ idea / song / 其他 -->
 <div id="idea" class="page-placeholder">
-  <div class="back-btn" onclick="goToNav()">◀ BACK</div>
+  <div class="back-btn" onclick="goToNav()">←</div>
   <div class="content">IDEA</div>
 </div>
 
-<!-- ✅ song 页面 -->
 <div id="song" class="page-placeholder">
-  <div class="back-btn" onclick="goToNav()">◀ BACK</div>
+  <div class="back-btn" onclick="goToNav()">←</div>
   <div class="content">SONG</div>
 </div>
 
-<!-- ✅ 其他 页面 -->
 <div id="other" class="page-placeholder">
-  <div class="back-btn" onclick="goToNav()">◀ BACK</div>
-  <div class="content">其 他</div>
+  <div class="back-btn" onclick="goToNav()">←</div>
+  <div class="content">其他</div>
 </div>
 
 <div id="album">
@@ -673,7 +576,6 @@ input.key {
   <div id="album-close" onclick="closeAlbum()">✕</div>
 </div>
 
-<!-- ✅ 右下角彩蛋入口 -->
 <div class="gate" onclick="goToPast()"></div>
 
 <div class="modal" id="modal" onclick="closeModal()">
