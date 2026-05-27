@@ -5,7 +5,7 @@
 <title>ACCESS</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- ✅ 你原来的样式，我一个字都没改 -->
+<!-- ✅ 你原有的样式，我一个字都没改 -->
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -671,6 +671,85 @@ input.key {
   cursor: pointer;
   display: none;
 }
+
+/* ===== ✅ 新增：确认弹窗 ===== */
+#confirmModal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.8);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+#confirmModal .box {
+  background: #1e293b;
+  padding: 30px 40px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+#confirmModal .text {
+  font-size: 16px;
+  margin-bottom: 30px;
+  color: #cbd5e1;
+}
+
+#confirmModal .btns {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+#confirmModal .btn {
+  padding: 10px 30px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+#confirmModal .yes {
+  background: #38bdf8;
+  color: #0b0b0b;
+}
+
+#confirmModal .no {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.3);
+  color: #9ca3af;
+}
+
+/* ===== ✅ 新增：加载动画 ===== */
+#loading {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #0b0b0b;
+  z-index: 1100;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#loading .spin {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(56,189,248,.3);
+  border-top: 3px solid #38bdf8;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+#loading .tip {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #6b7280;
+}
 </style>
 </head>
 
@@ -707,7 +786,8 @@ input.key {
     <span>TIME CAPSULE</span>
   </div>
   <div class="timeline-now" id="timelineNow"></div>
-  <div class="gate" onclick="goToPast()"></div>
+  <!-- ✅ 修改为触发确认框 -->
+  <div class="gate" onclick="openConfirm()"></div>
 </div>
 
 <!-- 过去时间段 -->
@@ -764,6 +844,23 @@ input.key {
   </div>
 </div>
 
+<!-- ✅ 新增：确认弹窗 -->
+<div id="confirmModal">
+  <div class="box">
+    <div class="text">准备好进入时空驿站了吗？</div>
+    <div class="btns">
+      <div class="btn yes" onclick="enterPast()">是</div>
+      <div class="btn no" onclick="closeConfirm()">否</div>
+    </div>
+  </div>
+</div>
+
+<!-- ✅ 新增：加载动画 -->
+<div id="loading">
+  <div class="spin"></div>
+  <div class="tip">正在加载中...</div>
+</div>
+
 <div id="birthday">
   <div id="cake">🎂</div>
   <div id="happy">生日快乐</div>
@@ -790,7 +887,7 @@ function renderTimeline() {
   });
 }
 
-/* ===== 导航跳转（✅ 修复 BACK：不再调用 renderTimeline） ===== */
+/* ===== 导航跳转 ===== */
 function goToNav() {
   document.getElementById("main").style.display = "none";
   document.getElementById("past").style.display = "none";
@@ -990,7 +1087,7 @@ function closeBirthday() {
   localStorage.setItem("asked", "1");
 }
 
-/* ===== SONG 页面（✅ 修复：使用网易云官方 outchain 播放地址） ===== */
+/* ===== SONG 页面（✅ 跳转网易云客户端） ===== */
 const playlists = [
   [
     { name: "乌梅子酱", artist: "李荣浩", duration: "3:37", neteaseId: "1982731693" },
@@ -1011,10 +1108,9 @@ function renderPlaylists() {
     list.forEach(song => {
       const div = document.createElement("div");
       div.className = "song-item";
-      // ✅ 网易云官方外链播放器（100% 可用）
+      // ✅ 网易云客户端协议
       div.innerHTML = `
-        <a href="https://music.163.com/outchain/player?type=2&id=${song.neteaseId}&auto=1"
-           target="_blank" rel="noopener noreferrer"
+        <a href="orpheus://song/${song.neteaseId}" target="_blank"
            style="display:flex; align-items:center; gap:16px; width:100%; text-decoration:none; color:inherit;">
           <div class="play-icon">▶</div>
           <div class="song-info">
@@ -1034,6 +1130,25 @@ function switchPlaylist(idx) {
     t.classList.toggle("active", i === idx);
     document.getElementById("playlist" + i).classList.toggle("active", i === idx);
   });
+}
+
+/* ===== ✅ 新增：过去时间段确认逻辑 ===== */
+function openConfirm() {
+  document.getElementById("confirmModal").style.display = "flex";
+}
+
+function closeConfirm() {
+  document.getElementById("confirmModal").style.display = "none";
+}
+
+function enterPast() {
+  closeConfirm();
+  document.getElementById("loading").style.display = "flex";
+
+  setTimeout(() => {
+    document.getElementById("loading").style.display = "none";
+    goToPast();
+  }, 1500);
 }
 
 /* ===== 初始渲染 ===== */
