@@ -324,94 +324,41 @@ input.key {
   transform: translateY(0);
 }
 
-/* ===== SONG 页面 ===== */
-#song {
+/* ===== C / S 页面 ===== */
+#csPage {
   display: none;
   position: fixed;
   inset: 0;
   background: linear-gradient(180deg, #0f0f0f, #1a1a2e);
   z-index: 10;
-  padding: 60px 80px;
-  overflow-y: auto;
-}
-
-#song .back-btn {
-  cursor: pointer;
-  color: #475569;
-  font-size: 16px;
-  letter-spacing: 2px;
-  padding: 8px 16px;
-  border-radius: 6px;
-  display: inline-block;
-  margin-bottom: 40px;
-  transition: all .3s ease;
-}
-
-#song .back-btn:hover {
-  color: #38bdf8;
-  background: rgba(56,189,248,.1);
-}
-
-.song-title {
-  font-size: 14px;
-  letter-spacing: 6px;
-  color: rgba(255,255,255,.3);
-  margin-bottom: 30px;
-}
-
-/* ===== 阿承 / 阿舒 导航 ===== */
-.song-nav {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
-
-.song-nav-item {
-  font-size: 42px;
-  font-weight: 600;
-  color: #9ca3af;
-  letter-spacing: 4px;
-  cursor: pointer;
-  transition: color .4s ease;
-}
-
-.song-nav-item:hover {
-  color: #38bdf8;
-}
-
-/* ===== 阿承 / 阿舒 页面（空白） ===== */
-.song-page {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: #0b0b0b;
-  z-index: 20;
   justify-content: center;
   align-items: center;
 }
 
-.song-page .back-btn {
-  position: absolute;
-  top: 30px;
-  left: 30px;
+.cs-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.cs-top, .cs-bottom {
+  font-size: 96px;
+  font-weight: 900;
+  color: #9ca3af;
+  letter-spacing: 8px;
   cursor: pointer;
-  color: #475569;
-  font-size: 16px;
-  letter-spacing: 2px;
-  padding: 8px 16px;
-  border-radius: 6px;
-  transition: all .3s ease;
+  transition: color .4s ease;
 }
 
-.song-page .back-btn:hover {
-  color: #38bdf8;
-  background: rgba(56,189,248,.1);
-}
+.cs-top:hover { color: #38bdf8; }
+.cs-bottom:hover { color: #38bdf8; }
 
-.song-page .content {
-  font-size: 24px;
-  color: #555;
-  letter-spacing: 4px;
+.cs-divider {
+  width: 240px;
+  height: 1px;
+  background: rgba(255,255,255,.15);
+  margin: 40px 0;
 }
 
 /* ===== idea / 其他 ===== */
@@ -654,7 +601,7 @@ input.key {
   display: none;
 }
 
-/* ===== ✅ 时空驿站弹窗（酷版） ===== */
+/* ===== ✅ 时空驿站弹窗（酷版 · 大） ===== */
 #pastModal {
   display: none;
   position: fixed;
@@ -670,39 +617,39 @@ input.key {
 }
 
 #pastModal .title {
-  font-size: 13px;
-  color: rgba(255,255,255,.35);
-  letter-spacing: 6px;
-  margin-bottom: 40px;
+  font-size: 16px;
+  color: rgba(255,255,255,.4);
+  letter-spacing: 8px;
+  margin-bottom: 50px;
 }
 
 #pastModal .btns {
   display: flex;
-  gap: 40px;
+  gap: 60px;
   justify-content: center;
 }
 
 #pastModal .btn {
-  font-size: 14px;
-  letter-spacing: 2px;
+  font-size: 15px;
+  letter-spacing: 4px;
   cursor: pointer;
-  padding: 8px 24px;
-  border-radius: 20px;
+  padding: 12px 40px;
+  border-radius: 30px;
   transition: all .3s ease;
 }
 
 #pastModal .enter {
   color: #38bdf8;
-  border: 1px solid rgba(56,189,248,.25);
+  border: 1px solid rgba(56,189,248,.3);
 }
 
 #pastModal .enter:hover {
-  background: rgba(56,189,248,.15);
+  background: rgba(56,189,248,.2);
 }
 
 #pastModal .cancel {
   color: rgba(255,255,255,.35);
-  border: 1px solid rgba(255,255,255,.15);
+  border: 1px solid rgba(255,255,255,.2);
 }
 
 #pastModal .cancel:hover {
@@ -756,7 +703,7 @@ input.key {
   <div class="nav-links">
     <div class="nav-link" onclick="goToMain()">现 在</div>
     <div class="nav-link" onclick="goToIdea()">IDEA</div>
-    <div class="nav-link" onclick="goToSong()">SONG</div>
+    <div class="nav-link" onclick="goToCS()">SONG</div>
     <div class="nav-link" onclick="goToOther()">其 他</div>
   </div>
 </div>
@@ -786,26 +733,14 @@ input.key {
   </div>
 </div>
 
-<!-- SONG 页面 -->
-<div id="song">
+<!-- C / S 页面 -->
+<div id="csPage">
   <div class="back-btn" onclick="goToNav()">◀ BACK</div>
-  <div class="song-title">SONG</div>
-  <div class="song-nav">
-    <div class="song-nav-item" onclick="goToAchen()">阿 承</div>
-    <div class="song-nav-item" onclick="goToAshu()">阿 舒</div>
+  <div class="cs-container">
+    <div class="cs-top" onclick="goToC()">C</div>
+    <div class="cs-divider"></div>
+    <div class="cs-bottom" onclick="goToS()">S</div>
   </div>
-</div>
-
-<!-- 阿承页面 -->
-<div id="achen" class="song-page">
-  <div class="back-btn" onclick="goToSong()">◀ BACK</div>
-  <div class="content">ACHENG</div>
-</div>
-
-<!-- 阿舒页面 -->
-<div id="ashu" class="song-page">
-  <div class="back-btn" onclick="goToSong()">◀ BACK</div>
-  <div class="content">ASHU</div>
 </div>
 
 <!-- idea 页面 -->
@@ -881,56 +816,45 @@ function renderTimeline() {
 function goToNav() {
   document.getElementById("main").style.display = "none";
   document.getElementById("past").style.display = "none";
-  document.getElementById("song").style.display = "none";
+  document.getElementById("csPage").style.display = "none";
   document.getElementById("idea").style.display = "none";
   document.getElementById("other").style.display = "none";
-  document.getElementById("achen").style.display = "none";
-  document.getElementById("ashu").style.display = "none";
   document.getElementById("nav").style.display = "flex";
 }
 
 function goToMain() {
   document.getElementById("nav").style.display = "none";
   document.getElementById("past").style.display = "none";
-  document.getElementById("song").style.display = "none";
+  document.getElementById("csPage").style.display = "none";
   document.getElementById("idea").style.display = "none";
   document.getElementById("other").style.display = "none";
-  document.getElementById("achen").style.display = "none";
-  document.getElementById("ashu").style.display = "none";
   document.getElementById("main").style.display = "block";
 }
 
 function goToPast() {
   document.getElementById("main").style.display = "none";
   document.getElementById("nav").style.display = "none";
-  document.getElementById("song").style.display = "none";
+  document.getElementById("csPage").style.display = "none";
   document.getElementById("idea").style.display = "none";
   document.getElementById("other").style.display = "none";
-  document.getElementById("achen").style.display = "none";
-  document.getElementById("ashu").style.display = "none";
   document.getElementById("past").style.display = "block";
 }
 
-function goToSong() {
+function goToCS() {
   document.getElementById("nav").style.display = "none";
   document.getElementById("main").style.display = "none";
   document.getElementById("past").style.display = "none";
   document.getElementById("idea").style.display = "none";
   document.getElementById("other").style.display = "none";
-  document.getElementById("achen").style.display = "none";
-  document.getElementById("ashu").style.display = "none";
-  document.getElementById("song").style.display = "block";
+  document.getElementById("csPage").style.display = "flex";
 }
 
 function goToIdea() {
   document.getElementById("nav").style.display = "none";
   document.getElementById("main").style.display = "none";
   document.getElementById("past").style.display = "none";
-  document.getElementById("song").style.display = "none";
+  document.getElementById("csPage").style.display = "none";
   document.getElementById("other").style.display = "none";
-  document.getElementById("song").style.display = "none";
-  document.getElementById("achen").style.display = "none";
-  document.getElementById("ashu").style.display = "none";
   document.getElementById("idea").style.display = "flex";
 }
 
@@ -938,22 +862,17 @@ function goToOther() {
   document.getElementById("nav").style.display = "none";
   document.getElementById("main").style.display = "none";
   document.getElementById("past").style.display = "none";
-  document.getElementById("song").style.display = "none";
+  document.getElementById("csPage").style.display = "none";
   document.getElementById("idea").style.display = "none";
-  document.getElementById("song").style.display = "none";
-  document.getElementById("achen").style.display = "none";
-  document.getElementById("ashu").style.display = "none";
   document.getElementById("other").style.display = "flex";
 }
 
-function goToAchen() {
-  document.getElementById("song").style.display = "none";
-  document.getElementById("achen").style.display = "flex";
+function goToC() {
+  alert("C");
 }
 
-function goToAshu() {
-  document.getElementById("song").style.display = "none";
-  document.getElementById("ashu").style.display = "flex";
+function goToS() {
+  alert("S");
 }
 
 /* ===== 登录 ===== */
