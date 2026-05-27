@@ -274,13 +274,13 @@ input.key {
   z-index: 10;
 }
 
-/* ✅ 倒三角：紧贴年份左侧 */
+/* ✅ 倒三角：更靠近年份 */
 #yearToggle {
   display: none;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-340px, -50%);
+  transform: translate(-240px, -50%);
   font-size: 28px;
   color: rgba(255,255,255,.45);
   cursor: pointer;
@@ -291,7 +291,7 @@ input.key {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-340px, 30px);
+  transform: translate(-240px, 30px);
   display: none;
   flex-direction: column;
   gap: 8px;
@@ -406,7 +406,7 @@ input.key {
   font-size: 26px;
 }
 
-/* ===== 其余页面保持原样 ===== */
+/* ===== 其余页面 ===== */
 #csPage {
   display: none;
   position: fixed;
@@ -747,8 +747,6 @@ input.key {
     <span>TIME CAPSULE</span>
   </div>
   <div class="timeline-now" id="timelineNow"></div>
-
-  <!-- ✅ 进入过去只能通过小点 -->
   <div class="gate" onclick="openPastModal()"></div>
 </div>
 
@@ -756,7 +754,6 @@ input.key {
 <div id="past">
   <div class="past-header" onclick="goToMain()">◀ BACK</div>
 
-  <!-- ✅ 倒三角紧贴年份 -->
   <div id="yearToggle" onclick="toggleIndex()">▾</div>
   <div id="indexList"></div>
 
@@ -804,7 +801,7 @@ input.key {
   <div id="album-close" onclick="closeAlbum()">✕</div>
 </div>
 
-<!-- ✅ 内容页：点空白关闭 -->
+<!-- ✅ 内容页 -->
 <div class="modal" id="modal" onclick="closeModal()">
   <div class="modal-box" onclick="event.stopPropagation()">
     <div class="modal-content" id="modal-content"></div>
@@ -833,6 +830,7 @@ input.key {
 </div>
 
 <script>
+/* ========= 数据 ========= */
 const timelineData = [
   { date: "2026-06-04", content: "首先祝你生日快乐。" },
   { date: "2026-05-25", content: "今天这个小网站正式可以运行了，好有成就感。" }
@@ -848,43 +846,22 @@ const pastDates = Object.keys(pastData).sort();
 let currentIndex = 0;
 let isScrolling = false;
 
-function renderTimeline() {
-  const container = document.getElementById("timelineNow");
-  container.innerHTML = "";
-  timelineData.forEach(item => {
-    const div = document.createElement("div");
-    div.className = "timeline-item";
-    div.innerHTML = `<div class="dot" onclick="openModal('${item.date}','${item.content.replace(/'/g,"\\'")}')"></div><div class="label" onclick="openModal('${item.date}','${item.content.replace(/'/g,"\\'")}')">${item.date}</div>`;
-    container.appendChild(div);
-  });
-}
+/* ========= 页面切换 ========= */
+let lastPage = null;
 
 function goToNav() {
-  document.getElementById("main").style.display = "none";
-  document.getElementById("past").style.display = "none";
-  document.getElementById("csPage").style.display = "none";
-  document.getElementById("idea").style.display = "none";
-  document.getElementById("other").style.display = "none";
+  hideAll();
   document.getElementById("nav").style.display = "flex";
 }
 
 function goToMain() {
-  document.getElementById("nav").style.display = "none";
-  document.getElementById("past").style.display = "none";
-  document.getElementById("csPage").style.display = "none";
-  document.getElementById("idea").style.display = "none";
-  document.getElementById("other").style.display = "none";
+  hideAll();
   document.getElementById("main").style.display = "block";
 }
 
 function goToPast() {
-  document.getElementById("main").style.display = "none";
-  document.getElementById("nav").style.display = "none";
-  document.getElementById("csPage").style.display = "none";
-  document.getElementById("idea").style.display = "none";
-  document.getElementById("other").style.display = "none";
+  hideAll();
   document.getElementById("past").style.display = "block";
-
   currentIndex = 0;
   updateDateDisplay();
   buildIndex();
@@ -893,21 +870,27 @@ function goToPast() {
 }
 
 function goToCS() {
-  document.getElementById("nav").style.display = "none";
+  hideAll();
   document.getElementById("csPage").style.display = "flex";
 }
 
 function goToIdea() {
-  document.getElementById("nav").style.display = "none";
+  hideAll();
   document.getElementById("idea").style.display = "flex";
 }
 
 function goToOther() {
-  document.getElementById("nav").style.display = "none";
+  hideAll();
   document.getElementById("other").style.display = "flex";
 }
 
-/* ===== 登录 ===== */
+function hideAll() {
+  ["main","past","nav","csPage","idea","other","keywordPage"].forEach(id=>{
+    document.getElementById(id).style.display = "none";
+  });
+}
+
+/* ========= 登录 ========= */
 const KEY = "56";
 const input = document.getElementById("key");
 const login = document.getElementById("login");
@@ -923,6 +906,50 @@ input.addEventListener("input", () => {
   }
 });
 
+/* ========= 时间线 ========= */
+function renderTimeline() {
+  const c = document.getElementById("timelineNow");
+  c.innerHTML = "";
+  timelineData.forEach(item => {
+    const d = document.createElement("div");
+    d.className = "timeline-item";
+    d.innerHTML = `
+      <div class="dot" onclick="openModal('${item.date}','${item.content.replace(/'/g,"\\'")}')"></div>
+      <div class="label" onclick="openModal('${item.date}','${item.content.replace(/'/g,"\\'")}')">${item.date}</div>
+    `;
+    c.appendChild(d);
+  });
+}
+
+/* ========= Modal（✅ 修复点） ========= */
+function openModal(time, content) {
+  lastPage = document.getElementById("main").style.display === "block"
+    ? "main"
+    : "past";
+
+  document.getElementById("modal-content").innerHTML = content;
+
+  if (photosByDate[time]) {
+    const cam = document.createElement("div");
+    cam.className = "camera";
+    cam.innerHTML = "📷";
+    cam.onclick = () => openAlbum(photosByDate[time]);
+    document.getElementById("modal-content").appendChild(cam);
+  }
+
+  document.getElementById("modal").style.display = "flex";
+}
+
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+  if (lastPage === "main") {
+    document.getElementById("main").style.display = "block";
+  } else {
+    document.getElementById("past").style.display = "block";
+  }
+}
+
+/* ========= 相册 ========= */
 const photosByDate = {
   "2023-09-11": [
     "https://raw.githubusercontent.com/ac091/log/main/qu.jpg",
@@ -934,23 +961,6 @@ const photosByDate = {
 };
 
 let currentPhotos = [], currentIndexPhoto = 0;
-
-function openModal(time, content) {
-  document.getElementById("modal-content").innerHTML = content;
-  if (photosByDate[time]) {
-    const camera = document.createElement("div");
-    camera.className = "camera";
-    camera.innerHTML = "📷";
-    camera.onclick = () => openAlbum(photosByDate[time]);
-    document.getElementById("modal-content").appendChild(camera);
-  }
-  document.getElementById("modal").style.display = "flex";
-}
-
-function closeModal() {
-  document.getElementById("modal").style.display = "none";
-  document.getElementById("past").style.display = "block";
-}
 
 function openAlbum(p) {
   currentPhotos = p;
@@ -980,7 +990,7 @@ function closeAlbum() {
   document.getElementById("album").style.display = "none";
 }
 
-/* ===== 打字机 ===== */
+/* ========= 打字机 ========= */
 const tw = document.getElementById("typewriter");
 const typeSound = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-typewriter-key-1368.mp3");
 typeSound.volume = 0.3;
@@ -1027,7 +1037,7 @@ function eraseText(cb) {
   }, 70);
 }
 
-/* ===== 生日 ===== */
+/* ========= 生日 ========= */
 const cake = document.getElementById("cake");
 const happy = document.getElementById("happy");
 const message = document.getElementById("message");
@@ -1063,7 +1073,7 @@ function closeBirthday() {
   localStorage.setItem("asked", "1");
 }
 
-/* ===== 时空驿站 ===== */
+/* ========= 时空驿站 ========= */
 function openPastModal() {
   document.getElementById("pastModal").style.display = "flex";
 }
@@ -1086,7 +1096,7 @@ function enterPastSequence() {
   }, 2000);
 }
 
-/* ===== 过去：滚轮 ===== */
+/* ========= 过去：滚轮 & 列表 ========= */
 function scrollDate(e) {
   e.preventDefault();
   if (isScrolling) return;
@@ -1119,7 +1129,7 @@ function openContent() {
   document.getElementById("modal").style.display = "flex";
 }
 
-/* ✅ 倒三角列表 + 点空白关闭 */
+/* ✅ 倒三角 & 空白关闭 */
 function toggleIndex() {
   const list = document.getElementById("indexList");
   list.style.display = list.style.display === "none" ? "flex" : "none";
@@ -1129,16 +1139,29 @@ function buildIndex() {
   const list = document.getElementById("indexList");
   list.innerHTML = "";
   pastDates.forEach((k, i) => {
-    const div = document.createElement("div");
-    div.innerText = k;
-    div.onclick = () => {
+    const d = document.createElement("div");
+    d.innerText = k;
+    d.onclick = () => {
       currentIndex = i;
       updateDateDisplay();
       toggleIndex();
     };
-    list.appendChild(div);
+    list.appendChild(d);
   });
 }
+
+/* ✅ 点击空白处关闭日期列表 */
+document.getElementById("past").addEventListener("click", function (e) {
+  const list = document.getElementById("indexList");
+  const toggle = document.getElementById("yearToggle");
+  if (
+    list.style.display === "flex" &&
+    !list.contains(e.target) &&
+    e.target !== toggle
+  ) {
+    list.style.display = "none";
+  }
+});
 
 renderTimeline();
 </script>
