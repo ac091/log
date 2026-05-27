@@ -16,7 +16,7 @@ body {
   cursor: default;
 }
 
-/* ===== 登录（未动） ===== */
+/* ===== 登录 ===== */
 #login {
   position: fixed;
   inset: 0;
@@ -53,12 +53,12 @@ input.key {
   outline: none;
 }
 
-/* ===== 现在时间段（✅ 全新） ===== */
+/* ===== 现在时间段（✅ 时间浮岛） ===== */
 #main {
   display: none;
   position: fixed;
   inset: 0;
-  background: linear-gradient(135deg, #1e293b, #334155, #475569);
+  background: linear-gradient(135deg, #1e293b, #334155);
   z-index: 10;
   padding: 60px 80px;
   overflow-y: auto;
@@ -73,58 +73,38 @@ input.key {
 
 .timeline-now {
   display: flex;
-  gap: 40px;
+  gap: 50px;
+  margin-top: 60px;
 }
 
-/* ✅ 时间书签卡片 */
-.card {
-  width: 220px;
-  height: 280px;
-  perspective: 1000px;
-  cursor: pointer;
-}
-
-.card-front,
-.card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 18px;
-  backface-visibility: hidden;
+.island {
+  width: 200px;
+  height: 160px;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: transform .6s ease;
-}
-
-.card-front {
-  background: rgba(255,255,255,.12);
   font-size: 22px;
   font-weight: 700;
   color: #7dd3fc;
+  background: rgba(255,255,255,.08);
+  border-radius: 20px;
+  cursor: pointer;
+  transform: translateY(20px);
+  transition: all .5s ease;
 }
 
-.card-back {
-  background: rgba(56,189,248,.95);
-  color: #0f172a;
-  font-size: 20px;
-  transform: rotateY(180deg);
+.island:hover {
+  transform: translateY(-10px);
+  background: rgba(56,189,248,.2);
+  box-shadow: 0 30px 80px rgba(56,189,248,.3);
 }
 
-.card:hover .card-front {
-  transform: rotateY(180deg);
-}
-
-.card:hover .card-back {
-  transform: rotateY(360deg);
-}
-
-/* ===== 过去时间段（只放大日期） ===== */
+/* ===== 过去时间段（✅ 时间残影） ===== */
 #past {
   display: none;
   position: fixed;
   inset: 0;
-  background: #0f172a;
+  background: #0b0f1a;
   z-index: 200;
   padding: 60px 80px;
   overflow-y: auto;
@@ -138,35 +118,44 @@ input.key {
 }
 
 .timeline {
-  position: relative;
-  padding-left: 30px;
-  border-left: 2px solid rgba(255,255,255,.08);
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
 }
 
-.node {
+.memory {
   position: relative;
-  margin-bottom: 50px;
+  width: 280px;
+  padding: 24px;
+  background: rgba(255,255,255,.06);
+  border-radius: 14px;
   cursor: pointer;
+  transform: rotateX(10deg) scale(.95);
+  transition: all .5s ease;
+  opacity: .65;
 }
 
-.node::before {
-  content: "";
-  position: absolute;
-  left: -41px;
-  top: 4px;
-  width: 10px;
-  height: 10px;
-  background: #38bdf8;
-  border-radius: 50%;
+.memory:hover {
+  transform: rotateX(0) scale(1);
+  opacity: 1;
+  background: rgba(255,255,255,.12);
+  box-shadow: 0 20px 60px rgba(56,189,248,.25);
 }
 
-.node-time {
-  font-size: 28px;
+.memory-date {
+  font-size: 32px;
+  font-weight: 800;
   color: #38bdf8;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
-/* ===== 模态框（未动） ===== */
+.memory-tag {
+  font-size: 14px;
+  color: #94a3b8;
+  letter-spacing: 2px;
+}
+
+/* ===== 模态框 ===== */
 .modal {
   display: none;
   position: fixed;
@@ -212,7 +201,7 @@ input.key {
   font-size: 22px;
 }
 
-/* ===== 相册（未动） ===== */
+/* ===== 相册 ===== */
 #album {
   display: none;
   position: fixed;
@@ -281,7 +270,7 @@ input.key {
   text-align: center;
 }
 
-/* ✅ 6.4（✅ 放大加强） */
+/* ===== 6.4（✅ 发光文字入口） ===== */
 #entry {
   display: none;
   position: fixed;
@@ -290,25 +279,31 @@ input.key {
   z-index: 501;
   justify-content: center;
   align-items: center;
-}
-
-.entry-box {
-  font-size: 72px;
-  font-weight: 950;
-  padding: 50px 120px;
-  border: 4px solid rgba(56,189,248,1);
-  border-radius: 16px;
-  color: #38bdf8;
   cursor: pointer;
-  transition: all .3s ease;
 }
 
-.entry-box:hover {
-  background: rgba(56,189,248,.25);
-  box-shadow: 0 0 80px rgba(56,189,248,.6);
+#entry .entry-box {
+  font-size: 100px;
+  font-weight: 950;
+  color: #38bdf8;
+  text-shadow:
+    0 0 20px rgba(56,189,248,.8),
+    0 0 60px rgba(56,189,248,.5),
+    0 0 120px rgba(56,189,248,.3);
+  animation: pulse 2.5s infinite;
+  transition: transform .3s ease;
 }
 
-/* ===== 生日页面 ===== */
+#entry:hover .entry-box {
+  transform: scale(1.08);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .7; }
+}
+
+/* ===== 生日 ===== */
 #birthday {
   display: none;
   position: fixed;
@@ -387,35 +382,36 @@ input.key {
   <div id="closeHint" onclick="closeBirthday()">✕</div>
 </div>
 
-<!-- ✅ 现在时间段（已重做） -->
+<!-- ✅ 现在时间段 -->
 <div id="main">
   <div class="main-header">RECENT LOGS</div>
   <div class="timeline-now">
-    <div class="card" onclick="openModal('2026-05-25','今天这个小网站正式可以运行了，好有成就感。这是我做的第一个网站，也是第一次正儿八经跑代码，惊喜吧应该，其实这个想法不算突然，只是没法确定代码可以跑起来，可我前两天还是决定先悄悄藏在戒指上，你应该暂时发现不了，上次的八千字讲了很多人很多事，但我想说那并不是全部，这个网站会保持更新的，也会有很多可以探索的地方，这个网站，只关于你，也只属于我们。')">
-      <div class="card-front"><span>2026-05-25</span></div>
-      <div class="card-back">网站诞生</div>
+    <div class="island" onclick="openModal('2026-05-25','今天这个小网站正式可以运行了，好有成就感。这是我做的第一个网站，也是第一次正儿八经跑代码，惊喜吧应该，其实这个想法不算突然，只是没法确定代码可以跑起来，可我前两天还是决定先悄悄藏在戒指上，你应该暂时发现不了，上次的八千字讲了很多人很多事，但我想说那并不是全部，这个网站会保持更新的，也会有很多可以探索的地方，这个网站，只关于你，也只属于我们。')">
+      <span>2026-05-25</span>
     </div>
 
-    <div class="card" onclick="openModal('2026-06-01','系统开始记录新的轨迹。')">
-      <div class="card-front"><span>2026-06-01</span></div>
-      <div class="card-back">新轨迹</div>
+    <div class="island" onclick="openModal('2026-06-01','系统开始记录新的轨迹。')">
+      <span>2026-06-01</span>
     </div>
 
-    <div class="card" onclick="openModal('2024-06-04','首先祝你生日快乐')">
-      <div class="card-front"><span>2024-06-04</span></div>
-      <div class="card-back">生日</div>
+    <div class="island" onclick="openModal('2024-06-04','首先祝你生日快乐')">
+      <span>2024-06-04</span>
     </div>
   </div>
 </div>
 
+<!-- ✅ 过去时间段 -->
 <div id="past">
   <div class="past-header" onclick="closePast()">◀ BACK</div>
   <div class="timeline">
-    <div class="node" onclick="openModal('2023-09-11','在武警院我们相遇。不管过去多久我还是想说，很高兴认识你。')">
-      <div class="node-time">2023-09-11</div>
+    <div class="memory" onclick="openModal('2023-09-11','在武警院我们相遇。不管过去多久我还是想说，很高兴认识你。')">
+      <div class="memory-date">2023-09-11</div>
+      <div class="memory-tag">初见</div>
     </div>
-    <div class="node" onclick="openModal('2023-06-15','那时候我们还不知道，后来会发生这么多事。')">
-      <div class="node-time">2023-06-15</div>
+
+    <div class="memory" onclick="openModal('2023-06-15','那时候我们还不知道，后来会发生这么多事。')">
+      <div class="memory-date">2023-06-15</div>
+      <div class="memory-tag">未知</div>
     </div>
   </div>
 </div>
@@ -440,7 +436,7 @@ input.key {
 </div>
 
 <script>
-/* ===== 原 JS 完全保留 ===== */
+/* ===== JS 完全不动 ===== */
 const KEY = "56";
 const login = document.getElementById("login");
 const main = document.getElementById("main");
