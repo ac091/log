@@ -672,105 +672,65 @@ input.key {
   display: none;
 }
 
-/* ===== ✅ 修改：确认弹窗（去人机感） ===== */
+/* ===== ✅ 时空驿站弹窗（去人机） ===== */
 #confirmModal {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,.82);
+  background: rgba(0,0,0,.92);
   z-index: 1000;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
+  opacity: 0;
+  transition: opacity .4s ease;
+}
+
+#confirmModal.show {
+  display: flex;
+  opacity: 1;
 }
 
 #confirmModal .box {
-  background: rgba(30,41,59,.95);
-  padding: 28px 44px;
+  background: rgba(20,25,40,.95);
+  padding: 36px 56px;
   border-radius: 14px;
   text-align: center;
-  border: 1px solid rgba(56,189,248,.15);
-  backdrop-filter: blur(6px);
-  transition: all .3s ease;
-}
-
-#confirmModal .box:hover {
-  border-color: rgba(56,189,248,.35);
+  border: 1px solid rgba(56,189,248,.12);
+  backdrop-filter: blur(8px);
 }
 
 #confirmModal .text {
-  font-size: 15px;
-  color: rgba(255,255,255,.55);
-  letter-spacing: 1px;
-  margin-bottom: 28px;
-}
-
-#confirmModal .btns {
-  display: flex;
-  gap: 18px;
-  justify-content: center;
+  font-size: 14px;
+  color: rgba(255,255,255,.45);
+  letter-spacing: 2px;
+  margin-bottom: 32px;
 }
 
 #confirmModal .btn {
-  padding: 9px 28px;
-  border-radius: 20px;
+  padding: 10px 36px;
+  border-radius: 24px;
   cursor: pointer;
   font-size: 13px;
   letter-spacing: 1px;
-  transition: all .25s ease;
-}
-
-#confirmModal .yes {
   background: rgba(56,189,248,.12);
   color: #38bdf8;
-  border: 1px solid rgba(56,189,248,.3);
+  border: 1px solid rgba(56,189,248,.25);
+  transition: all .3s ease;
 }
 
-#confirmModal .yes:hover {
+#confirmModal .btn:hover {
   background: rgba(56,189,248,.25);
 }
 
-#confirmModal .no {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,.15);
-  color: rgba(255,255,255,.4);
-}
-
-#confirmModal .no:hover {
-  border-color: rgba(255,255,255,.3);
-  color: rgba(255,255,255,.6);
-}
-
-/* ===== ✅ 加载动画 ===== */
-#loading {
+/* ===== 黑场过渡 ===== */
+#fadeOverlay {
   display: none;
   position: fixed;
   inset: 0;
-  background: #0b0b0b;
-  z-index: 1100;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-#loading .spin {
-  width: 36px;
-  height: 36px;
-  border: 3px solid rgba(56,189,248,.25);
-  border-top: 3px solid #38bdf8;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-#loading .tip {
-  margin-top: 18px;
-  font-size: 13px;
-  color: rgba(255,255,255,.35);
-  letter-spacing: 1px;
+  background: #000;
+  z-index: 1200;
+  opacity: 0;
+  transition: opacity .6s ease;
 }
 </style>
 </head>
@@ -865,22 +825,16 @@ input.key {
   </div>
 </div>
 
-<!-- ✅ 确认弹窗 -->
+<!-- ✅ 时空驿站弹窗 -->
 <div id="confirmModal" onclick="closeConfirm()">
   <div class="box" onclick="event.stopPropagation()">
-    <div class="text">正在准备进入时空驿站</div>
-    <div class="btns">
-      <div class="btn yes" onclick="enterPast()">继续</div>
-      <div class="btn no" onclick="closeConfirm()">取消</div>
-    </div>
+    <div class="text">即将进入时空驿站</div>
+    <div class="btn" onclick="enterPast()">继续</div>
   </div>
 </div>
 
-<!-- ✅ 加载动画 -->
-<div id="loading">
-  <div class="spin"></div>
-  <div class="tip">正在加载中</div>
-</div>
+<!-- ✅ 黑场过渡 -->
+<div id="fadeOverlay"></div>
 
 <div id="birthday">
   <div id="cake">🎂</div>
@@ -1108,17 +1062,17 @@ function closeBirthday() {
   localStorage.setItem("asked", "1");
 }
 
-/* ===== SONG 页面（✅ 跳转客户端并自动搜索） ===== */
+/* ===== SONG 页面（✅ 网页版自动播放） ===== */
 const playlists = [
   [
-    { name: "乌梅子酱", artist: "李荣浩", duration: "3:37" },
-    { name: "年少有为", artist: "李荣浩", duration: "4:39" },
-    { name: "模特", artist: "李荣浩", duration: "5:03" }
+    { name: "乌梅子酱", artist: "李荣浩", duration: "3:37", id: "1982731693" },
+    { name: "年少有为", artist: "李荣浩", duration: "4:39", id: "1319817921" },
+    { name: "模特", artist: "李荣浩", duration: "5:03", id: "28875200" }
   ],
   [
-    { name: "晴天", artist: "周杰伦", duration: "4:29" },
-    { name: "稻香", artist: "周杰伦", duration: "3:43" },
-    { name: "七里香", artist: "周杰伦", duration: "4:59" }
+    { name: "晴天", artist: "周杰伦", duration: "4:29", id: "186016" },
+    { name: "稻香", artist: "周杰伦", duration: "3:43", id: "185918" },
+    { name: "七里香", artist: "周杰伦", duration: "4:59", id: "186099" }
   ]
 ];
 
@@ -1130,7 +1084,7 @@ function renderPlaylists() {
       const div = document.createElement("div");
       div.className = "song-item";
       div.innerHTML = `
-        <a href="orpheus://search/${encodeURIComponent(song.name)}"
+        <a href="https://music.163.com/song?id=${song.id}&autoplay=true"
            target="_blank"
            style="display:flex; align-items:center; gap:16px; width:100%; text-decoration:none; color:inherit;">
           <div class="play-icon">▶</div>
@@ -1153,22 +1107,29 @@ function switchPlaylist(idx) {
   });
 }
 
-/* ===== ✅ 时空驿站确认逻辑（无卡顿版） ===== */
+/* ===== ✅ 时空驿站（弹窗 + 黑场动画） ===== */
 function openConfirm() {
-  document.getElementById("confirmModal").style.display = "flex";
+  document.getElementById("confirmModal").classList.add("show");
 }
 
 function closeConfirm() {
-  document.getElementById("confirmModal").style.display = "none";
+  document.getElementById("confirmModal").classList.remove("show");
 }
 
 function enterPast() {
   closeConfirm();
-  document.getElementById("loading").style.display = "flex";
+
+  const overlay = document.getElementById("fadeOverlay");
+  overlay.style.display = "block";
+  requestAnimationFrame(() => overlay.style.opacity = "1");
+
   setTimeout(() => {
-    document.getElementById("loading").style.display = "none";
     goToPast();
-  }, 1200);
+    setTimeout(() => {
+      overlay.style.opacity = "0";
+      setTimeout(() => overlay.style.display = "none", 600);
+    }, 200);
+  }, 600);
 }
 
 /* ===== 初始渲染 ===== */
