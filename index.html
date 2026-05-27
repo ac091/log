@@ -53,7 +53,7 @@ input.key {
   outline: none;
 }
 
-/* ===== 导航页（✅ 全新） ===== */
+/* ===== 导航页 ===== */
 #nav {
   display: none;
   position: fixed;
@@ -66,12 +66,11 @@ input.key {
   overflow: hidden;
 }
 
-/* 星空粒子背景 */
 #nav::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: 
+  background:
     radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,.8), transparent),
     radial-gradient(1px 1px at 30% 50%, rgba(255,255,255,.6), transparent),
     radial-gradient(1.5px 1.5px at 50% 10%, rgba(56,189,248,.8), transparent),
@@ -95,18 +94,20 @@ input.key {
 }
 
 .nav-grid {
-  display: flex;
-  gap: 60px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
   z-index: 1;
 }
 
 .nav-item {
-  width: 260px;
-  height: 180px;
+  width: 240px;
+  height: 160px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 700;
   letter-spacing: 6px;
   color: #7dd3fc;
@@ -135,7 +136,7 @@ input.key {
 .nav-item:hover {
   transform: translateY(-8px);
   border-color: rgba(56,189,248,.7);
-  box-shadow: 
+  box-shadow:
     0 0 40px rgba(56,189,248,.3),
     0 0 80px rgba(56,189,248,.15),
     inset 0 0 40px rgba(56,189,248,.05);
@@ -147,15 +148,15 @@ input.key {
 }
 
 .nav-item .sub {
-  position: absolute;
-  bottom: 16px;
-  font-size: 12px;
+  position: relative;
+  z-index: 2;
+  margin-top: 8px;
+  font-size: 11px;
   letter-spacing: 3px;
   color: rgba(255,255,255,.25);
-  z-index: 2;
 }
 
-/* ===== 现在时间段（✅ 纵向时间轴） ===== */
+/* ===== 现在时间段 ===== */
 #main {
   display: none;
   position: fixed;
@@ -205,7 +206,6 @@ input.key {
   border-radius: 3px;
 }
 
-/* 中轴线 */
 .timeline-now::before {
   content: "";
   position: absolute;
@@ -280,7 +280,7 @@ input.key {
   left: calc(50% + 30px);
 }
 
-/* ===== 过去时间段 ===== */
+/* ===== 过去时间段（✅ 隐藏彩蛋，只保留右下角入口） ===== */
 #past {
   display: none;
   position: fixed;
@@ -341,6 +341,40 @@ input.key {
 .memory:hover .memory-tag {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* ===== idea / song / 其他 页面（占位） ===== */
+.page-placeholder {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #0f172a, #1a1a2e);
+  z-index: 10;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.page-placeholder .back-btn {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  cursor: pointer;
+  color: #475569;
+  font-size: 13px;
+  letter-spacing: 2px;
+  transition: color .3s ease;
+}
+
+.page-placeholder .back-btn:hover {
+  color: #38bdf8;
+}
+
+.page-placeholder .content {
+  font-size: 24px;
+  color: #7dd3fc;
+  letter-spacing: 4px;
+  opacity: .5;
 }
 
 /* ===== 模态框 ===== */
@@ -430,6 +464,7 @@ input.key {
   font-size: 14px;
 }
 
+/* 右下角彩蛋入口 */
 .gate {
   position: fixed;
   bottom: 30px;
@@ -565,24 +600,25 @@ input.key {
 
 <!-- ✅ 导航页 -->
 <div id="nav">
-  <div class="nav-title">SELECT TIMELINE</div>
+  <div class="nav-title">SELECT</div>
   <div class="nav-grid">
     <div class="nav-item" onclick="goToMain()">
       <span>现 在</span>
       <div class="sub">RECENT LOGS</div>
     </div>
-    <div class="nav-item" onclick="goToPast()">
-      <span>过 去</span>
-      <div class="sub">MEMORY</div>
+    <div class="nav-item" onclick="goToIdea()">
+      <span>IDEA</span>
+      <div class="sub">灵 感</div>
+    </div>
+    <div class="nav-item" onclick="goToSong()">
+      <span>SONG</span>
+      <div class="sub">歌 曲</div>
+    </div>
+    <div class="nav-item" onclick="goToOther()">
+      <span>其 他</span>
+      <div class="sub">MORE</div>
     </div>
   </div>
-</div>
-
-<div id="birthday">
-  <div id="cake">🎂</div>
-  <div id="happy">生日快乐</div>
-  <div id="message"></div>
-  <div id="closeHint" onclick="closeBirthday()">✕</div>
 </div>
 
 <!-- ✅ 现在时间段 -->
@@ -594,7 +630,7 @@ input.key {
   <div class="timeline-now" id="timelineNow"></div>
 </div>
 
-<!-- ✅ 过去时间段 -->
+<!-- ✅ 过去时间段（彩蛋，仅右下角入口） -->
 <div id="past">
   <div class="past-header" onclick="goToNav()">◀ BACK</div>
   <div class="timeline">
@@ -609,6 +645,24 @@ input.key {
   </div>
 </div>
 
+<!-- ✅ idea 页面 -->
+<div id="idea" class="page-placeholder">
+  <div class="back-btn" onclick="goToNav()">◀ BACK</div>
+  <div class="content">IDEA</div>
+</div>
+
+<!-- ✅ song 页面 -->
+<div id="song" class="page-placeholder">
+  <div class="back-btn" onclick="goToNav()">◀ BACK</div>
+  <div class="content">SONG</div>
+</div>
+
+<!-- ✅ 其他 页面 -->
+<div id="other" class="page-placeholder">
+  <div class="back-btn" onclick="goToNav()">◀ BACK</div>
+  <div class="content">其 他</div>
+</div>
+
 <div id="album">
   <div id="album-page"></div>
   <div class="album-btn" style="left:20px;" onclick="prevImg()">‹</div>
@@ -619,6 +673,7 @@ input.key {
   <div id="album-close" onclick="closeAlbum()">✕</div>
 </div>
 
+<!-- ✅ 右下角彩蛋入口 -->
 <div class="gate" onclick="goToPast()"></div>
 
 <div class="modal" id="modal" onclick="closeModal()">
@@ -626,6 +681,13 @@ input.key {
     <div class="modal-time" id="modal-time"></div>
     <div class="modal-content" id="modal-content"></div>
   </div>
+</div>
+
+<div id="birthday">
+  <div id="cake">🎂</div>
+  <div id="happy">生日快乐</div>
+  <div id="message"></div>
+  <div id="closeHint" onclick="closeBirthday()">✕</div>
 </div>
 
 <script>
@@ -645,7 +707,6 @@ const timelineData = [
   }
 ];
 
-/* ===== 动态生成时间轴 ===== */
 function renderTimeline() {
   const container = document.getElementById("timelineNow");
   container.innerHTML = "";
@@ -667,6 +728,9 @@ function renderTimeline() {
 function goToNav() {
   document.getElementById("main").style.display = "none";
   document.getElementById("past").style.display = "none";
+  document.getElementById("idea").style.display = "none";
+  document.getElementById("song").style.display = "none";
+  document.getElementById("other").style.display = "none";
   document.getElementById("nav").style.display = "flex";
 }
 
@@ -681,13 +745,25 @@ function goToPast() {
   document.getElementById("past").style.display = "block";
 }
 
-/* ===== 原有 JS ===== */
+function goToIdea() {
+  document.getElementById("nav").style.display = "none";
+  document.getElementById("idea").style.display = "flex";
+}
+
+function goToSong() {
+  document.getElementById("nav").style.display = "none";
+  document.getElementById("song").style.display = "flex";
+}
+
+function goToOther() {
+  document.getElementById("nav").style.display = "none";
+  document.getElementById("other").style.display = "flex";
+}
+
+/* ===== 登录 ===== */
 const KEY = "56";
 const login = document.getElementById("login");
 const input = document.getElementById("key");
-const modal = document.getElementById("modal");
-const modalTime = document.getElementById("modal-time");
-const modalContent = document.getElementById("modal-content");
 
 input.addEventListener("keydown", (e) => {
   if (e.key === "Enter" && input.value !== KEY) {
@@ -707,6 +783,7 @@ input.addEventListener("input", () => {
   }
 });
 
+/* ===== 相册 ===== */
 const photosByDate = {
   "2023-09-11": [
     "https://raw.githubusercontent.com/ac091/log/main/qu.jpg",
@@ -721,22 +798,22 @@ let currentPhotos = [];
 let currentIndex = 0;
 
 function openModal(time, content) {
-  modalTime.innerText = time;
-  modalContent.innerHTML = content;
+  document.getElementById("modal-time").innerText = time;
+  document.getElementById("modal-content").innerHTML = content;
 
   if (photosByDate[time]) {
     const camera = document.createElement("div");
     camera.className = "camera";
     camera.innerHTML = "📷";
     camera.onclick = () => openAlbum(photosByDate[time]);
-    modalContent.appendChild(camera);
+    document.getElementById("modal-content").appendChild(camera);
   }
 
-  modal.style.display = "flex";
+  document.getElementById("modal").style.display = "flex";
 }
 
 function closeModal() {
-  modal.style.display = "none";
+  document.getElementById("modal").style.display = "none";
 }
 
 function openAlbum(photos) {
