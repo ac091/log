@@ -672,7 +672,7 @@ input.key {
   display: none;
 }
 
-/* ===== ✅ 时空驿站提示（三段式） ===== */
+/* ===== ✅ 时空驿站提示（大字、慢节奏） ===== */
 #pastHint {
   display: none;
   position: fixed;
@@ -682,7 +682,8 @@ input.key {
   justify-content: center;
   align-items: center;
   opacity: 0;
-  transition: opacity .8s ease;
+  transition: opacity 1s ease;
+  flex-direction: column;
 }
 
 #pastHint.show {
@@ -691,15 +692,16 @@ input.key {
 }
 
 #pastHint .step1 {
-  font-size: 14px;
-  color: rgba(255,255,255,.45);
-  letter-spacing: 4px;
+  font-size: 22px;
+  color: rgba(255,255,255,.55);
+  letter-spacing: 6px;
+  margin-bottom: 30px;
 }
 
 #pastHint .step2 {
-  font-size: 12px;
-  color: rgba(255,255,255,.25);
-  letter-spacing: 6px;
+  font-size: 18px;
+  color: rgba(255,255,255,.35);
+  letter-spacing: 8px;
 }
 
 /* ===== 黑场过渡 ===== */
@@ -710,7 +712,7 @@ input.key {
   background: #000;
   z-index: 1200;
   opacity: 0;
-  transition: opacity .8s ease;
+  transition: opacity 1s ease;
 }
 </style>
 </head>
@@ -771,8 +773,8 @@ input.key {
   <div class="back-btn" onclick="goToNav()">◀ BACK</div>
   <div class="song-title">SONG</div>
   <div class="playlist-tabs">
-    <div class="playlist-tab active" onclick="switchPlaylist(0)">冠军</div>
-    <div class="playlist-tab" onclick="switchPlaylist(1)">梦</div>
+    <div class="playlist-tab active" onclick="switchPlaylist(0)">歌单一</div>
+    <div class="playlist-tab" onclick="switchPlaylist(1)">歌单二</div>
   </div>
   <div class="playlist active" id="playlist0"></div>
   <div class="playlist" id="playlist1"></div>
@@ -1040,17 +1042,13 @@ function closeBirthday() {
   localStorage.setItem("asked", "1");
 }
 
-/* ===== ✅ SONG 页面（时代少年团·真实歌单） ===== */
+/* ===== ✅ SONG 页面（歌单一：冠军 / 歌单二：梦） ===== */
 const playlists = [
   [
-    { name: "冠军", artist: "时代少年团", duration: "3:20", id: "1889363945" },
-    { name: "哪吒", artist: "时代少年团", duration: "3:07", id: "1889363946" },
-    { name: "少年郎", artist: "时代少年团", duration: "3:31", id: "1889363947" }
+    { name: "冠军", artist: "时代少年团", duration: "3:20", id: "1889363945" }
   ],
   [
-    { name: "梦", artist: "时代少年团", duration: "3:47", id: "1432635451" },
-    { name: "无尽的冒险", artist: "时代少年团", duration: "3:21", id: "1432635452" },
-    { name: "相遇", artist: "时代少年团", duration: "3:56", id: "1432635453" }
+    { name: "梦", artist: "时代少年团", duration: "3:47", id: "1432635451" }
   ]
 ];
 
@@ -1085,7 +1083,7 @@ function switchPlaylist(idx) {
   });
 }
 
-/* ===== ✅ 时空驿站（三段式仪式感进入） ===== */
+/* ===== ✅ 时空驿站（慢节奏、大字、不突兀） ===== */
 function enterPastSequence() {
   const hint = document.getElementById("pastHint");
   const step1 = document.getElementById("hintStep1");
@@ -1100,8 +1098,8 @@ function enterPastSequence() {
     setTimeout(() => {
       hint.classList.remove("show");
       enterPast();
-    }, 1200);
-  }, 1400);
+    }, 1400);
+  }, 1600);
 }
 
 function enterPast() {
@@ -1113,9 +1111,9 @@ function enterPast() {
     goToPast();
     setTimeout(() => {
       overlay.style.opacity = "0";
-      setTimeout(() => overlay.style.display = "none", 800);
-    }, 300);
-  }, 800);
+      setTimeout(() => overlay.style.display = "none", 1000);
+    }, 400);
+  }, 1000);
 }
 
 /* ===== 初始渲染 ===== */
