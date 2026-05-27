@@ -695,7 +695,7 @@ input.key {
 
   <div class="picker-center" id="picker" onwheel="scrollDate(event)">
     <div>
-      <div class="date-display" id="dateDisplay">2023-09-11</div>
+      <div class="date-display" id="dateDisplay"></div>
       <div class="confirm-btn" onclick="confirmPast()">CONFIRM</div>
     </div>
   </div>
@@ -771,8 +771,10 @@ const pastData = {
   "2024-01-03": { keyword: "测试", content: "这是一个测试条目，用来验证大量内容时的布局效果。" }
 };
 
-const pastDates = Object.keys(pastData);
-let currentIndex = 1;
+// ✅ 排序日期（最早在上）
+const pastDates = Object.keys(pastData).sort();
+let currentIndex = 0;
+let firstClosed = false;
 
 function renderTimeline() {
   const container = document.getElementById("timelineNow");
@@ -810,8 +812,12 @@ function goToPast() {
   document.getElementById("idea").style.display = "none";
   document.getElementById("other").style.display = "none";
   document.getElementById("past").style.display = "block";
-  buildIndex();
+
+  currentIndex = 0;          // ✅ 默认最早日期
+  firstClosed = false;       // ✅ 重置 INDEX 状态
   updateDateDisplay();
+  buildIndex();
+  document.getElementById("indexPanel").style.display = "none";
 }
 
 function goToCS() {
@@ -880,6 +886,10 @@ function openModal(time, content) {
 
 function closeModal() {
   document.getElementById("modal").style.display = "none";
+  if (!firstClosed) {
+    firstClosed = true;
+    document.getElementById("indexPanel").style.display = "flex";
+  }
 }
 
 function openAlbum(p) {
@@ -1017,9 +1027,9 @@ function enterPastSequence() {
 function scrollDate(e) {
   e.preventDefault();
   if (e.deltaY > 0) {
-    currentIndex = (currentIndex + 1) % pastDates.length;
+    currentIndex = Math.min(currentIndex + 1, pastDates.length - 1);
   } else {
-    currentIndex = (currentIndex - 1 + pastDates.length) % pastDates.length;
+    currentIndex = Math.max(currentIndex - 1, 0);
   }
   updateDateDisplay();
 }
@@ -1030,7 +1040,12 @@ function updateDateDisplay() {
 
 function confirmPast() {
   const key = pastDates[currentIndex];
-  openModal(key, pastData[key].content);
+  document.getElementById("modal-content").innerHTML =
+    `<div style="font-size:36px;font-weight:800;color:#fff;border:1px solid rgba(255,255,255,.2);padding:30px 60px;cursor:pointer;"
+         onclick="openModal('${key}','${pastData[key].content.replace(/'/g,"\\'")}')">
+      ${pastData[key].keyword}
+    </div>`;
+  document.getElementById("modal").style.display = "flex";
 }
 
 function buildIndex() {
