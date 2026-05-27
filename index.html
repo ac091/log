@@ -285,22 +285,14 @@ input.key {
   display: flex;
   flex-direction: column;
   gap: 50px;
+  align-items: center;
 }
 
+/* ✅ memory 新结构 */
 .memory {
   width: 280px;
-  padding: 24px;
-  background: rgba(255,255,255,.06);
-  border-radius: 14px;
+  text-align: center;
   cursor: pointer;
-  transform: rotateX(10deg) scale(.95);
-  transition: all .5s ease;
-  opacity: .65;
-}
-
-.memory:hover {
-  transform: rotateX(0) scale(1);
-  opacity: 1;
 }
 
 .memory-date {
@@ -310,11 +302,11 @@ input.key {
 }
 
 .memory-tag {
-  font-size: 14px;
-  color: #94a3b8;
-  letter-spacing: 2px;
+  font-size: 32px;
+  font-weight: 800;
+  color: #38bdf8;
   opacity: 0;
-  transform: translateY(10px);
+  transform: translateY(-10px);
   transition: all .4s ease;
 }
 
@@ -323,7 +315,7 @@ input.key {
   transform: translateY(0);
 }
 
-/* ===== SONG 页面（CS 并排） ===== */
+/* ===== SONG 页面 ===== */
 #csPage {
   display: none;
   position: fixed;
@@ -375,7 +367,6 @@ input.key {
   background: rgba(255,255,255,.15);
 }
 
-/* ===== 歌单区域 ===== */
 .cs-content {
   display: flex;
   gap: 120px;
@@ -388,48 +379,12 @@ input.key {
   text-align: center;
 }
 
-/* ===== idea / 其他 ===== */
-.page-placeholder {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(135deg, #0f172a, #1a1a2e);
-  z-index: 10;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-.page-placeholder .back-btn {
-  position: absolute;
-  top: 30px;
-  left: 30px;
-  cursor: pointer;
-  color: #475569;
-  font-size: 16px;
-  letter-spacing: 2px;
-  padding: 8px 16px;
-  border-radius: 6px;
-  transition: all .3s ease;
-}
-
-.page-placeholder .back-btn:hover {
-  color: #38bdf8;
-  background: rgba(56,189,248,.1);
-}
-
-.page-placeholder .content {
-  font-size: 24px;
-  color: #555;
-  letter-spacing: 4px;
-}
-
-/* ===== ✅ 模态框（大、酷版） ===== */
+/* ===== 模态框（酷版） ===== */
 .modal {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,.85);
+  background: rgba(0,0,0,.92);
   z-index: 999;
   justify-content: center;
   align-items: center;
@@ -438,40 +393,27 @@ input.key {
 .modal-box {
   width: 80vw;
   max-width: 900px;
-  height: 80vh;
-  max-height: 700px;
-  background: rgba(20,25,40,.95);
-  border: 1px solid rgba(56,189,248,.15);
-  box-shadow: 0 0 60px rgba(56,189,248,.1);
-  padding: 50px 60px;
-  border-radius: 14px;
-  overflow-y: auto;
-}
-
-.modal-time {
-  font-size: 22px;
-  color: #38bdf8;
-  margin-bottom: 30px;
-  letter-spacing: 2px;
+  padding: 60px;
+  text-align: center;
 }
 
 .modal-content {
-  font-size: 20px;
+  font-size: 22px;
   line-height: 1.9;
-  color: #cbd5e1;
+  color: #d1d5db;
 }
 
 .camera {
-  margin-top: 30px;
-  width: 54px;
-  height: 54px;
+  margin-top: 40px;
+  width: 60px;
+  height: 60px;
   background: rgba(255,255,255,.08);
   border-radius: 50%;
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  font-size: 24px;
+  font-size: 26px;
 }
 
 /* ===== 相册 ===== */
@@ -632,7 +574,7 @@ input.key {
   display: none;
 }
 
-/* ===== ✅ 时空驿站弹窗（酷版 · 右下角） ===== */
+/* ===== 时空驿站 ===== */
 #pastModal {
   display: none;
   position: fixed;
@@ -673,7 +615,6 @@ input.key {
   color: #38bdf8;
 }
 
-/* ===== 英文提示 ===== */
 #pastHint {
   display: none;
   position: fixed;
@@ -714,7 +655,6 @@ input.key {
   <div class="entry-box">6.4</div>
 </div>
 
-<!-- 导航页 -->
 <div id="nav">
   <div class="nav-title">SELECT</div>
   <div class="nav-links">
@@ -725,7 +665,6 @@ input.key {
   </div>
 </div>
 
-<!-- 现在时间段 -->
 <div id="main">
   <div class="main-header">
     <span class="back-btn" onclick="goToNav()">◀ BACK</span>
@@ -735,7 +674,6 @@ input.key {
   <div class="gate" onclick="openPastModal()"></div>
 </div>
 
-<!-- 过去时间段 -->
 <div id="past">
   <div class="past-header" onclick="goToMain()">◀ BACK</div>
   <div class="timeline">
@@ -750,7 +688,6 @@ input.key {
   </div>
 </div>
 
-<!-- SONG 页面 -->
 <div id="csPage">
   <div class="back-btn" onclick="goToNav()">◀ BACK</div>
   <div class="cs-header">
@@ -764,13 +701,11 @@ input.key {
   </div>
 </div>
 
-<!-- idea 页面 -->
 <div id="idea" class="page-placeholder">
   <div class="back-btn" onclick="goToNav()">◀ BACK</div>
   <div class="content">IDEA</div>
 </div>
 
-<!-- 其他 页面 -->
 <div id="other" class="page-placeholder">
   <div class="back-btn" onclick="goToNav()">◀ BACK</div>
   <div class="content">其 他</div>
@@ -786,12 +721,10 @@ input.key {
 
 <div class="modal" id="modal" onclick="closeModal()">
   <div class="modal-box" onclick="event.stopPropagation()">
-    <div class="modal-time" id="modal-time"></div>
     <div class="modal-content" id="modal-content"></div>
   </div>
 </div>
 
-<!-- ✅ 时空驿站弹窗 -->
 <div id="pastModal" onclick="closePastModal()">
   <div class="box" onclick="event.stopPropagation()">
     <div class="title">时空驿站</div>
@@ -802,7 +735,6 @@ input.key {
   </div>
 </div>
 
-<!-- ✅ 英文提示 -->
 <div id="pastHint">
   <div class="text">ENTERING TIME STATION</div>
 </div>
@@ -815,7 +747,6 @@ input.key {
 </div>
 
 <script>
-/* ===== 时间轴数据 ===== */
 const timelineData = [
   { date: "2026-06-04", content: "首先祝你生日快乐。" },
   { date: "2026-05-25", content: "今天这个小网站正式可以运行了，好有成就感。这是我做的第一个网站，也是第一次正儿八经跑代码，惊喜吧应该，其实这个想法不算突然，只是没法确定代码可以跑起来，可我前两天还是决定先悄悄藏在戒指上，你应该暂时发现不了，上次的八千字讲了很多人很多事，但我想说那并不是全部，这个网站会保持更新的，也会有很多可以探索的地方，这个网站，只关于你，也只属于我们。" }
@@ -832,7 +763,6 @@ function renderTimeline() {
   });
 }
 
-/* ===== 导航跳转 ===== */
 function goToNav() {
   document.getElementById("main").style.display = "none";
   document.getElementById("past").style.display = "none";
@@ -887,7 +817,6 @@ function goToOther() {
   document.getElementById("other").style.display = "flex";
 }
 
-/* ===== ✅ 登录（已恢复为你原来的逻辑） ===== */
 const KEY = "56";
 const input = document.getElementById("key");
 
@@ -902,7 +831,6 @@ input.addEventListener("input", () => {
   }
 });
 
-/* ===== 相册 ===== */
 const photosByDate = {
   "2023-09-11": [
     "https://raw.githubusercontent.com/ac091/log/main/qu.jpg",
@@ -915,7 +843,6 @@ const photosByDate = {
 let currentPhotos = [], currentIndex = 0;
 
 function openModal(time, content) {
-  document.getElementById("modal-time").innerText = time;
   document.getElementById("modal-content").innerHTML = content;
   if (photosByDate[time]) {
     const camera = document.createElement("div");
@@ -959,7 +886,6 @@ function closeAlbum() {
   document.getElementById("album").style.display = "none";
 }
 
-/* ===== 打字机 & 生日 ===== */
 const tw = document.getElementById("typewriter");
 const typeSound = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-typewriter-key-1368.mp3");
 typeSound.volume = 0.3;
@@ -1041,7 +967,6 @@ function closeBirthday() {
   localStorage.setItem("asked", "1");
 }
 
-/* ===== ✅ 时空驿站弹窗逻辑 ===== */
 function openPastModal() {
   document.getElementById("pastModal").style.display = "flex";
 }
@@ -1055,18 +980,15 @@ function confirmEnterPast() {
   enterPastSequence();
 }
 
-/* ===== ✅ 英文提示 + 进入 ===== */
 function enterPastSequence() {
   const hint = document.getElementById("pastHint");
   hint.classList.add("show");
-
   setTimeout(() => {
     hint.classList.remove("show");
     goToPast();
   }, 2000);
 }
 
-/* ===== 初始渲染 ===== */
 renderTimeline();
 </script>
 
