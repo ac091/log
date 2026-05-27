@@ -53,144 +53,117 @@ input.key {
   outline: none;
 }
 
-/* ===== 现在时间段（✅ 横向时间轴 方案A） ===== */
+/* ===== 现在时间段（✅ 纵向时间轴 B） ===== */
 #main {
   display: none;
   position: fixed;
   inset: 0;
-  background: linear-gradient(135deg, #1e293b, #0f172a);
+  background: linear-gradient(180deg, #1e293b, #0f172a);
   z-index: 10;
-  padding: 0;
+  padding: 60px 80px;
   overflow: hidden;
 }
 
 .main-header {
-  position: fixed;
-  top: 30px;
-  left: 80px;
   font-size: 13px;
-  opacity: .5;
+  opacity: .6;
+  margin-bottom: 20px;
   letter-spacing: 2px;
-  z-index: 15;
 }
 
-.timeline-wrapper {
+.timeline-now {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 120px);
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.timeline-now::-webkit-scrollbar {
+  width: 6px;
+}
+
+.timeline-now::-webkit-scrollbar-thumb {
+  background: rgba(56,189,248,.3);
+  border-radius: 3px;
+}
+
+/* 中轴线 */
+.timeline-now::before {
+  content: "";
   position: absolute;
-  inset: 0;
-  cursor: grab;
-  overflow: hidden;
-}
-
-.timeline-wrapper:active {
-  cursor: grabbing;
-}
-
-.timeline-track {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  transition: transform 0.15s ease-out;
-  will-change: transform;
-}
-
-/* 时间线（SVG 横线） */
-.timeline-svg {
-  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   top: 0;
-  left: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom,
+    rgba(56,189,248,.6),
+    rgba(56,189,248,.1)
+  );
   pointer-events: none;
 }
 
-.node-group {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-  min-width: 280px;
-  padding: 0 20px;
+.timeline-item {
   position: relative;
+  width: 100%;
+  padding: 30px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.node-dot {
+/* 节点 */
+.dot {
   width: 16px;
   height: 16px;
   border-radius: 50%;
   background: #38bdf8;
-  box-shadow:
-    0 0 20px rgba(56,189,248,.9),
-    0 0 60px rgba(56,189,248,.4),
-    0 0 100px rgba(56,189,248,.2);
-  transition: all .3s ease;
+  box-shadow: 0 0 20px rgba(56,189,248,.8);
+  cursor: pointer;
+  transition: transform .3s ease, box-shadow .3s ease;
   z-index: 2;
   flex-shrink: 0;
 }
 
-.node-group:hover .node-dot {
+.dot:hover {
   transform: scale(1.5);
-  box-shadow:
-    0 0 30px rgba(56,189,248,1),
-    0 0 80px rgba(56,189,248,.6),
-    0 0 140px rgba(56,189,248,.3);
+  box-shadow: 0 0 35px rgba(56,189,248,1);
 }
 
-.node-date {
+/* 日期标签 */
+.label {
+  position: absolute;
   font-size: 20px;
   font-weight: 700;
   color: #7dd3fc;
-  margin-top: 16px;
-  opacity: .8;
+  opacity: .7;
   transition: opacity .3s ease;
-  white-space: nowrap;
+  cursor: pointer;
+  z-index: 2;
 }
 
-.node-group:hover .node-date {
+.label:hover {
   opacity: 1;
 }
 
-.node-content {
-  font-size: 13px;
-  color: #94a3b8;
-  margin-top: 8px;
-  opacity: 0;
-  transform: translateY(8px);
-  transition: all .3s ease;
-  white-space: nowrap;
-  text-align: center;
-  max-width: 260px;
-  overflow: hidden;
-  text-overflow: ellipsis;
+/* 奇数放右边，偶数放左边 */
+.timeline-item:nth-child(odd) .dot {
+  order: 2;
 }
 
-.node-group:hover .node-content {
-  opacity: 1;
-  transform: translateY(0);
+.timeline-item:nth-child(odd) .label {
+  order: 1;
+  right: calc(50% + 30px);
 }
 
-/* 连接线（节点之间） */
-.connector {
-  height: 2px;
-  background: linear-gradient(90deg,
-    rgba(56,189,248,.6),
-    rgba(56,189,248,.1)
-  );
-  flex-shrink: 0;
+.timeline-item:nth-child(even) .dot {
+  order: 1;
 }
 
-.scroll-hint {
-  position: fixed;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 12px;
-  color: rgba(255,255,255,.25);
-  letter-spacing: 2px;
-  z-index: 15;
-  animation: hintBlink 2s infinite;
-}
-
-@keyframes hintBlink {
-  0%, 100% { opacity: .25; }
-  50% { opacity: .6; }
+.timeline-item:nth-child(even) .label {
+  order: 2;
+  left: calc(50% + 30px);
 }
 
 /* ===== 过去时间段（✅ 残影 + hover 出字） ===== */
@@ -483,16 +456,10 @@ input.key {
   <div id="closeHint" onclick="closeBirthday()">✕</div>
 </div>
 
-<!-- ✅ 现在时间段（横向时间轴） -->
+<!-- ✅ 现在时间段（纵向时间轴） -->
 <div id="main">
   <div class="main-header">RECENT LOGS</div>
-  <div class="scroll-hint">◀ 滚动 / 拖拽 浏览时间线 ▶</div>
-
-  <div class="timeline-wrapper" id="timelineWrapper">
-    <div class="timeline-track" id="timelineTrack">
-      <!-- 节点会通过 JS 动态生成 -->
-    </div>
-  </div>
+  <div class="timeline-now" id="timelineNow"></div>
 </div>
 
 <!-- ✅ 过去时间段 -->
@@ -530,182 +497,42 @@ input.key {
 </div>
 
 <script>
-/* ===== 时间轴数据（以后加日期就改这里） ===== */
+/* ===== 时间轴数据（新日期放上面 = 数组前面） ===== */
 const timelineData = [
   {
-    date: "2024-06-04",
-    content: "首先祝你生日快乐",
-    preview: "生日快乐"
+    date: "2026-06-01",
+    content: "系统开始记录新的轨迹。"
   },
   {
     date: "2026-05-25",
-    content: "今天这个小网站正式可以运行了，好有成就感。这是我做的第一个网站，也是第一次正儿八经跑代码，惊喜吧应该，其实这个想法不算突然，只是没法确定代码可以跑起来，可我前两天还是决定先悄悄藏在戒指上，你应该暂时发现不了，上次的八千字讲了很多人很多事，但我想说那并不是全部，这个网站会保持更新的，也会有很多可以探索的地方，这个网站，只关于你，也只属于我们。",
-    preview: "网站诞生"
+    content: "今天这个小网站正式可以运行了，好有成就感。这是我做的第一个网站，也是第一次正儿八经跑代码，惊喜吧应该，其实这个想法不算突然，只是没法确定代码可以跑起来，可我前两天还是决定先悄悄藏在戒指上，你应该暂时发现不了，上次的八千字讲了很多人很多事，但我想说那并不是全部，这个网站会保持更新的，也会有很多可以探索的地方，这个网站，只关于你，也只属于我们。"
   },
   {
-    date: "2026-06-01",
-    content: "系统开始记录新的轨迹。",
-    preview: "新轨迹"
-  },
-  {
-    date: "2026-06-15",
-    content: "未来的某一天，也许会有新的故事写在这里。",
-    preview: "未完待续"
-  },
-  {
-    date: "2026-07-01",
-    content: "又一个夏天来了，时间过得真快。",
-    preview: "夏天"
-  },
+    date: "2024-06-04",
+    content: "首先祝你生日快乐"
+  }
 ];
 
-/* ===== 生成时间轴 DOM ===== */
-function buildTimeline() {
-  const track = document.getElementById("timelineTrack");
-  const svgNS = "http://www.w3.org/2000/svg";
+/* ===== 动态生成时间轴 ===== */
+function renderTimeline() {
+  const container = document.getElementById("timelineNow");
+  container.innerHTML = "";
 
-  // 参数
-  const nodeW = 280;       // 每个节点占宽
-  const gapW = 120;        // 节点间间距
-  const totalW = timelineData.length * nodeW + (timelineData.length - 1) * gapW;
-  const centerY = window.innerHeight / 2;
-
-  // 创建 SVG 背景线
-  const svg = document.createElementNS(svgNS, "svg");
-  svg.setAttribute("class", "timeline-svg");
-  svg.setAttribute("width", totalW);
-  svg.setAttribute("height", window.innerHeight);
-  svg.setAttribute("viewBox", `0 0 ${totalW} ${window.innerHeight}`);
-
-  const defs = document.createElementNS(svgNS, "defs");
-  const grad = document.createElementNS(svgNS, "linearGradient");
-  grad.setAttribute("id", "lineGlow");
-  grad.setAttribute("x1", "0%");
-  grad.setAttribute("y1", "0%");
-  grad.setAttribute("x2", "100%");
-  grad.setAttribute("y2", "0%");
-
-  const stops = [
-    { offset: "0%", color: "38bdf8", opacity: "0" },
-    { offset: "10%", color: "38bdf8", opacity: "1" },
-    { offset: "90%", color: "38bdf8", opacity: "1" },
-    { offset: "100%", color: "38bdf8", opacity: "0" },
-  ];
-  stops.forEach(s => {
-    const stop = document.createElementNS(svgNS, "stop");
-    stop.setAttribute("offset", s.offset);
-    stop.setAttribute("stop-color", `#${s.color}`);
-    stop.setAttribute("stop-opacity", s.opacity);
-    grad.appendChild(stop);
-  });
-  defs.appendChild(grad);
-  svg.appendChild(defs);
-
-  const path = document.createElementNS(svgNS, "path");
-  path.setAttribute("d", `M0,${centerY} L${totalW},${centerY}`);
-  path.setAttribute("stroke", "url(#lineGlow)");
-  path.setAttribute("stroke-width", "2");
-  path.setAttribute("fill", "none");
-  svg.appendChild(path);
-
-  track.appendChild(svg);
-
-  // 创建节点
-  timelineData.forEach((item, i) => {
-    const group = document.createElement("div");
-    group.className = "node-group";
-    group.style.minWidth = nodeW + "px";
-    group.style.padding = `0 ${gapW / 2}px`;
-    group.onclick = () => openModal(item.date, item.content);
-
-    // 随机上下偏移（增加灵动感）
-    const offsetY = (Math.random() - 0.5) * 60;
-
-    const dot = document.createElement("div");
-    dot.className = "node-dot";
-    dot.style.marginTop = (centerY - 8 + offsetY) + "px";
-
-    const dateEl = document.createElement("div");
-    dateEl.className = "node-date";
-    dateEl.textContent = item.date;
-
-    const previewEl = document.createElement("div");
-    previewEl.className = "node-content";
-    previewEl.textContent = item.preview;
-
-    group.appendChild(dot);
-    group.appendChild(dateEl);
-    group.appendChild(previewEl);
-    track.appendChild(group);
+  timelineData.forEach((item, index) => {
+    const div = document.createElement("div");
+    div.className = "timeline-item";
+    div.innerHTML = `
+      <div class="dot" onclick="openModal('${item.date}','${item.content.replace(/'/g, "\\'")}')"></div>
+      <div class="label" onclick="openModal('${item.date}','${item.content.replace(/'/g, "\\'")}')">${item.date}</div>
+    `;
+    container.appendChild(div);
   });
 
-  // 设置初始位置：居中显示中间节点
-  const wrapperW = document.getElementById("timelineWrapper").offsetWidth;
-  const initialX = (wrapperW - totalW) / 2;
-  track.style.transform = `translateX(${initialX}px)`;
-  track.style.top = "0";
-  track.style.left = "0";
-  track.style.width = totalW + "px";
-  track.style.height = "100%";
+  /* 默认滚动到顶部（最新日期） */
+  container.scrollTop = 0;
 }
 
-/* ===== 拖拽 + 滚轮逻辑 ===== */
-function initTimelineInteraction() {
-  const wrapper = document.getElementById("timelineWrapper");
-  const track = document.getElementById("timelineTrack");
-
-  let isDragging = false;
-  let startX = 0;
-  let currentX = 0;
-
-  const wrapperW = wrapper.offsetWidth;
-  const trackW = track.offsetWidth;
-  const minX = Math.min(0, wrapperW - trackW);
-  const maxX = 0;
-
-  // 获取当前 translateX
-  function getTranslateX() {
-    const style = window.getComputedStyle(track).transform;
-    if (style === "none") return 0;
-    const matrix = style.match(/matrix.*\((.+)\)/)[1].split(", ");
-    return parseFloat(matrix[4]);
-  }
-
-  // 限制范围
-  function clamp(x) {
-    return Math.max(minX, Math.min(maxX, x));
-  }
-
-  // 鼠标事件
-  wrapper.addEventListener("mousedown", (e) => {
-    isDragging = true;
-    startX = e.clientX;
-    currentX = getTranslateX();
-    track.style.transition = "none";
-  });
-
-  window.addEventListener("mousemove", (e) => {
-    if (!isDragging) return;
-    const dx = e.clientX - startX;
-    track.style.transform = `translateX(${clamp(currentX + dx)}px)`;
-  });
-
-  window.addEventListener("mouseup", () => {
-    isDragging = false;
-    track.style.transition = "transform 0.15s ease-out";
-  });
-
-  // 滚轮
-  wrapper.addEventListener("wheel", (e) => {
-    e.preventDefault();
-    const delta = e.deltaX || e.deltaY;
-    const current = getTranslateX();
-    track.style.transition = "transform 0.15s ease-out";
-    track.style.transform = `translateX(${clamp(current - delta * 0.8)}px)`;
-  }, { passive: false });
-}
-
-/* ===== 原 JS 逻辑（完整保留） ===== */
+/* ===== 原有 JS 完全不动，只加一句调用 ===== */
 const KEY = "56";
 const login = document.getElementById("login");
 const main = document.getElementById("main");
@@ -729,10 +556,7 @@ input.addEventListener("input", () => {
       playTypewriter();
     } else {
       main.style.display = "block";
-      setTimeout(() => {
-        buildTimeline();
-        initTimelineInteraction();
-      }, 50);
+      renderTimeline();
     }
   }
 });
@@ -827,10 +651,7 @@ function playTypewriter() {
             document.getElementById("entry").style.display = "flex";
           } else {
             main.style.display = "block";
-            setTimeout(() => {
-              buildTimeline();
-              initTimelineInteraction();
-            }, 50);
+            renderTimeline();
           }
         }, 1800);
       });
@@ -895,12 +716,12 @@ function typeMessage(text) {
 function closeBirthday() {
   document.getElementById("birthday").style.display = "none";
   main.style.display = "block";
+  renderTimeline();
   localStorage.setItem("asked", "1");
-  setTimeout(() => {
-    buildTimeline();
-    initTimelineInteraction();
-  }, 50);
 }
+
+/* ===== 初始渲染 ===== */
+renderTimeline();
 </script>
 
 </body>
