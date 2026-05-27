@@ -274,13 +274,13 @@ input.key {
   z-index: 10;
 }
 
-/* ✅ 倒三角：更靠近年份 */
+/* ✅ 倒三角：更靠近年份 + 上移对齐 */
 #yearToggle {
   display: none;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-240px, -50%);
+  transform: translate(-240px, -68%);
   font-size: 28px;
   color: rgba(255,255,255,.45);
   cursor: pointer;
@@ -845,9 +845,14 @@ const pastData = {
 const pastDates = Object.keys(pastData).sort();
 let currentIndex = 0;
 let isScrolling = false;
+let lastPage = null;
 
 /* ========= 页面切换 ========= */
-let lastPage = null;
+function hideAll() {
+  ["main","past","nav","csPage","idea","other","keywordPage"].forEach(id=>{
+    document.getElementById(id).style.display = "none";
+  });
+}
 
 function goToNav() {
   hideAll();
@@ -884,12 +889,6 @@ function goToOther() {
   document.getElementById("other").style.display = "flex";
 }
 
-function hideAll() {
-  ["main","past","nav","csPage","idea","other","keywordPage"].forEach(id=>{
-    document.getElementById(id).style.display = "none";
-  });
-}
-
 /* ========= 登录 ========= */
 const KEY = "56";
 const input = document.getElementById("key");
@@ -923,9 +922,13 @@ function renderTimeline() {
 
 /* ========= Modal（✅ 修复点） ========= */
 function openModal(time, content) {
-  lastPage = document.getElementById("main").style.display === "block"
-    ? "main"
-    : "past";
+  if (document.getElementById("main").style.display === "block") {
+    lastPage = "main";
+  } else if (document.getElementById("past").style.display === "block") {
+    lastPage = "past";
+  } else {
+    lastPage = "main";
+  }
 
   document.getElementById("modal-content").innerHTML = content;
 
@@ -944,7 +947,7 @@ function closeModal() {
   document.getElementById("modal").style.display = "none";
   if (lastPage === "main") {
     document.getElementById("main").style.display = "block";
-  } else {
+  } else if (lastPage === "past") {
     document.getElementById("past").style.display = "block";
   }
 }
@@ -1150,7 +1153,6 @@ function buildIndex() {
   });
 }
 
-/* ✅ 点击空白处关闭日期列表 */
 document.getElementById("past").addEventListener("click", function (e) {
   const list = document.getElementById("indexList");
   const toggle = document.getElementById("yearToggle");
