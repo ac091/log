@@ -254,7 +254,7 @@ input.key {
   left: calc(50% + 30px);
 }
 
-/* ===== 过去时间段：滚轮日期选择器 ===== */
+/* ===== 过去时间段 ===== */
 #past {
   display: none;
   position: fixed;
@@ -274,36 +274,19 @@ input.key {
   z-index: 10;
 }
 
-/* ✅ INDEX 按钮（在日期框架内） */
-#indexBtn {
+/* ✅ 倒三角（靠近年份） */
+#yearToggle {
   position: absolute;
   top: 30px;
-  left: 30px;
-  font-size: 14px;
-  color: #38bdf8;
+  left: 110px;
+  font-size: 18px;
+  color: rgba(255,255,255,.35);
   cursor: pointer;
   z-index: 10;
-  display: none;
 }
 
-#indexList {
-  position: absolute;
-  top: 70px;
-  left: 30px;
-  display: none;
-  flex-direction: column;
-  gap: 10px;
-  z-index: 10;
-}
-
-#indexList div {
-  font-size: 14px;
+#yearToggle:hover {
   color: #38bdf8;
-  cursor: pointer;
-}
-
-#indexList div:hover {
-  color: #7dd3fc;
 }
 
 .picker-center {
@@ -319,6 +302,15 @@ input.key {
   color: #38bdf8;
   letter-spacing: 4px;
   user-select: none;
+}
+
+/* ✅ 滑轮提示 */
+.scroll-hint {
+  position: absolute;
+  bottom: 80px;
+  font-size: 12px;
+  letter-spacing: 6px;
+  color: rgba(255,255,255,.25);
 }
 
 .confirm-btn {
@@ -348,16 +340,28 @@ input.key {
   align-items: center;
 }
 
-.keyword-box {
-  font-size: 36px;
-  font-weight: 800;
-  color: #ffffff;
-  border: 1px solid rgba(255,255,255,.2);
-  padding: 30px 60px;
+/* ✅ 关键字放大 + hover 反馈 */
+#keywordBox {
+  font-size: 64px;
+  font-weight: 900;
+  color: #7dd3fc;
+  letter-spacing: 6px;
   cursor: pointer;
+  transition: 
+    transform .25s ease,
+    text-shadow .25s ease,
+    color .25s ease;
 }
 
-/* ===== SONG 页面 ===== */
+#keywordBox:hover {
+  transform: scale(1.12);
+  color: #ffffff;
+  text-shadow:
+    0 0 20px rgba(56,189,248,.8),
+    0 0 60px rgba(56,189,248,.4);
+}
+
+/* ===== SONG ===== */
 #csPage {
   display: none;
   position: fixed;
@@ -419,6 +423,29 @@ input.key {
   color: #555;
   font-size: 14px;
   text-align: center;
+}
+
+/* ===== 其他页面 ===== */
+.page-placeholder {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #0b0f1a;
+  z-index: 10;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+  color: #475569;
+}
+
+.page-placeholder .back-btn {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  letter-spacing: 2px;
+  color: #475569;
 }
 
 /* ===== 模态框 ===== */
@@ -499,7 +526,7 @@ input.key {
   font-size: 14px;
 }
 
-/* 右下角彩蛋入口 */
+/* ===== 右下角彩蛋 ===== */
 #main .gate {
   position: fixed;
   bottom: 30px;
@@ -720,8 +747,8 @@ input.key {
 <div id="past">
   <div class="past-header" onclick="goToMain()">◀ BACK</div>
 
-  <div id="indexBtn" onclick="toggleIndex()">INDEX ▾</div>
-  <div id="indexList"></div>
+  <!-- ✅ 倒三角 -->
+  <div id="yearToggle" onclick="toggleYearPicker()">▾</div>
 
   <div class="picker-center" id="picker" onwheel="scrollDate(event)">
     <div>
@@ -729,6 +756,9 @@ input.key {
       <div class="confirm-btn" onclick="confirmPast()">CONFIRM</div>
     </div>
   </div>
+
+  <!-- ✅ 滑轮提示 -->
+  <div class="scroll-hint">SCROLL TO SELECT DATE</div>
 </div>
 
 <!-- ===== 关键字页面 ===== -->
@@ -797,18 +827,18 @@ input.key {
 <script>
 const timelineData = [
   { date: "2026-06-04", content: "首先祝你生日快乐。" },
-  { date: "2026-05-25", content: "今天这个小网站正式可以运行了，好有成就感。这是我做的第一个网站，也是第一次正儿八经跑代码，惊喜吧应该，其实这个想法不算突然，只是没法确定代码可以跑起来，可我前两天还是决定先悄悄藏在戒指上，你应该暂时发现不了，上次的八千字讲了很多人很多事，但我想说那并不是全部，这个网站会保持更新的，也会有很多可以探索的地方，这个网站，只关于你，也只属于我们。" }
+  { date: "2026-05-25", content: "今天这个小网站正式可以运行了，好有成就感。" }
 ];
 
 const pastData = {
   "2023-06-15": { keyword: "未知", content: "那时候我们还不知道，后来会发生这么多事。" },
-  "2023-09-11": { keyword: "初见", content: "在武警院我们相遇。不管过去多久我还是想说，很高兴认识你。" },
-  "2024-01-03": { keyword: "测试", content: "这是一个测试条目，用来验证大量内容时的布局效果。" }
+  "2023-09-11": { keyword: "初见", content: "在武警院我们相遇。很高兴认识你。" },
+  "2024-01-03": { keyword: "测试", content: "这是一个测试条目。" }
 };
 
-// ✅ 排序日期（最早在上）
 const pastDates = Object.keys(pastData).sort();
 let currentIndex = 0;
+let scrollCooldown = false;
 
 function renderTimeline() {
   const container = document.getElementById("timelineNow");
@@ -816,11 +846,15 @@ function renderTimeline() {
   timelineData.forEach(item => {
     const div = document.createElement("div");
     div.className = "timeline-item";
-    div.innerHTML = `<div class="dot" onclick="openModal('${item.date}','${item.content.replace(/'/g,"\\'")}')"></div><div class="label" onclick="openModal('${item.date}','${item.content.replace(/'/g,"\\'")}')">${item.date}</div>`;
+    div.innerHTML = `
+      <div class="dot" onclick="openModal('${item.date}','${item.content.replace(/'/g,"\\'")}')"></div>
+      <div class="label" onclick="openModal('${item.date}','${item.content.replace(/'/g,"\\'")}')">${item.date}</div>
+    `;
     container.appendChild(div);
   });
 }
 
+/* ===== 导航 ===== */
 function goToNav() {
   document.getElementById("main").style.display = "none";
   document.getElementById("past").style.display = "none";
@@ -842,46 +876,26 @@ function goToMain() {
 function goToPast() {
   document.getElementById("main").style.display = "none";
   document.getElementById("nav").style.display = "none";
-  document.getElementById("csPage").style.display = "none";
-  document.getElementById("idea").style.display = "none";
-  document.getElementById("other").style.display = "none";
   document.getElementById("past").style.display = "block";
-
-  currentIndex = 0;
   updateDateDisplay();
-  buildIndex();
-  document.getElementById("indexBtn").style.display = "none";
-  document.getElementById("indexList").style.display = "none";
-  document.getElementById("keywordPage").style.display = "none";
 }
 
 function goToCS() {
   document.getElementById("nav").style.display = "none";
-  document.getElementById("main").style.display = "none";
-  document.getElementById("past").style.display = "none";
-  document.getElementById("idea").style.display = "none";
-  document.getElementById("other").style.display = "none";
   document.getElementById("csPage").style.display = "flex";
 }
 
 function goToIdea() {
   document.getElementById("nav").style.display = "none";
-  document.getElementById("main").style.display = "none";
-  document.getElementById("past").style.display = "none";
-  document.getElementById("csPage").style.display = "none";
-  document.getElementById("other").style.display = "none";
   document.getElementById("idea").style.display = "flex";
 }
 
 function goToOther() {
   document.getElementById("nav").style.display = "none";
-  document.getElementById("main").style.display = "none";
-  document.getElementById("past").style.display = "none";
-  document.getElementById("csPage").style.display = "none";
-  document.getElementById("idea").style.display = "none";
   document.getElementById("other").style.display = "flex";
 }
 
+/* ===== 登录 ===== */
 const KEY = "56";
 const input = document.getElementById("key");
 
@@ -896,6 +910,7 @@ input.addEventListener("input", () => {
   }
 });
 
+/* ===== 相册 ===== */
 const photosByDate = {
   "2023-09-11": [
     "https://raw.githubusercontent.com/ac091/log/main/qu.jpg",
@@ -905,6 +920,7 @@ const photosByDate = {
     "https://raw.githubusercontent.com/ac091/log/main/yi.jpg"
   ]
 };
+
 let currentPhotos = [], currentIndexPhoto = 0;
 
 function openModal(time, content) {
@@ -922,7 +938,6 @@ function openModal(time, content) {
 function closeModal() {
   document.getElementById("modal").style.display = "none";
   document.getElementById("past").style.display = "block";
-  document.getElementById("indexBtn").style.display = "block";
 }
 
 function openAlbum(p) {
@@ -953,6 +968,7 @@ function closeAlbum() {
   document.getElementById("album").style.display = "none";
 }
 
+/* ===== 打字机 ===== */
 const tw = document.getElementById("typewriter");
 const typeSound = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-typewriter-key-1368.mp3");
 typeSound.volume = 0.3;
@@ -999,6 +1015,7 @@ function eraseText(cb) {
   }, 70);
 }
 
+/* ===== 生日 ===== */
 const cake = document.getElementById("cake");
 const happy = document.getElementById("happy");
 const message = document.getElementById("message");
@@ -1034,6 +1051,7 @@ function closeBirthday() {
   localStorage.setItem("asked", "1");
 }
 
+/* ===== 时空驿站 ===== */
 function openPastModal() {
   document.getElementById("pastModal").style.display = "flex";
 }
@@ -1056,9 +1074,13 @@ function enterPastSequence() {
   }, 2000);
 }
 
-/* ===== 过去时间段：滚轮日期选择器 ===== */
+/* ===== 过去：滚轮 ===== */
 function scrollDate(e) {
   e.preventDefault();
+  if (scrollCooldown) return;
+  scrollCooldown = true;
+  setTimeout(() => scrollCooldown = false, 180);
+
   if (e.deltaY > 0) {
     currentIndex = Math.min(currentIndex + 1, pastDates.length - 1);
   } else {
@@ -1073,7 +1095,7 @@ function updateDateDisplay() {
 
 function confirmPast() {
   const key = pastDates[currentIndex];
-  document.getElementById("keywordBox").innerText = `[ ${pastData[key].keyword} ]`;
+  document.getElementById("keywordBox").innerText = pastData[key].keyword;
   document.getElementById("past").style.display = "none";
   document.getElementById("keywordPage").style.display = "flex";
 }
@@ -1085,24 +1107,9 @@ function openContent() {
   document.getElementById("modal").style.display = "flex";
 }
 
-function buildIndex() {
-  const list = document.getElementById("indexList");
-  list.innerHTML = "";
-  pastDates.forEach((k, i) => {
-    const div = document.createElement("div");
-    div.innerText = k;
-    div.onclick = () => {
-      currentIndex = i;
-      updateDateDisplay();
-      toggleIndex();
-    };
-    list.appendChild(div);
-  });
-}
-
-function toggleIndex() {
-  const list = document.getElementById("indexList");
-  list.style.display = list.style.display === "none" ? "flex" : "none";
+function toggleYearPicker() {
+  const picker = document.getElementById("picker");
+  picker.style.opacity = picker.style.opacity === "0" ? "1" : "0";
 }
 
 renderTimeline();
