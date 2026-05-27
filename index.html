@@ -53,7 +53,7 @@ input.key {
   outline: none;
 }
 
-/* ===== 导航页（✅ 重做样式，更简洁高级） ===== */
+/* ===== 导航页 ===== */
 #nav {
   display: none;
   position: fixed;
@@ -150,20 +150,19 @@ input.key {
   align-items: center;
 }
 
-/* ✅ BACK 按钮加大 */
 .main-header .back-btn {
   cursor: pointer;
   color: #475569;
-  font-size: 16px; /* 增大字号 */
+  font-size: 16px;
   letter-spacing: 2px;
-  padding: 8px 16px; /* 增加内边距 */
+  padding: 8px 16px;
   border-radius: 6px;
   transition: all .3s ease;
 }
 
 .main-header .back-btn:hover {
   color: #38bdf8;
-  background: rgba(56, 189, 248, .1);
+  background: rgba(56,189,248,.1);
 }
 
 .timeline-now {
@@ -214,14 +213,13 @@ input.key {
   background: #38bdf8;
   box-shadow: 0 0 20px rgba(56,189,248,.8);
   cursor: pointer;
-  transition: transform .3s ease, box-shadow .3s ease;
+  transition: transform .3s ease;
   z-index: 2;
   flex-shrink: 0;
 }
 
 .dot:hover {
   transform: scale(1.5);
-  box-shadow: 0 0 35px rgba(56,189,248,1);
 }
 
 .label {
@@ -230,7 +228,6 @@ input.key {
   font-weight: 700;
   color: #7dd3fc;
   opacity: .7;
-  transition: opacity .3s ease;
   cursor: pointer;
   z-index: 2;
 }
@@ -257,7 +254,7 @@ input.key {
   left: calc(50% + 30px);
 }
 
-/* ===== 过去时间段 ===== */
+/* ===== 过去时间段（✅ BACK 已修复） ===== */
 #past {
   display: none;
   position: fixed;
@@ -268,21 +265,20 @@ input.key {
   overflow-y: auto;
 }
 
-/* ✅ BACK 按钮加大 */
-.past-header {
-  font-size: 16px; /* 增大字号 */
+#past .past-header {
+  font-size: 16px;
   color: #475569;
   margin-bottom: 50px;
   cursor: pointer;
-  padding: 8px 16px; /* 增加内边距 */
+  padding: 8px 16px;
   border-radius: 6px;
   display: inline-block;
   transition: all .3s ease;
 }
 
-.past-header:hover {
+#past .past-header:hover {
   color: #38bdf8;
-  background: rgba(56, 189, 248, .1);
+  background: rgba(56,189,248,.1);
 }
 
 .timeline {
@@ -292,7 +288,6 @@ input.key {
 }
 
 .memory {
-  position: relative;
   width: 280px;
   padding: 24px;
   background: rgba(255,255,255,.06);
@@ -306,8 +301,6 @@ input.key {
 .memory:hover {
   transform: rotateX(0) scale(1);
   opacity: 1;
-  background: rgba(255,255,255,.12);
-  box-shadow: 0 20px 60px rgba(56,189,248,.25);
 }
 
 .memory-date {
@@ -330,7 +323,7 @@ input.key {
   transform: translateY(0);
 }
 
-/* ===== SONG 页面（✅ 新增网易云嵌入） ===== */
+/* ===== SONG 页面（✅ 改为跳转网易云） ===== */
 #song {
   display: none;
   position: fixed;
@@ -344,9 +337,9 @@ input.key {
 #song .back-btn {
   cursor: pointer;
   color: #475569;
-  font-size: 16px; /* 增大字号 */
+  font-size: 16px;
   letter-spacing: 2px;
-  padding: 8px 16px; /* 增加内边距 */
+  padding: 8px 16px;
   border-radius: 6px;
   display: inline-block;
   margin-bottom: 40px;
@@ -355,7 +348,7 @@ input.key {
 
 #song .back-btn:hover {
   color: #38bdf8;
-  background: rgba(56, 189, 248, .1);
+  background: rgba(56,189,248,.1);
 }
 
 .song-title {
@@ -438,14 +431,7 @@ input.key {
   color: #6b7280;
 }
 
-.player-box {
-  margin-top: 30px;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 0 40px rgba(0,0,0,.5);
-}
-
-/* ===== idea / 其他 页面 ===== */
+/* ===== idea / 其他 ===== */
 .page-placeholder {
   display: none;
   position: fixed;
@@ -463,7 +449,7 @@ input.key {
   left: 30px;
   cursor: pointer;
   color: #475569;
-  font-size: 16px; /* 统一增大 */
+  font-size: 16px;
   letter-spacing: 2px;
   padding: 8px 16px;
   border-radius: 6px;
@@ -472,7 +458,7 @@ input.key {
 
 .page-placeholder .back-btn:hover {
   color: #38bdf8;
-  background: rgba(56, 189, 248, .1);
+  background: rgba(56,189,248,.1);
 }
 
 .page-placeholder .content {
@@ -748,9 +734,6 @@ input.key {
   </div>
   <div class="playlist active" id="playlist0"></div>
   <div class="playlist" id="playlist1"></div>
-  <div class="player-box" id="playerBox" style="display:none;">
-    <iframe id="neteasePlayer" frameborder="no" border="0" marginwidth="0" marginheight="0" width="100%" height="86" src=""></iframe>
-  </div>
 </div>
 
 <!-- ✅ idea 页面 -->
@@ -847,27 +830,85 @@ function goToOther() {
 /* ===== 登录 ===== */
 const KEY = "56";
 const input = document.getElementById("key");
-input.addEventListener("keydown", e => { if (e.key === "Enter" && input.value !== KEY) { alert("密钥错误"); input.value = ""; } });
-input.addEventListener("input", () => { if (input.value === KEY) { login.style.display = "none"; if (!localStorage.getItem("asked")) { playTypewriter(); } else { goToNav(); } } });
+input.addEventListener("keydown", e => {
+  if (e.key === "Enter" && input.value !== KEY) {
+    alert("密钥错误");
+    input.value = "";
+  }
+});
+input.addEventListener("input", () => {
+  if (input.value === KEY) {
+    login.style.display = "none";
+    if (!localStorage.getItem("asked")) {
+      playTypewriter();
+    } else {
+      goToNav();
+    }
+  }
+});
 
 /* ===== 相册 ===== */
-const photosByDate = { "2023-09-11": ["https://raw.githubusercontent.com/ac091/log/main/qu.jpg", "https://raw.githubusercontent.com/ac091/log/main/yi.jpg"], "2023-06-15": ["https://raw.githubusercontent.com/ac091/log/main/yi.jpg"] };
+const photosByDate = {
+  "2023-09-11": [
+    "https://raw.githubusercontent.com/ac091/log/main/qu.jpg",
+    "https://raw.githubusercontent.com/ac091/log/main/yi.jpg"
+  ],
+  "2023-06-15": [
+    "https://raw.githubusercontent.com/ac091/log/main/yi.jpg"
+  ]
+};
 let currentPhotos = [], currentIndex = 0;
+
 function openModal(time, content) {
   document.getElementById("modal-time").innerText = time;
   document.getElementById("modal-content").innerHTML = content;
-  if (photosByDate[time]) { const c = document.createElement("div"); c.className = "camera"; c.innerHTML = "📷"; c.onclick = () => openAlbum(photosByDate[time]); document.getElementById("modal-content").appendChild(c); }
+  if (photosByDate[time]) {
+    const camera = document.createElement("div");
+    camera.className = "camera";
+    camera.innerHTML = "📷";
+    camera.onclick = () => openAlbum(photosByDate[time]);
+    document.getElementById("modal-content").appendChild(camera);
+  }
   document.getElementById("modal").style.display = "flex";
 }
-function closeModal() { document.getElementById("modal").style.display = "none"; }
-function openAlbum(p) { currentPhotos = p; currentIndex = 0; document.querySelector("#album img").src = currentPhotos[0]; document.getElementById("album-page").innerText = "1 / " + currentPhotos.length; document.getElementById("album").style.display = "block"; }
-function prevImg() { if (currentIndex > 0) { currentIndex--; document.querySelector("#album img").src = currentPhotos[currentIndex]; document.getElementById("album-page").innerText = (currentIndex + 1) + " / " + currentPhotos.length; } }
-function nextImg() { if (currentIndex < currentPhotos.length - 1) { currentIndex++; document.querySelector("#album img").src = currentPhotos[currentIndex]; document.getElementById("album-page").innerText = (currentIndex + 1) + " / " + currentPhotos.length; } }
-function closeAlbum() { document.getElementById("album").style.display = "none"; }
+
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+}
+
+function openAlbum(p) {
+  currentPhotos = p;
+  currentIndex = 0;
+  document.querySelector("#album img").src = currentPhotos[0];
+  document.getElementById("album-page").innerText = "1 / " + currentPhotos.length;
+  document.getElementById("album").style.display = "block";
+}
+
+function prevImg() {
+  if (currentIndex > 0) {
+    currentIndex--;
+    document.querySelector("#album img").src = currentPhotos[currentIndex];
+    document.getElementById("album-page").innerText = (currentIndex + 1) + " / " + currentPhotos.length;
+  }
+}
+
+function nextImg() {
+  if (currentIndex < currentPhotos.length - 1) {
+    currentIndex++;
+    document.querySelector("#album img").src = currentPhotos[currentIndex];
+    document.getElementById("album-page").innerText = (currentIndex + 1) + " / " + currentPhotos.length;
+  }
+}
+
+function closeAlbum() {
+  document.getElementById("album").style.display = "none";
+}
 
 /* ===== 打字机 & 生日 ===== */
 const tw = document.getElementById("typewriter");
-const typeSound = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-typewriter-key-1368.mp3"); typeSound.volume = 0.3;
+const typeSound = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-typewriter-key-1368.mp3");
+typeSound.volume = 0.3;
+
 function playTypewriter() {
   tw.style.display = "flex";
   typeText("这近三年来最美好的事是什么？", () => {
@@ -875,25 +916,77 @@ function playTypewriter() {
       typeText("想想就会发现根本想不完。", () => {
         setTimeout(() => {
           tw.style.display = "none";
-          if (!localStorage.getItem("asked")) { document.getElementById("entry").style.display = "flex"; } else { goToNav(); }
+          if (!localStorage.getItem("asked")) {
+            document.getElementById("entry").style.display = "flex";
+          } else {
+            goToNav();
+          }
         }, 1800);
       });
     }), 1400);
   });
 }
-function typeText(t, cb) { let i = 0; tw.innerHTML = ""; const r = setInterval(() => { tw.innerHTML += t.charAt(i++); typeSound.currentTime = 0; typeSound.play(); if (i >= t.length) { clearInterval(r); cb(); } }, 130); }
-function eraseText(cb) { const r = setInterval(() => { tw.innerHTML = tw.innerHTML.slice(0, -1); if (!tw.innerHTML.length) { clearInterval(r); cb(); } }, 70); }
-const cake = document.getElementById("cake"), happy = document.getElementById("happy"), message = document.getElementById("message"), closeHint = document.getElementById("closeHint");
+
+function typeText(t, cb) {
+  let i = 0;
+  tw.innerHTML = "";
+  const r = setInterval(() => {
+    tw.innerHTML += t.charAt(i++);
+    typeSound.currentTime = 0;
+    typeSound.play();
+    if (i >= t.length) {
+      clearInterval(r);
+      cb();
+    }
+  }, 130);
+}
+
+function eraseText(cb) {
+  const r = setInterval(() => {
+    tw.innerHTML = tw.innerHTML.slice(0, -1);
+    if (!tw.innerHTML.length) {
+      clearInterval(r);
+      cb();
+    }
+  }, 70);
+}
+
+const cake = document.getElementById("cake");
+const happy = document.getElementById("happy");
+const message = document.getElementById("message");
+const closeHint = document.getElementById("closeHint");
+
 function startBirthday() {
-  document.getElementById("entry").style.display = "none"; document.getElementById("birthday").style.display = "flex";
-  setTimeout(() => cake.style.opacity = "1", 300); setTimeout(() => cake.style.opacity = "0", 3300);
-  setTimeout(() => happy.style.opacity = "1", 4300); setTimeout(() => happy.style.opacity = "0", 7800);
+  document.getElementById("entry").style.display = "none";
+  document.getElementById("birthday").style.display = "flex";
+  setTimeout(() => cake.style.opacity = "1", 300);
+  setTimeout(() => cake.style.opacity = "0", 3300);
+  setTimeout(() => happy.style.opacity = "1", 4300);
+  setTimeout(() => happy.style.opacity = "0", 7800);
   setTimeout(() => typeMessage("首先祝你生日快乐"), 9800);
 }
-function typeMessage(t) { let i = 0; message.style.opacity = "1"; const r = setInterval(() => { message.innerHTML += t.charAt(i++); typeSound.currentTime = 0; typeSound.play(); if (i >= t.length) { clearInterval(r); closeHint.style.display = "block"; } }, 200); }
-function closeBirthday() { document.getElementById("birthday").style.display = "none"; goToNav(); localStorage.setItem("asked", "1"); }
 
-/* ===== SONG 页面逻辑 ===== */
+function typeMessage(t) {
+  let i = 0;
+  message.style.opacity = "1";
+  const r = setInterval(() => {
+    message.innerHTML += t.charAt(i++);
+    typeSound.currentTime = 0;
+    typeSound.play();
+    if (i >= t.length) {
+      clearInterval(r);
+      closeHint.style.display = "block";
+    }
+  }, 200);
+}
+
+function closeBirthday() {
+  document.getElementById("birthday").style.display = "none";
+  goToNav();
+  localStorage.setItem("asked", "1");
+}
+
+/* ===== SONG 页面（✅ 跳转网易云） ===== */
 const playlists = [
   [
     { name: "乌梅子酱", artist: "李荣浩", duration: "3:37", neteaseId: "1982731693" },
@@ -914,8 +1007,17 @@ function renderPlaylists() {
     list.forEach(song => {
       const div = document.createElement("div");
       div.className = "song-item";
-      div.onclick = () => playSong(song.neteaseId);
-      div.innerHTML = `<div class="play-icon">▶</div><div class="song-info"><div class="song-name">${song.name}</div><div class="song-artist">${song.artist}</div></div><div class="song-duration">${song.duration}</div>`;
+      div.onclick = () => {
+        window.open(`https://music.163.com/song?id=${song.neteaseId}`, "_blank");
+      };
+      div.innerHTML = `
+        <div class="play-icon">▶</div>
+        <div class="song-info">
+          <div class="song-name">${song.name}</div>
+          <div class="song-artist">${song.artist}</div>
+        </div>
+        <div class="song-duration">${song.duration}</div>
+      `;
       container.appendChild(div);
     });
   });
@@ -926,11 +1028,6 @@ function switchPlaylist(idx) {
     t.classList.toggle("active", i === idx);
     document.getElementById("playlist" + i).classList.toggle("active", i === idx);
   });
-}
-
-function playSong(id) {
-  document.getElementById("playerBox").style.display = "block";
-  document.getElementById("neteasePlayer").src = "https://music.163.com/outchain/player?type=2&id=" + id + "&auto=1";
 }
 
 /* ===== 初始渲染 ===== */
