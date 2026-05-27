@@ -323,25 +323,47 @@ input.key {
   transform: translateY(0);
 }
 
-/* ===== C / S 页面 ===== */
+/* ===== SONG 页面（CS 并排） ===== */
 #csPage {
   display: none;
   position: fixed;
   inset: 0;
   background: linear-gradient(180deg, #0f0f0f, #1a1a2e);
   z-index: 10;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  flex-direction: column;
+  padding-top: 80px;
 }
 
-.cs-row {
+#csPage .back-btn {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  cursor: pointer;
+  color: #475569;
+  font-size: 16px;
+  letter-spacing: 2px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: all .3s ease;
+}
+
+#csPage .back-btn:hover {
+  color: #38bdf8;
+  background: rgba(56,189,248,.1);
+}
+
+.cs-header {
   display: flex;
   align-items: center;
-  gap: 80px;
+  justify-content: center;
+  gap: 60px;
+  margin-bottom: 60px;
 }
 
 .cs-left, .cs-right {
-  font-size: 96px;
+  font-size: 72px;
   font-weight: 900;
   color: #9ca3af;
   letter-spacing: 8px;
@@ -349,8 +371,21 @@ input.key {
 
 .cs-divider {
   width: 1px;
-  height: 80px;
+  height: 60px;
   background: rgba(255,255,255,.15);
+}
+
+/* ===== 歌单区域 ===== */
+.cs-content {
+  display: flex;
+  gap: 120px;
+}
+
+.cs-column {
+  width: 260px;
+  color: #555;
+  font-size: 14px;
+  text-align: center;
 }
 
 /* ===== idea / 其他 ===== */
@@ -711,13 +746,17 @@ input.key {
   </div>
 </div>
 
-<!-- C / S 页面 -->
+<!-- SONG 页面 -->
 <div id="csPage">
   <div class="back-btn" onclick="goToNav()">◀ BACK</div>
-  <div class="cs-row">
+  <div class="cs-header">
     <div class="cs-left">C</div>
     <div class="cs-divider"></div>
     <div class="cs-right">S</div>
+  </div>
+  <div class="cs-content">
+    <div class="cs-column">[ C 歌单 ]</div>
+    <div class="cs-column">[ S 歌单 ]</div>
   </div>
 </div>
 
