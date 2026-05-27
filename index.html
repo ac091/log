@@ -254,7 +254,7 @@ input.key {
   left: calc(50% + 30px);
 }
 
-/* ===== 过去时间段：日期选择器 ===== */
+/* ===== 过去时间段：滚轮日期选择器 ===== */
 #past {
   display: none;
   position: fixed;
@@ -302,29 +302,16 @@ input.key {
   height: 100%;
 }
 
-.picker {
-  display: flex;
-  gap: 50px;
-  text-align: center;
-}
-
-.col label {
-  font-size: 12px;
-  color: #555;
-  letter-spacing: 2px;
-  margin-bottom: 12px;
-}
-
-.val {
-  font-size: 56px;
+.date-display {
+  font-size: 64px;
   font-weight: 800;
   color: #38bdf8;
-  cursor: ns-resize;
+  letter-spacing: 4px;
   user-select: none;
 }
 
 .confirm-btn {
-  margin-top: 70px;
+  margin-top: 60px;
   font-family: monospace;
   font-size: 16px;
   letter-spacing: 8px;
@@ -703,25 +690,12 @@ input.key {
   <div class="past-header" onclick="goToMain()">◀ BACK</div>
 
   <div class="index-panel" id="indexPanel">
-    <!-- JS 生成 -->
+    <div onclick="toggleIndex()">INDEX ▾</div>
   </div>
 
-  <div class="picker-center">
+  <div class="picker-center" id="picker" onwheel="scrollDate(event)">
     <div>
-      <div class="picker">
-        <div class="col">
-          <label>YEAR</label>
-          <div class="val" id="y">2023</div>
-        </div>
-        <div class="col">
-          <label>MONTH</label>
-          <div class="val" id="m">09</div>
-        </div>
-        <div class="col">
-          <label>DAY</label>
-          <div class="val" id="d">11</div>
-        </div>
-      </div>
+      <div class="date-display" id="dateDisplay">2023-09-11</div>
       <div class="confirm-btn" onclick="confirmPast()">CONFIRM</div>
     </div>
   </div>
@@ -792,12 +766,13 @@ const timelineData = [
 ];
 
 const pastData = {
-  "2023-09-11": { keyword: "初见", content: "在武警院我们相遇。不管过去多久我还是想说，很高兴认识你。" },
   "2023-06-15": { keyword: "未知", content: "那时候我们还不知道，后来会发生这么多事。" },
+  "2023-09-11": { keyword: "初见", content: "在武警院我们相遇。不管过去多久我还是想说，很高兴认识你。" },
   "2024-01-03": { keyword: "测试", content: "这是一个测试条目，用来验证大量内容时的布局效果。" }
 };
 
-let y = 2023, m = 9, d = 11;
+const pastDates = Object.keys(pastData);
+let currentIndex = 1;
 
 function renderTimeline() {
   const container = document.getElementById("timelineNow");
@@ -836,6 +811,7 @@ function goToPast() {
   document.getElementById("other").style.display = "none";
   document.getElementById("past").style.display = "block";
   buildIndex();
+  updateDateDisplay();
 }
 
 function goToCS() {
@@ -888,7 +864,7 @@ const photosByDate = {
     "https://raw.githubusercontent.com/ac091/log/main/yi.jpg"
   ]
 };
-let currentPhotos = [], currentIndex = 0;
+let currentPhotos = [], currentIndexPhoto = 0;
 
 function openModal(time, content) {
   document.getElementById("modal-content").innerHTML = content;
@@ -908,25 +884,25 @@ function closeModal() {
 
 function openAlbum(p) {
   currentPhotos = p;
-  currentIndex = 0;
+  currentIndexPhoto = 0;
   document.querySelector("#album img").src = currentPhotos[0];
   document.getElementById("album-page").innerText = "1 / " + currentPhotos.length;
   document.getElementById("album").style.display = "block";
 }
 
 function prevImg() {
-  if (currentIndex > 0) {
-    currentIndex--;
-    document.querySelector("#album img").src = currentPhotos[currentIndex];
-    document.getElementById("album-page").innerText = (currentIndex + 1) + " / " + currentPhotos.length;
+  if (currentIndexPhoto > 0) {
+    currentIndexPhoto--;
+    document.querySelector("#album img").src = currentPhotos[currentIndexPhoto];
+    document.getElementById("album-page").innerText = (currentIndexPhoto + 1) + " / " + currentPhotos.length;
   }
 }
 
 function nextImg() {
-  if (currentIndex < currentPhotos.length - 1) {
-    currentIndex++;
-    document.querySelector("#album img").src = currentPhotos[currentIndex];
-    document.getElementById("album-page").innerText = (currentIndex + 1) + " / " + currentPhotos.length;
+  if (currentIndexPhoto < currentPhotos.length - 1) {
+    currentIndexPhoto++;
+    document.querySelector("#album img").src = currentPhotos[currentIndexPhoto];
+    document.getElementById("album-page").innerText = (currentIndexPhoto + 1) + " / " + currentPhotos.length;
   }
 }
 
@@ -1037,63 +1013,39 @@ function enterPastSequence() {
   }, 2000);
 }
 
-/* ===== 过去时间段逻辑 ===== */
-function step(v, min, max) {
-  v += this.deltaY > 0 ? 1 : -1;
-  return Math.max(min, Math.min(max, v));
+/* ===== 过去时间段：滚轮日期选择器 ===== */
+function scrollDate(e) {
+  e.preventDefault();
+  if (e.deltaY > 0) {
+    currentIndex = (currentIndex + 1) % pastDates.length;
+  } else {
+    currentIndex = (currentIndex - 1 + pastDates.length) % pastDates.length;
+  }
+  updateDateDisplay();
 }
 
-function bindWheel(id, setter, min, max) {
-  document.getElementById(id).addEventListener("wheel", e => {
-    e.preventDefault();
-    setter(step(e, min, max));
-    updateUI();
-  });
+function updateDateDisplay() {
+  document.getElementById("dateDisplay").innerText = pastDates[currentIndex];
 }
-
-function updateUI() {
-  document.getElementById("y").innerText = y;
-  document.getElementById("m").innerText = String(m).padStart(2,"0");
-  document.getElementById("d").innerText = String(d).padStart(2,"0");
-}
-
-function changeYear(dir) { y = clamp(y + dir, 2023, 2024); updateUI(); }
-function changeMonth(dir) { m = clamp(m + dir, 1, 12); updateUI(); }
-function changeDay(dir) { d = clamp(d + dir, 1, 31); updateUI(); }
-
-function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
-
-bindWheel("y", v=>y=v, 2023, 2024);
-bindWheel("m", v=>m=v, 1, 12);
-bindWheel("d", v=>d=v, 1, 31);
-
-document.getElementById("y").onclick = ()=>changeYear(1);
-document.getElementById("m").onclick = ()=>changeMonth(1);
-document.getElementById("d").onclick = ()=>changeDay(1);
 
 function confirmPast() {
-  const key = `${y}-${String(m).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
-  if (pastData[key]) {
-    openModal(key, pastData[key].content);
-  } else {
-    alert("该日期无记录");
-  }
+  const key = pastDates[currentIndex];
+  openModal(key, pastData[key].content);
 }
 
 function buildIndex() {
   const panel = document.getElementById("indexPanel");
   panel.innerHTML = "<div onclick='toggleIndex()'>INDEX ▾</div>";
-  Object.keys(pastData).forEach(k => {
+  pastDates.forEach((k, i) => {
     const div = document.createElement("div");
     div.innerText = k;
-    div.onclick = ()=>{
-      [y,m,d] = k.split("-").map(Number);
-      updateUI();
+    div.onclick = () => {
+      currentIndex = i;
+      updateDateDisplay();
       toggleIndex();
     };
     panel.appendChild(div);
   });
-  panel.style.display = "none";
 }
 
 function toggleIndex() {
