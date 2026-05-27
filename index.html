@@ -281,35 +281,37 @@ input.key {
   background: rgba(56,189,248,.1);
 }
 
-/* ✅ 左对齐 + 舒适间距 */
+/* ✅ 居中模块 */
 .timeline {
   display: flex;
   flex-direction: column;
   gap: 50px;
-  align-items: flex-start;
-  padding-left: 12%;
+  align-items: center;
+  padding-top: 40px;
 }
 
-/* ✅ memory 覆盖式 hover */
+/* ✅ 记忆卡片 */
 .memory {
-  position: relative;
-  width: 260px;
-  height: 50px;
   cursor: pointer;
 }
 
+.memory-inner {
+  width: 320px;
+  padding: 30px 40px;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 14px;
+  background: rgba(255,255,255,.02);
+  text-align: center;
+}
+
 .memory-date {
-  font-size: 26px;
+  font-size: 22px;
   font-weight: 800;
   color: #38bdf8;
+  margin-bottom: 18px;
 }
 
 .memory-tag {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   font-size: 26px;
   font-weight: 800;
   color: #ffffff;
@@ -317,25 +319,8 @@ input.key {
   transition: opacity .4s ease;
 }
 
-/* ✅ 淡色方框【】 */
-.memory-tag::before,
-.memory-tag::after {
-  content: "[";
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 26px;
-  color: rgba(255,255,255,.25);
-  letter-spacing: 30px;
-}
-
-.memory-tag::after {
-  content: "]";
-}
-
-.memory:hover .memory-date {
-  opacity: 0;
-}
+.memory-tag::before { content: "["; margin-right: 10px; color: rgba(255,255,255,.25); }
+.memory-tag::after  { content: "]"; margin-left: 10px; color: rgba(255,255,255,.25); }
 
 .memory:hover .memory-tag {
   opacity: 1;
@@ -704,16 +689,22 @@ input.key {
   <div class="past-header" onclick="goToMain()">◀ BACK</div>
   <div class="timeline">
     <div class="memory" onclick="openModal('2023-09-11','在武警院我们相遇。不管过去多久我还是想说，很高兴认识你。')">
-      <div class="memory-date">2023-09-11</div>
-      <div class="memory-tag">初见</div>
+      <div class="memory-inner">
+        <div class="memory-date">2023-09-11</div>
+        <div class="memory-tag">初见</div>
+      </div>
     </div>
     <div class="memory" onclick="openModal('2023-06-15','那时候我们还不知道，后来会发生这么多事。')">
-      <div class="memory-date">2023-06-15</div>
-      <div class="memory-tag">未知</div>
+      <div class="memory-inner">
+        <div class="memory-date">2023-06-15</div>
+        <div class="memory-tag">未知</div>
+      </div>
     </div>
     <div class="memory" onclick="openModal('2024-01-03','这是一个测试条目，用来验证大量内容时的布局效果。')">
-      <div class="memory-date">2024-01-03</div>
-      <div class="memory-tag">测试</div>
+      <div class="memory-inner">
+        <div class="memory-date">2024-01-03</div>
+        <div class="memory-tag">测试</div>
+      </div>
     </div>
   </div>
 </div>
