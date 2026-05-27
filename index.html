@@ -53,7 +53,7 @@ input.key {
   outline: none;
 }
 
-/* ===== 现在时间段（✅ 不规则浮岛） ===== */
+/* ===== 现在时间段（✅ 时间流 / 信号节点） ===== */
 #main {
   display: none;
   position: fixed;
@@ -61,7 +61,7 @@ input.key {
   background: linear-gradient(135deg, #1e293b, #334155);
   z-index: 10;
   padding: 60px 80px;
-  overflow-y: auto;
+  overflow: hidden;
 }
 
 .main-header {
@@ -73,37 +73,58 @@ input.key {
 
 .timeline-now {
   position: relative;
+  width: 100%;
   height: calc(100vh - 160px);
 }
 
-.island {
+/* 时间光带 */
+.line {
   position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 22px;
-  font-weight: 700;
-  color: #7dd3fc;
-  background: rgba(255,255,255,.08);
-  border-radius: 20px;
-  cursor: pointer;
-  transition: all .6s ease;
-  opacity: .85;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 
-.island:hover {
-  transform: scale(1.08);
-  background: rgba(56,189,248,.25);
-  box-shadow: 0 30px 80px rgba(56,189,248,.35);
+/* 节点 */
+.node {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #38bdf8;
+  box-shadow: 0 0 20px rgba(56,189,248,.8);
+  transition: transform .3s ease;
+}
+
+.node:hover .dot {
+  transform: scale(1.6);
+}
+
+.label {
+  margin-top: 12px;
+  font-size: 18px;
+  color: #7dd3fc;
+  opacity: .6;
+  transition: opacity .3s ease;
+}
+
+.node:hover .label {
   opacity: 1;
 }
 
-/* 不同大小 & 位置 */
-.i1 { width: 220px; height: 160px; top: 10%; left: 5%; }
-.i2 { width: 180px; height: 140px; top: 30%; right: 15%; }
-.i3 { width: 240px; height: 150px; bottom: 15%; left: 20%; }
+/* 节点位置（以后照抄就行） */
+.n1 { left: 5%; top: 75%; }
+.n2 { left: 45%; top: 50%; }
+.n3 { left: 80%; top: 20%; }
 
-/* ===== 过去时间段（✅ 残影 + hover 出字） ===== */
+/* ===== 过去时间段（✅ 你喜欢的残影） ===== */
 #past {
   display: none;
   position: fixed;
@@ -281,7 +302,7 @@ input.key {
   text-align: center;
 }
 
-/* ===== 6.4（✅ 你喜欢的状态） ===== */
+/* ===== 6.4 ===== */
 #entry {
   display: none;
   position: fixed;
@@ -397,14 +418,33 @@ input.key {
 <div id="main">
   <div class="main-header">RECENT LOGS</div>
   <div class="timeline-now">
-    <div class="island i1" onclick="openModal('2026-05-25','今天这个小网站正式可以运行了…')">
-      <span>2026-05-25</span>
+    <svg class="line" viewBox="0 0 1000 300">
+      <defs>
+        <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#38bdf8" stop-opacity="0"/>
+          <stop offset="50%" stop-color="#38bdf8"/>
+          <stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <path d="M0,250 C300,200 700,100 1000,50"
+            stroke="url(#glow)"
+            stroke-width="2"
+            fill="none"/>
+    </svg>
+
+    <div class="node n1" onclick="openModal('2026-05-25','今天这个小网站正式可以运行了，好有成就感。这是我做的第一个网站，也是第一次正儿八经跑代码，惊喜吧应该，其实这个想法不算突然，只是没法确定代码可以跑起来，可我前两天还是决定先悄悄藏在戒指上，你应该暂时发现不了，上次的八千字讲了很多人很多事，但我想说那并不是全部，这个网站会保持更新的，也会有很多可以探索的地方，这个网站，只关于你，也只属于我们。')">
+      <div class="dot"></div>
+      <div class="label">2026-05-25</div>
     </div>
-    <div class="island i2" onclick="openModal('2026-06-01','系统开始记录新的轨迹。')">
-      <span>2026-06-01</span>
+
+    <div class="node n2" onclick="openModal('2026-06-01','系统开始记录新的轨迹。')">
+      <div class="dot"></div>
+      <div class="label">2026-06-01</div>
     </div>
-    <div class="island i3" onclick="openModal('2024-06-04','首先祝你生日快乐')">
-      <span>2024-06-04</span>
+
+    <div class="node n3" onclick="openModal('2024-06-04','首先祝你生日快乐')">
+      <div class="dot"></div>
+      <div class="label">2024-06-04</div>
     </div>
   </div>
 </div>
