@@ -274,14 +274,14 @@ input.key {
   z-index: 10;
 }
 
-/* ===== 倒三角（靠近年份） ===== */
+/* ✅ 年份旁小倒三角 */
 #yearToggle {
   display: none;
   position: absolute;
-  top: 30px;
+  top: 28px;
   left: 50%;
-  transform: translateX(-320px);
-  font-size: 18px;
+  transform: translateX(-350px);
+  font-size: 14px;
   color: rgba(255,255,255,.35);
   cursor: pointer;
   z-index: 15;
@@ -289,23 +289,24 @@ input.key {
 
 #indexList {
   position: absolute;
-  top: 60px;
+  top: 55px;
   left: 50%;
-  transform: translateX(-320px);
+  transform: translateX(-350px);
   display: none;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
   z-index: 15;
-  background: rgba(11, 15, 26, 0.9);
-  padding: 15px 20px;
-  border-radius: 8px;
-  border: 1px solid rgba(255,255,255,.1);
+  background: rgba(11, 15, 26, 0.95);
+  padding: 12px 16px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,.08);
 }
 
 #indexList div {
-  font-size: 14px;
+  font-size: 13px;
   color: #38bdf8;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 #indexList div:hover {
@@ -325,19 +326,6 @@ input.key {
   color: #38bdf8;
   letter-spacing: 4px;
   user-select: none;
-  position: relative;
-}
-
-/* ===== 滑轮提示（日期右边） ===== */
-.scroll-hint {
-  position: absolute;
-  top: 50%;
-  right: -140px;
-  transform: translateY(-50%);
-  font-size: 12px;
-  letter-spacing: 6px;
-  color: rgba(255,255,255,.25);
-  white-space: nowrap;
 }
 
 .confirm-btn {
@@ -367,12 +355,11 @@ input.key {
   align-items: center;
 }
 
+/* ✅ 关键字无框 */
 .keyword-box {
-  font-size: 48px;
+  font-size: 56px;
   font-weight: 800;
   color: #ffffff;
-  border: 1px solid rgba(255,255,255,.2);
-  padding: 30px 60px;
   cursor: pointer;
   transition: all 0.3s ease;
   letter-spacing: 2px;
@@ -380,12 +367,61 @@ input.key {
 
 .keyword-box:hover {
   color: #38bdf8;
-  border-color: #38bdf8;
-  transform: scale(1.05);
-  box-shadow: 0 0 30px rgba(56, 189, 248, 0.3);
+  transform: scale(1.08);
 }
 
-/* ===== SONG ===== */
+/* ===== 模态框内容 ===== */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.92);
+  z-index: 999;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-box {
+  width: 80vw;
+  max-width: 900px;
+  padding: 60px;
+  text-align: center;
+}
+
+.modal-content {
+  font-size: 22px;
+  line-height: 1.9;
+  color: #d1d5db;
+}
+
+/* ✅ 内容底部关闭按钮 */
+.modal-close {
+  margin-top: 50px;
+  font-size: 16px;
+  letter-spacing: 6px;
+  color: rgba(255,255,255,.35);
+  cursor: pointer;
+  transition: color .3s;
+}
+
+.modal-close:hover {
+  color: #38bdf8;
+}
+
+.camera {
+  margin-top: 40px;
+  width: 60px;
+  height: 60px;
+  background: rgba(255,255,255,.08);
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 26px;
+}
+
+/* ===== 其余页面（原样保留） ===== */
 #csPage {
   display: none;
   position: fixed;
@@ -449,7 +485,6 @@ input.key {
   text-align: center;
 }
 
-/* ===== 其他页面 ===== */
 .page-placeholder {
   display: none;
   position: fixed;
@@ -470,43 +505,6 @@ input.key {
   font-size: 16px;
   letter-spacing: 2px;
   color: #475569;
-}
-
-/* ===== 模态框 ===== */
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.92);
-  z-index: 999;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-box {
-  width: 80vw;
-  max-width: 900px;
-  padding: 60px;
-  text-align: center;
-}
-
-.modal-content {
-  font-size: 22px;
-  line-height: 1.9;
-  color: #d1d5db;
-}
-
-.camera {
-  margin-top: 40px;
-  width: 60px;
-  height: 60px;
-  background: rgba(255,255,255,.08);
-  border-radius: 50%;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  font-size: 26px;
 }
 
 /* ===== 相册 ===== */
@@ -550,7 +548,7 @@ input.key {
   font-size: 14px;
 }
 
-/* ===== 右下角彩蛋 ===== */
+/* ===== 彩蛋 ===== */
 #main .gate {
   position: fixed;
   bottom: 30px;
@@ -777,7 +775,6 @@ input.key {
   <div class="picker-center" id="picker" onwheel="scrollDate(event)">
     <div>
       <div class="date-display" id="dateDisplay"></div>
-      <div class="scroll-hint">SCROLL TO SELECT DATE</div>
       <div class="confirm-btn" onclick="confirmPast()">CONFIRM</div>
     </div>
   </div>
@@ -822,6 +819,7 @@ input.key {
 <div class="modal" id="modal" onclick="closeModal()">
   <div class="modal-box" onclick="event.stopPropagation()">
     <div class="modal-content" id="modal-content"></div>
+    <div class="modal-close" onclick="closeModal()">✕ CLOSE</div>
   </div>
 </div>
 
@@ -855,7 +853,7 @@ const timelineData = [
 const pastData = {
   "2023-06-15": { keyword: "未知", content: "那时候我们还不知道，后来会发生这么多事。" },
   "2023-09-11": { keyword: "初见", content: "在武警院我们相遇。不管过去多久我还是想说，很高兴认识你。" },
-  "2024-01-03": { keyword: "测试", content: "这是一个测试条目，用来验证大量内容时的布局效果。" }
+  "2024-01-03": { keyword: "测试", content: "这是一个测试条目。" }
 };
 
 const pastDates = Object.keys(pastData).sort();
@@ -873,7 +871,6 @@ function renderTimeline() {
   });
 }
 
-/* ===== 导航 ===== */
 function goToNav() {
   document.getElementById("main").style.display = "none";
   document.getElementById("past").style.display = "none";
@@ -937,7 +934,6 @@ input.addEventListener("input", () => {
   }
 });
 
-/* ===== 相册 ===== */
 const photosByDate = {
   "2023-09-11": [
     "https://raw.githubusercontent.com/ac091/log/main/qu.jpg",
