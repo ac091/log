@@ -714,7 +714,7 @@ input.key {
 <div id="nav">
   <div class="nav-title">SELECT</div>
   <div class="nav-links">
-    <div class="nav-link" onclick="goToMain()">现 在</div>
+    <div class="nav-link" onclick="goToMain()">故事</div>
     <div class="nav-link" onclick="goToIdea()">IDEA</div>
     <div class="nav-link" onclick="goToCS()">SONG</div>
     <div class="nav-link" onclick="goToOther()">其 他</div>
@@ -755,7 +755,7 @@ input.key {
     <div class="cs-right">S</div>
   </div>
   <div class="cs-content">
-    <div class="cs-column">[ C 歌单 ]</div>
+    <div class="cs-column">[ 冠军 ]</div>
     <div class="cs-column">[ S 歌单 ]</div>
   </div>
 </div>
@@ -813,9 +813,8 @@ input.key {
 <script>
 /* ===== 时间轴数据 ===== */
 const timelineData = [
-  { date: "2026-06-01", content: "系统开始记录新的轨迹。" },
-  { date: "2026-05-25", content: "今天这个小网站正式可以运行了，好有成就感。这是我做的第一个网站，也是第一次正儿八经跑代码，惊喜吧应该，其实这个想法不算突然，只是没法确定代码可以跑起来，可我前两天还是决定先悄悄藏在戒指上，你应该暂时发现不了，上次的八千字讲了很多人很多事，但我想说那并不是全部，这个网站会保持更新的，也会有很多可以探索的地方，这个网站，只关于你，也只属于我们。" },
-  { date: "2024-06-04", content: "首先祝你生日快乐" }
+  { date: "2026-06-04", content: "首先祝你生日快乐。" },
+  { date: "2026-05-25", content: "今天这个小网站正式可以运行了，好有成就感。这是我做的第一个网站，也是第一次正儿八经跑代码，惊喜吧应该，其实这个想法不算突然，只是没法确定代码可以跑起来，可我前两天还是决定先悄悄藏在戒指上，你应该暂时发现不了，上次的八千字讲了很多人很多事，但我想说那并不是全部，这个网站会保持更新的，也会有很多可以探索的地方，这个网站，只关于你，也只属于我们。" }
 ];
 
 function renderTimeline() {
@@ -968,9 +967,9 @@ typeSound.volume = 0.3;
 
 function playTypewriter() {
   tw.style.display = "flex";
-  typeText("这近三年来最美好的事是什么？", () => {
+  typeText("认识这么久以来印象最深的事是什么？", () => {
     setTimeout(() => eraseText(() => {
-      typeText("想想就会发现根本想不完。", () => {
+      typeText("好像，没用确切的答案。", () => {
         setTimeout(() => {
           tw.style.display = "none";
           if (!localStorage.getItem("asked")) {
