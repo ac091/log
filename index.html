@@ -274,24 +274,24 @@ input.key {
   z-index: 10;
 }
 
-/* ✅ 年份旁倒三角 */
+/* ✅ 倒三角：紧贴 2023 左边，放大 */
 #yearToggle {
   display: none;
   position: absolute;
-  top: 28px;
+  top: 50%;
   left: 50%;
-  transform: translateX(-350px);
-  font-size: 14px;
-  color: rgba(255,255,255,.35);
+  transform: translate(-380px, -50%);
+  font-size: 28px;
+  color: rgba(255,255,255,.45);
   cursor: pointer;
   z-index: 15;
 }
 
 #indexList {
   position: absolute;
-  top: 55px;
+  top: 50%;
   left: 50%;
-  transform: translateX(-350px);
+  transform: translate(-380px, 30px);
   display: none;
   flex-direction: column;
   gap: 8px;
@@ -355,7 +355,6 @@ input.key {
   align-items: center;
 }
 
-/* ✅ 关键字无框，仅文字可点 */
 .keyword-box {
   font-size: 56px;
   font-weight: 800;
@@ -370,7 +369,7 @@ input.key {
   transform: scale(1.08);
 }
 
-/* ===== 模态框 ===== */
+/* ===== 内容模态框 ===== */
 .modal {
   display: none;
   position: fixed;
@@ -392,19 +391,6 @@ input.key {
   font-size: 22px;
   line-height: 1.9;
   color: #d1d5db;
-}
-
-/* ✅ 关闭在最底 */
-.modal-close {
-  margin-top: 60px;
-  font-size: 14px;
-  letter-spacing: 8px;
-  color: rgba(255,255,255,.35);
-  cursor: pointer;
-}
-
-.modal-close:hover {
-  color: #38bdf8;
 }
 
 .camera {
@@ -547,7 +533,7 @@ input.key {
   font-size: 14px;
 }
 
-/* ===== 彩蛋 ===== */
+/* ===== 右下角小点 ===== */
 #main .gate {
   position: fixed;
   bottom: 30px;
@@ -761,6 +747,8 @@ input.key {
     <span>TIME CAPSULE</span>
   </div>
   <div class="timeline-now" id="timelineNow"></div>
+
+  <!-- ✅ 进入过去只能通过小点 -->
   <div class="gate" onclick="openPastModal()"></div>
 </div>
 
@@ -768,7 +756,7 @@ input.key {
 <div id="past">
   <div class="past-header" onclick="goToMain()">◀ BACK</div>
 
-  <!-- ✅ 年份旁倒三角 -->
+  <!-- ✅ 倒三角在 2023 左边，放大 -->
   <div id="yearToggle" onclick="toggleIndex()">▾</div>
   <div id="indexList"></div>
 
@@ -816,10 +804,10 @@ input.key {
   <div id="album-close" onclick="closeAlbum()">✕</div>
 </div>
 
+<!-- ✅ 内容页：点空白关闭 -->
 <div class="modal" id="modal" onclick="closeModal()">
   <div class="modal-box" onclick="event.stopPropagation()">
     <div class="modal-content" id="modal-content"></div>
-    <div class="modal-close" onclick="closeModal()">CLOSE</div>
   </div>
 </div>
 
@@ -847,12 +835,12 @@ input.key {
 <script>
 const timelineData = [
   { date: "2026-06-04", content: "首先祝你生日快乐。" },
-  { date: "2026-05-25", content: "今天这个小网站正式可以运行了，好有成就感。这是我做的第一个网站，也是第一次正儿八经跑代码，惊喜吧应该，其实这个想法不算突然，只是没法确定代码可以跑起来，可我前两天还是决定先悄悄藏在戒指上，你应该暂时发现不了，上次的八千字讲了很多人很多事，但我想说那并不是全部，这个网站会保持更新的，也会有很多可以探索的地方，这个网站，只关于你，也只属于我们。" }
+  { date: "2026-05-25", content: "今天这个小网站正式可以运行了，好有成就感。" }
 ];
 
 const pastData = {
   "2023-06-15": { keyword: "未知", content: "那时候我们还不知道，后来会发生这么多事。" },
-  "2023-09-11": { keyword: "初见", content: "在武警院我们相遇。不管过去多久我还是想说，很高兴认识你。" },
+  "2023-09-11": { keyword: "初见", content: "在武警院我们相遇。很高兴认识你。" },
   "2024-01-03": { keyword: "测试", content: "这是一个测试条目。" }
 };
 
