@@ -281,18 +281,20 @@ input.key {
   background: rgba(56,189,248,.1);
 }
 
+/* ✅ 左对齐，适合大量内容 */
 .timeline {
   display: flex;
   flex-direction: column;
-  gap: 50px;
-  align-items: center;
+  gap: 30px;
+  align-items: flex-start;
+  padding-left: 10%;
 }
 
 /* ✅ memory 覆盖式 hover */
 .memory {
   position: relative;
-  width: 280px;
-  height: 80px;
+  width: 220px;
+  height: 44px;
   cursor: pointer;
 }
 
@@ -301,15 +303,18 @@ input.key {
   position: absolute;
   inset: 0;
   display: flex;
-  justify-content: center;
   align-items: center;
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 800;
-  color: #38bdf8;
   transition: opacity .4s ease;
 }
 
+.memory-date {
+  color: #38bdf8; /* 日期蓝 */
+}
+
 .memory-tag {
+  color: #ffffff; /* ✅ 关键词白 */
   opacity: 0;
 }
 
@@ -690,6 +695,10 @@ input.key {
     <div class="memory" onclick="openModal('2023-06-15','那时候我们还不知道，后来会发生这么多事。')">
       <div class="memory-date">2023-06-15</div>
       <div class="memory-tag">未知</div>
+    </div>
+    <div class="memory" onclick="openModal('2024-01-03','这是一个测试条目，用来验证大量内容时的布局效果。')">
+      <div class="memory-date">2024-01-03</div>
+      <div class="memory-tag">测试</div>
     </div>
   </div>
 </div>
