@@ -672,54 +672,28 @@ input.key {
   display: none;
 }
 
-/* ===== ✅ 时空驿站弹窗（去人机） ===== */
-#confirmModal {
+/* ===== ✅ 时空驿站提示（酷版） ===== */
+#pastHint {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,.92);
+  background: #000;
   z-index: 1000;
   justify-content: center;
   align-items: center;
   opacity: 0;
-  transition: opacity .4s ease;
+  transition: opacity .8s ease;
 }
 
-#confirmModal.show {
+#pastHint.show {
   display: flex;
   opacity: 1;
 }
 
-#confirmModal .box {
-  background: rgba(20,25,40,.95);
-  padding: 36px 56px;
-  border-radius: 14px;
-  text-align: center;
-  border: 1px solid rgba(56,189,248,.12);
-  backdrop-filter: blur(8px);
-}
-
-#confirmModal .text {
+#pastHint .text {
   font-size: 14px;
-  color: rgba(255,255,255,.45);
-  letter-spacing: 2px;
-  margin-bottom: 32px;
-}
-
-#confirmModal .btn {
-  padding: 10px 36px;
-  border-radius: 24px;
-  cursor: pointer;
-  font-size: 13px;
-  letter-spacing: 1px;
-  background: rgba(56,189,248,.12);
-  color: #38bdf8;
-  border: 1px solid rgba(56,189,248,.25);
-  transition: all .3s ease;
-}
-
-#confirmModal .btn:hover {
-  background: rgba(56,189,248,.25);
+  color: rgba(255,255,255,.35);
+  letter-spacing: 6px;
 }
 
 /* ===== 黑场过渡 ===== */
@@ -730,7 +704,7 @@ input.key {
   background: #000;
   z-index: 1200;
   opacity: 0;
-  transition: opacity .6s ease;
+  transition: opacity .8s ease;
 }
 </style>
 </head>
@@ -768,7 +742,7 @@ input.key {
     <span>TIME CAPSULE</span>
   </div>
   <div class="timeline-now" id="timelineNow"></div>
-  <div class="gate" onclick="openConfirm()"></div>
+  <div class="gate" onclick="openPastHint()"></div>
 </div>
 
 <!-- 过去时间段 -->
@@ -791,8 +765,8 @@ input.key {
   <div class="back-btn" onclick="goToNav()">◀ BACK</div>
   <div class="song-title">SONG</div>
   <div class="playlist-tabs">
-    <div class="playlist-tab active" onclick="switchPlaylist(0)">歌单一</div>
-    <div class="playlist-tab" onclick="switchPlaylist(1)">歌单二</div>
+    <div class="playlist-tab active" onclick="switchPlaylist(0)">冠军</div>
+    <div class="playlist-tab" onclick="switchPlaylist(1)">梦</div>
   </div>
   <div class="playlist active" id="playlist0"></div>
   <div class="playlist" id="playlist1"></div>
@@ -825,12 +799,9 @@ input.key {
   </div>
 </div>
 
-<!-- ✅ 时空驿站弹窗 -->
-<div id="confirmModal" onclick="closeConfirm()">
-  <div class="box" onclick="event.stopPropagation()">
-    <div class="text">即将进入时空驿站</div>
-    <div class="btn" onclick="enterPast()">继续</div>
-  </div>
+<!-- ✅ 时空驿站提示 -->
+<div id="pastHint">
+  <div class="text">ENTERING TIME STATION</div>
 </div>
 
 <!-- ✅ 黑场过渡 -->
@@ -1062,17 +1033,17 @@ function closeBirthday() {
   localStorage.setItem("asked", "1");
 }
 
-/* ===== SONG 页面（✅ 网页版自动播放） ===== */
+/* ===== ✅ SONG 页面（时代少年团） ===== */
 const playlists = [
   [
-    { name: "乌梅子酱", artist: "李荣浩", duration: "3:37", id: "1982731693" },
-    { name: "年少有为", artist: "李荣浩", duration: "4:39", id: "1319817921" },
-    { name: "模特", artist: "李荣浩", duration: "5:03", id: "28875200" }
+    { name: "冠军", artist: "时代少年团", duration: "3:20", id: "1889363945" },
+    { name: "哪吒", artist: "时代少年团", duration: "3:07", id: "1889363946" },
+    { name: "少年郎", artist: "时代少年团", duration: "3:31", id: "1889363947" }
   ],
   [
-    { name: "晴天", artist: "周杰伦", duration: "4:29", id: "186016" },
-    { name: "稻香", artist: "周杰伦", duration: "3:43", id: "185918" },
-    { name: "七里香", artist: "周杰伦", duration: "4:59", id: "186099" }
+    { name: "梦", artist: "时代少年团", duration: "3:47", id: "1432635451" },
+    { name: "无尽的冒险", artist: "时代少年团", duration: "3:21", id: "1432635452" },
+    { name: "相遇", artist: "时代少年团", duration: "3:56", id: "1432635453" }
   ]
 ];
 
@@ -1107,18 +1078,18 @@ function switchPlaylist(idx) {
   });
 }
 
-/* ===== ✅ 时空驿站（弹窗 + 黑场动画） ===== */
-function openConfirm() {
-  document.getElementById("confirmModal").classList.add("show");
-}
+/* ===== ✅ 时空驿站（酷版） ===== */
+function openPastHint() {
+  const hint = document.getElementById("pastHint");
+  hint.classList.add("show");
 
-function closeConfirm() {
-  document.getElementById("confirmModal").classList.remove("show");
+  setTimeout(() => {
+    hint.classList.remove("show");
+    enterPast();
+  }, 900);
 }
 
 function enterPast() {
-  closeConfirm();
-
   const overlay = document.getElementById("fadeOverlay");
   overlay.style.display = "block";
   requestAnimationFrame(() => overlay.style.opacity = "1");
@@ -1127,9 +1098,9 @@ function enterPast() {
     goToPast();
     setTimeout(() => {
       overlay.style.opacity = "0";
-      setTimeout(() => overlay.style.display = "none", 600);
-    }, 200);
-  }, 600);
+      setTimeout(() => overlay.style.display = "none", 800);
+    }, 300);
+  }, 800);
 }
 
 /* ===== 初始渲染 ===== */
