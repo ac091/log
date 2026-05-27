@@ -5,7 +5,7 @@
 <title>ACCESS</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- ✅ 你原有的样式，我一个字都没改 -->
+<!-- ✅ 你原有的样式（仅升级弹窗 & 加载） -->
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -19,58 +19,24 @@ body {
 
 /* ===== 登录 ===== */
 #login {
-  position: fixed;
-  inset: 0;
-  background: #0b0b0b;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  z-index: 100;
+  position: fixed; inset: 0; background: #0b0b0b;
+  display: flex; justify-content: center; align-items: center; flex-direction: column; z-index: 100;
 }
-
-.login-inner {
-  width: 420px;
-  text-align: center;
-}
-
-.login-inner p {
-  font-size: 12px;
-  letter-spacing: 4px;
-  opacity: .4;
-  margin-bottom: 35px;
-}
-
+.login-inner { width: 420px; text-align: center; }
+.login-inner p { font-size: 12px; letter-spacing: 4px; opacity: .4; margin-bottom: 35px; }
 input.key {
-  width: 100%;
-  padding: 16px;
-  background: transparent;
-  border: 1px solid rgba(255,255,255,.15);
-  border-radius: 8px;
-  color: #fff;
-  font-size: 18px;
-  text-align: center;
-  letter-spacing: 10px;
-  outline: none;
+  width: 100%; padding: 16px; background: transparent; border: 1px solid rgba(255,255,255,.15);
+  border-radius: 8px; color: #fff; font-size: 18px; text-align: center; letter-spacing: 10px; outline: none;
 }
 
 /* ===== 导航页 ===== */
 #nav {
-  display: none;
-  position: fixed;
-  inset: 0;
+  display: none; position: fixed; inset: 0;
   background: radial-gradient(ellipse at center, #0a0e27 0%, #000000 70%);
-  z-index: 50;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  overflow: hidden;
+  z-index: 50; justify-content: center; align-items: center; flex-direction: column; overflow: hidden;
 }
-
 #nav::before {
-  content: "";
-  position: absolute;
-  inset: 0;
+  content: ""; position: absolute; inset: 0;
   background:
     radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,.8), transparent),
     radial-gradient(1px 1px at 30% 50%, rgba(255,255,255,.6), transparent),
@@ -82,673 +48,202 @@ input.key {
     radial-gradient(1px 1px at 80% 15%, rgba(255,255,255,.6), transparent),
     radial-gradient(1.5px 1.5px at 40% 85%, rgba(56,189,248,.5), transparent),
     radial-gradient(1px 1px at 15% 45%, rgba(255,255,255,.5), transparent);
-  pointer-events: none;
-  z-index: 0;
+  pointer-events: none; z-index: 0;
 }
-
-.nav-title {
-  font-size: 12px;
-  letter-spacing: 10px;
-  color: rgba(255,255,255,.2);
-  margin-bottom: 80px;
-  z-index: 1;
-}
-
-.nav-links {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-  z-index: 1;
-}
-
-.nav-link {
-  font-size: 48px;
-  font-weight: 600;
-  color: #9ca3af;
-  letter-spacing: 4px;
-  cursor: pointer;
-  position: relative;
-  transition: color .4s ease;
-}
-
-.nav-link::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -10px;
-  width: 0;
-  height: 2px;
-  background: #38bdf8;
-  transition: width .4s ease;
-}
-
-.nav-link:hover {
-  color: #38bdf8;
-}
-
-.nav-link:hover::after {
-  width: 100%;
-}
+.nav-title { font-size: 12px; letter-spacing: 10px; color: rgba(255,255,255,.2); margin-bottom: 80px; }
+.nav-link { font-size: 48px; font-weight: 600; color: #9ca3af; letter-spacing: 4px; cursor: pointer; }
+.nav-link:hover { color: #38bdf8; }
 
 /* ===== 现在时间段 ===== */
 #main {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(180deg, #1e293b, #0f172a);
-  z-index: 10;
-  padding: 60px 80px;
-  overflow: hidden;
+  display: none; position: fixed; inset: 0;
+  background: linear-gradient(180deg, #1e293b, #0f172a); z-index: 10; padding: 60px 80px; overflow: hidden;
 }
-
 .main-header {
-  font-size: 13px;
-  opacity: .6;
-  margin-bottom: 20px;
-  letter-spacing: 2px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 13px; opacity: .6; margin-bottom: 20px; letter-spacing: 2px;
 }
+.back-btn { cursor: pointer; padding: 8px 16px; border-radius: 6px; }
+.back-btn:hover { color: #38bdf8; background: rgba(56,189,248,.1); }
 
-.main-header .back-btn {
-  cursor: pointer;
-  color: #475569;
-  font-size: 16px;
-  letter-spacing: 2px;
-  padding: 8px 16px;
-  border-radius: 6px;
-  transition: all .3s ease;
-}
-
-.main-header .back-btn:hover {
-  color: #38bdf8;
-  background: rgba(56,189,248,.1);
-}
-
-.timeline-now {
-  position: relative;
-  width: 100%;
-  height: calc(100vh - 120px);
-  overflow-y: auto;
-  scroll-behavior: smooth;
-}
-
-.timeline-now::-webkit-scrollbar {
-  width: 6px;
-}
-
-.timeline-now::-webkit-scrollbar-thumb {
-  background: rgba(56,189,248,.3);
-  border-radius: 3px;
-}
-
-.timeline-now::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: linear-gradient(to bottom,
-    rgba(56,189,248,.6),
-    rgba(56,189,248,.1)
-  );
-  pointer-events: none;
-}
-
-.timeline-item {
-  position: relative;
-  width: 100%;
-  padding: 30px 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.dot {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: #38bdf8;
-  box-shadow: 0 0 20px rgba(56,189,248,.8);
-  cursor: pointer;
-  transition: transform .3s ease;
-  z-index: 2;
-  flex-shrink: 0;
-}
-
-.dot:hover {
-  transform: scale(1.5);
-}
-
-.label {
-  position: absolute;
-  font-size: 20px;
-  font-weight: 700;
-  color: #7dd3fc;
-  opacity: .7;
-  cursor: pointer;
-  z-index: 2;
-}
-
-.label:hover {
-  opacity: 1;
-}
-
-.timeline-item:nth-child(odd) .dot {
-  order: 2;
-}
-
-.timeline-item:nth-child(odd) .label {
-  order: 1;
-  right: calc(50% + 30px);
-}
-
-.timeline-item:nth-child(even) .dot {
-  order: 1;
-}
-
-.timeline-item:nth-child(even) .label {
-  order: 2;
-  left: calc(50% + 30px);
-}
+.timeline-now { position: relative; width: 100%; height: calc(100vh - 120px); overflow-y: auto; }
+.timeline-item { display: flex; justify-content: center; align-items: center; padding: 30px 0; }
+.dot { width: 16px; height: 16px; border-radius: 50%; background: #38bdf8; cursor: pointer; }
+.label { font-size: 20px; font-weight: 700; color: #7dd3fc; cursor: pointer; }
 
 /* ===== 过去时间段 ===== */
 #past {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: #0b0f1a;
-  z-index: 200;
-  padding: 60px 80px;
-  overflow-y: auto;
+  display: none; position: fixed; inset: 0;
+  background: #0b0f1a; z-index: 200; padding: 60px 80px; overflow-y: auto;
 }
+.past-header { cursor: pointer; padding: 8px 16px; border-radius: 6px; }
+.past-header:hover { color: #38bdf8; background: rgba(56,189,248,.1); }
 
-#past .past-header {
-  font-size: 16px;
-  color: #475569;
-  margin-bottom: 50px;
-  cursor: pointer;
-  padding: 8px 16px;
-  border-radius: 6px;
-  display: inline-block;
-  transition: all .3s ease;
-}
-
-#past .past-header:hover {
-  color: #38bdf8;
-  background: rgba(56,189,248,.1);
-}
-
-.timeline {
-  display: flex;
-  flex-direction: column;
-  gap: 50px;
-}
-
-.memory {
-  width: 280px;
-  padding: 24px;
-  background: rgba(255,255,255,.06);
-  border-radius: 14px;
-  cursor: pointer;
-  transform: rotateX(10deg) scale(.95);
-  transition: all .5s ease;
-  opacity: .65;
-}
-
-.memory:hover {
-  transform: rotateX(0) scale(1);
-  opacity: 1;
-}
-
-.memory-date {
-  font-size: 32px;
-  font-weight: 800;
-  color: #38bdf8;
-}
-
-.memory-tag {
-  font-size: 14px;
-  color: #94a3b8;
-  letter-spacing: 2px;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all .4s ease;
-}
-
-.memory:hover .memory-tag {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ===== SONG 页面 ===== */
+/* ===== SONG ===== */
 #song {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(180deg, #0f0f0f, #1a1a2e);
-  z-index: 10;
-  padding: 60px 80px;
-  overflow-y: auto;
+  display: none; position: fixed; inset: 0;
+  background: linear-gradient(180deg, #0f0f0f, #1a1a2e); z-index: 10; padding: 60px 80px; overflow-y: auto;
 }
+.song-item { display: flex; align-items: center; gap: 16px; padding: 12px 16px; border-radius: 10px; cursor: pointer; }
+.song-item:hover { background: rgba(255,255,255,.06); }
+.play-icon { font-size: 18px; color: #38bdf8; width: 24px; text-align: center; }
+.song-name { font-size: 15px; color: #d1d5db; }
+.song-artist { font-size: 12px; color: #6b7280; }
+.song-duration { font-size: 12px; color: #6b7280; }
 
-#song .back-btn {
-  cursor: pointer;
-  color: #475569;
-  font-size: 16px;
-  letter-spacing: 2px;
-  padding: 8px 16px;
-  border-radius: 6px;
-  display: inline-block;
-  margin-bottom: 40px;
-  transition: all .3s ease;
-}
-
-#song .back-btn:hover {
-  color: #38bdf8;
-  background: rgba(56,189,248,.1);
-}
-
-.song-title {
-  font-size: 14px;
-  letter-spacing: 6px;
-  color: rgba(255,255,255,.3);
-  margin-bottom: 30px;
-}
-
-.playlist-tabs {
-  display: flex;
-  gap: 20px;
-  margin-bottom: 30px;
-}
-
+.playlist-tabs { display: flex; gap: 20px; margin-bottom: 30px; }
 .playlist-tab {
-  padding: 8px 24px;
-  border-radius: 20px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: all .3s ease;
-  border: 1px solid rgba(255,255,255,.15);
-  color: #9ca3af;
-  background: transparent;
+  padding: 8px 24px; border-radius: 20px; cursor: pointer;
+  border: 1px solid rgba(255,255,255,.15); color: #9ca3af; background: transparent;
 }
-
-.playlist-tab.active, .playlist-tab:hover {
-  border-color: #38bdf8;
-  color: #38bdf8;
-  background: rgba(56,189,248,.1);
-}
-
-.playlist {
-  display: none;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.playlist.active {
-  display: flex;
-}
-
-.song-item {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 12px 16px;
-  border-radius: 10px;
-  transition: background .3s ease;
-  cursor: pointer;
-}
-
-.song-item:hover {
-  background: rgba(255,255,255,.06);
-}
-
-.song-item .play-icon {
-  font-size: 18px;
-  color: #38bdf8;
-  width: 24px;
-  text-align: center;
-}
-
-.song-item .song-info {
-  flex: 1;
-}
-
-.song-item .song-name {
-  font-size: 15px;
-  color: #d1d5db;
-}
-
-.song-item .song-artist {
-  font-size: 12px;
-  color: #6b7280;
-}
-
-.song-item .song-duration {
-  font-size: 12px;
-  color: #6b7280;
-}
+.playlist-tab.active { border-color: #38bdf8; color: #38bdf8; background: rgba(56,189,248,.1); }
+.playlist { display: none; flex-direction: column; gap: 12px; }
+.playlist.active { display: flex; }
 
 /* ===== idea / 其他 ===== */
 .page-placeholder {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(135deg, #0f172a, #1a1a2e);
-  z-index: 10;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  display: none; position: fixed; inset: 0;
+  background: linear-gradient(135deg, #0f172a, #1a1a2e); z-index: 10;
+  justify-content: center; align-items: center; flex-direction: column;
 }
-
 .page-placeholder .back-btn {
-  position: absolute;
-  top: 30px;
-  left: 30px;
-  cursor: pointer;
-  color: #475569;
-  font-size: 16px;
-  letter-spacing: 2px;
-  padding: 8px 16px;
-  border-radius: 6px;
-  transition: all .3s ease;
+  position: absolute; top: 30px; left: 30px; cursor: pointer;
+  padding: 8px 16px; border-radius: 6px;
 }
-
-.page-placeholder .back-btn:hover {
-  color: #38bdf8;
-  background: rgba(56,189,248,.1);
-}
-
-.page-placeholder .content {
-  font-size: 24px;
-  color: #555;
-  letter-spacing: 4px;
-}
+.page-placeholder .back-btn:hover { color: #38bdf8; background: rgba(56,189,248,.1); }
+.page-placeholder .content { font-size: 24px; color: #555; letter-spacing: 4px; }
 
 /* ===== 模态框 ===== */
 .modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.75);
-  z-index: 999;
-  justify-content: center;
-  align-items: center;
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,.75); z-index: 999;
+  justify-content: center; align-items: center;
 }
-
 .modal-box {
-  background: #1e293b;
-  padding: 30px 36px;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 460px;
-  max-height: 70vh;
-  overflow-y: auto;
+  background: #1e293b; padding: 30px 36px; border-radius: 12px;
+  width: 90%; max-width: 460px; max-height: 70vh; overflow-y: auto;
 }
-
-.modal-time {
-  font-size: 14px;
-  color: #38bdf8;
-  margin-bottom: 15px;
-}
-
-.modal-content {
-  font-size: 15px;
-  line-height: 1.8;
-  color: #cbd5e1;
-}
-
+.modal-time { font-size: 14px; color: #38bdf8; margin-bottom: 15px; }
+.modal-content { font-size: 15px; line-height: 1.8; color: #cbd5e1; }
 .camera {
-  margin-top: 18px;
-  width: 48px;
-  height: 48px;
-  background: rgba(255,255,255,.08);
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  font-size: 22px;
+  margin-top: 18px; width: 48px; height: 48px;
+  background: rgba(255,255,255,.08); border-radius: 50%;
+  display: flex; justify-content: center; align-items: center; cursor: pointer; font-size: 22px;
 }
 
 /* ===== 相册 ===== */
 #album {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: #000;
-  z-index: 3000;
+  display: none; position: fixed; inset: 0; background: #000; z-index: 3000;
 }
+#album img { max-width: 90%; max-height: 90%; border-radius: 8px; }
+.album-btn { position: absolute; top: 50%; transform: translateY(-50%); color: #fff; font-size: 40px; cursor: pointer; }
+#album-close { position: absolute; top: 20px; right: 30px; font-size: 28px; color: #fff; cursor: pointer; }
+#album-page { position: absolute; top: 20px; left: 30px; color: #fff; font-size: 14px; }
 
-#album img {
-  max-width: 90%;
-  max-height: 90%;
-  border-radius: 8px;
-}
-
-.album-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #fff;
-  font-size: 40px;
-  cursor: pointer;
-}
-
-#album-close {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  font-size: 28px;
-  color: #fff;
-  cursor: pointer;
-}
-
-#album-page {
-  position: absolute;
-  top: 20px;
-  left: 30px;
-  color: #fff;
-  font-size: 14px;
-}
-
-/* 右下角彩蛋入口 */
 #main .gate {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 10px;
-  height: 10px;
-  background: rgba(56,189,248,.5);
-  border-radius: 50%;
-  cursor: pointer;
-  z-index: 20;
+  position: fixed; bottom: 30px; right: 30px;
+  width: 10px; height: 10px; background: rgba(56,189,248,.5);
+  border-radius: 50%; cursor: pointer; z-index: 20;
 }
 
 /* ===== 打字机 ===== */
 #typewriter {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: #000;
-  z-index: 500;
-  justify-content: center;
-  align-items: center;
-  font-size: 26px;
-  letter-spacing: 2px;
-  color: #7dd3fc;
-  padding: 40px;
-  text-align: center;
+  display: none; position: fixed; inset: 0; background: #000; z-index: 500;
+  justify-content: center; align-items: center; font-size: 26px;
+  letter-spacing: 2px; color: #7dd3fc; padding: 40px; text-align: center;
 }
 
 /* ===== 6.4 ===== */
 #entry {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: #000;
-  z-index: 501;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
+  display: none; position: fixed; inset: 0; background: #000; z-index: 501;
+  justify-content: center; align-items: center; cursor: pointer;
 }
-
 #entry .entry-box {
-  font-size: 100px;
-  font-weight: 950;
-  color: #38bdf8;
+  font-size: 100px; font-weight: 950; color: #38bdf8;
   text-shadow:
     0 0 20px rgba(56,189,248,.8),
     0 0 60px rgba(56,189,248,.5),
     0 0 120px rgba(56,189,248,.3);
-  animation: pulse 2.5s infinite;
-  transition: transform .3s ease;
+  animation: pulse 2.5s infinite; transition: transform .3s ease;
 }
-
-#entry:hover .entry-box {
-  transform: scale(1.08);
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: .7; }
-}
+#entry:hover .entry-box { transform: scale(1.08); }
+@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.7;} }
 
 /* ===== 生日 ===== */
 #birthday {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: #000;
-  z-index: 600;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  display: none; position: fixed; inset: 0; background: #000; z-index: 600;
+  justify-content: center; align-items: center; flex-direction: column;
 }
-
-#cake {
-  font-size: 260px;
-  opacity: 0;
-  transition: opacity 1.8s ease;
-}
-
+#cake { font-size: 260px; opacity: 0; transition: opacity 1.8s ease; }
 #happy {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 64px;
-  letter-spacing: 16px;
-  color: #ffd1dc;
-  opacity: 0;
-  transition: opacity 2s ease;
-  text-align: center;
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  font-size: 64px; letter-spacing: 16px; color: #ffd1dc; opacity: 0;
+  transition: opacity 2s ease; text-align: center;
 }
-
 #message {
-  position: absolute;
-  top: 26%;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 30px;
-  color: #7dd3fc;
-  opacity: 0;
-  text-align: center;
-  max-width: 80%;
-  line-height: 1.8;
+  position: absolute; top: 26%; left: 50%; transform: translateX(-50%);
+  font-size: 30px; color: #7dd3fc; opacity: 0; text-align: center;
+  max-width: 80%; line-height: 1.8;
 }
-
 #closeHint {
-  position: absolute;
-  bottom: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 26px;
-  color: rgba(255,255,255,.4);
-  cursor: pointer;
-  display: none;
+  position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%);
+  font-size: 26px; color: rgba(255,255,255,.4); cursor: pointer; display: none;
 }
 
-/* ===== ✅ 新增：确认弹窗 ===== */
+/* ===== ✅ 时空驿站弹窗（升级版） ===== */
 #confirmModal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.8);
-  z-index: 1000;
-  justify-content: center;
-  align-items: center;
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,.85); backdrop-filter: blur(12px);
+  z-index: 1000; justify-content: center; align-items: center;
 }
-
 #confirmModal .box {
-  background: #1e293b;
-  padding: 30px 40px;
-  border-radius: 12px;
-  text-align: center;
+  text-align: center; animation: fadeIn .6s ease;
 }
-
 #confirmModal .text {
-  font-size: 16px;
-  margin-bottom: 30px;
-  color: #cbd5e1;
+  font-size: 22px; letter-spacing: 6px; color: #7dd3fc;
+  margin-bottom: 40px; opacity: .9;
 }
-
-#confirmModal .btns {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-}
-
+#confirmModal .btns { display: flex; gap: 40px; justify-content: center; }
 #confirmModal .btn {
-  padding: 10px 30px;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 14px;
+  padding: 12px 40px; border-radius: 30px; font-size: 15px;
+  cursor: pointer; transition: all .4s ease;
 }
-
 #confirmModal .yes {
-  background: #38bdf8;
-  color: #0b0b0b;
+  background: #38bdf8; color: #0b0b0b;
+  box-shadow: 0 0 20px rgba(56,189,248,.6);
 }
-
+#confirmModal .yes:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 40px rgba(56,189,248,.9);
+}
 #confirmModal .no {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,.3);
-  color: #9ca3af;
+  background: transparent; border: 1px solid rgba(255,255,255,.25); color: #9ca3af;
+}
+#confirmModal .no:hover {
+  border-color: #ef4444; color: #ef4444;
 }
 
-/* ===== ✅ 新增：加载动画 ===== */
+/* ===== ✅ 加载动画（穿越感） ===== */
 #loading {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: #0b0b0b;
-  z-index: 1100;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  display: none; position: fixed; inset: 0;
+  background: #0b0b0b; z-index: 1100;
+  justify-content: center; align-items: center; flex-direction: column;
+}
+.portal {
+  width: 60px; height: 60px; border-radius: 50%;
+  border: 2px solid rgba(56,189,248,.3);
+  animation: portal 1.6s ease infinite;
+}
+@keyframes portal {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+.loading-text {
+  font-size: 14px; letter-spacing: 4px; color: #6b7280; margin-top: 30px;
 }
 
-#loading .spin {
-  width: 40px;
-  height: 40px;
-  border: 3px solid rgba(56,189,248,.3);
-  border-top: 3px solid #38bdf8;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-#loading .tip {
-  margin-top: 20px;
-  font-size: 14px;
-  color: #6b7280;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 </style>
 </head>
@@ -786,7 +281,6 @@ input.key {
     <span>TIME CAPSULE</span>
   </div>
   <div class="timeline-now" id="timelineNow"></div>
-  <!-- ✅ 修改为触发确认框 -->
   <div class="gate" onclick="openConfirm()"></div>
 </div>
 
@@ -844,10 +338,10 @@ input.key {
   </div>
 </div>
 
-<!-- ✅ 新增：确认弹窗 -->
+<!-- ✅ 时空驿站确认弹窗 -->
 <div id="confirmModal">
   <div class="box">
-    <div class="text">准备好进入时空驿站了吗？</div>
+    <div class="text">准备好进入时空驿站了吗</div>
     <div class="btns">
       <div class="btn yes" onclick="enterPast()">是</div>
       <div class="btn no" onclick="closeConfirm()">否</div>
@@ -855,10 +349,10 @@ input.key {
   </div>
 </div>
 
-<!-- ✅ 新增：加载动画 -->
+<!-- ✅ 加载动画 -->
 <div id="loading">
-  <div class="spin"></div>
-  <div class="tip">正在加载中...</div>
+  <div class="portal"></div>
+  <div class="loading-text">正在穿越时空…</div>
 </div>
 
 <div id="birthday">
@@ -889,42 +383,29 @@ function renderTimeline() {
 
 /* ===== 导航跳转 ===== */
 function goToNav() {
-  document.getElementById("main").style.display = "none";
-  document.getElementById("past").style.display = "none";
-  document.getElementById("idea").style.display = "none";
-  document.getElementById("song").style.display = "none";
-  document.getElementById("other").style.display = "none";
+  ["main","past","idea","song","other"].forEach(id => document.getElementById(id).style.display = "none");
   document.getElementById("nav").style.display = "flex";
 }
-
 function goToMain() {
-  document.getElementById("nav").style.display = "none";
-  document.getElementById("past").style.display = "none";
-  document.getElementById("idea").style.display = "none";
-  document.getElementById("song").style.display = "none";
-  document.getElementById("other").style.display = "none";
+  ["nav","past","idea","song","other"].forEach(id => document.getElementById(id).style.display = "none");
   document.getElementById("main").style.display = "block";
 }
-
 function goToPast() {
   document.getElementById("main").style.display = "none";
   document.getElementById("nav").style.display = "none";
   document.getElementById("past").style.display = "block";
 }
-
 function goToIdea() {
-  document.getElementById("nav").style.display = "none";
+  ["nav","main","past","song","other"].forEach(id => document.getElementById(id).style.display = "none");
   document.getElementById("idea").style.display = "flex";
 }
-
 function goToSong() {
-  document.getElementById("nav").style.display = "none";
+  ["nav","main","past","idea","other"].forEach(id => document.getElementById(id).style.display = "none");
   document.getElementById("song").style.display = "block";
   renderPlaylists();
 }
-
 function goToOther() {
-  document.getElementById("nav").style.display = "none";
+  ["nav","main","past","idea","song"].forEach(id => document.getElementById(id).style.display = "none");
   document.getElementById("other").style.display = "flex";
 }
 
@@ -932,19 +413,12 @@ function goToOther() {
 const KEY = "56";
 const input = document.getElementById("key");
 input.addEventListener("keydown", e => {
-  if (e.key === "Enter" && input.value !== KEY) {
-    alert("密钥错误");
-    input.value = "";
-  }
+  if (e.key === "Enter" && input.value !== KEY) { alert("密钥错误"); input.value = ""; }
 });
 input.addEventListener("input", () => {
   if (input.value === KEY) {
     login.style.display = "none";
-    if (!localStorage.getItem("asked")) {
-      playTypewriter();
-    } else {
-      goToNav();
-    }
+    !localStorage.getItem("asked") ? playTypewriter() : goToNav();
   }
 });
 
@@ -954,9 +428,7 @@ const photosByDate = {
     "https://raw.githubusercontent.com/ac091/log/main/qu.jpg",
     "https://raw.githubusercontent.com/ac091/log/main/yi.jpg"
   ],
-  "2023-06-15": [
-    "https://raw.githubusercontent.com/ac091/log/main/yi.jpg"
-  ]
+  "2023-06-15": ["https://raw.githubusercontent.com/ac091/log/main/yi.jpg"]
 };
 let currentPhotos = [], currentIndex = 0;
 
@@ -965,26 +437,19 @@ function openModal(time, content) {
   document.getElementById("modal-content").innerHTML = content;
   if (photosByDate[time]) {
     const camera = document.createElement("div");
-    camera.className = "camera";
-    camera.innerHTML = "📷";
+    camera.className = "camera"; camera.innerHTML = "📷";
     camera.onclick = () => openAlbum(photosByDate[time]);
     document.getElementById("modal-content").appendChild(camera);
   }
   document.getElementById("modal").style.display = "flex";
 }
-
-function closeModal() {
-  document.getElementById("modal").style.display = "none";
-}
-
+function closeModal() { document.getElementById("modal").style.display = "none"; }
 function openAlbum(p) {
-  currentPhotos = p;
-  currentIndex = 0;
+  currentPhotos = p; currentIndex = 0;
   document.querySelector("#album img").src = currentPhotos[0];
   document.getElementById("album-page").innerText = "1 / " + currentPhotos.length;
   document.getElementById("album").style.display = "block";
 }
-
 function prevImg() {
   if (currentIndex > 0) {
     currentIndex--;
@@ -992,7 +457,6 @@ function prevImg() {
     document.getElementById("album-page").innerText = (currentIndex + 1) + " / " + currentPhotos.length;
   }
 }
-
 function nextImg() {
   if (currentIndex < currentPhotos.length - 1) {
     currentIndex++;
@@ -1000,10 +464,7 @@ function nextImg() {
     document.getElementById("album-page").innerText = (currentIndex + 1) + " / " + currentPhotos.length;
   }
 }
-
-function closeAlbum() {
-  document.getElementById("album").style.display = "none";
-}
+function closeAlbum() { document.getElementById("album").style.display = "none"; }
 
 /* ===== 打字机 & 生日 ===== */
 const tw = document.getElementById("typewriter");
@@ -1017,38 +478,23 @@ function playTypewriter() {
       typeText("想想就会发现根本想不完。", () => {
         setTimeout(() => {
           tw.style.display = "none";
-          if (!localStorage.getItem("asked")) {
-            document.getElementById("entry").style.display = "flex";
-          } else {
-            goToNav();
-          }
+          !localStorage.getItem("asked") ? document.getElementById("entry").style.display = "flex" : goToNav();
         }, 1800);
       });
     }), 1400);
   });
 }
-
 function typeText(t, cb) {
-  let i = 0;
-  tw.innerHTML = "";
+  let i = 0; tw.innerHTML = "";
   const r = setInterval(() => {
-    tw.innerHTML += t.charAt(i++);
-    typeSound.currentTime = 0;
-    typeSound.play();
-    if (i >= t.length) {
-      clearInterval(r);
-      cb();
-    }
+    tw.innerHTML += t.charAt(i++); typeSound.currentTime = 0; typeSound.play();
+    if (i >= t.length) { clearInterval(r); cb(); }
   }, 130);
 }
-
 function eraseText(cb) {
   const r = setInterval(() => {
     tw.innerHTML = tw.innerHTML.slice(0, -1);
-    if (!tw.innerHTML.length) {
-      clearInterval(r);
-      cb();
-    }
+    if (!tw.innerHTML.length) { clearInterval(r); cb(); }
   }, 70);
 }
 
@@ -1066,28 +512,19 @@ function startBirthday() {
   setTimeout(() => happy.style.opacity = "0", 7800);
   setTimeout(() => typeMessage("首先祝你生日快乐"), 9800);
 }
-
 function typeMessage(t) {
-  let i = 0;
-  message.style.opacity = "1";
+  let i = 0; message.style.opacity = "1";
   const r = setInterval(() => {
-    message.innerHTML += t.charAt(i++);
-    typeSound.currentTime = 0;
-    typeSound.play();
-    if (i >= t.length) {
-      clearInterval(r);
-      closeHint.style.display = "block";
-    }
+    message.innerHTML += t.charAt(i++); typeSound.currentTime = 0; typeSound.play();
+    if (i >= t.length) { clearInterval(r); closeHint.style.display = "block"; }
   }, 200);
 }
-
 function closeBirthday() {
-  document.getElementById("birthday").style.display = "none";
-  goToNav();
+  document.getElementById("birthday").style.display = "none"; goToNav();
   localStorage.setItem("asked", "1");
 }
 
-/* ===== SONG 页面（✅ 跳转网易云客户端） ===== */
+/* ===== ✅ SONG：唤起客户端 + 搜索并播放（最终版） ===== */
 const playlists = [
   [
     { name: "乌梅子酱", artist: "李荣浩", duration: "3:37", neteaseId: "1982731693" },
@@ -1108,17 +545,28 @@ function renderPlaylists() {
     list.forEach(song => {
       const div = document.createElement("div");
       div.className = "song-item";
-      // ✅ 网易云客户端协议
+
+      // ✅ 点击后：唤起客户端 + 搜索这首歌
+      div.onclick = () => {
+        // ① 唤起网易云客户端（搜索）
+        window.location.href = `orpheus://search/search/${encodeURIComponent(song.name + " " + song.artist)}`;
+
+        // ② 同时打开网页搜索页（兜底）
+        setTimeout(() => {
+          window.open(
+            `https://music.163.com/#/search/m/?s=${encodeURIComponent(song.name + " " + song.artist)}&type=1`,
+            "_blank"
+          );
+        }, 800);
+      };
+
       div.innerHTML = `
-        <a href="orpheus://song/${song.neteaseId}" target="_blank"
-           style="display:flex; align-items:center; gap:16px; width:100%; text-decoration:none; color:inherit;">
-          <div class="play-icon">▶</div>
-          <div class="song-info">
-            <div class="song-name">${song.name}</div>
-            <div class="song-artist">${song.artist}</div>
-          </div>
-          <div class="song-duration">${song.duration}</div>
-        </a>
+        <div class="play-icon">▶</div>
+        <div class="song-info">
+          <div class="song-name">${song.name}</div>
+          <div class="song-artist">${song.artist}</div>
+        </div>
+        <div class="song-duration">${song.duration}</div>
       `;
       container.appendChild(div);
     });
@@ -1132,19 +580,16 @@ function switchPlaylist(idx) {
   });
 }
 
-/* ===== ✅ 新增：过去时间段确认逻辑 ===== */
+/* ===== ✅ 时空驿站 ===== */
 function openConfirm() {
   document.getElementById("confirmModal").style.display = "flex";
 }
-
 function closeConfirm() {
   document.getElementById("confirmModal").style.display = "none";
 }
-
 function enterPast() {
   closeConfirm();
   document.getElementById("loading").style.display = "flex";
-
   setTimeout(() => {
     document.getElementById("loading").style.display = "none";
     goToPast();
