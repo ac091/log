@@ -672,7 +672,7 @@ input.key {
   display: none;
 }
 
-/* ===== ✅ 时空驿站提示（酷版） ===== */
+/* ===== ✅ 时空驿站提示（三段式） ===== */
 #pastHint {
   display: none;
   position: fixed;
@@ -690,9 +690,15 @@ input.key {
   opacity: 1;
 }
 
-#pastHint .text {
+#pastHint .step1 {
   font-size: 14px;
-  color: rgba(255,255,255,.35);
+  color: rgba(255,255,255,.45);
+  letter-spacing: 4px;
+}
+
+#pastHint .step2 {
+  font-size: 12px;
+  color: rgba(255,255,255,.25);
   letter-spacing: 6px;
 }
 
@@ -742,7 +748,7 @@ input.key {
     <span>TIME CAPSULE</span>
   </div>
   <div class="timeline-now" id="timelineNow"></div>
-  <div class="gate" onclick="openPastHint()"></div>
+  <div class="gate" onclick="enterPastSequence()"></div>
 </div>
 
 <!-- 过去时间段 -->
@@ -801,7 +807,8 @@ input.key {
 
 <!-- ✅ 时空驿站提示 -->
 <div id="pastHint">
-  <div class="text">ENTERING TIME STATION</div>
+  <div class="step1" id="hintStep1">准备好进入时空驿站了吗</div>
+  <div class="step2" id="hintStep2" style="display:none;">ENTERING TIME STATION</div>
 </div>
 
 <!-- ✅ 黑场过渡 -->
@@ -1033,7 +1040,7 @@ function closeBirthday() {
   localStorage.setItem("asked", "1");
 }
 
-/* ===== ✅ SONG 页面（时代少年团） ===== */
+/* ===== ✅ SONG 页面（时代少年团·真实歌单） ===== */
 const playlists = [
   [
     { name: "冠军", artist: "时代少年团", duration: "3:20", id: "1889363945" },
@@ -1078,15 +1085,23 @@ function switchPlaylist(idx) {
   });
 }
 
-/* ===== ✅ 时空驿站（酷版） ===== */
-function openPastHint() {
+/* ===== ✅ 时空驿站（三段式仪式感进入） ===== */
+function enterPastSequence() {
   const hint = document.getElementById("pastHint");
+  const step1 = document.getElementById("hintStep1");
+  const step2 = document.getElementById("hintStep2");
+
   hint.classList.add("show");
 
   setTimeout(() => {
-    hint.classList.remove("show");
-    enterPast();
-  }, 900);
+    step1.style.display = "none";
+    step2.style.display = "block";
+
+    setTimeout(() => {
+      hint.classList.remove("show");
+      enterPast();
+    }, 1200);
+  }, 1400);
 }
 
 function enterPast() {
