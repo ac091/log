@@ -599,13 +599,75 @@ input.key {
   display: none;
 }
 
-/* ===== ✅ 时空驿站提示（极简） ===== */
+/* ===== ✅ 时空驿站弹窗 ===== */
+#pastModal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.85);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+#pastModal .box {
+  background: rgba(20,25,40,.95);
+  padding: 36px 56px;
+  border-radius: 14px;
+  text-align: center;
+  border: 1px solid rgba(56,189,248,.15);
+}
+
+#pastModal .title {
+  font-size: 18px;
+  color: rgba(255,255,255,.6);
+  letter-spacing: 4px;
+  margin-bottom: 30px;
+}
+
+#pastModal .btns {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+}
+
+#pastModal .btn {
+  padding: 10px 36px;
+  border-radius: 24px;
+  cursor: pointer;
+  font-size: 13px;
+  letter-spacing: 1px;
+  transition: all .3s ease;
+}
+
+#pastModal .enter {
+  background: rgba(56,189,248,.12);
+  color: #38bdf8;
+  border: 1px solid rgba(56,189,248,.25);
+}
+
+#pastModal .enter:hover {
+  background: rgba(56,189,248,.25);
+}
+
+#pastModal .cancel {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.15);
+  color: rgba(255,255,255,.4);
+}
+
+#pastModal .cancel:hover {
+  border-color: rgba(255,255,255,.3);
+  color: rgba(255,255,255,.6);
+}
+
+/* ===== 英文提示 ===== */
 #pastHint {
   display: none;
   position: fixed;
   inset: 0;
   background: #000;
-  z-index: 1000;
+  z-index: 1001;
   justify-content: center;
   align-items: center;
   opacity: 0;
@@ -617,13 +679,7 @@ input.key {
   opacity: 1;
 }
 
-#pastHint .step1 {
-  font-size: 22px;
-  color: rgba(255,255,255,.55);
-  letter-spacing: 6px;
-}
-
-#pastHint .step2 {
+#pastHint .text {
   font-size: 18px;
   color: rgba(255,255,255,.35);
   letter-spacing: 8px;
@@ -664,7 +720,7 @@ input.key {
     <span>TIME CAPSULE</span>
   </div>
   <div class="timeline-now" id="timelineNow"></div>
-  <div class="gate" onclick="enterPastSequence()"></div>
+  <div class="gate" onclick="openPastModal()"></div>
 </div>
 
 <!-- 过去时间段 -->
@@ -715,10 +771,20 @@ input.key {
   </div>
 </div>
 
-<!-- ✅ 时空驿站提示 -->
+<!-- ✅ 时空驿站弹窗 -->
+<div id="pastModal" onclick="closePastModal()">
+  <div class="box" onclick="event.stopPropagation()">
+    <div class="title">时空驿站</div>
+    <div class="btns">
+      <div class="btn enter" onclick="confirmEnterPast()">进入</div>
+      <div class="btn cancel" onclick="closePastModal()">取消</div>
+    </div>
+  </div>
+</div>
+
+<!-- ✅ 英文提示 -->
 <div id="pastHint">
-  <div class="step1" id="hintStep1">准备好进入时空驿站了吗</div>
-  <div class="step2" id="hintStep2" style="display:none;">ENTERING TIME STATION</div>
+  <div class="text">ENTERING TIME STATION</div>
 </div>
 
 <div id="birthday">
@@ -946,29 +1012,29 @@ function closeBirthday() {
   localStorage.setItem("asked", "1");
 }
 
-/* ===== ✅ 时空驿站（极简进入） ===== */
+/* ===== ✅ 时空驿站弹窗逻辑 ===== */
+function openPastModal() {
+  document.getElementById("pastModal").style.display = "flex";
+}
+
+function closePastModal() {
+  document.getElementById("pastModal").style.display = "none";
+}
+
+function confirmEnterPast() {
+  closePastModal();
+  enterPastSequence();
+}
+
+/* ===== ✅ 英文提示 + 进入 ===== */
 function enterPastSequence() {
   const hint = document.getElementById("pastHint");
-  const step1 = document.getElementById("hintStep1");
-  const step2 = document.getElementById("hintStep2");
+  hint.classList.add("show");
 
-  hint.classList.remove("show");
-  step1.style.display = "block";
-  step2.style.display = "none";
-
-  requestAnimationFrame(() => {
-    hint.classList.add("show");
-
-    setTimeout(() => {
-      step1.style.display = "none";
-      step2.style.display = "block";
-
-      setTimeout(() => {
-        hint.classList.remove("show");
-        goToPast();
-      }, 2000);
-    }, 2000);
-  });
+  setTimeout(() => {
+    hint.classList.remove("show");
+    goToPast();
+  }, 2000);
 }
 
 /* ===== 初始渲染 ===== */
