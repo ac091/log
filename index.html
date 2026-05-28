@@ -129,30 +129,41 @@ input.key {
   width: 100%;
 }
 
-/* ===== 现在时间段 ===== */
+/* ===== 【优化】现在时间段 亮面炫酷背景 ===== */
 #main {
   display: none;
   position: fixed;
   inset: 0;
-  background: linear-gradient(180deg, #1e293b, #0f172a);
+  background: linear-gradient(160deg, #334155 0%, #1e293b 50%, #0f172a 100%);
   z-index: 10;
   padding: 60px 80px;
   overflow: hidden;
 }
+#main::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 15% 15%, rgba(56,189,248,0.25), transparent 40%),
+    radial-gradient(circle at 85% 75%, rgba(125,211,252,0.2), transparent 45%);
+  pointer-events: none;
+}
 
 .main-header {
   font-size: 13px;
-  opacity: .6;
+  opacity: .8;
   margin-bottom: 20px;
   letter-spacing: 2px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+  z-index: 2;
 }
 
 .main-header .back-btn {
   cursor: pointer;
-  color: #475569;
+  color: #cbd5e1;
   font-size: 16px;
   letter-spacing: 2px;
   padding: 8px 16px;
@@ -162,7 +173,7 @@ input.key {
 
 .main-header .back-btn:hover {
   color: #38bdf8;
-  background: rgba(56,189,248,.1);
+  background: rgba(56,189,248,.15);
 }
 
 .timeline-now {
@@ -171,6 +182,7 @@ input.key {
   height: calc(100vh - 120px);
   overflow-y: auto;
   scroll-behavior: smooth;
+  z-index: 2;
 }
 
 .timeline-now::-webkit-scrollbar {
@@ -178,7 +190,7 @@ input.key {
 }
 
 .timeline-now::-webkit-scrollbar-thumb {
-  background: rgba(56,189,248,.3);
+  background: rgba(56,189,248,.4);
   border-radius: 3px;
 }
 
@@ -191,8 +203,8 @@ input.key {
   bottom: 0;
   width: 2px;
   background: linear-gradient(to bottom,
-    rgba(56,189,248,.6),
-    rgba(56,189,248,.1)
+    rgba(56,189,248,.8),
+    rgba(56,189,248,.2)
   );
   pointer-events: none;
 }
@@ -227,7 +239,7 @@ input.key {
   font-size: 20px;
   font-weight: 700;
   color: #7dd3fc;
-  opacity: .7;
+  opacity: .8;
   cursor: pointer;
   z-index: 2;
 }
@@ -254,14 +266,23 @@ input.key {
   left: calc(50% + 30px);
 }
 
-/* ===== 过去时间段 ===== */
+/* ===== 【优化】过去时间段/时空驿站 炫酷亮背景 ===== */
 #past {
   display: none;
   position: fixed;
   inset: 0;
-  background: #0b0f1a;
+  background: linear-gradient(140deg, #16213e 0%, #101828 100%);
   z-index: 200;
   overflow: hidden;
+}
+#past::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(56,189,248,0.2), transparent 50%),
+    radial-gradient(circle at 75% 60%, rgba(125,211,252,0.18), transparent 55%);
+  pointer-events: none;
 }
 
 #past .past-header {
@@ -269,7 +290,7 @@ input.key {
   top: 30px;
   left: 30px;
   font-size: 14px;
-  color: #475569;
+  color: #cbd5e1;
   cursor: pointer;
   z-index: 10;
 }
@@ -281,7 +302,7 @@ input.key {
   left: 50%;
   transform: translate(-240px, -68%);
   font-size: 28px;
-  color: rgba(255,255,255,.45);
+  color: rgba(255,255,255,.55);
   cursor: pointer;
   z-index: 15;
 }
@@ -295,10 +316,10 @@ input.key {
   flex-direction: column;
   gap: 8px;
   z-index: 15;
-  background: rgba(11, 15, 26, 0.95);
+  background: rgba(16, 24, 40, 0.92);
   padding: 12px 16px;
   border-radius: 6px;
-  border: 1px solid rgba(255,255,255,.08);
+  border: 1px solid rgba(56,189,248,.2);
 }
 
 #indexList div {
@@ -317,6 +338,8 @@ input.key {
   justify-content: center;
   align-items: center;
   height: 100%;
+  position: relative;
+  z-index: 2;
 }
 
 .date-display {
@@ -325,6 +348,7 @@ input.key {
   color: #38bdf8;
   letter-spacing: 4px;
   user-select: none;
+  text-shadow: 0 0 15px rgba(56,189,248,0.4);
 }
 
 .confirm-btn {
@@ -333,14 +357,15 @@ input.key {
   font-size: 16px;
   letter-spacing: 8px;
   color: #38bdf8;
-  border: 1px solid rgba(56,189,248,.4);
+  border: 1px solid rgba(56,189,248,.5);
   padding: 14px 70px;
   cursor: pointer;
   transition: all .3s ease;
 }
 
 .confirm-btn:hover {
-  background: rgba(56,189,248,.1);
+  background: rgba(56,189,248,.15);
+  box-shadow: 0 0 12px rgba(56,189,248,0.25);
 }
 
 /* ===== 关键字页面 ===== */
@@ -348,10 +373,17 @@ input.key {
   display: none;
   position: fixed;
   inset: 0;
-  background: #0b0f1a;
+  background: linear-gradient(140deg, #16213e 0%, #101828 100%);
   z-index: 250;
   justify-content: center;
   align-items: center;
+}
+#keywordPage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(56,189,248,0.15), transparent 60%);
+  pointer-events: none;
 }
 
 .keyword-back {
@@ -359,9 +391,10 @@ input.key {
   top: 30px;
   left: 30px;
   font-size: 16px;
-  color: #475569;
+  color: #cbd5e1;
   cursor: pointer;
   letter-spacing: 2px;
+  z-index: 2;
 }
 
 .keyword-box {
@@ -371,6 +404,8 @@ input.key {
   cursor: pointer;
   transition: all 0.3s ease;
   letter-spacing: 2px;
+  text-shadow: 0 0 20px rgba(56,189,248,0.3);
+  z-index: 2;
 }
 
 .keyword-box:hover {
@@ -437,7 +472,7 @@ input.key {
   font-size: 26px;
 }
 
-/* ===== 其余页面 ===== */
+/* ===== CS页面 ===== */
 #csPage {
   display: none;
   position: fixed;
@@ -501,6 +536,7 @@ input.key {
   text-align: center;
 }
 
+/* ===== 原有占位页面 ===== */
 .page-placeholder {
   display: none;
   position: fixed;
@@ -545,6 +581,7 @@ input.key {
   color: #fff;
   font-size: 40px;
   cursor: pointer;
+  user-select: none;
 }
 
 #album-close {
@@ -571,10 +608,11 @@ input.key {
   right: 30px;
   width: 10px;
   height: 10px;
-  background: rgba(56,189,248,.5);
+  background: rgba(56,189,248,.6);
   border-radius: 50%;
   cursor: pointer;
   z-index: 20;
+  box-shadow: 0 0 8px rgba(56,189,248,0.5);
 }
 
 /* ===== 打字机 ===== */
@@ -593,7 +631,7 @@ input.key {
   text-align: center;
 }
 
-/* ===== 6.4 ===== */
+/* ===== 6.4 入口 ===== */
 #entry {
   display: none;
   position: fixed;
@@ -626,7 +664,7 @@ input.key {
   50% { opacity: .7; }
 }
 
-/* ===== 生日 ===== */
+/* ===== 生日页面 + 烟花动画 ===== */
 #birthday {
   display: none;
   position: fixed;
@@ -636,12 +674,14 @@ input.key {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  overflow: hidden;
 }
 
 #cake {
   font-size: 260px;
   opacity: 0;
   transition: opacity 1.8s ease;
+  z-index: 2;
 }
 
 #happy {
@@ -655,6 +695,7 @@ input.key {
   opacity: 0;
   transition: opacity 2s ease;
   text-align: center;
+  z-index: 2;
 }
 
 #message {
@@ -668,6 +709,7 @@ input.key {
   text-align: center;
   max-width: 80%;
   line-height: 1.8;
+  z-index: 2;
 }
 
 #closeHint {
@@ -679,9 +721,22 @@ input.key {
   color: rgba(255,255,255,.4);
   cursor: pointer;
   display: none;
+  z-index: 2;
 }
 
-/* ===== 时空驿站 ===== */
+/* 烟花粒子 */
+.firework {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: fireworkAnim 1.4s ease-out forwards;
+}
+@keyframes fireworkAnim {
+  0% { transform: scale(0); opacity: 1; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+/* ===== 时空驿站弹窗 ===== */
 #pastModal {
   display: none;
   position: fixed;
@@ -744,6 +799,183 @@ input.key {
   color: rgba(255,255,255,.35);
   letter-spacing: 8px;
 }
+
+/* ========== 新增 IDEA 二级导航 & 日记/相册页面样式 ========== */
+/* IDEA 二级导航页 */
+#ideaNav {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at center, #0f172a 0%, #000 70%);
+  z-index: 12;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+#ideaNav .back-btn {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  cursor: pointer;
+  color: #94a3b8;
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+#ideaNav .back-btn:hover {
+  color: #38bdf8;
+}
+.idea-nav-title {
+  font-size: 14px;
+  letter-spacing: 10px;
+  color: rgba(255,255,255,.25);
+  margin-bottom: 70px;
+}
+.idea-links {
+  display: flex;
+  flex-direction: column;
+  gap: 45px;
+}
+.idea-link {
+  font-size: 42px;
+  font-weight: 600;
+  color: #9ca3af;
+  letter-spacing: 3px;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.4s;
+}
+.idea-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 0;
+  height: 2px;
+  background: #38bdf8;
+  transition: width 0.4s;
+}
+.idea-link:hover {
+  color: #38bdf8;
+}
+.idea-link:hover::after {
+  width: 100%;
+}
+
+/* 生活碎片 - 日记页面 */
+#lifeDiary {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(160deg, #1e293b, #0f172a);
+  z-index: 13;
+  padding: 60px;
+}
+.diary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+.diary-back {
+  color: #94a3b8;
+  cursor: pointer;
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+.diary-back:hover {
+  color: #38bdf8;
+}
+.diary-title {
+  font-size: 20px;
+  color: #cbd5e1;
+  letter-spacing: 4px;
+}
+.diary-wrap {
+  max-width: 800px;
+  margin: 0 auto;
+  min-height: 60vh;
+}
+.diary-content {
+  font-size: 18px;
+  line-height: 2.2;
+  color: #e2e8f0;
+  text-indent: 2em;
+}
+.diary-pager {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  margin-top: 60px;
+}
+.page-btn {
+  font-size: 18px;
+  color: #94a3b8;
+  cursor: pointer;
+  letter-spacing: 3px;
+  padding: 8px 20px;
+  border: 1px solid rgba(56,189,248,.2);
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+.page-btn:hover {
+  color: #38bdf8;
+  border-color: rgba(56,189,248,.5);
+}
+.page-btn.disable {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* 如果人是一部相机 - 图片画廊页 */
+#cameraGallery {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #050505;
+  z-index: 14;
+  padding: 40px;
+}
+.gallery-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+.gallery-back {
+  color: #94a3b8;
+  cursor: pointer;
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+.gallery-back:hover {
+  color: #38bdf8;
+}
+.gallery-title {
+  font-size: 18px;
+  color: #cbd5e1;
+  letter-spacing: 4px;
+}
+.gallery-img-wrap {
+  width: 100%;
+  height: calc(100vh - 140px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.gallery-img-wrap img {
+  max-width: 85%;
+  max-height: 100%;
+  border-radius: 8px;
+  object-fit: contain;
+}
+.gallery-pager {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 80px;
+}
 </style>
 </head>
 
@@ -766,7 +998,7 @@ input.key {
   <div class="nav-title">SELECT</div>
   <div class="nav-links">
     <div class="nav-link" onclick="goToMain()">故事</div>
-    <div class="nav-link" onclick="goToIdea()">IDEA</div>
+    <div class="nav-link" onclick="goToIdeaNav()">IDEA</div>
     <div class="nav-link" onclick="goToCS()">SONG</div>
     <div class="nav-link" onclick="goToOther()">其 他</div>
   </div>
@@ -815,9 +1047,46 @@ input.key {
   </div>
 </div>
 
-<div id="idea" class="page-placeholder">
+<!-- IDEA 二级导航 -->
+<div id="ideaNav">
   <div class="back-btn" onclick="goToNav()">◀ BACK</div>
-  <div class="content">IDEA</div>
+  <div class="idea-nav-title">IDEA LIST</div>
+  <div class="idea-links">
+    <div class="idea-link" onclick="openLifeDiary()">生活碎片</div>
+    <div class="idea-link" onclick="openCameraGallery()">如果人是一部相机</div>
+  </div>
+</div>
+
+<!-- 生活碎片 - 日记页 -->
+<div id="lifeDiary">
+  <div class="diary-header">
+    <div class="diary-back" onclick="goToIdeaNav()">◀ BACK</div>
+    <div class="diary-title">Life Fragments</div>
+    <div></div>
+  </div>
+  <div class="diary-wrap">
+    <div class="diary-content" id="diaryContent"></div>
+  </div>
+  <div class="diary-pager">
+    <div class="page-btn" id="diaryPrev" onclick="diaryPrev()">上一篇</div>
+    <div class="page-btn" id="diaryNext" onclick="diaryNext()">下一篇</div>
+  </div>
+</div>
+
+<!-- 如果人是一部相机 - 图片画廊 -->
+<div id="cameraGallery">
+  <div class="gallery-header">
+    <div class="gallery-back" onclick="goToIdeaNav()">◀ BACK</div>
+    <div class="gallery-title">If Human Is A Camera</div>
+    <div></div>
+  </div>
+  <div class="gallery-img-wrap">
+    <img id="galleryImg" src="" alt="">
+  </div>
+  <div class="gallery-pager">
+    <div class="page-btn" id="galleryPrev" onclick="galleryPrev()">上一张</div>
+    <div class="page-btn" id="galleryNext" onclick="galleryNext()">下一张</div>
+  </div>
 </div>
 
 <div id="other" class="page-placeholder">
@@ -880,9 +1149,23 @@ let currentIndex = 0;
 let isScrolling = false;
 let modalSource = null;
 
+// --------------- 新增：日记数据 ---------------
+const diaryList = [
+  "清晨推开窗，风带着微凉的气息扑面而来。日子平淡却安稳，慢慢走，慢慢感受身边细碎的美好。不必追赶时间，认真过好当下的每一刻，就已经足够温柔。",
+  // 你后续在这里继续添加日记，一行一篇
+];
+let diaryCur = 0;
+
+// --------------- 新增：相机图片数据 ---------------
+const galleryList = [
+  "https://raw.githubusercontent.com/ac091/log/main/qu.jpg",
+  // 你后续在这里继续添加图片链接
+];
+let galleryCur = 0;
+
 /* ========= 页面切换 ========= */
 function hideAll() {
-  ["main","past","nav","csPage","idea","other","keywordPage","modal"].forEach(id=>{
+  ["main","past","nav","csPage","ideaNav","lifeDiary","cameraGallery","other","keywordPage","modal"].forEach(id=>{
     document.getElementById(id).style.display = "none";
   });
 }
@@ -917,14 +1200,71 @@ function goToCS() {
   document.getElementById("csPage").style.display = "flex";
 }
 
-function goToIdea() {
+// 进入 IDEA 二级导航
+function goToIdeaNav() {
   hideAll();
-  document.getElementById("idea").style.display = "flex";
+  document.getElementById("ideaNav").style.display = "flex";
 }
 
 function goToOther() {
   hideAll();
   document.getElementById("other").style.display = "flex";
+}
+
+// 打开 生活碎片 日记页
+function openLifeDiary(){
+  hideAll();
+  document.getElementById("lifeDiary").style.display = "block";
+  diaryCur = 0;
+  renderDiary();
+}
+// 日记渲染 + 翻页
+function renderDiary(){
+  document.getElementById("diaryContent").innerText = diaryList[diaryCur];
+  const prevBtn = document.getElementById("diaryPrev");
+  const nextBtn = document.getElementById("diaryNext");
+  prevBtn.classList.toggle("disable", diaryCur <= 0);
+  nextBtn.classList.toggle("disable", diaryCur >= diaryList.length - 1);
+}
+function diaryPrev(){
+  if(diaryCur > 0){
+    diaryCur--;
+    renderDiary();
+  }
+}
+function diaryNext(){
+  if(diaryCur < diaryList.length - 1){
+    diaryCur++;
+    renderDiary();
+  }
+}
+
+// 打开 如果人是一部相机 图片画廊
+function openCameraGallery(){
+  hideAll();
+  document.getElementById("cameraGallery").style.display = "block";
+  galleryCur = 0;
+  renderGallery();
+}
+// 画廊渲染 + 翻页
+function renderGallery(){
+  document.getElementById("galleryImg").src = galleryList[galleryCur];
+  const prevBtn = document.getElementById("galleryPrev");
+  const nextBtn = document.getElementById("galleryNext");
+  prevBtn.classList.toggle("disable", galleryCur <= 0);
+  nextBtn.classList.toggle("disable", galleryCur >= galleryList.length - 1);
+}
+function galleryPrev(){
+  if(galleryCur > 0){
+    galleryCur--;
+    renderGallery();
+  }
+}
+function galleryNext(){
+  if(galleryCur < galleryList.length - 1){
+    galleryCur++;
+    renderGallery();
+  }
 }
 
 /* ========= 登录 ========= */
@@ -978,7 +1318,6 @@ function openModal(time, content) {
 
 function closeModal() {
   document.getElementById("modal").style.display = "none";
-  // 修复：从过去时间段打开的弹窗，关闭后返回过去时间选择页
   if (modalSource === "past") {
     document.getElementById("past").style.display = "block";
   } else {
@@ -1074,16 +1413,41 @@ function eraseText(cb) {
   }, 70);
 }
 
-/* ========= 生日 ========= */
+/* ========= 生日 + 烟花动画 ========= */
 const cake = document.getElementById("cake");
 const happy = document.getElementById("happy");
 const message = document.getElementById("message");
 const closeHint = document.getElementById("closeHint");
 
+// 生成随机烟花
+function createFirework(){
+  const container = document.getElementById("birthday");
+  const colors = ["#38bdf8","#7dd3fc","#f472b6","#facc15","#a78bfa"];
+  for(let i=0; i<12; i++){
+    const fw = document.createElement("div");
+    fw.className = "firework";
+    const size = Math.random() * 20 + 10;
+    fw.style.width = size + "px";
+    fw.style.height = size + "px";
+    fw.style.background = colors[Math.floor(Math.random()*colors.length)];
+    fw.style.left = Math.random() * 100 + "%";
+    fw.style.top = Math.random() * 100 + "%";
+    container.appendChild(fw);
+    setTimeout(()=> fw.remove(),1400);
+  }
+}
+
 function startBirthday() {
   document.getElementById("entry").style.display = "none";
   document.getElementById("birthday").style.display = "flex";
-  setTimeout(() => cake.style.opacity = "1", 300);
+
+  // 蛋糕出现 + 同步烟花
+  setTimeout(() => {
+    cake.style.opacity = "1";
+    createFirework();
+    setInterval(createFirework, 400);
+  }, 300);
+
   setTimeout(() => cake.style.opacity = "0", 3300);
   setTimeout(() => happy.style.opacity = "1", 4300);
   setTimeout(() => happy.style.opacity = "0", 7800);
@@ -1133,72 +1497,4 @@ function enterPastSequence() {
   }, 2000);
 }
 
-/* ========= 过去：滚轮 & 列表 ========= */
-function scrollDate(e) {
-  e.preventDefault();
-  if (isScrolling) return;
-  isScrolling = true;
-  setTimeout(() => isScrolling = false, 150);
-
-  if (e.deltaY > 0) {
-    currentIndex = Math.min(currentIndex + 1, pastDates.length - 1);
-  } else {
-    currentIndex = Math.max(currentIndex - 1, 0);
-  }
-  updateDateDisplay();
-}
-
-function updateDateDisplay() {
-  document.getElementById("dateDisplay").innerText = pastDates[currentIndex];
-}
-
-function confirmPast() {
-  const key = pastDates[currentIndex];
-  document.getElementById("keywordBox").innerText = pastData[key].keyword;
-  hideAll();
-  document.getElementById("keywordPage").style.display = "flex";
-}
-
-function openContent() {
-  const key = pastDates[currentIndex];
-  openModal(key, pastData[key].content);
-}
-
-/* ✅ 倒三角 & 空白关闭 */
-function toggleIndex() {
-  const list = document.getElementById("indexList");
-  list.style.display = list.style.display === "none" ? "flex" : "none";
-}
-
-function buildIndex() {
-  const list = document.getElementById("indexList");
-  list.innerHTML = "";
-  pastDates.forEach((k, i) => {
-    const d = document.createElement("div");
-    d.innerText = k;
-    d.onclick = () => {
-      currentIndex = i;
-      updateDateDisplay();
-      toggleIndex();
-    };
-    list.appendChild(d);
-  });
-}
-
-document.getElementById("past").addEventListener("click", function (e) {
-  const list = document.getElementById("indexList");
-  const toggle = document.getElementById("yearToggle");
-  if (
-    list.style.display === "flex" &&
-    !list.contains(e.target) &&
-    e.target !== toggle
-  ) {
-    list.style.display = "none";
-  }
-});
-
-renderTimeline();
-</script>
-
-</body>
-</html>
+/*
