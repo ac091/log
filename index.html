@@ -927,15 +927,19 @@ function goToOther() {
   document.getElementById("other").style.display = "flex";
 }
 
-/* ========= 登录 已修复 ========= */
+/* ========= 登录 ========= */
 const KEY = "56";
 const input = document.getElementById("key");
 const login = document.getElementById("login");
 
 input.addEventListener("input", () => {
-  if (input.value.trim() === KEY) {
+  if (input.value === KEY) {
     login.style.display = "none";
-    goToNav();
+    if (!localStorage.getItem("asked")) {
+      playTypewriter();
+    } else {
+      goToNav();
+    }
   }
 });
 
@@ -974,6 +978,7 @@ function openModal(time, content) {
 
 function closeModal() {
   document.getElementById("modal").style.display = "none";
+  // 修复：从过去时间段打开的弹窗，关闭后返回过去时间选择页
   if (modalSource === "past") {
     document.getElementById("past").style.display = "block";
   } else {
