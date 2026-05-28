@@ -274,7 +274,6 @@ input.key {
   z-index: 10;
 }
 
-/* ✅ 倒三角：更靠近年份 + 上移对齐 */
 #yearToggle {
   display: none;
   position: absolute;
@@ -369,6 +368,20 @@ input.key {
   transform: scale(1.08);
 }
 
+.keyword-back {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  font-size: 16px;
+  color: #475569;
+  cursor: pointer;
+  letter-spacing: 2px;
+}
+
+.keyword-back:hover {
+  color: #38bdf8;
+}
+
 /* ===== 内容模态框 ===== */
 .modal {
   display: none;
@@ -385,12 +398,22 @@ input.key {
   max-width: 900px;
   padding: 60px;
   text-align: center;
+  position: relative;
 }
 
 .modal-content {
   font-size: 22px;
   line-height: 1.9;
   color: #d1d5db;
+}
+
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 26px;
+  color: #fff;
+  cursor: pointer;
 }
 
 .camera {
@@ -767,6 +790,7 @@ input.key {
 
 <!-- ===== 关键字页面 ===== -->
 <div id="keywordPage">
+  <div class="keyword-back" onclick="backToPast()">◀ BACK</div>
   <div class="keyword-box" id="keywordBox" onclick="openContent()"></div>
 </div>
 
@@ -802,8 +826,9 @@ input.key {
 </div>
 
 <!-- ✅ 内容页 -->
-<div class="modal" id="modal" onclick="closeModal()">
-  <div class="modal-box" onclick="event.stopPropagation()">
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div class="modal-close" onclick="closeModal()">✕</div>
     <div class="modal-content" id="modal-content"></div>
   </div>
 </div>
@@ -845,11 +870,10 @@ const pastData = {
 const pastDates = Object.keys(pastData).sort();
 let currentIndex = 0;
 let isScrolling = false;
-let lastPage = null;
 
 /* ========= 页面切换 ========= */
 function hideAll() {
-  ["main","past","nav","csPage","idea","other","keywordPage"].forEach(id=>{
+  ["main","past","nav","csPage","idea","other","keywordPage","modal"].forEach(id=>{
     document.getElementById(id).style.display = "none";
   });
 }
@@ -872,6 +896,11 @@ function goToPast() {
   buildIndex();
   document.getElementById("yearToggle").style.display = "block";
   document.getElementById("indexList").style.display = "none";
+}
+
+function backToPast() {
+  hideAll();
+  document.getElementById("past").style.display = "block";
 }
 
 function goToCS() {
@@ -920,16 +949,8 @@ function renderTimeline() {
   });
 }
 
-/* ========= Modal（✅ 修复点） ========= */
+/* ========= Modal ========= */
 function openModal(time, content) {
-  if (document.getElementById("main").style.display === "block") {
-    lastPage = "main";
-  } else if (document.getElementById("past").style.display === "block") {
-    lastPage = "past";
-  } else {
-    lastPage = "main";
-  }
-
   document.getElementById("modal-content").innerHTML = content;
 
   if (photosByDate[time]) {
@@ -945,11 +966,7 @@ function openModal(time, content) {
 
 function closeModal() {
   document.getElementById("modal").style.display = "none";
-  if (lastPage === "main") {
-    document.getElementById("main").style.display = "block";
-  } else if (lastPage === "past") {
-    document.getElementById("past").style.display = "block";
-  }
+  goToMain();
 }
 
 /* ========= 相册 ========= */
@@ -1121,14 +1138,13 @@ function updateDateDisplay() {
 function confirmPast() {
   const key = pastDates[currentIndex];
   document.getElementById("keywordBox").innerText = pastData[key].keyword;
-  document.getElementById("past").style.display = "none";
+  hideAll();
   document.getElementById("keywordPage").style.display = "flex";
 }
 
 function openContent() {
   const key = pastDates[currentIndex];
   document.getElementById("modal-content").innerHTML = pastData[key].content;
-  document.getElementById("keywordPage").style.display = "none";
   document.getElementById("modal").style.display = "flex";
 }
 
