@@ -396,28 +396,36 @@ input.key {
 .modal-box {
   width: 80vw;
   max-width: 900px;
+  max-height: 85vh;
   padding: 60px;
-  text-align: center;
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .modal-content {
   font-size: 22px;
   line-height: 1.9;
   color: #d1d5db;
+  text-align: center;
+  overflow-y: auto;
+  width: 100%;
 }
 
 .modal-close {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  font-size: 26px;
-  color: #fff;
+  margin-top: 40px;
+  font-size: 16px;
+  letter-spacing: 6px;
+  color: #475569;
   cursor: pointer;
 }
 
+.modal-close:hover {
+  color: #38bdf8;
+}
+
 .camera {
-  margin-top: 40px;
+  margin-top: 30px;
   width: 60px;
   height: 60px;
   background: rgba(255,255,255,.08);
@@ -828,8 +836,8 @@ input.key {
 <!-- ✅ 内容页 -->
 <div class="modal" id="modal">
   <div class="modal-box">
-    <div class="modal-close" onclick="closeModal()">✕</div>
     <div class="modal-content" id="modal-content"></div>
+    <div class="modal-close" onclick="closeModal()">✕ CLOSE</div>
   </div>
 </div>
 
@@ -864,12 +872,13 @@ const timelineData = [
 const pastData = {
   "2023-06-15": { keyword: "未知", content: "那时候我们还不知道，后来会发生这么多事。" },
   "2023-09-11": { keyword: "初见", content: "在武警院我们相遇。很高兴认识你。" },
-  "2024-01-03": { keyword: "测试", content: "这是一个测试条目。" }
+  "2024-01-03": { keyword: "测试", content: "这是一个测试条目。<br><br>这里可以放很长很长的文字。<br>用来验证 Close 是否始终在底部。" }
 };
 
 const pastDates = Object.keys(pastData).sort();
 let currentIndex = 0;
 let isScrolling = false;
+let modalSource = null; // main | past
 
 /* ========= 页面切换 ========= */
 function hideAll() {
@@ -951,6 +960,8 @@ function renderTimeline() {
 
 /* ========= Modal ========= */
 function openModal(time, content) {
+  modalSource = document.getElementById("main").style.display === "block" ? "main" : "past";
+
   document.getElementById("modal-content").innerHTML = content;
 
   if (photosByDate[time]) {
@@ -966,7 +977,12 @@ function openModal(time, content) {
 
 function closeModal() {
   document.getElementById("modal").style.display = "none";
-  goToMain();
+
+  if (modalSource === "past") {
+    document.getElementById("past").style.display = "block";
+  } else {
+    document.getElementById("main").style.display = "block";
+  }
 }
 
 /* ========= 相册 ========= */
