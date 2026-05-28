@@ -274,13 +274,13 @@ input.key {
   z-index: 10;
 }
 
-/* ✅ 倒三角：明显上移，对齐年份 */
+/* ✅ 倒三角：更靠近年份 + 上移对齐 */
 #yearToggle {
   display: none;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-240px, -82%);
+  transform: translate(-240px, -68%);
   font-size: 28px;
   color: rgba(255,255,255,.45);
   cursor: pointer;
@@ -945,13 +945,10 @@ function openModal(time, content) {
 
 function closeModal() {
   document.getElementById("modal").style.display = "none";
-
   if (lastPage === "main") {
     document.getElementById("main").style.display = "block";
   } else if (lastPage === "past") {
-    // ✅ 回到过去时间段的日期选择界面
     document.getElementById("past").style.display = "block";
-    document.getElementById("keywordPage").style.display = "none";
   }
 }
 
