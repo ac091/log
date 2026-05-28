@@ -393,7 +393,7 @@ input.key {
   width: 80vw;
   max-width: 900px;
   max-height: 85vh;
-  padding: 80px 60px 60px;
+  padding: 60px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -407,6 +407,7 @@ input.key {
   text-align: center;
   overflow-y: auto;
   width: 100%;
+  padding-top: 20px;
 }
 
 .modal-back {
@@ -795,7 +796,7 @@ input.key {
   </div>
 </div>
 
-<!-- ===== 关键字页面 ===== */
+<!-- ===== 关键字页面 ===== -->
 <div id="keywordPage">
   <div class="keyword-back" onclick="backToPast()">◀ BACK</div>
   <div class="keyword-box" id="keywordBox" onclick="openContent()"></div>
@@ -835,7 +836,7 @@ input.key {
 <!-- ✅ 内容页 -->
 <div class="modal" id="modal">
   <div class="modal-box">
-    <div class="modal-back" id="modalBack">◀ BACK</div>
+    <div class="modal-back" onclick="closeModal()">◀ BACK</div>
     <div class="modal-content" id="modal-content"></div>
   </div>
 </div>
@@ -977,7 +978,6 @@ function openModal(time, content) {
 
 function closeModal() {
   document.getElementById("modal").style.display = "none";
-
   if (modalSource === "past") {
     document.getElementById("past").style.display = "block";
   } else {
