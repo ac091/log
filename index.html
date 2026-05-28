@@ -129,19 +129,6 @@ input.key {
   width: 100%;
 }
 
-/* ===== 导航页右下角入口 ===== */
-#nav .gate {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 10px;
-  height: 10px;
-  background: rgba(56,189,248,.5);
-  border-radius: 50%;
-  cursor: pointer;
-  z-index: 20;
-}
-
 /* ===== 现在时间段 ===== */
 #main {
   display: none;
@@ -577,6 +564,19 @@ input.key {
   font-size: 14px;
 }
 
+/* ===== 右下角小点 ===== */
+#main .gate {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 10px;
+  height: 10px;
+  background: rgba(56,189,248,.5);
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 20;
+}
+
 /* ===== 打字机 ===== */
 #typewriter {
   display: none;
@@ -762,7 +762,6 @@ input.key {
   <div class="entry-box">6.4</div>
 </div>
 
-<!-- ===== 导航页 ===== -->
 <div id="nav">
   <div class="nav-title">SELECT</div>
   <div class="nav-links">
@@ -771,18 +770,15 @@ input.key {
     <div class="nav-link" onclick="goToCS()">SONG</div>
     <div class="nav-link" onclick="goToOther()">其 他</div>
   </div>
-
-  <!-- ✅ 时空驿站入口 -->
-  <div class="gate" onclick="openPastModal()"></div>
 </div>
 
-<!-- ===== 现在时间段 ===== -->
 <div id="main">
   <div class="main-header">
     <span class="back-btn" onclick="goToNav()">◀ BACK</span>
     <span>TIME CAPSULE</span>
   </div>
   <div class="timeline-now" id="timelineNow"></div>
+  <div class="gate" onclick="openPastModal()"></div>
 </div>
 
 <!-- ===== 过去时间段 ===== -->
@@ -964,7 +960,7 @@ function renderTimeline() {
 
 /* ========= Modal ========= */
 function openModal(time, content) {
-  modalSource = document.getElementById("past").style.display === "block" ? "past" : "main";
+  modalSource = document.getElementById("main").style.display === "block" ? "main" : "past";
 
   document.getElementById("modal-content").innerHTML = content;
 
@@ -980,11 +976,9 @@ function openModal(time, content) {
   document.getElementById("modal").style.display = "flex";
 }
 
-/* ✅ BACK 逻辑 */
 function closeModal() {
   document.getElementById("modal").style.display = "none";
-  hideAll();
-
+  // 修复：从过去时间段打开的弹窗，关闭后返回过去时间选择页
   if (modalSource === "past") {
     document.getElementById("past").style.display = "block";
   } else {
@@ -1165,14 +1159,9 @@ function confirmPast() {
   document.getElementById("keywordPage").style.display = "flex";
 }
 
-/* ✅✅✅ 关键修复点 */
 function openContent() {
-  modalSource = "past"; // ✅ 标记来自过去
-
   const key = pastDates[currentIndex];
-  document.getElementById("modal-content").innerHTML = pastData[key].content;
-  document.getElementById("keywordPage").style.display = "none";
-  document.getElementById("modal").style.display = "flex";
+  openModal(key, pastData[key].content);
 }
 
 /* ✅ 倒三角 & 空白关闭 */
