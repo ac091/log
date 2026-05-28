@@ -76,7 +76,7 @@ input.key {
     radial-gradient(1.5px 1.5px at 50% 10%, rgba(56,189,248,.8), transparent),
     radial-gradient(1px 1px at 70% 40%, rgba(255,255,255,.5), transparent),
     radial-gradient(1px 1px at 90% 80%, rgba(255,255,255,.7), transparent),
-    radial-gradient(1.5px 1.5px at 20% 70%, rgba(56,189,248,.6), transparent),
+    radial-gradient(1.5px 1.5px at 20% 70%, rgba56,189,248,.6), transparent),
     radial-gradient(1px 1px at 60% 90%, rgba(255,255,255,.4), transparent),
     radial-gradient(1px 1px at 80% 15%, rgba(255,255,255,.6), transparent),
     radial-gradient(1.5px 1.5px at 40% 85%, rgba(56,189,248,.5), transparent),
@@ -129,12 +129,17 @@ input.key {
   width: 100%;
 }
 
-/* ===== 现在时间段 ===== */
+/* ===== 【优化】现在时间段 亮面炫酷背景 ===== */
 #main {
   display: none;
   position: fixed;
   inset: 0;
-  background: linear-gradient(180deg, #1e293b, #0f172a);
+  background: linear-gradient(160deg, #2a3b57, #1e2942, #101828);
+  background-image: 
+    linear-gradient(160deg, #2a3b57 0%, #1e2942 50%, #101828 100%),
+    radial-gradient(circle at 20% 10%, rgba(56,189,248,0.15), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(124,211,252,0.12), transparent 50%);
+  background-blend-mode: screen;
   z-index: 10;
   padding: 60px 80px;
   overflow: hidden;
@@ -142,7 +147,7 @@ input.key {
 
 .main-header {
   font-size: 13px;
-  opacity: .6;
+  opacity: .8;
   margin-bottom: 20px;
   letter-spacing: 2px;
   display: flex;
@@ -152,7 +157,7 @@ input.key {
 
 .main-header .back-btn {
   cursor: pointer;
-  color: #475569;
+  color: #a0aec0;
   font-size: 16px;
   letter-spacing: 2px;
   padding: 8px 16px;
@@ -162,7 +167,7 @@ input.key {
 
 .main-header .back-btn:hover {
   color: #38bdf8;
-  background: rgba(56,189,248,.1);
+  background: rgba(56,189,248,.15);
 }
 
 .timeline-now {
@@ -178,7 +183,7 @@ input.key {
 }
 
 .timeline-now::-webkit-scrollbar-thumb {
-  background: rgba(56,189,248,.3);
+  background: rgba(56,189,248,.4);
   border-radius: 3px;
 }
 
@@ -191,8 +196,8 @@ input.key {
   bottom: 0;
   width: 2px;
   background: linear-gradient(to bottom,
-    rgba(56,189,248,.6),
-    rgba(56,189,248,.1)
+    rgba(56,189,248,.8),
+    rgba(56,189,248,.2)
   );
   pointer-events: none;
 }
@@ -211,7 +216,7 @@ input.key {
   height: 16px;
   border-radius: 50%;
   background: #38bdf8;
-  box-shadow: 0 0 20px rgba(56,189,248,.8);
+  box-shadow: 0 0 20px rgba(56,189,248,1), 0 0 40px rgba(56,189,248,.5);
   cursor: pointer;
   transition: transform .3s ease;
   z-index: 2;
@@ -227,9 +232,10 @@ input.key {
   font-size: 20px;
   font-weight: 700;
   color: #7dd3fc;
-  opacity: .7;
+  opacity: .8;
   cursor: pointer;
   z-index: 2;
+  text-shadow: 0 0 8px rgba(124,211,252,.3);
 }
 
 .label:hover {
@@ -254,12 +260,17 @@ input.key {
   left: calc(50% + 30px);
 }
 
-/* ===== 过去时间段 ===== */
+/* ===== 【优化】过去时间段/时空驿站 亮面炫酷背景 ===== */
 #past {
   display: none;
   position: fixed;
   inset: 0;
-  background: #0b0f1a;
+  background: linear-gradient(145deg, #121a33, #0f172a);
+  background-image: 
+    linear-gradient(145deg, #121a33 0%, #0f172a 100%),
+    radial-gradient(circle at 15% 20%, rgba(56,189,248,0.18), transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(96,165,250,0.15), transparent 55%);
+  background-blend-mode: screen;
   z-index: 200;
   overflow: hidden;
 }
@@ -269,7 +280,7 @@ input.key {
   top: 30px;
   left: 30px;
   font-size: 14px;
-  color: #475569;
+  color: #a0aec0;
   cursor: pointer;
   z-index: 10;
 }
@@ -281,7 +292,7 @@ input.key {
   left: 50%;
   transform: translate(-240px, -68%);
   font-size: 28px;
-  color: rgba(255,255,255,.45);
+  color: rgba(255,255,255,.55);
   cursor: pointer;
   z-index: 15;
 }
@@ -295,10 +306,10 @@ input.key {
   flex-direction: column;
   gap: 8px;
   z-index: 15;
-  background: rgba(11, 15, 26, 0.95);
+  background: rgba(18, 26, 51, 0.92);
   padding: 12px 16px;
   border-radius: 6px;
-  border: 1px solid rgba(255,255,255,.08);
+  border: 1px solid rgba(56,189,248,.2);
 }
 
 #indexList div {
@@ -325,6 +336,7 @@ input.key {
   color: #38bdf8;
   letter-spacing: 4px;
   user-select: none;
+  text-shadow: 0 0 15px rgba(56,189,248,.6);
 }
 
 .confirm-btn {
@@ -333,14 +345,16 @@ input.key {
   font-size: 16px;
   letter-spacing: 8px;
   color: #38bdf8;
-  border: 1px solid rgba(56,189,248,.4);
+  border: 1px solid rgba(56,189,248,.5);
   padding: 14px 70px;
   cursor: pointer;
   transition: all .3s ease;
+  border-radius: 4px;
 }
 
 .confirm-btn:hover {
-  background: rgba(56,189,248,.1);
+  background: rgba(56,189,248,.15);
+  box-shadow: 0 0 12px rgba(56,189,248,.3);
 }
 
 /* ===== 关键字页面 ===== */
@@ -501,6 +515,149 @@ input.key {
   text-align: center;
 }
 
+/* IDEA 一级页面（二级导航） */
+#idea {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at center, #0e1430 0%, #000 70%);
+  z-index: 10;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+#idea .back-btn {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  letter-spacing: 2px;
+  color: #475569;
+}
+#idea .back-btn:hover{color:#38bdf8;}
+.idea-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+.idea-nav-item {
+  font-size: 42px;
+  color: #9ca3af;
+  letter-spacing: 6px;
+  cursor: pointer;
+  position: relative;
+  transition: color .4s;
+}
+.idea-nav-item::after{
+  content:"";
+  position:absolute;
+  left:0;bottom:-8px;width:0;height:2px;background:#38bdf8;
+  transition:width .4s;
+}
+.idea-nav-item:hover{color:#38bdf8;}
+.idea-nav-item:hover::after{width:100%;}
+
+/* 生活碎片 - 日记页面 */
+#diaryPage {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(160deg, #1c2438, #0f172a);
+  z-index: 12;
+  padding: 60px;
+}
+.diary-back {
+  position: absolute;
+  top:30px;left:30px;
+  color:#a0aec0;cursor:pointer;letter-spacing:2px;
+}
+.diary-back:hover{color:#38bdf8;}
+.diary-wrap{
+  width:100%;height:calc(100vh - 140px);
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+}
+.diary-content{
+  max-width:700px;
+  font-size:20px;
+  line-height:2.2;
+  color:#e2e8f0;
+  text-align:left;
+  padding:0 20px;
+}
+.diary-page-info{
+  position:absolute;
+  bottom:30px;
+  color:rgba(255,255,255,.4);
+  font-size:14px;
+  letter-spacing:2px;
+}
+.diary-paging{
+  position:absolute;
+  bottom:30px;
+  display:flex;gap:40px;
+}
+.diary-paging span{
+  font-size:18px;
+  color:rgba(255,255,255,.5);
+  cursor:pointer;
+  padding:6px 16px;
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:4px;
+  transition:.3s;
+}
+.diary-paging span:hover{
+  color:#38bdf8;
+  border-color:rgba(56,189,248,.4);
+}
+.diary-paging span.disable{
+  opacity:.2;pointer-events:none;
+}
+
+/* 如果人是一部相机 - 图片页 */
+#cameraPage {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #050710;
+  z-index: 13;
+}
+.camera-back {
+  position: absolute;
+  top:30px;left:30px;
+  color:#a0aec0;cursor:pointer;letter-spacing:2px;z-index:10;
+}
+.camera-back:hover{color:#38bdf8;}
+.camera-img-wrap{
+  width:100%;height:100%;
+  display:flex;justify-content:center;align-items:center;
+}
+.camera-img-wrap img{
+  max-width:85%;max-height:85%;
+  border-radius:8px;
+  box-shadow:0 0 40px rgba(56,189,248,.2);
+}
+.camera-page-info{
+  position:absolute;
+  bottom:30px;left:50%;transform:translateX(-50%);
+  color:rgba(255,255,255,.4);
+  font-size:14px;letter-spacing:2px;
+}
+.camera-paging{
+  position:absolute;
+  bottom:80px;
+  width:100%;
+  display:flex;justify-content:center;gap:60px;
+}
+.camera-paging span{
+  font-size:24px;
+  color:rgba(255,255,255,.5);
+  cursor:pointer;
+  transition:.3s;
+}
+.camera-paging span:hover{color:#38bdf8;}
+.camera-paging span.disable{opacity:.2;pointer-events:none;}
+
 .page-placeholder {
   display: none;
   position: fixed;
@@ -571,10 +728,11 @@ input.key {
   right: 30px;
   width: 10px;
   height: 10px;
-  background: rgba(56,189,248,.5);
+  background: rgba(56,189,248,.6);
   border-radius: 50%;
   cursor: pointer;
   z-index: 20;
+  box-shadow:0 0 8px rgba(56,189,248,.5);
 }
 
 /* ===== 打字机 ===== */
@@ -626,7 +784,7 @@ input.key {
   50% { opacity: .7; }
 }
 
-/* ===== 生日 ===== */
+/* ===== 生日 + 烟花容器 ===== */
 #birthday {
   display: none;
   position: fixed;
@@ -636,12 +794,22 @@ input.key {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  overflow:hidden;
+}
+/* 烟花画布 */
+#fireworkCanvas{
+  position:absolute;
+  inset:0;
+  width:100%;height:100%;
+  pointer-events:none;
+  z-index:1;
 }
 
 #cake {
   font-size: 260px;
   opacity: 0;
   transition: opacity 1.8s ease;
+  position:relative;z-index:2;
 }
 
 #happy {
@@ -655,6 +823,7 @@ input.key {
   opacity: 0;
   transition: opacity 2s ease;
   text-align: center;
+  z-index:2;
 }
 
 #message {
@@ -668,6 +837,7 @@ input.key {
   text-align: center;
   max-width: 80%;
   line-height: 1.8;
+  z-index:2;
 }
 
 #closeHint {
@@ -679,6 +849,7 @@ input.key {
   color: rgba(255,255,255,.4);
   cursor: pointer;
   display: none;
+  z-index:2;
 }
 
 /* ===== 时空驿站 ===== */
@@ -695,6 +866,10 @@ input.key {
   right: 60px;
   bottom: 60px;
   text-align: left;
+  background:rgba(15,23,42,0.85);
+  padding:20px;
+  border-radius:8px;
+  border:1px solid rgba(56,189,248,.2);
 }
 
 #pastModal .title {
@@ -815,9 +990,39 @@ input.key {
   </div>
 </div>
 
-<div id="idea" class="page-placeholder">
+<!-- IDEA 一级导航页 -->
+<div id="idea">
   <div class="back-btn" onclick="goToNav()">◀ BACK</div>
-  <div class="content">IDEA</div>
+  <div class="idea-nav">
+    <div class="idea-nav-item" onclick="openDiary()">Life Fragments 生活碎片</div>
+    <div class="idea-nav-item" onclick="openCamera()">If People Are Cameras 如果人是一部相机</div>
+  </div>
+</div>
+
+<!-- 生活碎片 - 日记分页页 -->
+<div id="diaryPage">
+  <div class="diary-back" onclick="closeDiary()">◀ BACK</div>
+  <div class="diary-wrap">
+    <div class="diary-content" id="diaryContent"></div>
+  </div>
+  <div class="diary-page-info" id="diaryPageInfo">第 1 页 / 共 1 页</div>
+  <div class="diary-paging">
+    <span id="diaryPrev" class="disable" onclick="diaryPrev()">上一页</span>
+    <span id="diaryNext" class="disable" onclick="diaryNext()">下一页</span>
+  </div>
+</div>
+
+<!-- 如果人是一部相机 - 图片分页页 -->
+<div id="cameraPage">
+  <div class="camera-back" onclick="closeCamera()">◀ BACK</div>
+  <div class="camera-img-wrap">
+    <img id="cameraImg" src="" alt="">
+  </div>
+  <div class="camera-page-info" id="cameraPageInfo">第 1 张 / 共 1 张</div>
+  <div class="camera-paging">
+    <span id="cameraPrev" class="disable" onclick="cameraPrev()">‹</span>
+    <span id="cameraNext" class="disable" onclick="cameraNext()">›</span>
+  </div>
 </div>
 
 <div id="other" class="page-placeholder">
@@ -855,7 +1060,9 @@ input.key {
   <div class="text">ENTERING TIME STATION</div>
 </div>
 
+<!-- 生日页面 + 烟花画布 -->
 <div id="birthday">
+  <canvas id="fireworkCanvas"></canvas>
   <div id="cake">🎂</div>
   <div id="happy">生日快乐</div>
   <div id="message"></div>
@@ -880,9 +1087,24 @@ let currentIndex = 0;
 let isScrolling = false;
 let modalSource = null;
 
+// ========= 生活碎片 - 日记数据（示例第一篇） =========
+const diaryList = [
+  {
+    title: "日常随笔",
+    text: "日子慢慢走，风也变得温柔。最近总喜欢停下来看看身边的风景，那些细碎的瞬间拼凑起普通却温暖的生活。不必追赶什么，安于当下，就已经很好了。愿往后每一天，都平安、自在、心怀光亮。"
+  }
+];
+let diaryCurPage = 0;
+
+// ========= 如果人是一部相机 - 图片数据（示例第一张） =========
+const cameraImgList = [
+  "https://picsum.photos/id/65/1200/800"
+];
+let cameraCurPage = 0;
+
 /* ========= 页面切换 ========= */
 function hideAll() {
-  ["main","past","nav","csPage","idea","other","keywordPage","modal"].forEach(id=>{
+  ["main","past","nav","csPage","idea","other","keywordPage","modal","diaryPage","cameraPage"].forEach(id=>{
     document.getElementById(id).style.display = "none";
   });
 }
@@ -925,6 +1147,76 @@ function goToIdea() {
 function goToOther() {
   hideAll();
   document.getElementById("other").style.display = "flex";
+}
+
+// 打开日记页
+function openDiary(){
+  hideAll();
+  document.getElementById("diaryPage").style.display = "block";
+  diaryCurPage = 0;
+  renderDiary();
+}
+function closeDiary(){
+  hideAll();
+  document.getElementById("idea").style.display = "flex";
+}
+function renderDiary(){
+  const total = diaryList.length;
+  const idx = diaryCurPage;
+  document.getElementById("diaryContent").innerText = diaryList[idx].text;
+  document.getElementById("diaryPageInfo").innerText = `第 ${idx+1} 页 / 共 ${total} 页`;
+
+  const prev = document.getElementById("diaryPrev");
+  const next = document.getElementById("diaryNext");
+  prev.classList.toggle("disable", idx <= 0);
+  next.classList.toggle("disable", idx >= total - 1);
+}
+function diaryPrev(){
+  if(diaryCurPage > 0){
+    diaryCurPage--;
+    renderDiary();
+  }
+}
+function diaryNext(){
+  if(diaryCurPage < diaryList.length - 1){
+    diaryCurPage++;
+    renderDiary();
+  }
+}
+
+// 打开相机图片页
+function openCamera(){
+  hideAll();
+  document.getElementById("cameraPage").style.display = "block";
+  cameraCurPage = 0;
+  renderCameraImg();
+}
+function closeCamera(){
+  hideAll();
+  document.getElementById("idea").style.display = "flex";
+}
+function renderCameraImg(){
+  const total = cameraImgList.length;
+  const idx = cameraCurPage;
+  document.getElementById("cameraImg").src = cameraImgList[idx];
+  document.getElementById("cameraPageInfo").innerText = `第 ${idx+1} 张 / 共 ${total} 张`;
+
+  const prev = document.getElementById("cameraPrev");
+  const next = document.getElementById("cameraNext");
+  prev.classList.toggle("disable", idx <= 0);
+  next.classList.toggle("disable", idx >= total - 1);
+}
+function cameraPrev(){
+  if(cameraCurPage > 0){
+    cameraCurPage--;
+    renderCameraImg();
+  }
+}
+function cameraNext(){
+  if(cameraCurPage < cameraImgList.length - 1){
+    cameraCurPage++;
+    renderCameraImg();
+  }
 }
 
 /* ========= 登录 ========= */
@@ -978,7 +1270,6 @@ function openModal(time, content) {
 
 function closeModal() {
   document.getElementById("modal").style.display = "none";
-  // 修复：从过去时间段打开的弹窗，关闭后返回过去时间选择页
   if (modalSource === "past") {
     document.getElementById("past").style.display = "block";
   } else {
@@ -1074,131 +1365,92 @@ function eraseText(cb) {
   }, 70);
 }
 
-/* ========= 生日 ========= */
+/* ========= 生日 + 烟花动画 ========= */
 const cake = document.getElementById("cake");
 const happy = document.getElementById("happy");
 const message = document.getElementById("message");
 const closeHint = document.getElementById("closeHint");
+const canvas = document.getElementById("fireworkCanvas");
+const ctx = canvas.getContext("2d");
+let fireworks = [];
+
+// 画布自适应
+function resizeCanvas(){
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
+
+// 烟花粒子类
+class Particle{
+  constructor(x,y,color){
+    this.x = x;
+    this.y = y;
+    this.speed = Math.random()*4 + 2;
+    this.angle = Math.random() * Math.PI * 2;
+    this.radius = Math.random() * 2 + 1;
+    this.alpha = 1;
+    this.color = color;
+    this.vx = Math.cos(this.angle) * this.speed;
+    this.vy = Math.sin(this.angle) * this.speed;
+  }
+  update(){
+    this.x += this.vx;
+    this.y += this.vy;
+    this.alpha -= 0.015;
+  }
+  draw(){
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.radius,0,Math.PI*2);
+    ctx.fillStyle = this.color.replace("1)", this.alpha+")");
+    ctx.fill();
+  }
+}
+
+function createFirework(x,y){
+  const colors = [
+    "rgba(255,200,100,1)",
+    "rgba(100,200,255,1)",
+    "rgba(255,120,180,1)",
+    "rgba(180,255,120,1)"
+  ];
+  const color = colors[Math.floor(Math.random()*colors.length)];
+  for(let i=0;i<80;i++){
+    fireworks.push(new Particle(x,y,color));
+  }
+}
+
+function animateFirework(){
+  ctx.fillStyle = "rgba(0,0,0,0.15)";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+  for(let i=fireworks.length-1;i>=0;i--){
+    let p = fireworks[i];
+    p.update();
+    p.draw();
+    if(p.alpha <= 0) fireworks.splice(i,1);
+  }
+  requestAnimationFrame(animateFirework);
+}
+animateFirework();
 
 function startBirthday() {
   document.getElementById("entry").style.display = "none";
   document.getElementById("birthday").style.display = "flex";
-  setTimeout(() => cake.style.opacity = "1", 300);
+
+  // 蛋糕出现 + 同步燃放烟花
+  setTimeout(() => {
+    cake.style.opacity = "1";
+    // 随机位置持续放烟花
+    let fireTimer = setInterval(()=>{
+      let x = Math.random() * canvas.width;
+      let y = Math.random() * canvas.height * 0.6;
+      createFirework(x,y);
+    },400);
+    // 3秒后停止新增烟花
+    setTimeout(()=>clearInterval(fireTimer),3000);
+  }, 300);
+
   setTimeout(() => cake.style.opacity = "0", 3300);
   setTimeout(() => happy.style.opacity = "1", 4300);
-  setTimeout(() => happy.style.opacity = "0", 7800);
-  setTimeout(() => typeMessage("首先祝你生日快乐"), 9800);
-}
-
-function typeMessage(t) {
-  let i = 0;
-  message.style.opacity = "1";
-  const r = setInterval(() => {
-    message.innerHTML += t.charAt(i++);
-    typeSound.currentTime = 0;
-    typeSound.play();
-    if (i >= t.length) {
-      clearInterval(r);
-      closeHint.style.display = "block";
-    }
-  }, 200);
-}
-
-function closeBirthday() {
-  document.getElementById("birthday").style.display = "none";
-  goToNav();
-  localStorage.setItem("asked", "1");
-}
-
-/* ========= 时空驿站 ========= */
-function openPastModal() {
-  document.getElementById("pastModal").style.display = "flex";
-}
-
-function closePastModal() {
-  document.getElementById("pastModal").style.display = "none";
-}
-
-function confirmEnterPast() {
-  closePastModal();
-  enterPastSequence();
-}
-
-function enterPastSequence() {
-  const hint = document.getElementById("pastHint");
-  hint.classList.add("show");
-  setTimeout(() => {
-    hint.classList.remove("show");
-    goToPast();
-  }, 2000);
-}
-
-/* ========= 过去：滚轮 & 列表 ========= */
-function scrollDate(e) {
-  e.preventDefault();
-  if (isScrolling) return;
-  isScrolling = true;
-  setTimeout(() => isScrolling = false, 150);
-
-  if (e.deltaY > 0) {
-    currentIndex = Math.min(currentIndex + 1, pastDates.length - 1);
-  } else {
-    currentIndex = Math.max(currentIndex - 1, 0);
-  }
-  updateDateDisplay();
-}
-
-function updateDateDisplay() {
-  document.getElementById("dateDisplay").innerText = pastDates[currentIndex];
-}
-
-function confirmPast() {
-  const key = pastDates[currentIndex];
-  document.getElementById("keywordBox").innerText = pastData[key].keyword;
-  hideAll();
-  document.getElementById("keywordPage").style.display = "flex";
-}
-
-function openContent() {
-  const key = pastDates[currentIndex];
-  openModal(key, pastData[key].content);
-}
-
-/* ✅ 倒三角 & 空白关闭 */
-function toggleIndex() {
-  const list = document.getElementById("indexList");
-  list.style.display = list.style.display === "none" ? "flex" : "none";
-}
-
-function buildIndex() {
-  const list = document.getElementById("indexList");
-  list.innerHTML = "";
-  pastDates.forEach((k, i) => {
-    const d = document.createElement("div");
-    d.innerText = k;
-    d.onclick = () => {
-      currentIndex = i;
-      updateDateDisplay();
-      toggleIndex();
-    };
-    list.appendChild(d);
-  });
-}
-
-document.getElementById("past").addEventListener("click", function (e) {
-  const list = document.getElementById("indexList");
-  const toggle = document.getElementById("yearToggle");
-  if (
-    list.style.display === "flex" &&
-    !list.contains(e.target) &&
-    e.target !== toggle
-  ) {
-    list.style.display = "none";
-  }
-});
-
-renderTimeline();
-</script>
-
-</body>
-</html>
+  setTimeout(() =>
