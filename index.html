@@ -1142,7 +1142,7 @@ function eraseText(cb) {
   }, 70);
 }
 
-/* ====================== 3D立体无残留烟花 ====================== */
+/* ====================== 超慢速 + 三层立体烟花 ====================== */
 const cake = document.getElementById("cake");
 const happy = document.getElementById("happy");
 const message = document.getElementById("message");
@@ -1164,29 +1164,40 @@ class Particle {
     this.x = x;
     this.y = y;
     const angle = Math.random() * Math.PI * 2;
-    const speed = Math.random() * 2.8 + 1.2;
+    // 极慢飞行速度
+    const speed = Math.random() * 0.8 + 0.3;
     this.vx = Math.cos(angle) * speed;
     this.vy = Math.sin(angle) * speed;
-    this.gravity = 0.025;
+    // 轻微重力，缓慢下落
+    this.gravity = 0.004;
     this.alpha = 1;
     this.color = color;
-    this.size = Math.random() * 3 + 2.5;
+    this.size = Math.random() * 3.5 + 2;
   }
   update() {
     this.vy += this.gravity;
     this.x += this.vx;
     this.y += this.vy;
-    this.alpha -= 0.018;
+    // 缓慢淡出
+    this.alpha -= 0.004;
   }
   draw() {
+    // 外层大光晕 增强立体感
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size * 2.2, 0, Math.PI * 2);
+    ctx.fillStyle = this.color.replace("1)", (this.alpha * 0.25) + ")");
+    ctx.fill();
+
+    // 中层主体
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
     ctx.fillStyle = this.color.replace("1)", this.alpha + ")");
     ctx.fill();
 
+    // 内层高光 提亮立体效果
     ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size * 0.6, 0, Math.PI * 2);
-    ctx.fillStyle = this.color.replace("1)", Math.min(1, this.alpha * 1.8) + ")");
+    ctx.arc(this.x, this.y, this.size * 0.5, 0, Math.PI * 2);
+    ctx.fillStyle = this.color.replace("1)", Math.min(1, this.alpha * 1.6) + ")");
     ctx.fill();
   }
 }
@@ -1198,10 +1209,11 @@ function createFirework() {
     "rgba(255,80,120,1)",
     "rgba(80,180,255,1)",
     "rgba(255,200,80,1)",
-    "rgba(120,255,120,1)"
+    "rgba(120,255,120,1)",
+    "rgba(255,150,220,1)"
   ];
   const color = colors[Math.floor(Math.random() * colors.length)];
-  for (let i = 0; i < 120; i++) {
+  for (let i = 0; i < 140; i++) {
     particles.push(new Particle(x, y, color));
   }
 }
@@ -1224,14 +1236,16 @@ function startBirthday() {
 
   setTimeout(() => {
     cake.style.opacity = "1";
-    let fire = setInterval(createFirework, 650);
-    setTimeout(() => clearInterval(fire), 4500);
+    // 加长发射间隔，烟花出现更舒缓
+    let fire = setInterval(createFirework, 1200);
+    // 整体烟花播放时长拉长
+    setTimeout(() => clearInterval(fire), 9000);
   }, 300);
 
-  setTimeout(() => cake.style.opacity = "0", 3300);
-  setTimeout(() => happy.style.opacity = "1", 4300);
-  setTimeout(() => happy.style.opacity = "0", 7800);
-  setTimeout(() => typeMessage("首先祝你生日快乐"), 9800);
+  setTimeout(() => cake.style.opacity = "0", 3500);
+  setTimeout(() => happy.style.opacity = "1", 4500);
+  setTimeout(() => happy.style.opacity = "0", 8500);
+  setTimeout(() => typeMessage("首先祝你生日快乐"), 10500);
 }
 
 function typeMessage(t) {
