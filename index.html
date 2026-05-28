@@ -129,16 +129,15 @@ input.key {
   width: 100%;
 }
 
-/* ===== 【升级炫酷提亮】现在时间段 ===== */
+/* ===== 现在时间段 —— 冷调赛博蓝紫、未来感、暗酷氛围 ===== */
 #main {
   display: none;
   position: fixed;
   inset: 0;
-  background: linear-gradient(160deg, #243458, #18223F, #0F1A30);
+  background: linear-gradient(150deg, #121829, #1a1024, #0f1419);
   background-image:
-    linear-gradient(160deg, #243458 0%, #18223F 50%, #0F1A30 100%),
-    radial-gradient(circle at 25% 15%, rgba(56,189,248,0.15), transparent 45%),
-    radial-gradient(circle at 75% 80%, rgba(124,211,252,0.12), transparent 50%);
+    radial-gradient(circle at 20% 25%, rgba(120,81,255,0.08), transparent 50%),
+    radial-gradient(circle at 80% 75%, rgba(56,189,248,0.08), transparent 55%);
   background-blend-mode: screen;
   z-index: 10;
   padding: 60px 80px;
@@ -147,7 +146,7 @@ input.key {
 
 .main-header {
   font-size: 13px;
-  opacity: 0.8;
+  opacity: 0.7;
   margin-bottom: 20px;
   letter-spacing: 2px;
   display: flex;
@@ -157,7 +156,7 @@ input.key {
 
 .main-header .back-btn {
   cursor: pointer;
-  color: #a0aec0;
+  color: #94a3b8;
   font-size: 16px;
   letter-spacing: 2px;
   padding: 8px 16px;
@@ -167,7 +166,7 @@ input.key {
 
 .main-header .back-btn:hover {
   color: #38bdf8;
-  background: rgba(56,189,248,.15);
+  background: rgba(56,189,248,.12);
 }
 
 .timeline-now {
@@ -183,7 +182,7 @@ input.key {
 }
 
 .timeline-now::-webkit-scrollbar-thumb {
-  background: rgba(56,189,248,.4);
+  background: rgba(56,189,248,.35);
   border-radius: 3px;
 }
 
@@ -196,8 +195,8 @@ input.key {
   bottom: 0;
   width: 2px;
   background: linear-gradient(to bottom,
-    rgba(56,189,248,.8),
-    rgba(56,189,248,.2)
+    rgba(56,189,248,.7),
+    rgba(56,189,248,.15)
   );
   pointer-events: none;
 }
@@ -216,7 +215,7 @@ input.key {
   height: 16px;
   border-radius: 50%;
   background: #38bdf8;
-  box-shadow: 0 0 20px rgba(56,189,248,1), 0 0 40px rgba(56,189,248,.5);
+  box-shadow: 0 0 20px rgba(56,189,248,.9), 0 0 40px rgba(56,189,248,.4);
   cursor: pointer;
   transition: transform .3s ease;
   z-index: 2;
@@ -232,10 +231,10 @@ input.key {
   font-size: 20px;
   font-weight: 700;
   color: #7dd3fc;
-  opacity: .8;
+  opacity: .75;
   cursor: pointer;
   z-index: 2;
-  text-shadow: 0 0 8px rgba(124,211,252,0.3);
+  text-shadow: 0 0 8px rgba(124,211,252,0.25);
 }
 
 .label:hover {
@@ -260,16 +259,15 @@ input.key {
   left: calc(50% + 30px);
 }
 
-/* ===== 【升级炫酷提亮】过去时间段 / 时空驿站 ===== */
+/* ===== 过去时间段 —— 暗青+墨蓝、复古沉静、怀旧氛围感 ===== */
 #past {
   display: none;
   position: fixed;
   inset: 0;
-  background: linear-gradient(145deg, #162040, #0F1A30);
+  background: linear-gradient(145deg, #0f1a20, #10141c);
   background-image:
-    linear-gradient(145deg, #162040 0%, #0F1A30 100%),
-    radial-gradient(circle at 15% 20%, rgba(56,189,248,0.18), transparent 45%),
-    radial-gradient(circle at 85% 80%, rgba(96,165,250,0.15), transparent 55%);
+    radial-gradient(circle at 15% 20%, rgba(45,138,138,0.12), transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(30,90,120,0.1), transparent 50%);
   background-blend-mode: screen;
   z-index: 200;
   overflow: hidden;
@@ -280,7 +278,7 @@ input.key {
   top: 30px;
   left: 30px;
   font-size: 14px;
-  color: #a0aec0;
+  color: #94a3b8;
   cursor: pointer;
   z-index: 10;
 }
@@ -292,7 +290,7 @@ input.key {
   left: 50%;
   transform: translate(-240px, -68%);
   font-size: 28px;
-  color: rgba(255,255,255,.6);
+  color: rgba(255,255,255,.55);
   cursor: pointer;
   z-index: 15;
 }
@@ -306,10 +304,10 @@ input.key {
   flex-direction: column;
   gap: 8px;
   z-index: 15;
-  background: rgba(18, 26, 51, 0.92);
+  background: rgba(15,25,40,0.9);
   padding: 12px 16px;
   border-radius: 6px;
-  border: 1px solid rgba(56,189,248,.2);
+  border: 1px solid rgba(56,189,248,.18);
 }
 
 #indexList div {
@@ -336,7 +334,7 @@ input.key {
   color: #38bdf8;
   letter-spacing: 4px;
   user-select: none;
-  text-shadow: 0 0 15px rgba(56,189,248,.6);
+  text-shadow: 0 0 15px rgba(56,189,248,.5);
 }
 
 .confirm-btn {
@@ -345,7 +343,7 @@ input.key {
   font-size: 16px;
   letter-spacing: 8px;
   color: #38bdf8;
-  border: 1px solid rgba(56,189,248,.5);
+  border: 1px solid rgba(56,189,248,.45);
   padding: 14px 70px;
   cursor: pointer;
   transition: all .3s ease;
@@ -353,8 +351,8 @@ input.key {
 }
 
 .confirm-btn:hover {
-  background: rgba(56,189,248,.15);
-  box-shadow: 0 0 12px rgba(56,189,248,.3);
+  background: rgba(56,189,248,.12);
+  box-shadow: 0 0 12px rgba(56,189,248,.25);
 }
 
 /* ===== 关键字页面 ===== */
@@ -585,11 +583,11 @@ input.key {
   right: 30px;
   width: 10px;
   height: 10px;
-  background: rgba(56,189,248,.7);
+  background: rgba(56,189,248,.6);
   border-radius: 50%;
   cursor: pointer;
   z-index: 20;
-  box-shadow: 0 0 10px rgba(56,189,248,.6);
+  box-shadow: 0 0 10px rgba(56,189,248,.5);
 }
 
 /* ===== 打字机 ===== */
@@ -641,7 +639,7 @@ input.key {
   50% { opacity: .7; }
 }
 
-/* ===== 生日页面 + 烟花画布 ===== */
+/* ===== 生日页面 ===== */
 #birthday {
   display: none;
   position: fixed;
@@ -654,7 +652,6 @@ input.key {
   overflow: hidden;
 }
 
-/* 烟花画布 */
 #fireworksCanvas {
   position: absolute;
   top: 0;
@@ -891,7 +888,7 @@ input.key {
   <div class="text">ENTERING TIME STATION</div>
 </div>
 
-<!-- 生日页面 + 烟花 -->
+<!-- 生日页面 + 立体感慢烟花 -->
 <div id="birthday">
   <canvas id="fireworksCanvas"></canvas>
   <div id="cake">🎂</div>
@@ -1111,13 +1108,12 @@ function eraseText(cb) {
   }, 70);
 }
 
-/* ====================== 生日 + 烟花动画 ====================== */
+/* ========= 生日 + 立体感慢烟花（3D粒子+拖尾+慢速） ========= */
 const cake = document.getElementById("cake");
 const happy = document.getElementById("happy");
 const message = document.getElementById("message");
 const closeHint = document.getElementById("closeHint");
 
-// 烟花画布
 const canvas = document.getElementById("fireworksCanvas");
 const ctx = canvas.getContext("2d");
 let particles = [];
@@ -1129,49 +1125,68 @@ function resizeCanvas() {
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
 
+// 3D粒子（球面分布+速度慢+拖尾长）
 class Particle {
   constructor(x, y, color) {
     this.x = x;
     this.y = y;
-    this.speed = Math.random() * 3 + 2;
-    this.angle = Math.random() * Math.PI * 2;
-    this.gravity = 0.03;
-    this.vx = Math.cos(this.angle) * this.speed;
-    this.vy = Math.sin(this.angle) * this.speed;
+    // 3D方向
+    const theta = Math.random() * Math.PI * 2;
+    const phi = Math.random() * Math.PI;
+    const speed = Math.random() * 1.2 + 0.6; // 更慢
+    this.vx = Math.sin(phi) * Math.cos(theta) * speed;
+    this.vy = Math.sin(phi) * Math.sin(theta) * speed;
+    this.vz = Math.cos(phi) * speed;
     this.alpha = 1;
     this.color = color;
+    this.trail = []; // 拖尾
   }
   update() {
-    this.vy += this.gravity;
+    // 重力轻微
+    this.vy += 0.015;
     this.x += this.vx;
     this.y += this.vy;
-    this.alpha -= 0.015;
+    // 淡出慢
+    this.alpha -= 0.008;
+    // 保留拖尾点
+    this.trail.push({x:this.x, y:this.y, a:this.alpha});
+    if (this.trail.length > 12) this.trail.shift();
   }
   draw() {
+    // 画拖尾
+    this.trail.forEach((p, i) => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 1.2, 0, Math.PI * 2);
+      ctx.fillStyle = this.color.replace("1)", (p.a*0.4).toFixed(2)+")";
+      ctx.fill();
+    });
+    // 画本体
     ctx.beginPath();
-    ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
-    ctx.fillStyle = this.color.replace("1)", this.alpha + ")");
+    ctx.arc(this.x, this.y, 2.2, 0, Math.PI * 2);
+    ctx.fillStyle = this.color.replace("1)", this.alpha.toFixed(2)+")";
     ctx.fill();
   }
 }
 
 function createFirework() {
   const x = Math.random() * canvas.width;
-  const y = Math.random() * canvas.height * 0.6;
+  const y = Math.random() * canvas.height * 0.55;
   const colors = [
-    "rgba(255,100,150,1)",
+    "rgba(255,120,160,1)",
     "rgba(100,200,255,1)",
-    "rgba(255,220,100,1)",
-    "rgba(150,255,150,1)"
+    "rgba(255,220,120,1)",
+    "rgba(160,255,180,1)",
+    "rgba(220,160,255,1)"
   ];
   const color = colors[Math.floor(Math.random() * colors.length)];
-  for (let i = 0; i < 70; i++) {
+  for (let i = 0; i < 90; i++) { // 粒子更多、更立体
     particles.push(new Particle(x, y, color));
   }
 }
 
 function animateFireworks() {
-  ctx.fillStyle = "rgba(0,0,0,0.15)";
+  // 拖尾残影（慢淡出）
+  ctx.fillStyle = "rgba(0,0,0,0.08)";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   for (let i = particles.length - 1; i >= 0; i--) {
     const p = particles[i];
@@ -1187,11 +1202,11 @@ function startBirthday() {
   document.getElementById("entry").style.display = "none";
   document.getElementById("birthday").style.display = "flex";
 
-  // 蛋糕出现 + 同步放烟花
+  // 蛋糕出现+烟花慢放
   setTimeout(() => {
     cake.style.opacity = "1";
-    let fire = setInterval(createFirework, 350);
-    setTimeout(() => clearInterval(fire), 3000);
+    let fire = setInterval(createFirework, 600); // 间隔更长、节奏慢
+    setTimeout(() => clearInterval(fire), 4000);
   }, 300);
 
   setTimeout(() => cake.style.opacity = "0", 3300);
