@@ -960,7 +960,6 @@ function renderTimeline() {
 
 /* ========= Modal ========= */
 function openModal(time, content) {
-  // ✅ 唯一关键修改点
   modalSource = document.getElementById("past").style.display === "block" ? "past" : "main";
 
   document.getElementById("modal-content").innerHTML = content;
@@ -977,8 +976,12 @@ function openModal(time, content) {
   document.getElementById("modal").style.display = "flex";
 }
 
+/* ✅✅✅ 关键修复点 */
 function closeModal() {
   document.getElementById("modal").style.display = "none";
+
+  hideAll(); // ✅ 必须清掉所有页面状态
+
   if (modalSource === "past") {
     document.getElementById("past").style.display = "block";
   } else {
