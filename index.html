@@ -368,26 +368,12 @@ input.key {
   transform: scale(1.08);
 }
 
-.keyword-back {
-  position: absolute;
-  top: 30px;
-  left: 30px;
-  font-size: 16px;
-  color: #475569;
-  cursor: pointer;
-  letter-spacing: 2px;
-}
-
-.keyword-back:hover {
-  color: #38bdf8;
-}
-
 /* ===== 内容模态框 ===== */
 .modal {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,.92);
+  background: rgba(0,0,0,.96);
   z-index: 999;
   justify-content: center;
   align-items: center;
@@ -413,15 +399,20 @@ input.key {
 }
 
 .modal-close {
-  margin-top: 40px;
+  margin-top: 50px;
   font-size: 16px;
-  letter-spacing: 6px;
+  letter-spacing: 8px;
   color: #475569;
   cursor: pointer;
+  padding: 12px 40px;
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 6px;
+  transition: all .3s ease;
 }
 
 .modal-close:hover {
   color: #38bdf8;
+  border-color: #38bdf8;
 }
 
 .camera {
@@ -798,7 +789,6 @@ input.key {
 
 <!-- ===== 关键字页面 ===== -->
 <div id="keywordPage">
-  <div class="keyword-back" onclick="backToPast()">◀ BACK</div>
   <div class="keyword-box" id="keywordBox" onclick="openContent()"></div>
 </div>
 
@@ -837,7 +827,7 @@ input.key {
 <div class="modal" id="modal">
   <div class="modal-box">
     <div class="modal-content" id="modal-content"></div>
-    <div class="modal-close" onclick="closeModal()">✕ CLOSE</div>
+    <div class="modal-close" onclick="closeModal()">CLOSE</div>
   </div>
 </div>
 
@@ -878,7 +868,7 @@ const pastData = {
 const pastDates = Object.keys(pastData).sort();
 let currentIndex = 0;
 let isScrolling = false;
-let modalSource = null; // main | past
+let modalSource = null;
 
 /* ========= 页面切换 ========= */
 function hideAll() {
@@ -905,11 +895,6 @@ function goToPast() {
   buildIndex();
   document.getElementById("yearToggle").style.display = "block";
   document.getElementById("indexList").style.display = "none";
-}
-
-function backToPast() {
-  hideAll();
-  document.getElementById("past").style.display = "block";
 }
 
 function goToCS() {
@@ -972,6 +957,7 @@ function openModal(time, content) {
     document.getElementById("modal-content").appendChild(cam);
   }
 
+  document.getElementById("keywordPage").style.display = "none";
   document.getElementById("modal").style.display = "flex";
 }
 
@@ -1161,6 +1147,7 @@ function confirmPast() {
 function openContent() {
   const key = pastDates[currentIndex];
   document.getElementById("modal-content").innerHTML = pastData[key].content;
+  document.getElementById("keywordPage").style.display = "none";
   document.getElementById("modal").style.display = "flex";
 }
 
