@@ -74,7 +74,7 @@ input.key {
     radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,.8), transparent),
     radial-gradient(1px 1px at 30% 50%, rgba(255,255,255,.6), transparent),
     radial-gradient(1.5px 1.5px at 50% 10%, rgba(56,189,248,.8), transparent),
-    radial-gradient(1px 1px at 70% 40%, rgba(255,255,255,.5), transparent),
+    radial-gradient(1px 1px at 70% 40%, rgba255,255,255,.5), transparent),
     radial-gradient(1px 1px at 90% 80%, rgba(255,255,255,.7), transparent),
     radial-gradient(1.5px 1.5px at 20% 70%, rgba(56,189,248,.6), transparent),
     radial-gradient(1px 1px at 60% 90%, rgba(255,255,255,.4), transparent),
@@ -129,7 +129,7 @@ input.key {
   width: 100%;
 }
 
-/* ===== 【优化】现在时间段 亮面炫酷背景 ===== */
+/* ===== 现在时间段 亮面炫酷背景 ===== */
 #main {
   display: none;
   position: fixed;
@@ -266,7 +266,7 @@ input.key {
   left: calc(50% + 30px);
 }
 
-/* ===== 【优化】过去时间段/时空驿站 炫酷亮背景 ===== */
+/* ===== 过去时间段/时空驿站 炫酷亮背景 ===== */
 #past {
   display: none;
   position: fixed;
@@ -1149,17 +1149,15 @@ let currentIndex = 0;
 let isScrolling = false;
 let modalSource = null;
 
-// --------------- 新增：日记数据 ---------------
+// 日记数据
 const diaryList = [
-  "清晨推开窗，风带着微凉的气息扑面而来。日子平淡却安稳，慢慢走，慢慢感受身边细碎的美好。不必追赶时间，认真过好当下的每一刻，就已经足够温柔。",
-  // 你后续在这里继续添加日记，一行一篇
+  "清晨推开窗，风带着微凉的气息扑面而来。日子平淡却安稳，慢慢走，慢慢感受身边细碎的美好。不必追赶时间，认真过好当下的每一刻，就已经足够温柔。"
 ];
 let diaryCur = 0;
 
-// --------------- 新增：相机图片数据 ---------------
+// 相机图片数据
 const galleryList = [
-  "https://raw.githubusercontent.com/ac091/log/main/qu.jpg",
-  // 你后续在这里继续添加图片链接
+  "https://raw.githubusercontent.com/ac091/log/main/qu.jpg"
 ];
 let galleryCur = 0;
 
@@ -1200,7 +1198,6 @@ function goToCS() {
   document.getElementById("csPage").style.display = "flex";
 }
 
-// 进入 IDEA 二级导航
 function goToIdeaNav() {
   hideAll();
   document.getElementById("ideaNav").style.display = "flex";
@@ -1211,14 +1208,13 @@ function goToOther() {
   document.getElementById("other").style.display = "flex";
 }
 
-// 打开 生活碎片 日记页
+// 日记相关
 function openLifeDiary(){
   hideAll();
   document.getElementById("lifeDiary").style.display = "block";
   diaryCur = 0;
   renderDiary();
 }
-// 日记渲染 + 翻页
 function renderDiary(){
   document.getElementById("diaryContent").innerText = diaryList[diaryCur];
   const prevBtn = document.getElementById("diaryPrev");
@@ -1239,14 +1235,13 @@ function diaryNext(){
   }
 }
 
-// 打开 如果人是一部相机 图片画廊
+// 图片画廊相关
 function openCameraGallery(){
   hideAll();
   document.getElementById("cameraGallery").style.display = "block";
   galleryCur = 0;
   renderGallery();
 }
-// 画廊渲染 + 翻页
 function renderGallery(){
   document.getElementById("galleryImg").src = galleryList[galleryCur];
   const prevBtn = document.getElementById("galleryPrev");
@@ -1267,7 +1262,7 @@ function galleryNext(){
   }
 }
 
-/* ========= 登录 ========= */
+/* ========= 登录 密码固定为 56 ========= */
 const KEY = "56";
 const input = document.getElementById("key");
 const login = document.getElementById("login");
@@ -1441,7 +1436,6 @@ function startBirthday() {
   document.getElementById("entry").style.display = "none";
   document.getElementById("birthday").style.display = "flex";
 
-  // 蛋糕出现 + 同步烟花
   setTimeout(() => {
     cake.style.opacity = "1";
     createFirework();
@@ -1497,4 +1491,25 @@ function enterPastSequence() {
   }, 2000);
 }
 
-/*
+/* ========= 过去：滚轮 & 列表 ========= */
+function scrollDate(e) {
+  e.preventDefault();
+  if (isScrolling) return;
+  isScrolling = true;
+  setTimeout(() => isScrolling = false, 150);
+
+  if (e.deltaY > 0) {
+    currentIndex = Math.min(currentIndex + 1, pastDates.length - 1);
+  } else {
+    currentIndex = Math.max(currentIndex - 1, 0);
+  }
+  updateDateDisplay();
+}
+
+function updateDateDisplay() {
+  document.getElementById("dateDisplay").innerText = pastDates[currentIndex];
+}
+
+function confirmPast() {
+  const key = pastDates[currentIndex];
+  document.getElementById("keywordBox").innerText = pastData[key].keyword;
