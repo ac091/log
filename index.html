@@ -129,6 +129,19 @@ input.key {
   width: 100%;
 }
 
+/* ✅ 时空驿站入口（导航页右下角） */
+#nav .gate {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 10px;
+  height: 10px;
+  background: rgba(56,189,248,.5);
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 20;
+}
+
 /* ===== 现在时间段 ===== */
 #main {
   display: none;
@@ -564,19 +577,6 @@ input.key {
   font-size: 14px;
 }
 
-/* ===== 右下角小点 ===== */
-#main .gate {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 10px;
-  height: 10px;
-  background: rgba(56,189,248,.5);
-  border-radius: 50%;
-  cursor: pointer;
-  z-index: 20;
-}
-
 /* ===== 打字机 ===== */
 #typewriter {
   display: none;
@@ -762,6 +762,7 @@ input.key {
   <div class="entry-box">6.4</div>
 </div>
 
+<!-- ===== 导航页 ===== -->
 <div id="nav">
   <div class="nav-title">SELECT</div>
   <div class="nav-links">
@@ -770,15 +771,18 @@ input.key {
     <div class="nav-link" onclick="goToCS()">SONG</div>
     <div class="nav-link" onclick="goToOther()">其 他</div>
   </div>
+
+  <!-- ✅ 时空驿站入口（右下角） -->
+  <div class="gate" onclick="openPastModal()" title="时空驿站"></div>
 </div>
 
+<!-- ===== 现在时间段 ===== -->
 <div id="main">
   <div class="main-header">
     <span class="back-btn" onclick="goToNav()">◀ BACK</span>
     <span>TIME CAPSULE</span>
   </div>
   <div class="timeline-now" id="timelineNow"></div>
-  <div class="gate" onclick="openPastModal()"></div>
 </div>
 
 <!-- ===== 过去时间段 ===== -->
@@ -976,11 +980,11 @@ function openModal(time, content) {
   document.getElementById("modal").style.display = "flex";
 }
 
-/* ✅✅✅ 关键修复点 */
+/* ✅ 你确认的 BACK 逻辑（不动） */
 function closeModal() {
   document.getElementById("modal").style.display = "none";
 
-  hideAll(); // ✅ 必须清掉所有页面状态
+  hideAll();
 
   if (modalSource === "past") {
     document.getElementById("past").style.display = "block";
