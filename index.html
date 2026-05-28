@@ -129,20 +129,33 @@ input.key {
   width: 100%;
 }
 
-/* ===== 现在时间段 ===== */
+/* ===== 现在时间段 - 升级背景 ===== */
 #main {
   display: none;
   position: fixed;
   inset: 0;
-  background: linear-gradient(160deg, #243458, #18223F, #0F1A30);
+  background: linear-gradient(160deg, #1e2f5a, #111a33, #090f1e);
   background-image:
-    linear-gradient(160deg, #243458 0%, #18223F 50%, #0F1A30 100%),
-    radial-gradient(circle at 25% 15%, rgba(56,189,248,0.15), transparent 45%),
-    radial-gradient(circle at 75% 80%, rgba(124,211,252,0.12), transparent 50%);
+    radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.18) 0%, transparent 45%),
+    radial-gradient(circle at 80% 70%, rgba(124, 211, 252, 0.14) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(56, 189, 248, 0.08) 0%, transparent 55%),
+    linear-gradient(160deg, #1e2f5a 0%, #111a33 50%, #090f1e 100%);
   background-blend-mode: screen;
   z-index: 10;
   padding: 60px 80px;
   overflow: hidden;
+}
+#main::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1.2px 1.2px at 25% 15%, rgba(255,255,255,0.22), transparent),
+    radial-gradient(1px 1px at 75% 65%, rgba(56,189,248,0.18), transparent),
+    radial-gradient(1.5px 1.5px at 50% 40%, rgba(255,255,255,0.16), transparent),
+    radial-gradient(1px 1px at 10% 80%, rgba(56,189,248,0.14), transparent);
+  z-index: 0;
+  pointer-events: none;
 }
 
 .main-header {
@@ -153,6 +166,8 @@ input.key {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+  z-index: 2;
 }
 
 .main-header .back-btn {
@@ -176,6 +191,7 @@ input.key {
   height: calc(100vh - 120px);
   overflow-y: auto;
   scroll-behavior: smooth;
+  z-index: 2;
 }
 
 .timeline-now::-webkit-scrollbar {
@@ -260,19 +276,32 @@ input.key {
   left: calc(50% + 30px);
 }
 
-/* ===== 过去时间段 / 时空驿站 ===== */
+/* ===== 过去时间段 / 时空驿站 - 升级背景 ===== */
 #past {
   display: none;
   position: fixed;
   inset: 0;
-  background: linear-gradient(145deg, #101828, #0a0f1c);
+  background: linear-gradient(145deg, #0a0f1e, #05070e);
   background-image:
-    linear-gradient(145deg, #101828 0%, #0a0f1c 100%),
-    radial-gradient(circle at 15% 20%, rgba(30, 60, 110, 0.18), transparent 45%),
-    radial-gradient(circle at 85% 80%, rgba(20, 45, 90, 0.15), transparent 55%);
+    radial-gradient(circle at 12% 18%, rgba(20, 40, 90, 0.22) 0%, transparent 40%),
+    radial-gradient(circle at 88% 82%, rgba(30, 50, 110, 0.18) 0%, transparent 45%),
+    radial-gradient(circle at 50% 50%, rgba(10, 25, 60, 0.12) 0%, transparent 65%),
+    linear-gradient(145deg, #0a0f1e 0%, #05070e 100%);
   background-blend-mode: screen;
   z-index: 200;
   overflow: hidden;
+}
+#past::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 30% 10%, rgba(255,255,255,0.09), transparent),
+    radial-gradient(1px 1px at 70% 90%, rgba(56,189,248,0.11), transparent),
+    radial-gradient(1.2px 1.2px at 15% 65%, rgba(255,255,255,0.07), transparent),
+    radial-gradient(1px 1px at 85% 30%, rgba(56,189,248,0.09), transparent);
+  z-index: 0;
+  pointer-events: none;
 }
 
 #past .past-header {
@@ -328,6 +357,8 @@ input.key {
   justify-content: center;
   align-items: center;
   height: 100%;
+  position: relative;
+  z-index: 5;
 }
 
 .date-display {
@@ -1111,7 +1142,7 @@ function eraseText(cb) {
   }, 70);
 }
 
-/* ====================== 生日 + 立体慢烟花（最终优化版） ====================== */
+/* ====================== 3D立体无残留烟花 ====================== */
 const cake = document.getElementById("cake");
 const happy = document.getElementById("happy");
 const message = document.getElementById("message");
@@ -1133,32 +1164,29 @@ class Particle {
     this.x = x;
     this.y = y;
     const angle = Math.random() * Math.PI * 2;
-    const speed = Math.random() * 1.8 + 0.8;
+    const speed = Math.random() * 2.8 + 1.2;
     this.vx = Math.cos(angle) * speed;
     this.vy = Math.sin(angle) * speed;
-    this.gravity = 0.012;
+    this.gravity = 0.025;
     this.alpha = 1;
     this.color = color;
-    this.trail = [];
+    this.size = Math.random() * 3 + 2.5;
   }
   update() {
     this.vy += this.gravity;
     this.x += this.vx;
     this.y += this.vy;
-    this.alpha -= 0.008;
-    this.trail.push({ x: this.x, y: this.y, a: this.alpha });
-    if (this.trail.length > 10) this.trail.shift();
+    this.alpha -= 0.018;
   }
   draw() {
-    this.trail.forEach(p => {
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, 1.2, 0, Math.PI * 2);
-      ctx.fillStyle = this.color.replace("1)", (p.a * 0.4) + ")");
-      ctx.fill();
-    });
     ctx.beginPath();
-    ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
     ctx.fillStyle = this.color.replace("1)", this.alpha + ")");
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size * 0.6, 0, Math.PI * 2);
+    ctx.fillStyle = this.color.replace("1)", Math.min(1, this.alpha * 1.8) + ")");
     ctx.fill();
   }
 }
@@ -1167,20 +1195,19 @@ function createFirework() {
   const x = Math.random() * canvas.width;
   const y = Math.random() * canvas.height * 0.55;
   const colors = [
-    "rgba(255,100,150,1)",
-    "rgba(100,200,255,1)",
-    "rgba(255,220,100,1)",
-    "rgba(150,255,150,1)"
+    "rgba(255,80,120,1)",
+    "rgba(80,180,255,1)",
+    "rgba(255,200,80,1)",
+    "rgba(120,255,120,1)"
   ];
   const color = colors[Math.floor(Math.random() * colors.length)];
-  for (let i = 0; i < 90; i++) {
+  for (let i = 0; i < 120; i++) {
     particles.push(new Particle(x, y, color));
   }
 }
 
 function animateFireworks() {
-  ctx.fillStyle = "rgba(0,0,0,0.07)";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.clearRect(0,0,canvas.width,canvas.height);
   for (let i = particles.length - 1; i >= 0; i--) {
     const p = particles[i];
     p.update();
@@ -1197,7 +1224,7 @@ function startBirthday() {
 
   setTimeout(() => {
     cake.style.opacity = "1";
-    let fire = setInterval(createFirework, 700);
+    let fire = setInterval(createFirework, 650);
     setTimeout(() => clearInterval(fire), 4500);
   }, 300);
 
