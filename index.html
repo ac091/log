@@ -796,7 +796,7 @@ input.key {
   </div>
 </div>
 
-<!-- ===== 关键字页面 ===== */
+<!-- ===== 关键字页面 ===== -->
 <div id="keywordPage">
   <div class="keyword-back" onclick="backToPast()">◀ BACK</div>
   <div class="keyword-box" id="keywordBox" onclick="openContent()"></div>
@@ -878,7 +878,7 @@ const pastData = {
 const pastDates = Object.keys(pastData).sort();
 let currentIndex = 0;
 let isScrolling = false;
-let modalSource = null; // ✅ 新增
+let modalSource = null;
 
 /* ========= 页面切换 ========= */
 function hideAll() {
@@ -960,7 +960,8 @@ function renderTimeline() {
 
 /* ========= Modal ========= */
 function openModal(time, content) {
-  modalSource = document.getElementById("main").style.display === "block" ? "main" : "past";
+  // ✅ 唯一关键修改点
+  modalSource = document.getElementById("past").style.display === "block" ? "past" : "main";
 
   document.getElementById("modal-content").innerHTML = content;
 
