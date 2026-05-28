@@ -129,12 +129,17 @@ input.key {
   width: 100%;
 }
 
-/* ===== 现在时间段 ===== */
+/* ===== 【升级炫酷提亮】现在时间段 ===== */
 #main {
   display: none;
   position: fixed;
   inset: 0;
-  background: linear-gradient(180deg, #1e293b, #0f172a);
+  background: linear-gradient(160deg, #243458, #18223F, #0F1A30);
+  background-image:
+    linear-gradient(160deg, #243458 0%, #18223F 50%, #0F1A30 100%),
+    radial-gradient(circle at 25% 15%, rgba(56,189,248,0.15), transparent 45%),
+    radial-gradient(circle at 75% 80%, rgba(124,211,252,0.12), transparent 50%);
+  background-blend-mode: screen;
   z-index: 10;
   padding: 60px 80px;
   overflow: hidden;
@@ -142,7 +147,7 @@ input.key {
 
 .main-header {
   font-size: 13px;
-  opacity: .6;
+  opacity: 0.8;
   margin-bottom: 20px;
   letter-spacing: 2px;
   display: flex;
@@ -152,7 +157,7 @@ input.key {
 
 .main-header .back-btn {
   cursor: pointer;
-  color: #475569;
+  color: #a0aec0;
   font-size: 16px;
   letter-spacing: 2px;
   padding: 8px 16px;
@@ -162,7 +167,7 @@ input.key {
 
 .main-header .back-btn:hover {
   color: #38bdf8;
-  background: rgba(56,189,248,.1);
+  background: rgba(56,189,248,.15);
 }
 
 .timeline-now {
@@ -178,7 +183,7 @@ input.key {
 }
 
 .timeline-now::-webkit-scrollbar-thumb {
-  background: rgba(56,189,248,.3);
+  background: rgba(56,189,248,.4);
   border-radius: 3px;
 }
 
@@ -191,8 +196,8 @@ input.key {
   bottom: 0;
   width: 2px;
   background: linear-gradient(to bottom,
-    rgba(56,189,248,.6),
-    rgba(56,189,248,.1)
+    rgba(56,189,248,.8),
+    rgba(56,189,248,.2)
   );
   pointer-events: none;
 }
@@ -211,7 +216,7 @@ input.key {
   height: 16px;
   border-radius: 50%;
   background: #38bdf8;
-  box-shadow: 0 0 20px rgba(56,189,248,.8);
+  box-shadow: 0 0 20px rgba(56,189,248,1), 0 0 40px rgba(56,189,248,.5);
   cursor: pointer;
   transition: transform .3s ease;
   z-index: 2;
@@ -227,9 +232,10 @@ input.key {
   font-size: 20px;
   font-weight: 700;
   color: #7dd3fc;
-  opacity: .7;
+  opacity: .8;
   cursor: pointer;
   z-index: 2;
+  text-shadow: 0 0 8px rgba(124,211,252,0.3);
 }
 
 .label:hover {
@@ -254,12 +260,17 @@ input.key {
   left: calc(50% + 30px);
 }
 
-/* ===== 过去时间段 ===== */
+/* ===== 【升级炫酷提亮】过去时间段 / 时空驿站 ===== */
 #past {
   display: none;
   position: fixed;
   inset: 0;
-  background: #0b0f1a;
+  background: linear-gradient(145deg, #162040, #0F1A30);
+  background-image:
+    linear-gradient(145deg, #162040 0%, #0F1A30 100%),
+    radial-gradient(circle at 15% 20%, rgba(56,189,248,0.18), transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(96,165,250,0.15), transparent 55%);
+  background-blend-mode: screen;
   z-index: 200;
   overflow: hidden;
 }
@@ -269,7 +280,7 @@ input.key {
   top: 30px;
   left: 30px;
   font-size: 14px;
-  color: #475569;
+  color: #a0aec0;
   cursor: pointer;
   z-index: 10;
 }
@@ -281,7 +292,7 @@ input.key {
   left: 50%;
   transform: translate(-240px, -68%);
   font-size: 28px;
-  color: rgba(255,255,255,.45);
+  color: rgba(255,255,255,.6);
   cursor: pointer;
   z-index: 15;
 }
@@ -295,10 +306,10 @@ input.key {
   flex-direction: column;
   gap: 8px;
   z-index: 15;
-  background: rgba(11, 15, 26, 0.95);
+  background: rgba(18, 26, 51, 0.92);
   padding: 12px 16px;
   border-radius: 6px;
-  border: 1px solid rgba(255,255,255,.08);
+  border: 1px solid rgba(56,189,248,.2);
 }
 
 #indexList div {
@@ -325,6 +336,7 @@ input.key {
   color: #38bdf8;
   letter-spacing: 4px;
   user-select: none;
+  text-shadow: 0 0 15px rgba(56,189,248,.6);
 }
 
 .confirm-btn {
@@ -333,14 +345,16 @@ input.key {
   font-size: 16px;
   letter-spacing: 8px;
   color: #38bdf8;
-  border: 1px solid rgba(56,189,248,.4);
+  border: 1px solid rgba(56,189,248,.5);
   padding: 14px 70px;
   cursor: pointer;
   transition: all .3s ease;
+  border-radius: 4px;
 }
 
 .confirm-btn:hover {
-  background: rgba(56,189,248,.1);
+  background: rgba(56,189,248,.15);
+  box-shadow: 0 0 12px rgba(56,189,248,.3);
 }
 
 /* ===== 关键字页面 ===== */
@@ -571,10 +585,11 @@ input.key {
   right: 30px;
   width: 10px;
   height: 10px;
-  background: rgba(56,189,248,.5);
+  background: rgba(56,189,248,.7);
   border-radius: 50%;
   cursor: pointer;
   z-index: 20;
+  box-shadow: 0 0 10px rgba(56,189,248,.6);
 }
 
 /* ===== 打字机 ===== */
@@ -626,7 +641,7 @@ input.key {
   50% { opacity: .7; }
 }
 
-/* ===== 生日 ===== */
+/* ===== 生日页面 + 烟花画布 ===== */
 #birthday {
   display: none;
   position: fixed;
@@ -636,12 +651,26 @@ input.key {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  overflow: hidden;
+}
+
+/* 烟花画布 */
+#fireworksCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
 }
 
 #cake {
   font-size: 260px;
   opacity: 0;
   transition: opacity 1.8s ease;
+  position: relative;
+  z-index: 2;
 }
 
 #happy {
@@ -655,6 +684,7 @@ input.key {
   opacity: 0;
   transition: opacity 2s ease;
   text-align: center;
+  z-index: 2;
 }
 
 #message {
@@ -668,6 +698,7 @@ input.key {
   text-align: center;
   max-width: 80%;
   line-height: 1.8;
+  z-index: 2;
 }
 
 #closeHint {
@@ -679,6 +710,7 @@ input.key {
   color: rgba(255,255,255,.4);
   cursor: pointer;
   display: none;
+  z-index: 2;
 }
 
 /* ===== 时空驿站 ===== */
@@ -695,6 +727,10 @@ input.key {
   right: 60px;
   bottom: 60px;
   text-align: left;
+  background: rgba(15,23,42,0.85);
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid rgba(56,189,248,.2);
 }
 
 #pastModal .title {
@@ -855,7 +891,9 @@ input.key {
   <div class="text">ENTERING TIME STATION</div>
 </div>
 
+<!-- 生日页面 + 烟花 -->
 <div id="birthday">
+  <canvas id="fireworksCanvas"></canvas>
   <div id="cake">🎂</div>
   <div id="happy">生日快乐</div>
   <div id="message"></div>
@@ -978,7 +1016,6 @@ function openModal(time, content) {
 
 function closeModal() {
   document.getElementById("modal").style.display = "none";
-  // 修复：从过去时间段打开的弹窗，关闭后返回过去时间选择页
   if (modalSource === "past") {
     document.getElementById("past").style.display = "block";
   } else {
@@ -1074,16 +1111,89 @@ function eraseText(cb) {
   }, 70);
 }
 
-/* ========= 生日 ========= */
+/* ====================== 生日 + 烟花动画 ====================== */
 const cake = document.getElementById("cake");
 const happy = document.getElementById("happy");
 const message = document.getElementById("message");
 const closeHint = document.getElementById("closeHint");
 
+// 烟花画布
+const canvas = document.getElementById("fireworksCanvas");
+const ctx = canvas.getContext("2d");
+let particles = [];
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
+
+class Particle {
+  constructor(x, y, color) {
+    this.x = x;
+    this.y = y;
+    this.speed = Math.random() * 3 + 2;
+    this.angle = Math.random() * Math.PI * 2;
+    this.gravity = 0.03;
+    this.vx = Math.cos(this.angle) * this.speed;
+    this.vy = Math.sin(this.angle) * this.speed;
+    this.alpha = 1;
+    this.color = color;
+  }
+  update() {
+    this.vy += this.gravity;
+    this.x += this.vx;
+    this.y += this.vy;
+    this.alpha -= 0.015;
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+    ctx.fillStyle = this.color.replace("1)", this.alpha + ")");
+    ctx.fill();
+  }
+}
+
+function createFirework() {
+  const x = Math.random() * canvas.width;
+  const y = Math.random() * canvas.height * 0.6;
+  const colors = [
+    "rgba(255,100,150,1)",
+    "rgba(100,200,255,1)",
+    "rgba(255,220,100,1)",
+    "rgba(150,255,150,1)"
+  ];
+  const color = colors[Math.floor(Math.random() * colors.length)];
+  for (let i = 0; i < 70; i++) {
+    particles.push(new Particle(x, y, color));
+  }
+}
+
+function animateFireworks() {
+  ctx.fillStyle = "rgba(0,0,0,0.15)";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  for (let i = particles.length - 1; i >= 0; i--) {
+    const p = particles[i];
+    p.update();
+    p.draw();
+    if (p.alpha <= 0) particles.splice(i, 1);
+  }
+  requestAnimationFrame(animateFireworks);
+}
+animateFireworks();
+
 function startBirthday() {
   document.getElementById("entry").style.display = "none";
   document.getElementById("birthday").style.display = "flex";
-  setTimeout(() => cake.style.opacity = "1", 300);
+
+  // 蛋糕出现 + 同步放烟花
+  setTimeout(() => {
+    cake.style.opacity = "1";
+    let fire = setInterval(createFirework, 350);
+    setTimeout(() => clearInterval(fire), 3000);
+  }, 300);
+
   setTimeout(() => cake.style.opacity = "0", 3300);
   setTimeout(() => happy.style.opacity = "1", 4300);
   setTimeout(() => happy.style.opacity = "0", 7800);
@@ -1164,7 +1274,7 @@ function openContent() {
   openModal(key, pastData[key].content);
 }
 
-/* ✅ 倒三角 & 空白关闭 */
+/* 倒三角 & 空白关闭 */
 function toggleIndex() {
   const list = document.getElementById("indexList");
   list.style.display = list.style.display === "none" ? "flex" : "none";
@@ -1199,6 +1309,5 @@ document.getElementById("past").addEventListener("click", function (e) {
 
 renderTimeline();
 </script>
-
 </body>
 </html>
