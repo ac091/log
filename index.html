@@ -354,6 +354,16 @@ input.key {
   align-items: center;
 }
 
+.keyword-back {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  font-size: 16px;
+  color: #475569;
+  cursor: pointer;
+  letter-spacing: 2px;
+}
+
 .keyword-box {
   font-size: 56px;
   font-weight: 800;
@@ -387,6 +397,7 @@ input.key {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 }
 
 .modal-content {
@@ -396,27 +407,25 @@ input.key {
   text-align: center;
   overflow-y: auto;
   width: 100%;
+  padding-top: 20px;
 }
 
-.modal-close {
-  margin-top: 50px;
+.modal-back {
+  position: absolute;
+  top: 30px;
+  left: 30px;
   font-size: 16px;
-  letter-spacing: 8px;
   color: #475569;
   cursor: pointer;
-  padding: 12px 40px;
-  border: 1px solid rgba(255,255,255,.15);
-  border-radius: 6px;
-  transition: all .3s ease;
+  letter-spacing: 2px;
 }
 
-.modal-close:hover {
+.modal-back:hover {
   color: #38bdf8;
-  border-color: #38bdf8;
 }
 
 .camera {
-  margin-top: 30px;
+  margin-top: 40px;
   width: 60px;
   height: 60px;
   background: rgba(255,255,255,.08);
@@ -789,6 +798,7 @@ input.key {
 
 <!-- ===== 关键字页面 ===== -->
 <div id="keywordPage">
+  <div class="keyword-back" onclick="backToPast()">◀ BACK</div>
   <div class="keyword-box" id="keywordBox" onclick="openContent()"></div>
 </div>
 
@@ -826,8 +836,8 @@ input.key {
 <!-- ✅ 内容页 -->
 <div class="modal" id="modal">
   <div class="modal-box">
+    <div class="modal-back" onclick="backToPast()">◀ BACK</div>
     <div class="modal-content" id="modal-content"></div>
-    <div class="modal-close" onclick="closeModal()">CLOSE</div>
   </div>
 </div>
 
@@ -868,7 +878,6 @@ const pastData = {
 const pastDates = Object.keys(pastData).sort();
 let currentIndex = 0;
 let isScrolling = false;
-let modalSource = null;
 
 /* ========= 页面切换 ========= */
 function hideAll() {
@@ -895,6 +904,11 @@ function goToPast() {
   buildIndex();
   document.getElementById("yearToggle").style.display = "block";
   document.getElementById("indexList").style.display = "none";
+}
+
+function backToPast() {
+  hideAll();
+  document.getElementById("past").style.display = "block";
 }
 
 function goToCS() {
@@ -945,8 +959,6 @@ function renderTimeline() {
 
 /* ========= Modal ========= */
 function openModal(time, content) {
-  modalSource = document.getElementById("main").style.display === "block" ? "main" : "past";
-
   document.getElementById("modal-content").innerHTML = content;
 
   if (photosByDate[time]) {
@@ -959,16 +971,6 @@ function openModal(time, content) {
 
   document.getElementById("keywordPage").style.display = "none";
   document.getElementById("modal").style.display = "flex";
-}
-
-function closeModal() {
-  document.getElementById("modal").style.display = "none";
-
-  if (modalSource === "past") {
-    document.getElementById("past").style.display = "block";
-  } else {
-    document.getElementById("main").style.display = "block";
-  }
 }
 
 /* ========= 相册 ========= */
