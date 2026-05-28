@@ -58,12 +58,11 @@ input.key:focus {
   box-shadow: 0 0 15px rgba(56,189,248,.2);
 }
 
-/* ===== 导航页 ===== */
+/* ===== 主导航页 ===== */
 #nav {
   display: none;
   position: fixed;
   inset: 0;
-  /* 深空暗底 + 微光星点 */
   background: radial-gradient(ellipse at center, #0c1430 0%, #000000 75%);
   z-index: 50;
   justify-content: center;
@@ -135,12 +134,11 @@ input.key:focus {
   width: 100%;
 }
 
-/* ====================== 【现在 - 主时间线】明亮青蓝 科技流光 ====================== */
+/* ===== 现在 - 主时间线 ===== */
 #main {
   display: none;
   position: fixed;
   inset: 0;
-  /* 多层渐变+光晕：通透冷调，代表当下 */
   background: 
     linear-gradient(150deg, #162b5c 0%, #0f1e42 40%, #081024 100%),
     radial-gradient(circle at 15% 15%, rgba(96, 165, 250, 0.25) 0%, transparent 50%),
@@ -155,7 +153,6 @@ input.key:focus {
   content: "";
   position: absolute;
   inset: 0;
-  /* 细密星光+流动纹理 */
   background-image:
     radial-gradient(1.2px 1.2px at 25% 15%, rgba(255,255,255,0.25), transparent),
     radial-gradient(1px 1px at 75% 65%, rgba(56,189,248,0.22), transparent),
@@ -266,25 +263,11 @@ input.key:focus {
   opacity: 1;
 }
 
-.timeline-item:nth-child(odd) .dot {
-  order: 2;
-}
+.timeline-item:nth-child(odd) .dot { order: 2; }
+.timeline-item:nth-child(odd) .label { order: 1; right: calc(50% + 30px); }
+.timeline-item:nth-child(even) .dot { order: 1; }
+.timeline-item:nth-child(even) .label { order: 2; left: calc(50% + 30px); }
 
-.timeline-item:nth-child(odd) .label {
-  order: 1;
-  right: calc(50% + 30px);
-}
-
-.timeline-item:nth-child(even) .dot {
-  order: 1;
-}
-
-.timeline-item:nth-child(even) .label {
-  order: 2;
-  left: calc(50% + 30px);
-}
-
-/* 右下角入口点 */
 #main .gate {
   position: fixed;
   bottom: 30px;
@@ -298,12 +281,11 @@ input.key:focus {
   box-shadow: 0 0 10px rgba(56,189,248,.6);
 }
 
-/* ====================== 【过去 - 时间选择】暗调紫黑 幽邃怀旧 ====================== */
+/* ===== 过去 - 时间选择 ===== */
 #past {
   display: none;
   position: fixed;
   inset: 0;
-  /* 深暗紫黑低饱和，和现在形成强烈明暗/色调对比 */
   background: 
     linear-gradient(140deg, #070612 0%, #04030a 50%, #020105 100%),
     radial-gradient(circle at 12% 18%, rgba(60, 40, 110, 0.18) 0%, transparent 45%),
@@ -317,7 +299,6 @@ input.key:focus {
   content: "";
   position: absolute;
   inset: 0;
-  /* 微弱暗星，亮度极低，强化尘封感 */
   background-image:
     radial-gradient(1px 1px at 30% 10%, rgba(255,255,255,0.07), transparent),
     radial-gradient(1px 1px at 70% 90%, rgba(120,90,180,0.1), transparent),
@@ -370,10 +351,7 @@ input.key:focus {
   cursor: pointer;
   white-space: nowrap;
 }
-
-#indexList div:hover {
-  color: #c4b5fd;
-}
+#indexList div:hover { color: #c4b5fd; }
 
 .picker-center {
   display: flex;
@@ -405,7 +383,6 @@ input.key:focus {
   transition: all .3s ease;
   border-radius: 4px;
 }
-
 .confirm-btn:hover {
   background: rgba(167, 139, 250,.12);
   box-shadow: 0 0 12px rgba(167, 139, 250,.25);
@@ -440,7 +417,6 @@ input.key:focus {
   transition: all 0.3s ease;
   letter-spacing: 2px;
 }
-
 .keyword-box:hover {
   color: #a78bfa;
   transform: scale(1.08);
@@ -487,10 +463,7 @@ input.key:focus {
   cursor: pointer;
   letter-spacing: 2px;
 }
-
-.modal-back:hover {
-  color: #a78bfa;
-}
+.modal-back:hover { color: #a78bfa; }
 
 .camera {
   margin-top: 40px;
@@ -505,7 +478,7 @@ input.key:focus {
   font-size: 26px;
 }
 
-/* ===== 其余页面 ===== */
+/* ===== SONG 页面 ===== */
 #csPage {
   display: none;
   position: fixed;
@@ -530,7 +503,6 @@ input.key:focus {
   border-radius: 6px;
   transition: all .3s ease;
 }
-
 #csPage .back-btn:hover {
   color: #a78bfa;
   background: rgba(167, 139, 250,.1);
@@ -543,25 +515,21 @@ input.key:focus {
   gap: 60px;
   margin-bottom: 60px;
 }
-
 .cs-left, .cs-right {
   font-size: 72px;
   font-weight: 900;
   color: #b4b4c8;
   letter-spacing: 8px;
 }
-
 .cs-divider {
   width: 1px;
   height: 60px;
   background: rgba(255,255,255,.15);
 }
-
 .cs-content {
   display: flex;
   gap: 120px;
 }
-
 .cs-column {
   width: 260px;
   color: #777799;
@@ -569,6 +537,7 @@ input.key:focus {
   text-align: center;
 }
 
+/* ===== 原有占位页 ===== */
 .page-placeholder {
   display: none;
   position: fixed;
@@ -580,7 +549,6 @@ input.key:focus {
   font-size: 32px;
   color: #8888a0;
 }
-
 .page-placeholder .back-btn {
   position: absolute;
   top: 30px;
@@ -591,7 +559,191 @@ input.key:focus {
   color: #8888a0;
 }
 
-/* ===== 相册 ===== */
+/* ========== 新增：IDEA 二级导航页 ========== */
+#idea {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(150deg, #0f172a 0%, #020617 100%);
+  z-index: 10;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  overflow: hidden;
+}
+#idea::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(1px 1px at 20% 30%, rgba(148,163,184,0.2), transparent),
+              radial-gradient(1px 1px at 80% 60%, rgba(56,189,248,0.15), transparent);
+  pointer-events: none;
+}
+.idea-back {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  font-size: 16px;
+  color: #94a3b8;
+  cursor: pointer;
+  letter-spacing: 2px;
+  z-index: 2;
+}
+.idea-back:hover { color: #38bdf8; }
+.idea-title {
+  font-size: 14px;
+  letter-spacing: 12px;
+  color: rgba(148,163,184,0.3);
+  margin-bottom: 70px;
+  z-index: 2;
+}
+.idea-links {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  z-index: 2;
+}
+.idea-link {
+  font-size: 42px;
+  font-weight: 500;
+  color: #94a3b8;
+  letter-spacing: 6px;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.4s;
+}
+.idea-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 0;
+  height: 2px;
+  background: #38bdf8;
+  transition: width 0.4s;
+}
+.idea-link:hover { color: #38bdf8; }
+.idea-link:hover::after { width: 100%; }
+
+/* ========== 新增：生活碎片 - 日记页面 ========== */
+#diaryPage {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(160deg, #0b1220, #010409);
+  padding: 60px;
+  z-index: 20;
+}
+.diary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+.diary-back {
+  font-size: 16px;
+  color: #94a3b8;
+  cursor: pointer;
+  letter-spacing: 2px;
+}
+.diary-back:hover { color: #38bdf8; }
+.diary-page-info {
+  font-size: 14px;
+  color: rgba(148,163,184,0.5);
+  letter-spacing: 4px;
+}
+.diary-container {
+  width: 100%;
+  height: calc(100vh - 180px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.diary-content {
+  max-width: 800px;
+  font-size: 20px;
+  line-height: 2.2;
+  color: #cbd5e1;
+  text-align: left;
+  padding: 0 20px;
+}
+.diary-date {
+  font-size: 16px;
+  color: #38bdf8;
+  margin-bottom: 20px;
+  letter-spacing: 3px;
+}
+.diary-paginate {
+  display: flex;
+  gap: 80px;
+  margin-top: 50px;
+}
+.page-btn {
+  font-size: 28px;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: color 0.3s;
+  user-select: none;
+}
+.page-btn:hover { color: #38bdf8; }
+.page-btn.disable {
+  color: rgba(148,163,184,0.2);
+  cursor: not-allowed;
+}
+
+/* ========== 新增：如果我是部相机 - 相册页面 ========== */
+#cameraPage {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #020408;
+  z-index: 20;
+  padding: 60px;
+}
+.camera-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+.camera-back {
+  font-size: 16px;
+  color: #94a3b8;
+  cursor: pointer;
+  letter-spacing: 2px;
+}
+.camera-back:hover { color: #38bdf8; }
+.camera-page-info {
+  font-size: 14px;
+  color: rgba(148,163,184,0.5);
+  letter-spacing: 4px;
+}
+.photo-wrap {
+  width: 100%;
+  height: calc(100vh - 160px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.photo-main {
+  max-width: 80%;
+  max-height: 80%;
+  border-radius: 12px;
+  box-shadow: 0 0 40px rgba(56,189,248,0.15);
+}
+.photo-paginate {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 40px;
+}
+
+/* ===== 相册全局 ===== */
 #album {
   display: none;
   position: fixed;
@@ -599,13 +751,11 @@ input.key:focus {
   background: #000;
   z-index: 3000;
 }
-
 #album img {
   max-width: 90%;
   max-height: 90%;
   border-radius: 8px;
 }
-
 .album-btn {
   position: absolute;
   top: 50%;
@@ -614,7 +764,6 @@ input.key:focus {
   font-size: 40px;
   cursor: pointer;
 }
-
 #album-close {
   position: absolute;
   top: 20px;
@@ -623,7 +772,6 @@ input.key:focus {
   color: #fff;
   cursor: pointer;
 }
-
 #album-page {
   position: absolute;
   top: 20px;
@@ -659,7 +807,6 @@ input.key:focus {
   align-items: center;
   cursor: pointer;
 }
-
 #entry .entry-box {
   font-size: 100px;
   font-weight: 950;
@@ -671,11 +818,7 @@ input.key:focus {
   animation: pulse 2.5s infinite;
   transition: transform .3s ease;
 }
-
-#entry:hover .entry-box {
-  transform: scale(1.08);
-}
-
+#entry:hover .entry-box { transform: scale(1.08); }
 @keyframes pulse {
   0%, 100% { opacity: 1; }
   50% { opacity: .7; }
@@ -693,7 +836,6 @@ input.key:focus {
   flex-direction: column;
   overflow: hidden;
 }
-
 #fireworksCanvas {
   position: absolute;
   top: 0;
@@ -703,7 +845,6 @@ input.key:focus {
   z-index: 1;
   pointer-events: none;
 }
-
 #cake {
   font-size: 260px;
   opacity: 0;
@@ -711,7 +852,6 @@ input.key:focus {
   position: relative;
   z-index: 2;
 }
-
 #happy {
   position: absolute;
   top: 50%;
@@ -725,7 +865,6 @@ input.key:focus {
   text-align: center;
   z-index: 2;
 }
-
 #message {
   position: absolute;
   top: 26%;
@@ -739,7 +878,6 @@ input.key:focus {
   line-height: 1.8;
   z-index: 2;
 }
-
 #closeHint {
   position: absolute;
   bottom: 80px;
@@ -760,7 +898,6 @@ input.key:focus {
   background: rgba(0,0,0,.6);
   z-index: 1000;
 }
-
 #pastModal .box {
   position: fixed;
   right: 60px;
@@ -771,20 +908,17 @@ input.key:focus {
   border-radius: 8px;
   border: 1px solid rgba(167, 139, 250,.25);
 }
-
 #pastModal .title {
   font-size: 18px;
   color: rgba(220,210,240,.5);
   letter-spacing: 6px;
   margin-bottom: 18px;
 }
-
 #pastModal .options {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-
 #pastModal .opt {
   font-size: 14px;
   color: rgba(200,190,220,.35);
@@ -792,10 +926,7 @@ input.key:focus {
   cursor: pointer;
   transition: color .3s;
 }
-
-#pastModal .opt:hover {
-  color: #a78bfa;
-}
+#pastModal .opt:hover { color: #a78bfa; }
 
 #pastHint {
   display: none;
@@ -808,12 +939,10 @@ input.key:focus {
   opacity: 0;
   transition: opacity .8s ease;
 }
-
 #pastHint.show {
   display: flex;
   opacity: 1;
 }
-
 #pastHint .text {
   font-size: 18px;
   color: rgba(200,190,220,.35);
@@ -837,6 +966,7 @@ input.key:focus {
   <div class="entry-box">6.4</div>
 </div>
 
+<!-- 主导航 -->
 <div id="nav">
   <div class="nav-title">SELECT</div>
   <div class="nav-links">
@@ -847,6 +977,7 @@ input.key:focus {
   </div>
 </div>
 
+<!-- 现在时间线 -->
 <div id="main">
   <div class="main-header">
     <span class="back-btn" onclick="goToNav()">◀ BACK</span>
@@ -856,13 +987,11 @@ input.key:focus {
   <div class="gate" onclick="openPastModal()"></div>
 </div>
 
-<!-- ===== 过去时间段 ===== -->
+<!-- 过去时间选择 -->
 <div id="past">
   <div class="past-header" onclick="goToMain()">◀ BACK</div>
-
   <div id="yearToggle" onclick="toggleIndex()">▾</div>
   <div id="indexList"></div>
-
   <div class="picker-center" id="picker" onwheel="scrollDate(event)">
     <div>
       <div class="date-display" id="dateDisplay"></div>
@@ -871,12 +1000,13 @@ input.key:focus {
   </div>
 </div>
 
-<!-- ===== 关键字页面 ===== -->
+<!-- 关键字页 -->
 <div id="keywordPage">
   <div class="keyword-back" onclick="backToPast()">◀ BACK</div>
   <div class="keyword-box" id="keywordBox" onclick="openContent()"></div>
 </div>
 
+<!-- SONG 页面 -->
 <div id="csPage">
   <div class="back-btn" onclick="goToNav()">◀ BACK</div>
   <div class="cs-header">
@@ -890,16 +1020,54 @@ input.key:focus {
   </div>
 </div>
 
-<div id="idea" class="page-placeholder">
-  <div class="back-btn" onclick="goToNav()">◀ BACK</div>
-  <div class="content">IDEA</div>
+<!-- IDEA 二级导航页 -->
+<div id="idea">
+  <div class="idea-back" onclick="goToNav()">◀ BACK</div>
+  <div class="idea-title">IDEA LIST</div>
+  <div class="idea-links">
+    <div class="idea-link" onclick="goToDiary()">LIFE FRAGMENT</div>
+    <div class="idea-link" onclick="goToCamera()">IF I WERE A CAMERA</div>
+  </div>
 </div>
 
+<!-- 生活碎片 - 日记翻页页 -->
+<div id="diaryPage">
+  <div class="diary-header">
+    <div class="diary-back" onclick="goToIdea()">◀ BACK</div>
+    <div class="diary-page-info" id="diaryPageNum">PAGE 1 / 4</div>
+  </div>
+  <div class="diary-container">
+    <div class="diary-date" id="diaryDate"></div>
+    <div class="diary-content" id="diaryContent"></div>
+    <div class="diary-paginate">
+      <div class="page-btn" id="diaryPrev" onclick="prevDiary()">◀</div>
+      <div class="page-btn" id="diaryNext" onclick="nextDiary()">▶</div>
+    </div>
+  </div>
+</div>
+
+<!-- 如果我是部相机 - 相册页 -->
+<div id="cameraPage">
+  <div class="camera-header">
+    <div class="camera-back" onclick="goToIdea()">◀ BACK</div>
+    <div class="camera-page-info" id="photoPageNum">1 / 3</div>
+  </div>
+  <div class="photo-wrap">
+    <img class="photo-main" id="photoImg" src="https://picsum.photos/1200/800?random=1" alt="照片">
+  </div>
+  <div class="photo-paginate">
+    <div class="page-btn" id="photoPrev" onclick="prevPhoto()">◀</div>
+    <div class="page-btn" id="photoNext" onclick="nextPhoto()">▶</div>
+  </div>
+</div>
+
+<!-- 其他占位页 -->
 <div id="other" class="page-placeholder">
   <div class="back-btn" onclick="goToNav()">◀ BACK</div>
   <div class="content">其 他</div>
 </div>
 
+<!-- 大图相册弹窗 -->
 <div id="album">
   <div id="album-page"></div>
   <div class="album-btn" style="left:20px;" onclick="prevImg()">‹</div>
@@ -908,7 +1076,7 @@ input.key:focus {
   <div id="album-close" onclick="closeAlbum()">✕</div>
 </div>
 
-<!-- ✅ 内容页 -->
+<!-- 内容弹窗 -->
 <div class="modal" id="modal">
   <div class="modal-box">
     <div class="modal-back" onclick="closeModal()">◀ BACK</div>
@@ -916,6 +1084,7 @@ input.key:focus {
   </div>
 </div>
 
+<!-- 时空驿站弹窗 -->
 <div id="pastModal" onclick="closePastModal()">
   <div class="box" onclick="event.stopPropagation()">
     <div class="title">时空驿站</div>
@@ -930,7 +1099,7 @@ input.key:focus {
   <div class="text">ENTERING TIME STATION</div>
 </div>
 
-<!-- 生日页面 + 烟花 -->
+<!-- 生日烟花页 -->
 <div id="birthday">
   <canvas id="fireworksCanvas"></canvas>
   <div id="cake">🎂</div>
@@ -940,7 +1109,7 @@ input.key:focus {
 </div>
 
 <script>
-/* ========= 数据 ========= */
+/* ========= 全局数据 ========= */
 const timelineData = [
   { date: "2026-06-04", content: "首先祝你生日快乐。" },
   { date: "2026-05-25", content: "今天这个小网站正式可以运行了，好有成就感。" }
@@ -952,14 +1121,46 @@ const pastData = {
   "2024-01-03": { keyword: "测试", content: "这是一个测试条目。<br><br>这里可以放很长很长的文字。<br>用来验证 Close 是否始终在底部。" }
 };
 
+// 日记数据（可自行增删）
+const diaryList = [
+  {
+    date: "2026.05.20",
+    text: "傍晚的风很温柔，走在路上的时候总容易放空。好像很多情绪都被晚风慢慢抚平，不必追赶什么，也不必纠结过往。慢慢走，感受当下的每一刻，就很好。"
+  },
+  {
+    date: "2026.05.22",
+    text: "偶尔会回头翻看以前的片段，有开心也有遗憾。但人生本就是由无数碎片拼凑而成，正是这些经历，才让现在的自己更加完整。接受所有发生，继续向前。"
+  },
+  {
+    date: "2026.05.24",
+    text: "忙完一天，静下心来才发现，简单的日子最治愈。一盏灯，一段独处的时光，和自己对话。不必迎合任何人，安于当下，便是圆满。"
+  },
+  {
+    date: "2026.05.26",
+    text: "期待未知的明天，也珍惜安稳的现在。生活没有标准答案，按照自己的节奏慢慢生活，认真对待每一天，时间会给出最好的回应。"
+  }
+];
+
+// 相册图片（后续替换成你自己的图片链接即可）
+const photoList = [
+  "https://picsum.photos/1200/800?random=1",
+  "https://picsum.photos/1200/800?random=2",
+  "https://picsum.photos/1200/800?random=3"
+];
+
 const pastDates = Object.keys(pastData).sort();
 let currentIndex = 0;
 let isScrolling = false;
 let modalSource = null;
 
-/* ========= 页面切换 ========= */
+// 日记翻页变量
+let currentDiaryPage = 0;
+// 相册翻页变量
+let currentPhotoPage = 0;
+
+/* ========= 页面隐藏/切换 ========= */
 function hideAll() {
-  ["main","past","nav","csPage","idea","other","keywordPage","modal"].forEach(id=>{
+  ["main","past","nav","csPage","idea","diaryPage","cameraPage","other","keywordPage","modal"].forEach(id=>{
     document.getElementById(id).style.display = "none";
   });
 }
@@ -968,12 +1169,10 @@ function goToNav() {
   hideAll();
   document.getElementById("nav").style.display = "flex";
 }
-
 function goToMain() {
   hideAll();
   document.getElementById("main").style.display = "block";
 }
-
 function goToPast() {
   hideAll();
   document.getElementById("past").style.display = "block";
@@ -983,28 +1182,90 @@ function goToPast() {
   document.getElementById("yearToggle").style.display = "block";
   document.getElementById("indexList").style.display = "none";
 }
-
 function backToPast() {
   hideAll();
   document.getElementById("past").style.display = "block";
 }
-
 function goToCS() {
   hideAll();
   document.getElementById("csPage").style.display = "flex";
 }
-
-function goToIdea() {
-  hideAll();
-  document.getElementById("idea").style.display = "flex";
-}
-
 function goToOther() {
   hideAll();
   document.getElementById("other").style.display = "flex";
 }
+// 进入 IDEA 二级导航
+function goToIdea() {
+  hideAll();
+  document.getElementById("idea").style.display = "flex";
+}
+// 进入日记页
+function goToDiary() {
+  hideAll();
+  document.getElementById("diaryPage").style.display = "block";
+  currentDiaryPage = 0;
+  renderDiary();
+}
+// 进入相册页
+function goToCamera() {
+  hideAll();
+  document.getElementById("cameraPage").style.display = "block";
+  currentPhotoPage = 0;
+  renderPhoto();
+}
 
-/* ========= 登录 ========= */
+/* ========= 日记翻页逻辑 ========= */
+function renderDiary() {
+  const total = diaryList.length;
+  const item = diaryList[currentDiaryPage];
+  document.getElementById("diaryDate").innerText = item.date;
+  document.getElementById("diaryContent").innerText = item.text;
+  document.getElementById("diaryPageNum").innerText = `PAGE ${currentDiaryPage + 1} / ${total}`;
+
+  // 禁用首尾按钮
+  const prevBtn = document.getElementById("diaryPrev");
+  const nextBtn = document.getElementById("diaryNext");
+  prevBtn.classList.toggle("disable", currentDiaryPage === 0);
+  nextBtn.classList.toggle("disable", currentDiaryPage === total - 1);
+}
+function prevDiary() {
+  if(currentDiaryPage > 0){
+    currentDiaryPage--;
+    renderDiary();
+  }
+}
+function nextDiary() {
+  if(currentDiaryPage < diaryList.length - 1){
+    currentDiaryPage++;
+    renderDiary();
+  }
+}
+
+/* ========= 相册翻页逻辑 ========= */
+function renderPhoto() {
+  const total = photoList.length;
+  document.getElementById("photoImg").src = photoList[currentPhotoPage];
+  document.getElementById("photoPageNum").innerText = `${currentPhotoPage + 1} / ${total}`;
+
+  const prevBtn = document.getElementById("photoPrev");
+  const nextBtn = document.getElementById("photoNext");
+  prevBtn.classList.toggle("disable", currentPhotoPage === 0);
+  nextBtn.classList.toggle("disable", currentPhotoPage === total - 1);
+}
+function prevPhoto() {
+  if(currentPhotoPage > 0){
+    currentPhotoPage--;
+    renderPhoto();
+  }
+}
+function nextPhoto() {
+  if(currentPhotoPage < photoList.length - 1){
+    currentPhotoPage++;
+    renderPhoto();
+  }
+}
+
+/* ========= 登录逻辑 ========= */
 const KEY = "56";
 const input = document.getElementById("key");
 const login = document.getElementById("login");
@@ -1020,7 +1281,7 @@ input.addEventListener("input", () => {
   }
 });
 
-/* ========= 时间线 ========= */
+/* ========= 主时间线渲染 ========= */
 function renderTimeline() {
   const c = document.getElementById("timelineNow");
   c.innerHTML = "";
@@ -1035,12 +1296,10 @@ function renderTimeline() {
   });
 }
 
-/* ========= Modal ========= */
+/* ========= 内容弹窗 ========= */
 function openModal(time, content) {
   modalSource = document.getElementById("main").style.display === "block" ? "main" : "past";
-
   document.getElementById("modal-content").innerHTML = content;
-
   if (photosByDate[time]) {
     const cam = document.createElement("div");
     cam.className = "camera";
@@ -1048,11 +1307,9 @@ function openModal(time, content) {
     cam.onclick = () => openAlbum(photosByDate[time]);
     document.getElementById("modal-content").appendChild(cam);
   }
-
   document.getElementById("keywordPage").style.display = "none";
   document.getElementById("modal").style.display = "flex";
 }
-
 function closeModal() {
   document.getElementById("modal").style.display = "none";
   if (modalSource === "past") {
@@ -1062,300 +1319,11 @@ function closeModal() {
   }
 }
 
-/* ========= 相册 ========= */
+/* ========= 全局相册 ========= */
 const photosByDate = {
   "2023-09-11": [
     "https://raw.githubusercontent.com/ac091/log/main/qu.jpg",
     "https://raw.githubusercontent.com/ac091/log/main/yi.jpg"
   ],
   "2023-06-15": [
-    "https://raw.githubusercontent.com/ac091/log/main/yi.jpg"
-  ]
-};
-
-let currentPhotos = [], currentIndexPhoto = 0;
-
-function openAlbum(p) {
-  currentPhotos = p;
-  currentIndexPhoto = 0;
-  document.querySelector("#album img").src = currentPhotos[0];
-  document.getElementById("album-page").innerText = "1 / " + currentPhotos.length;
-  document.getElementById("album").style.display = "block";
-}
-
-function prevImg() {
-  if (currentIndexPhoto > 0) {
-    currentIndexPhoto--;
-    document.querySelector("#album img").src = currentPhotos[currentIndexPhoto];
-    document.getElementById("album-page").innerText = (currentIndexPhoto + 1) + " / " + currentPhotos.length;
-  }
-}
-
-function nextImg() {
-  if (currentIndexPhoto < currentPhotos.length - 1) {
-    currentIndexPhoto++;
-    document.querySelector("#album img").src = currentPhotos[currentIndexPhoto];
-    document.getElementById("album-page").innerText = (currentIndexPhoto + 1) + " / " + currentPhotos.length;
-  }
-}
-
-function closeAlbum() {
-  document.getElementById("album").style.display = "none";
-}
-
-/* ========= 打字机 ========= */
-const tw = document.getElementById("typewriter");
-const typeSound = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-typewriter-key-1368.mp3");
-typeSound.volume = 0.3;
-
-function playTypewriter() {
-  tw.style.display = "flex";
-  typeText("认识这么久以来印象最深的事是什么？", () => {
-    setTimeout(() => eraseText(() => {
-      typeText("好像，没有确切的答案。", () => {
-        setTimeout(() => {
-          tw.style.display = "none";
-          if (!localStorage.getItem("asked")) {
-            document.getElementById("entry").style.display = "flex";
-          } else {
-            goToNav();
-          }
-        }, 1800);
-      });
-    }), 1400);
-  });
-}
-
-function typeText(t, cb) {
-  let i = 0;
-  tw.innerHTML = "";
-  const r = setInterval(() => {
-    tw.innerHTML += t.charAt(i++);
-    typeSound.currentTime = 0;
-    typeSound.play();
-    if (i >= t.length) {
-      clearInterval(r);
-      cb();
-    }
-  }, 130);
-}
-
-function eraseText(cb) {
-  const r = setInterval(() => {
-    tw.innerHTML = tw.innerHTML.slice(0, -1);
-    if (!tw.innerHTML.length) {
-      clearInterval(r);
-      cb();
-    }
-  }, 70);
-}
-
-/* ====================== 超慢速 + 三层立体烟花 ====================== */
-const cake = document.getElementById("cake");
-const happy = document.getElementById("happy");
-const message = document.getElementById("message");
-const closeHint = document.getElementById("closeHint");
-
-const canvas = document.getElementById("fireworksCanvas");
-const ctx = canvas.getContext("2d");
-let particles = [];
-
-function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-window.addEventListener("resize", resizeCanvas);
-resizeCanvas();
-
-class Particle {
-  constructor(x, y, color) {
-    this.x = x;
-    this.y = y;
-    const angle = Math.random() * Math.PI * 2;
-    const speed = Math.random() * 0.8 + 0.3;
-    this.vx = Math.cos(angle) * speed;
-    this.vy = Math.sin(angle) * speed;
-    this.gravity = 0.004;
-    this.alpha = 1;
-    this.color = color;
-    this.size = Math.random() * 3.5 + 2;
-  }
-  update() {
-    this.vy += this.gravity;
-    this.x += this.vx;
-    this.y += this.vy;
-    this.alpha -= 0.004;
-  }
-  draw() {
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size * 2.2, 0, Math.PI * 2);
-    ctx.fillStyle = this.color.replace("1)", (this.alpha * 0.25) + ")");
-    ctx.fill();
-
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-    ctx.fillStyle = this.color.replace("1)", this.alpha + ")");
-    ctx.fill();
-
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size * 0.5, 0, Math.PI * 2);
-    ctx.fillStyle = this.color.replace("1)", Math.min(1, this.alpha * 1.6) + ")");
-    ctx.fill();
-  }
-}
-
-function createFirework() {
-  const x = Math.random() * canvas.width;
-  const y = Math.random() * canvas.height * 0.55;
-  const colors = [
-    "rgba(255,80,120,1)",
-    "rgba(80,180,255,1)",
-    "rgba(255,200,80,1)",
-    "rgba(120,255,120,1)",
-    "rgba(255,150,220,1)"
-  ];
-  const color = colors[Math.floor(Math.random() * colors.length)];
-  for (let i = 0; i < 140; i++) {
-    particles.push(new Particle(x, y, color));
-  }
-}
-
-function animateFireworks() {
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  for (let i = particles.length - 1; i >= 0; i--) {
-    const p = particles[i];
-    p.update();
-    p.draw();
-    if (p.alpha <= 0) particles.splice(i, 1);
-  }
-  requestAnimationFrame(animateFireworks);
-}
-animateFireworks();
-
-function startBirthday() {
-  document.getElementById("entry").style.display = "none";
-  document.getElementById("birthday").style.display = "flex";
-
-  setTimeout(() => {
-    cake.style.opacity = "1";
-    let fire = setInterval(createFirework, 1200);
-    setTimeout(() => clearInterval(fire), 9000);
-  }, 300);
-
-  setTimeout(() => cake.style.opacity = "0", 3500);
-  setTimeout(() => happy.style.opacity = "1", 4500);
-  setTimeout(() => happy.style.opacity = "0", 8500);
-  setTimeout(() => typeMessage("首先祝你生日快乐"), 10500);
-}
-
-function typeMessage(t) {
-  let i = 0;
-  message.style.opacity = "1";
-  const r = setInterval(() => {
-    message.innerHTML += t.charAt(i++);
-    typeSound.currentTime = 0;
-    typeSound.play();
-    if (i >= t.length) {
-      clearInterval(r);
-      closeHint.style.display = "block";
-    }
-  }, 200);
-}
-
-function closeBirthday() {
-  document.getElementById("birthday").style.display = "none";
-  goToNav();
-  localStorage.setItem("asked", "1");
-}
-
-/* ========= 时空驿站 ========= */
-function openPastModal() {
-  document.getElementById("pastModal").style.display = "flex";
-}
-
-function closePastModal() {
-  document.getElementById("pastModal").style.display = "none";
-}
-
-function confirmEnterPast() {
-  closePastModal();
-  enterPastSequence();
-}
-
-function enterPastSequence() {
-  const hint = document.getElementById("pastHint");
-  hint.classList.add("show");
-  setTimeout(() => {
-    hint.classList.remove("show");
-    goToPast();
-  }, 2000);
-}
-
-/* ========= 过去：滚轮 & 列表 ========= */
-function scrollDate(e) {
-  e.preventDefault();
-  if (isScrolling) return;
-  isScrolling = true;
-  setTimeout(() => isScrolling = false, 150);
-
-  if (e.deltaY > 0) {
-    currentIndex = Math.min(currentIndex + 1, pastDates.length - 1);
-  } else {
-    currentIndex = Math.max(currentIndex - 1, 0);
-  }
-  updateDateDisplay();
-}
-
-function updateDateDisplay() {
-  document.getElementById("dateDisplay").innerText = pastDates[currentIndex];
-}
-
-function confirmPast() {
-  const key = pastDates[currentIndex];
-  document.getElementById("keywordBox").innerText = pastData[key].keyword;
-  hideAll();
-  document.getElementById("keywordPage").style.display = "flex";
-}
-
-function openContent() {
-  const key = pastDates[currentIndex];
-  openModal(key, pastData[key].content);
-}
-
-/* 倒三角 & 空白关闭 */
-function toggleIndex() {
-  const list = document.getElementById("indexList");
-  list.style.display = list.style.display === "none" ? "flex" : "none";
-}
-
-function buildIndex() {
-  const list = document.getElementById("indexList");
-  list.innerHTML = "";
-  pastDates.forEach((k, i) => {
-    const d = document.createElement("div");
-    d.innerText = k;
-    d.onclick = () => {
-      currentIndex = i;
-      updateDateDisplay();
-      toggleIndex();
-    };
-    list.appendChild(d);
-  });
-}
-
-document.getElementById("past").addEventListener("click", function (e) {
-  const list = document.getElementById("indexList");
-  const toggle = document.getElementById("yearToggle");
-  if (
-    list.style.display === "flex" &&
-    !list.contains(e.target) &&
-    e.target !== toggle
-  ) {
-    list.style.display = "none";
-  }
-});
-
-renderTimeline();
-</script>
-</body>
-</html>
+    "
