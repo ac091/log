@@ -1002,7 +1002,7 @@ function playTypewriter() {
   tw.style.display = "flex";
   typeText("认识这么久以来印象最深的事是什么？", () => {
     setTimeout(() => eraseText(() => {
-      typeText("好像，没用确切的答案。", () => {
+      typeText("好像，没有确切的答案。", () => {
         setTimeout(() => {
           tw.style.display = "none";
           if (!localStorage.getItem("asked")) {
