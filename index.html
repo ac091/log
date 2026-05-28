@@ -129,46 +129,30 @@ input.key {
   width: 100%;
 }
 
-/* ===== 现在时间段 —— 更亮更酷的背景 ===== */
+/* ===== 现在时间段 ===== */
 #main {
   display: none;
   position: fixed;
   inset: 0;
-  background: linear-gradient(180deg, #1a243f 0%, #0f172a 100%);
+  background: linear-gradient(180deg, #1e293b, #0f172a);
   z-index: 10;
   padding: 60px 80px;
   overflow: hidden;
 }
-#main::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(1.2px 1.2px at 15% 10%, rgba(167, 139, 250, 0.7), transparent),
-    radial-gradient(1px 1px at 25% 60%, rgba(56,189,248,0.6), transparent),
-    radial-gradient(1.5px 1.5px at 40% 25%, rgba(255,255,255,0.5), transparent),
-    radial-gradient(1px 1px at 65% 70%, rgba(56,189,248,0.6), transparent),
-    radial-gradient(1.2px 1.2px at 80% 35%, rgba(167, 139, 250, 0.6), transparent);
-  opacity: 0.9;
-  z-index: 0;
-  pointer-events: none;
-}
 
 .main-header {
   font-size: 13px;
-  opacity: .8;
+  opacity: .6;
   margin-bottom: 20px;
   letter-spacing: 2px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 2;
-  position: relative;
 }
 
 .main-header .back-btn {
   cursor: pointer;
-  color: #94a3b8;
+  color: #475569;
   font-size: 16px;
   letter-spacing: 2px;
   padding: 8px 16px;
@@ -178,7 +162,7 @@ input.key {
 
 .main-header .back-btn:hover {
   color: #38bdf8;
-  background: rgba(56,189,248,.15);
+  background: rgba(56,189,248,.1);
 }
 
 .timeline-now {
@@ -187,7 +171,6 @@ input.key {
   height: calc(100vh - 120px);
   overflow-y: auto;
   scroll-behavior: smooth;
-  z-index: 2;
 }
 
 .timeline-now::-webkit-scrollbar {
@@ -195,7 +178,7 @@ input.key {
 }
 
 .timeline-now::-webkit-scrollbar-thumb {
-  background: rgba(56,189,248,.4);
+  background: rgba(56,189,248,.3);
   border-radius: 3px;
 }
 
@@ -208,8 +191,8 @@ input.key {
   bottom: 0;
   width: 2px;
   background: linear-gradient(to bottom,
-    rgba(56,189,248,1),
-    rgba(56,189,248,.2)
+    rgba(56,189,248,.6),
+    rgba(56,189,248,.1)
   );
   pointer-events: none;
 }
@@ -228,7 +211,7 @@ input.key {
   height: 16px;
   border-radius: 50%;
   background: #38bdf8;
-  box-shadow: 0 0 25px rgba(56,189,248,1);
+  box-shadow: 0 0 20px rgba(56,189,248,.8);
   cursor: pointer;
   transition: transform .3s ease;
   z-index: 2;
@@ -244,7 +227,7 @@ input.key {
   font-size: 20px;
   font-weight: 700;
   color: #7dd3fc;
-  opacity: .9;
+  opacity: .7;
   cursor: pointer;
   z-index: 2;
 }
@@ -271,28 +254,14 @@ input.key {
   left: calc(50% + 30px);
 }
 
-/* ===== 时空驿站（过去时间段）—— 更亮更酷 ===== */
+/* ===== 过去时间段 ===== */
 #past {
   display: none;
   position: fixed;
   inset: 0;
-  background: linear-gradient(180deg, #121a33 0%, #0b0f1a 100%);
+  background: #0b0f1a;
   z-index: 200;
   overflow: hidden;
-}
-#past::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(1.5px 1.5px at 10% 30%, rgba(56, 189, 248, 0.75), transparent),
-    radial-gradient(1px 1px at 30% 70%, rgba(255,255,255,0.5), transparent),
-    radial-gradient(1.5px 1.5px at 50% 15%, rgba(167, 139, 250, 0.7), transparent),
-    radial-gradient(1px 1px at 75% 45%, rgba(56, 189, 248, 0.65), transparent),
-    radial-gradient(1.2px 1.2px at 90% 80%, rgba(255,255,255,0.55), transparent);
-  opacity: 0.95;
-  z-index: 0;
-  pointer-events: none;
 }
 
 #past .past-header {
@@ -300,7 +269,7 @@ input.key {
   top: 30px;
   left: 30px;
   font-size: 14px;
-  color: #94a3b8;
+  color: #475569;
   cursor: pointer;
   z-index: 10;
 }
@@ -312,7 +281,7 @@ input.key {
   left: 50%;
   transform: translate(-240px, -68%);
   font-size: 28px;
-  color: rgba(255,255,255,.65);
+  color: rgba(255,255,255,.45);
   cursor: pointer;
   z-index: 15;
 }
@@ -326,10 +295,10 @@ input.key {
   flex-direction: column;
   gap: 8px;
   z-index: 15;
-  background: rgba(18, 26, 51, 0.95);
+  background: rgba(11, 15, 26, 0.95);
   padding: 12px 16px;
   border-radius: 6px;
-  border: 1px solid rgba(56,189,248,.2);
+  border: 1px solid rgba(255,255,255,.08);
 }
 
 #indexList div {
@@ -348,8 +317,6 @@ input.key {
   justify-content: center;
   align-items: center;
   height: 100%;
-  z-index: 2;
-  position: relative;
 }
 
 .date-display {
@@ -358,7 +325,6 @@ input.key {
   color: #38bdf8;
   letter-spacing: 4px;
   user-select: none;
-  text-shadow: 0 0 20px rgba(56,189,248,0.6);
 }
 
 .confirm-btn {
@@ -367,14 +333,14 @@ input.key {
   font-size: 16px;
   letter-spacing: 8px;
   color: #38bdf8;
-  border: 1px solid rgba(56,189,248,.6);
+  border: 1px solid rgba(56,189,248,.4);
   padding: 14px 70px;
   cursor: pointer;
   transition: all .3s ease;
 }
 
 .confirm-btn:hover {
-  background: rgba(56,189,248,.2);
+  background: rgba(56,189,248,.1);
 }
 
 /* ===== 关键字页面 ===== */
@@ -471,12 +437,12 @@ input.key {
   font-size: 26px;
 }
 
-/* ===== SONG 板块 —— 嵌入网易云播放器 ===== */
+/* ===== 其余页面 ===== */
 #csPage {
   display: none;
   position: fixed;
   inset: 0;
-  background: linear-gradient(180deg, #121212, #1a1a2e);
+  background: linear-gradient(180deg, #0f0f0f, #1a1a2e);
   z-index: 10;
   justify-content: flex-start;
   align-items: center;
@@ -489,7 +455,7 @@ input.key {
   top: 30px;
   left: 30px;
   cursor: pointer;
-  color: #94a3b8;
+  color: #475569;
   font-size: 16px;
   letter-spacing: 2px;
   padding: 8px 16px;
@@ -499,7 +465,7 @@ input.key {
 
 #csPage .back-btn:hover {
   color: #38bdf8;
-  background: rgba(56,189,248,.15);
+  background: rgba(56,189,248,.1);
 }
 
 .cs-header {
@@ -507,29 +473,34 @@ input.key {
   align-items: center;
   justify-content: center;
   gap: 60px;
-  margin-bottom: 40px;
+  margin-bottom: 60px;
 }
 
 .cs-left, .cs-right {
   font-size: 72px;
   font-weight: 900;
-  color: #e2e8f0;
+  color: #9ca3af;
   letter-spacing: 8px;
 }
 
 .cs-divider {
   width: 1px;
   height: 60px;
-  background: rgba(255,255,255,.25);
+  background: rgba(255,255,255,.15);
 }
 
-.music-container {
-  width: 100%;
-  max-width: 420px;
-  margin-top: 30px;
+.cs-content {
+  display: flex;
+  gap: 120px;
 }
 
-/* ===== 其余页面 ===== */
+.cs-column {
+  width: 260px;
+  color: #555;
+  font-size: 14px;
+  text-align: center;
+}
+
 .page-placeholder {
   display: none;
   position: fixed;
@@ -600,7 +571,7 @@ input.key {
   right: 30px;
   width: 10px;
   height: 10px;
-  background: rgba(56,189,248,.7);
+  background: rgba(56,189,248,.5);
   border-radius: 50%;
   cursor: pointer;
   z-index: 20;
@@ -838,18 +809,9 @@ input.key {
     <div class="cs-divider"></div>
     <div class="cs-right">S</div>
   </div>
-
-  <div class="music-container">
-    <!-- 网易云时代少年团 - 冠军 官方外链播放器 -->
-    <iframe
-      frameborder="no"
-      border="0"
-      marginwidth="0"
-      marginheight="0"
-      width="420"
-      height="110"
-      src="//music.163.com/outchain/player?type=2&id=2621999770&auto=0&height=110">
-    </iframe>
+  <div class="cs-content">
+    <div class="cs-column">[ 冠军 ]</div>
+    <div class="cs-column">[ S 歌单 ]</div>
   </div>
 </div>
 
@@ -1016,6 +978,7 @@ function openModal(time, content) {
 
 function closeModal() {
   document.getElementById("modal").style.display = "none";
+  // 修复：从过去时间段打开的弹窗，关闭后返回过去时间选择页
   if (modalSource === "past") {
     document.getElementById("past").style.display = "block";
   } else {
