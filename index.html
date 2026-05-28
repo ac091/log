@@ -129,7 +129,7 @@ input.key {
   width: 100%;
 }
 
-/* ✅ 时空驿站入口（导航页右下角） */
+/* ===== 导航页右下角入口 ===== */
 #nav .gate {
   position: fixed;
   bottom: 30px;
@@ -772,8 +772,8 @@ input.key {
     <div class="nav-link" onclick="goToOther()">其 他</div>
   </div>
 
-  <!-- ✅ 时空驿站入口（右下角） -->
-  <div class="gate" onclick="openPastModal()" title="时空驿站"></div>
+  <!-- ✅ 时空驿站入口 -->
+  <div class="gate" onclick="openPastModal()"></div>
 </div>
 
 <!-- ===== 现在时间段 ===== -->
@@ -980,10 +980,9 @@ function openModal(time, content) {
   document.getElementById("modal").style.display = "flex";
 }
 
-/* ✅ 你确认的 BACK 逻辑（不动） */
+/* ✅ BACK 逻辑 */
 function closeModal() {
   document.getElementById("modal").style.display = "none";
-
   hideAll();
 
   if (modalSource === "past") {
@@ -1166,7 +1165,10 @@ function confirmPast() {
   document.getElementById("keywordPage").style.display = "flex";
 }
 
+/* ✅✅✅ 关键修复点 */
 function openContent() {
+  modalSource = "past"; // ✅ 标记来自过去
+
   const key = pastDates[currentIndex];
   document.getElementById("modal-content").innerHTML = pastData[key].content;
   document.getElementById("keywordPage").style.display = "none";
