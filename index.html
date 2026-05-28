@@ -16,11 +16,11 @@ body {
   cursor: default;
 }
 
-/* ===== 登录 ===== */
+/* ===== 登录页 ===== */
 #login {
   position: fixed;
   inset: 0;
-  background: #0b0b0b;
+  background: radial-gradient(circle at center, #121829 0%, #000 70%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,13 +44,18 @@ input.key {
   width: 100%;
   padding: 16px;
   background: transparent;
-  border: 1px solid rgba(255,255,255,.15);
+  border: 1px solid rgba(56,189,248,.25);
   border-radius: 8px;
   color: #fff;
   font-size: 18px;
   text-align: center;
   letter-spacing: 10px;
   outline: none;
+  transition: border-color 0.3s;
+}
+input.key:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 15px rgba(56,189,248,.2);
 }
 
 /* ===== 导航页 ===== */
@@ -58,7 +63,8 @@ input.key {
   display: none;
   position: fixed;
   inset: 0;
-  background: radial-gradient(ellipse at center, #0a0e27 0%, #000000 70%);
+  /* 深空暗底 + 微光星点 */
+  background: radial-gradient(ellipse at center, #0c1430 0%, #000000 75%);
   z-index: 50;
   justify-content: center;
   align-items: center;
@@ -71,16 +77,16 @@ input.key {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,.8), transparent),
-    radial-gradient(1px 1px at 30% 50%, rgba(255,255,255,.6), transparent),
-    radial-gradient(1.5px 1.5px at 50% 10%, rgba(56,189,248,.8), transparent),
-    radial-gradient(1px 1px at 70% 40%, rgba(255,255,255,.5), transparent),
-    radial-gradient(1px 1px at 90% 80%, rgba(255,255,255,.7), transparent),
-    radial-gradient(1.5px 1.5px at 20% 70%, rgba(56,189,248,.6), transparent),
-    radial-gradient(1px 1px at 60% 90%, rgba(255,255,255,.4), transparent),
-    radial-gradient(1px 1px at 80% 15%, rgba(255,255,255,.6), transparent),
-    radial-gradient(1.5px 1.5px at 40% 85%, rgba(56,189,248,.5), transparent),
-    radial-gradient(1px 1px at 15% 45%, rgba(255,255,255,.5), transparent);
+    radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,.7), transparent),
+    radial-gradient(1px 1px at 30% 50%, rgba(255,255,255,.5), transparent),
+    radial-gradient(1.5px 1.5px at 50% 10%, rgba(56,189,248,.7), transparent),
+    radial-gradient(1px 1px at 70% 40%, rgba(255,255,255,.4), transparent),
+    radial-gradient(1px 1px at 90% 80%, rgba(255,255,255,.6), transparent),
+    radial-gradient(1.5px 1.5px at 20% 70%, rgba(56,189,248,.5), transparent),
+    radial-gradient(1px 1px at 60% 90%, rgba(255,255,255,.3), transparent),
+    radial-gradient(1px 1px at 80% 15%, rgba(255,255,255,.5), transparent),
+    radial-gradient(1.5px 1.5px at 40% 85%, rgba(56,189,248,.4), transparent),
+    radial-gradient(1px 1px at 15% 45%, rgba(255,255,255,.4), transparent);
   pointer-events: none;
   z-index: 0;
 }
@@ -129,17 +135,17 @@ input.key {
   width: 100%;
 }
 
-/* ===== 现在时间段 - 升级背景 ===== */
+/* ====================== 【现在 - 主时间线】明亮青蓝 科技流光 ====================== */
 #main {
   display: none;
   position: fixed;
   inset: 0;
-  background: linear-gradient(160deg, #1e2f5a, #111a33, #090f1e);
-  background-image:
-    radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.18) 0%, transparent 45%),
-    radial-gradient(circle at 80% 70%, rgba(124, 211, 252, 0.14) 0%, transparent 50%),
-    radial-gradient(circle at 40% 80%, rgba(56, 189, 248, 0.08) 0%, transparent 55%),
-    linear-gradient(160deg, #1e2f5a 0%, #111a33 50%, #090f1e 100%);
+  /* 多层渐变+光晕：通透冷调，代表当下 */
+  background: 
+    linear-gradient(150deg, #162b5c 0%, #0f1e42 40%, #081024 100%),
+    radial-gradient(circle at 15% 15%, rgba(96, 165, 250, 0.25) 0%, transparent 50%),
+    radial-gradient(circle at 85% 75%, rgba(56, 189, 248, 0.2) 0%, transparent 55%),
+    radial-gradient(circle at 45% 85%, rgba(147, 197, 253, 0.12) 0%, transparent 60%);
   background-blend-mode: screen;
   z-index: 10;
   padding: 60px 80px;
@@ -149,11 +155,13 @@ input.key {
   content: "";
   position: absolute;
   inset: 0;
+  /* 细密星光+流动纹理 */
   background-image:
-    radial-gradient(1.2px 1.2px at 25% 15%, rgba(255,255,255,0.22), transparent),
-    radial-gradient(1px 1px at 75% 65%, rgba(56,189,248,0.18), transparent),
-    radial-gradient(1.5px 1.5px at 50% 40%, rgba(255,255,255,0.16), transparent),
-    radial-gradient(1px 1px at 10% 80%, rgba(56,189,248,0.14), transparent);
+    radial-gradient(1.2px 1.2px at 25% 15%, rgba(255,255,255,0.25), transparent),
+    radial-gradient(1px 1px at 75% 65%, rgba(56,189,248,0.22), transparent),
+    radial-gradient(1.5px 1.5px at 50% 40%, rgba(255,255,255,0.18), transparent),
+    radial-gradient(1px 1px at 10% 80%, rgba(56,189,248,0.16), transparent),
+    radial-gradient(1px 1px at 92% 22%, rgba(255,255,255,0.2), transparent);
   z-index: 0;
   pointer-events: none;
 }
@@ -212,7 +220,7 @@ input.key {
   bottom: 0;
   width: 2px;
   background: linear-gradient(to bottom,
-    rgba(56,189,248,.8),
+    rgba(56,189,248,.9),
     rgba(56,189,248,.2)
   );
   pointer-events: none;
@@ -276,17 +284,31 @@ input.key {
   left: calc(50% + 30px);
 }
 
-/* ===== 过去时间段 / 时空驿站 - 升级背景 ===== */
+/* 右下角入口点 */
+#main .gate {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 10px;
+  height: 10px;
+  background: rgba(56,189,248,.7);
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 20;
+  box-shadow: 0 0 10px rgba(56,189,248,.6);
+}
+
+/* ====================== 【过去 - 时间选择】暗调紫黑 幽邃怀旧 ====================== */
 #past {
   display: none;
   position: fixed;
   inset: 0;
-  background: linear-gradient(145deg, #0a0f1e, #05070e);
-  background-image:
-    radial-gradient(circle at 12% 18%, rgba(20, 40, 90, 0.22) 0%, transparent 40%),
-    radial-gradient(circle at 88% 82%, rgba(30, 50, 110, 0.18) 0%, transparent 45%),
-    radial-gradient(circle at 50% 50%, rgba(10, 25, 60, 0.12) 0%, transparent 65%),
-    linear-gradient(145deg, #0a0f1e 0%, #05070e 100%);
+  /* 深暗紫黑低饱和，和现在形成强烈明暗/色调对比 */
+  background: 
+    linear-gradient(140deg, #070612 0%, #04030a 50%, #020105 100%),
+    radial-gradient(circle at 12% 18%, rgba(60, 40, 110, 0.18) 0%, transparent 45%),
+    radial-gradient(circle at 88% 82%, rgba(40, 25, 80, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(30, 20, 60, 0.1) 0%, transparent 70%);
   background-blend-mode: screen;
   z-index: 200;
   overflow: hidden;
@@ -295,11 +317,12 @@ input.key {
   content: "";
   position: absolute;
   inset: 0;
+  /* 微弱暗星，亮度极低，强化尘封感 */
   background-image:
-    radial-gradient(1px 1px at 30% 10%, rgba(255,255,255,0.09), transparent),
-    radial-gradient(1px 1px at 70% 90%, rgba(56,189,248,0.11), transparent),
-    radial-gradient(1.2px 1.2px at 15% 65%, rgba(255,255,255,0.07), transparent),
-    radial-gradient(1px 1px at 85% 30%, rgba(56,189,248,0.09), transparent);
+    radial-gradient(1px 1px at 30% 10%, rgba(255,255,255,0.07), transparent),
+    radial-gradient(1px 1px at 70% 90%, rgba(120,90,180,0.1), transparent),
+    radial-gradient(1.2px 1.2px at 15% 65%, rgba(255,255,255,0.05), transparent),
+    radial-gradient(1px 1px at 85% 30%, rgba(100,70,160,0.08), transparent);
   z-index: 0;
   pointer-events: none;
 }
@@ -309,7 +332,7 @@ input.key {
   top: 30px;
   left: 30px;
   font-size: 14px;
-  color: #a0aec0;
+  color: #8888a0;
   cursor: pointer;
   z-index: 10;
 }
@@ -321,7 +344,7 @@ input.key {
   left: 50%;
   transform: translate(-240px, -68%);
   font-size: 28px;
-  color: rgba(255,255,255,.6);
+  color: rgba(200,190,220,.5);
   cursor: pointer;
   z-index: 15;
 }
@@ -335,21 +358,21 @@ input.key {
   flex-direction: column;
   gap: 8px;
   z-index: 15;
-  background: rgba(18, 26, 51, 0.92);
+  background: rgba(22, 18, 40, 0.94);
   padding: 12px 16px;
   border-radius: 6px;
-  border: 1px solid rgba(56,189,248,.2);
+  border: 1px solid rgba(120,90,180,.25);
 }
 
 #indexList div {
   font-size: 13px;
-  color: #38bdf8;
+  color: #a78bfa;
   cursor: pointer;
   white-space: nowrap;
 }
 
 #indexList div:hover {
-  color: #7dd3fc;
+  color: #c4b5fd;
 }
 
 .picker-center {
@@ -364,10 +387,10 @@ input.key {
 .date-display {
   font-size: 64px;
   font-weight: 800;
-  color: #38bdf8;
+  color: #a78bfa;
   letter-spacing: 4px;
   user-select: none;
-  text-shadow: 0 0 15px rgba(56,189,248,.6);
+  text-shadow: 0 0 18px rgba(167, 139, 250,.5);
 }
 
 .confirm-btn {
@@ -375,8 +398,8 @@ input.key {
   font-family: monospace;
   font-size: 16px;
   letter-spacing: 8px;
-  color: #38bdf8;
-  border: 1px solid rgba(56,189,248,.5);
+  color: #a78bfa;
+  border: 1px solid rgba(167, 139, 250,.45);
   padding: 14px 70px;
   cursor: pointer;
   transition: all .3s ease;
@@ -384,8 +407,8 @@ input.key {
 }
 
 .confirm-btn:hover {
-  background: rgba(56,189,248,.15);
-  box-shadow: 0 0 12px rgba(56,189,248,.3);
+  background: rgba(167, 139, 250,.12);
+  box-shadow: 0 0 12px rgba(167, 139, 250,.25);
 }
 
 /* ===== 关键字页面 ===== */
@@ -393,7 +416,7 @@ input.key {
   display: none;
   position: fixed;
   inset: 0;
-  background: #0b0f1a;
+  background: linear-gradient(160deg, #090814, #030208);
   z-index: 250;
   justify-content: center;
   align-items: center;
@@ -404,7 +427,7 @@ input.key {
   top: 30px;
   left: 30px;
   font-size: 16px;
-  color: #47569;
+  color: #8888a0;
   cursor: pointer;
   letter-spacing: 2px;
 }
@@ -412,14 +435,14 @@ input.key {
 .keyword-box {
   font-size: 56px;
   font-weight: 800;
-  color: #ffffff;
+  color: #e9d5ff;
   cursor: pointer;
   transition: all 0.3s ease;
   letter-spacing: 2px;
 }
 
 .keyword-box:hover {
-  color: #38bdf8;
+  color: #a78bfa;
   transform: scale(1.08);
 }
 
@@ -460,13 +483,13 @@ input.key {
   top: 30px;
   left: 30px;
   font-size: 16px;
-  color: #47569;
+  color: #8888a0;
   cursor: pointer;
   letter-spacing: 2px;
 }
 
 .modal-back:hover {
-  color: #38bdf8;
+  color: #a78bfa;
 }
 
 .camera {
@@ -487,7 +510,7 @@ input.key {
   display: none;
   position: fixed;
   inset: 0;
-  background: linear-gradient(180deg, #0f0f0f, #1a1a2e);
+  background: linear-gradient(180deg, #0c0b18, #141226);
   z-index: 10;
   justify-content: flex-start;
   align-items: center;
@@ -500,7 +523,7 @@ input.key {
   top: 30px;
   left: 30px;
   cursor: pointer;
-  color: #47569;
+  color: #8888a0;
   font-size: 16px;
   letter-spacing: 2px;
   padding: 8px 16px;
@@ -509,8 +532,8 @@ input.key {
 }
 
 #csPage .back-btn:hover {
-  color: #38bdf8;
-  background: rgba(56,189,248,.1);
+  color: #a78bfa;
+  background: rgba(167, 139, 250,.1);
 }
 
 .cs-header {
@@ -524,7 +547,7 @@ input.key {
 .cs-left, .cs-right {
   font-size: 72px;
   font-weight: 900;
-  color: #9ca3af;
+  color: #b4b4c8;
   letter-spacing: 8px;
 }
 
@@ -541,7 +564,7 @@ input.key {
 
 .cs-column {
   width: 260px;
-  color: #555;
+  color: #777799;
   font-size: 14px;
   text-align: center;
 }
@@ -550,12 +573,12 @@ input.key {
   display: none;
   position: fixed;
   inset: 0;
-  background: #0b0f1a;
+  background: linear-gradient(160deg, #090814, #030208);
   z-index: 10;
   justify-content: center;
   align-items: center;
   font-size: 32px;
-  color: #47569;
+  color: #8888a0;
 }
 
 .page-placeholder .back-btn {
@@ -565,7 +588,7 @@ input.key {
   cursor: pointer;
   font-size: 16px;
   letter-spacing: 2px;
-  color: #47569;
+  color: #8888a0;
 }
 
 /* ===== 相册 ===== */
@@ -609,20 +632,6 @@ input.key {
   font-size: 14px;
 }
 
-/* ===== 右下角小点 ===== */
-#main .gate {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 10px;
-  height: 10px;
-  background: rgba(56,189,248,.7);
-  border-radius: 50%;
-  cursor: pointer;
-  z-index: 20;
-  box-shadow: 0 0 10px rgba(56,189,248,.6);
-}
-
 /* ===== 打字机 ===== */
 #typewriter {
   display: none;
@@ -639,7 +648,7 @@ input.key {
   text-align: center;
 }
 
-/* ===== 6.4 ===== */
+/* ===== 6.4 入口 ===== */
 #entry {
   display: none;
   position: fixed;
@@ -685,7 +694,6 @@ input.key {
   overflow: hidden;
 }
 
-/* 烟花画布 */
 #fireworksCanvas {
   position: absolute;
   top: 0;
@@ -744,7 +752,7 @@ input.key {
   z-index: 2;
 }
 
-/* ===== 时空驿站 ===== */
+/* ===== 时空驿站弹窗 ===== */
 #pastModal {
   display: none;
   position: fixed;
@@ -758,15 +766,15 @@ input.key {
   right: 60px;
   bottom: 60px;
   text-align: left;
-  background: rgba(15,23,42,0.85);
+  background: rgba(22, 18, 40, 0.88);
   padding: 20px;
   border-radius: 8px;
-  border: 1px solid rgba(56,189,248,.2);
+  border: 1px solid rgba(167, 139, 250,.25);
 }
 
 #pastModal .title {
   font-size: 18px;
-  color: rgba(255,255,255,.5);
+  color: rgba(220,210,240,.5);
   letter-spacing: 6px;
   margin-bottom: 18px;
 }
@@ -779,14 +787,14 @@ input.key {
 
 #pastModal .opt {
   font-size: 14px;
-  color: rgba(255,255,255,.35);
+  color: rgba(200,190,220,.35);
   letter-spacing: 4px;
   cursor: pointer;
   transition: color .3s;
 }
 
 #pastModal .opt:hover {
-  color: #38bdf8;
+  color: #a78bfa;
 }
 
 #pastHint {
@@ -808,7 +816,7 @@ input.key {
 
 #pastHint .text {
   font-size: 18px;
-  color: rgba(255,255,255,.35);
+  color: rgba(200,190,220,.35);
   letter-spacing: 8px;
 }
 </style>
@@ -1164,11 +1172,9 @@ class Particle {
     this.x = x;
     this.y = y;
     const angle = Math.random() * Math.PI * 2;
-    // 极慢飞行速度
     const speed = Math.random() * 0.8 + 0.3;
     this.vx = Math.cos(angle) * speed;
     this.vy = Math.sin(angle) * speed;
-    // 轻微重力，缓慢下落
     this.gravity = 0.004;
     this.alpha = 1;
     this.color = color;
@@ -1178,23 +1184,19 @@ class Particle {
     this.vy += this.gravity;
     this.x += this.vx;
     this.y += this.vy;
-    // 缓慢淡出
     this.alpha -= 0.004;
   }
   draw() {
-    // 外层大光晕 增强立体感
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.size * 2.2, 0, Math.PI * 2);
     ctx.fillStyle = this.color.replace("1)", (this.alpha * 0.25) + ")");
     ctx.fill();
 
-    // 中层主体
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
     ctx.fillStyle = this.color.replace("1)", this.alpha + ")");
     ctx.fill();
 
-    // 内层高光 提亮立体效果
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.size * 0.5, 0, Math.PI * 2);
     ctx.fillStyle = this.color.replace("1)", Math.min(1, this.alpha * 1.6) + ")");
@@ -1236,9 +1238,7 @@ function startBirthday() {
 
   setTimeout(() => {
     cake.style.opacity = "1";
-    // 加长发射间隔，烟花出现更舒缓
     let fire = setInterval(createFirework, 1200);
-    // 整体烟花播放时长拉长
     setTimeout(() => clearInterval(fire), 9000);
   }, 300);
 
