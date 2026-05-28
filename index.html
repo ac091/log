@@ -1152,6 +1152,8 @@ const pastDates = Object.keys(pastData).sort();
 let currentIndex = 0;
 let isScrolling = false;
 let modalSource = null;
+let albumImgList = [];
+let albumCur = 0;
 
 // 日记翻页变量
 let currentDiaryPage = 0;
@@ -1222,7 +1224,6 @@ function renderDiary() {
   document.getElementById("diaryContent").innerText = item.text;
   document.getElementById("diaryPageNum").innerText = `PAGE ${currentDiaryPage + 1} / ${total}`;
 
-  // 禁用首尾按钮
   const prevBtn = document.getElementById("diaryPrev");
   const nextBtn = document.getElementById("diaryNext");
   prevBtn.classList.toggle("disable", currentDiaryPage === 0);
@@ -1265,7 +1266,7 @@ function nextPhoto() {
   }
 }
 
-/* ========= 登录逻辑 ========= */
+/* ========= 登录逻辑（修复正常） ========= */
 const KEY = "56";
 const input = document.getElementById("key");
 const login = document.getElementById("login");
@@ -1280,6 +1281,27 @@ input.addEventListener("input", () => {
     }
   }
 });
+
+/* ========= 打字机效果 ========= */
+function playTypewriter(){
+  const el = document.getElementById("typewriter");
+  el.style.display = "flex";
+  const txt = "Welcome to the time capsule.";
+  let i = 0;
+  el.innerText = "";
+  const timer = setInterval(()=>{
+    if(i < txt.length){
+      el.innerText += txt[i];
+      i++;
+    }else{
+      clearInterval(timer);
+      setTimeout(()=>{
+        el.style.display = "none";
+        goToNav();
+      },1200);
+    }
+  },80);
+}
 
 /* ========= 主时间线渲染 ========= */
 function renderTimeline() {
@@ -1297,6 +1319,7 @@ function renderTimeline() {
 }
 
 /* ========= 内容弹窗 ========= */
+const photosByDate = {};
 function openModal(time, content) {
   modalSource = document.getElementById("main").style.display === "block" ? "main" : "past";
   document.getElementById("modal-content").innerHTML = content;
@@ -1320,10 +1343,10 @@ function closeModal() {
 }
 
 /* ========= 全局相册 ========= */
-const photosByDate = {
-  "2023-09-11": [
-    "https://raw.githubusercontent.com/ac091/log/main/qu.jpg",
-    "https://raw.githubusercontent.com/ac091/log/main/yi.jpg"
-  ],
-  "2023-06-15": [
-    "
+function openAlbum(list){
+  albumImgList = list;
+  albumCur = 0;
+  const al = document.getElementById("album");
+  al.style.display = "flex";
+  al.querySelector("img").src = albumImgList[albumCur];
+  document.getElementById("album-page").innerText = `${albumCur+1} / ${albumImgList
