@@ -1325,13 +1325,25 @@ let stickies = loadStickies();
 
 function renderSticky() {
   const el = document.getElementById("stickyText");
-  el.innerText = stickies[stickyIndex];
+  const txt = stickies[stickyIndex];
+
+  if (!txt || txt.trim() === "") {
+    el.innerHTML = "<br>";   // ✅ 关键
+  } else {
+    el.innerText = txt;
+  }
+
   el.contentEditable = "false";
   el.style.outline = "none";
 }
 
 function makeStickyEditable() {
   const el = document.getElementById("stickyText");
+
+  if (el.innerHTML === "<br>") {
+    el.innerText = "";   // ✅ 清空占位
+  }
+
   el.contentEditable = "true";
   el.focus();
 
@@ -1348,9 +1360,8 @@ function saveSticky() {
   const el = document.getElementById("stickyText");
   let txt = el.innerText.trim();
 
-  // ✅ 如果全删了，给一个空格，保证还能编辑
   if (txt === "") {
-    txt = " ";
+    txt = " ";   // ✅ 防止变空
   }
 
   stickies[stickyIndex] = txt;
