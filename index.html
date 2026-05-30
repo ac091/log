@@ -1794,10 +1794,7 @@ function animateFireworks() {
 }
 animateFireworks();
 
-function startBirthday(e) {
-  // ✅ 只有点中 6.4 才允许进入
-  if (!e.target.classList.contains("entry-box")) return;
-
+function startBirthday() {
   document.getElementById("entry").style.display = "none";
   document.getElementById("birthday").style.display = "flex";
 
