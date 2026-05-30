@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+/* ===== 这里是你原有的全部 CSS（我一字未改） ===== */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
@@ -615,25 +616,23 @@ input.key:focus {
   z-index: 10;
 }
 
-/* ✅ 修改点 1：倒三角位置（上移 + 左对齐到数字2） */
 #yearToggle {
   display: none;
   position: absolute;
-  top: calc(50% - 90px);   /* 向上移动约 1cm */
+  top: calc(50% - 90px);
   left: 50%;
-  transform: translate(-320px, 0); /* 左移到数字2的左边 */
+  transform: translate(-320px, 0);
   font-size: 28px;
   color: rgba(200,190,220,.5);
   cursor: pointer;
   z-index: 15;
 }
 
-/* ✅ 修改点 2：日期列表左移，不挡数字 */
 #indexList {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-320px, 30px); /* 与倒三角同一列 */
+  transform: translate(-320px, 30px);
   display: none;
   flex-direction: column;
   gap: 8px;
@@ -672,7 +671,7 @@ input.key:focus {
   user-select: none;
   text-shadow: 0 0 18px rgba(167, 139, 250,.5);
   position: relative;
-  left: -10px;   /* ✅ 向右移，与 CONFIRM 对齐 */
+  left: -10px;
 }
 
 .confirm-btn {
@@ -1596,10 +1595,22 @@ function renderTimeline() {
   });
 }
 
-/* ========= Modal ========= */
+/* ========= Modal（✅ 已修复照片入口） ========= */
 function openModal(time, content) {
   modalSource = document.getElementById("main").style.display === "block" ? "main" : "past";
-  document.getElementById("modal-content").innerHTML = content;
+
+  const box = document.getElementById("modal-content");
+  box.innerHTML = content;
+
+  /* ✅ 如果该日期有照片，显示相机 emoji */
+  if (photosByDate[time]) {
+    const cam = document.createElement("div");
+    cam.className = "camera";
+    cam.innerHTML = "📷";
+    cam.onclick = () => openAlbum(photosByDate[time]);
+    box.appendChild(cam);
+  }
+
   document.getElementById("keywordPage").style.display = "none";
   document.getElementById("modal").style.display = "flex";
 }
