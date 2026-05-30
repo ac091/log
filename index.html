@@ -58,6 +58,67 @@ input.key:focus {
   box-shadow: 0 0 15px rgba(56,189,248,.2);
 }
 
+/* ===== 时空驿站密码弹窗 ===== */
+#pastLock {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.lock-title {
+  font-size: 14px;
+  letter-spacing: 6px;
+  color: rgba(167, 139, 250, 0.5);
+  margin-bottom: 30px;
+}
+.lock-input {
+  width: 300px;
+  padding: 14px 16px;
+  background: transparent;
+  border: 1px solid rgba(167, 139, 250, 0.35);
+  border-radius: 6px;
+  color: #e9d5ff;
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 8px;
+  outline: none;
+  transition: all 0.3s;
+}
+.lock-input:focus {
+  border-color: #a78bfa;
+  box-shadow: 0 0 12px rgba(167, 139, 250, 0.25);
+}
+.lock-tips {
+  height: 24px;
+  font-size: 13px;
+  color: #f87171;
+  margin-top: 16px;
+  letter-spacing: 2px;
+}
+.lock-btn-group {
+  margin-top: 24px;
+  display: flex;
+  gap: 20px;
+}
+.lock-btn {
+  padding: 10px 28px;
+  border: 1px solid rgba(167, 139, 250, 0.4);
+  color: #a78bfa;
+  font-size: 14px;
+  letter-spacing: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.lock-btn:hover {
+  background: rgba(167, 139, 250, 0.12);
+  box-shadow: 0 0 8px rgba(167, 139, 250, 0.2);
+}
+
 /* ===== 主导航页 ===== */
 #nav {
   display: none;
@@ -1044,6 +1105,17 @@ input.key:focus {
 
 <body>
 
+<!-- 时空驿站密码锁弹窗 -->
+<div id="pastLock">
+  <div class="lock-title">请输入访问密钥</div>
+  <input class="lock-input" id="lockPwd" type="password" maxlength="4" placeholder="KEY">
+  <div class="lock-tips" id="lockTips"></div>
+  <div class="lock-btn-group">
+    <div class="lock-btn" onclick="checkLockPwd()">确认</div>
+    <div class="lock-btn" onclick="closePastLock()">取消</div>
+  </div>
+</div>
+
 <div id="login">
   <div class="login-inner">
     <p>SYSTEM SECURED</p>
@@ -1120,13 +1192,11 @@ input.key:focus {
   <div class="gate" onclick="openPastModal()"></div>
 </div>
 
-<!-- ===== 过去时间段 ===== -->
+<!-- 过去时间段 -->
 <div id="past">
   <div class="past-header" onclick="goToMain()">◀ BACK</div>
-
   <div id="yearToggle" onclick="toggleIndex()">▾</div>
   <div id="indexList"></div>
-
   <div class="picker-center" id="picker" onwheel="scrollDate(event)">
     <div>
       <div class="date-display" id="dateDisplay"></div>
@@ -1135,7 +1205,7 @@ input.key:focus {
   </div>
 </div>
 
-<!-- ===== 关键字页面 ===== -->
+<!-- 关键字页面 -->
 <div id="keywordPage">
   <div class="keyword-back" onclick="backToPast()">◀ BACK</div>
   <div class="keyword-box" id="keywordBox" onclick="openContent()"></div>
@@ -1167,7 +1237,7 @@ input.key:focus {
   <div id="album-close" onclick="closeAlbum()">✕</div>
 </div>
 
-<!-- ✅ 内容页 -->
+<!-- 内容弹窗 -->
 <div class="modal" id="modal">
   <div class="modal-box">
     <div class="modal-back" onclick="closeModal()">◀ BACK</div>
@@ -1211,7 +1281,6 @@ const pastData = {
   "2024-01-03": { keyword: "测试", content: "这是一个测试条目。<br><br>这里可以放很长很长的文字。<br>用来验证 Close 是否始终在底部。" }
 };
 
-// 日记内容（可自由增删、修改）
 const diaryData = [
   {
     date: "2026.05.28",
@@ -1225,13 +1294,12 @@ const diaryData = [
     date: "2026.05.20",
     text: "偶尔回望走过的路，有惊喜也有小遗憾，但所有经历都构成了现在的自己。学会和生活和解，接纳所有发生，带着温柔继续往前走。"
   },
-   {
+  {
     date: "2026.05.21",
     text: "偶尔回望走过的路，有惊喜也有小遗憾，但所有经历都构成了现在的自己。学会和生活和解，接纳所有发生，带着温柔继续往前走。"
   }
 ];
 
-// 相册图片列表（后续替换成你的图片链接即可）
 const photoData = [
   "https://picsum.photos/1200/800?random=1",
   "https://picsum.photos/1200/800?random=2",
@@ -1244,9 +1312,12 @@ let currentIndex = 0;
 let isScrolling = false;
 let modalSource = null;
 
-// 日记、相册分页全局变量
 let nowDiaryPage = 0;
 let nowPhotoPage = 0;
+
+// 密码配置
+const LOGIN_KEY = "56";
+const PAST_LOCK_KEY = "0912";
 
 /* ========= 页面统一隐藏 ========= */
 function hideAll() {
@@ -1255,7 +1326,7 @@ function hideAll() {
   });
 }
 
-/* ========= 页面跳转函数 ========= */
+/* ========= 页面跳转 ========= */
 function goToNav() {
   hideAll();
   document.getElementById("nav").style.display = "flex";
@@ -1291,430 +1362,4 @@ function goToIdea() {
   document.getElementById("idea").style.display = "flex";
 }
 
-function goToOther() {
-  hideAll();
-  document.getElementById("other").style.display = "flex";
-}
-
-// 进入日记 FRAGMENTS
-function goToFragments(){
-  hideAll();
-  document.getElementById("diaryPage").style.display = "block";
-  nowDiaryPage = 0;
-  renderDiary();
-}
-
-// 进入相册 LENS
-function goToLens(){
-  hideAll();
-  document.getElementById("lensPage").style.display = "block";
-  nowPhotoPage = 0;
-  renderPhoto();
-}
-
-/* ========= 日记渲染 & 翻页 ========= */
-function renderDiary(){
-  const total = diaryData.length;
-  const item = diaryData[nowDiaryPage];
-  document.getElementById("diaryDate").innerText = item.date;
-  document.getElementById("diaryContent").innerText = item.text;
-  document.getElementById("diaryPageNum").innerText = `PAGE ${nowDiaryPage + 1} / ${total}`;
-
-  const prevBtn = document.getElementById("diaryPrev");
-  const nextBtn = document.getElementById("diaryNext");
-  prevBtn.classList.toggle("disable", nowDiaryPage === 0);
-  nextBtn.classList.toggle("disable", nowDiaryPage === total - 1);
-}
-
-function prevDiary(){
-  if(nowDiaryPage > 0){
-    nowDiaryPage--;
-    renderDiary();
-  }
-}
-
-function nextDiary(){
-  if(nowDiaryPage < diaryData.length - 1){
-    nowDiaryPage++;
-    renderDiary();
-  }
-}
-
-/* ========= 相册渲染 & 翻页 ========= */
-function renderPhoto(){
-  const total = photoData.length;
-  document.getElementById("mainPhoto").src = photoData[nowPhotoPage];
-  document.getElementById("photoPageNum").innerText = `${nowPhotoPage + 1} / ${total}`;
-
-  const prevBtn = document.getElementById("photoPrev");
-  const nextBtn = document.getElementById("photoNext");
-  prevBtn.classList.toggle("disable", nowPhotoPage === 0);
-  nextBtn.classList.toggle("disable", nowPhotoPage === total - 1);
-}
-
-function prevPhoto(){
-  if(nowPhotoPage > 0){
-    nowPhotoPage--;
-    renderPhoto();
-  }
-}
-
-function nextPhoto(){
-  if(nowPhotoPage < photoData.length - 1){
-    nowPhotoPage++;
-    renderPhoto();
-  }
-}
-
-/* ========= 登录逻辑（修复完成） ========= */
-const KEY = "56";
-const input = document.getElementById("key");
-const login = document.getElementById("login");
-
-input.addEventListener("input", () => {
-  if (input.value === KEY) {
-    login.style.display = "none";
-    if (!localStorage.getItem("asked")) {
-      playTypewriter();
-    } else {
-      goToNav();
-    }
-  }
-});
-
-/* ========= 打字机 ========= */
-const tw = document.getElementById("typewriter");
-const typeSound = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-typewriter-key-1368.mp3");
-typeSound.volume = 0.3;
-
-function playTypewriter() {
-  tw.style.display = "flex";
-  typeText("认识这么久以来印象最深的事是什么？", () => {
-    setTimeout(() => eraseText(() => {
-      typeText("好像，没有确切的答案。", () => {
-        setTimeout(() => {
-          tw.style.display = "none";
-          if (!localStorage.getItem("asked")) {
-            document.getElementById("entry").style.display = "flex";
-          } else {
-            goToNav();
-          }
-        }, 1800);
-      });
-    }), 1400);
-  });
-}
-
-function typeText(t, cb) {
-  let i = 0;
-  tw.innerHTML = "";
-  const r = setInterval(() => {
-    tw.innerHTML += t.charAt(i++);
-    typeSound.currentTime = 0;
-    typeSound.play();
-    if (i >= t.length) {
-      clearInterval(r);
-      cb();
-    }
-  }, 130);
-}
-
-function eraseText(cb) {
-  const r = setInterval(() => {
-    tw.innerHTML = tw.innerHTML.slice(0, -1);
-    if (!tw.innerHTML.length) {
-      clearInterval(r);
-      cb();
-    }
-  }, 70);
-}
-
-/* ========= 主时间线渲染 ========= */
-function renderTimeline() {
-  const c = document.getElementById("timelineNow");
-  c.innerHTML = "";
-  timelineData.forEach(item => {
-    const d = document.createElement("div");
-    d.className = "timeline-item";
-    d.innerHTML = `
-      <div class="dot" onclick="openModal('${item.date}','${item.content.replace(/'/g,"\\'")}')"></div>
-      <div class="label" onclick="openModal('${item.date}','${item.content.replace(/'/g,"\\'")}')">${item.date}</div>
-    `;
-    c.appendChild(d);
-  });
-}
-
-/* ========= Modal ========= */
-function openModal(time, content) {
-  modalSource = document.getElementById("main").style.display === "block" ? "main" : "past";
-  document.getElementById("modal-content").innerHTML = content;
-  if (photosByDate[time]) {
-    const cam = document.createElement("div");
-    cam.className = "camera";
-    cam.innerHTML = "📷";
-    cam.onclick = () => openAlbum(photosByDate[time]);
-    document.getElementById("modal-content").appendChild(cam);
-  }
-  document.getElementById("keywordPage").style.display = "none";
-  document.getElementById("modal").style.display = "flex";
-}
-
-function closeModal() {
-  document.getElementById("modal").style.display = "none";
-  if (modalSource === "past") {
-    document.getElementById("past").style.display = "block";
-  } else {
-    document.getElementById("main").style.display = "block";
-  }
-}
-
-/* ========= 相册 ========= */
-const photosByDate = {
-  "2023-09-11": [
-    "https://raw.githubusercontent.com/ac091/log/main/qu.jpg",
-    "https://raw.githubusercontent.com/ac091/log/main/yi.jpg"
-  ],
-  "2023-06-15": [
-    "https://raw.githubusercontent.com/ac091/log/main/yi.jpg"
-  ]
-};
-
-let currentPhotos = [], currentIndexPhoto = 0;
-
-function openAlbum(p) {
-  currentPhotos = p;
-  currentIndexPhoto = 0;
-  document.querySelector("#album img").src = currentPhotos[0];
-  document.getElementById("album-page").innerText = "1 / " + currentPhotos.length;
-  document.getElementById("album").style.display = "block";
-}
-
-function prevImg() {
-  if (currentIndexPhoto > 0) {
-    currentIndexPhoto--;
-    document.querySelector("#album img").src = currentPhotos[currentIndexPhoto];
-    document.getElementById("album-page").innerText = (currentIndexPhoto + 1) + " / " + currentPhotos.length;
-  }
-}
-
-function nextImg() {
-  if (currentIndexPhoto < currentPhotos.length - 1) {
-    currentIndexPhoto++;
-    document.querySelector("#album img").src = currentPhotos[currentIndexPhoto];
-    document.getElementById("album-page").innerText = (currentIndexPhoto + 1) + " / " + currentPhotos.length;
-  }
-}
-
-function closeAlbum() {
-  document.getElementById("album").style.display = "none";
-}
-
-/* ====================== 超慢速 + 三层立体烟花 ====================== */
-const cake = document.getElementById("cake");
-const happy = document.getElementById("happy");
-const message = document.getElementById("message");
-const closeHint = document.getElementById("closeHint");
-
-const canvas = document.getElementById("fireworksCanvas");
-const ctx = canvas.getContext("2d");
-let particles = [];
-
-function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-window.addEventListener("resize", resizeCanvas);
-resizeCanvas();
-
-class Particle {
-  constructor(x, y, color) {
-    this.x = x;
-    this.y = y;
-    const angle = Math.random() * Math.PI * 2;
-    const speed = Math.random() * 0.8 + 0.3;
-    this.vx = Math.cos(angle) * speed;
-    this.vy = Math.sin(angle) * speed;
-    this.gravity = 0.004;
-    this.alpha = 1;
-    this.color = color;
-    this.size = Math.random() * 3.5 + 2;
-  }
-  update() {
-    this.vy += this.gravity;
-    this.x += this.vx;
-    this.y += this.vy;
-    this.alpha -= 0.004;
-  }
-  draw() {
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size * 2.2, 0, Math.PI * 2);
-    ctx.fillStyle = this.color.replace("1)", (this.alpha * 0.25) + ")");
-    ctx.fill();
-
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-    ctx.fillStyle = this.color.replace("1)", this.alpha + ")");
-    ctx.fill();
-
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size * 0.5, 0, Math.PI * 2);
-    ctx.fillStyle = this.color.replace("1)", Math.min(1, this.alpha * 1.6) + ")");
-    ctx.fill();
-  }
-}
-
-function createFirework() {
-  const x = Math.random() * canvas.width;
-  const y = Math.random() * canvas.height * 0.55;
-  const colors = [
-    "rgba(255,80,120,1)",
-    "rgba(80,180,255,1)",
-    "rgba(255,200,80,1)",
-    "rgba(120,255,120,1)",
-    "rgba(255,150,220,1)"
-  ];
-  const color = colors[Math.floor(Math.random() * colors.length)];
-  for (let i = 0; i < 140; i++) {
-    particles.push(new Particle(x, y, color));
-  }
-}
-
-function animateFireworks() {
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  for (let i = particles.length - 1; i >= 0; i--) {
-    const p = particles[i];
-    p.update();
-    p.draw();
-    if (p.alpha <= 0) particles.splice(i, 1);
-  }
-  requestAnimationFrame(animateFireworks);
-}
-animateFireworks();
-
-function startBirthday() {
-  document.getElementById("entry").style.display = "none";
-  document.getElementById("birthday").style.display = "flex";
-
-  setTimeout(() => {
-    cake.style.opacity = "1";
-    let fire = setInterval(createFirework, 1200);
-    setTimeout(() => clearInterval(fire), 9000);
-  }, 300);
-
-  setTimeout(() => cake.style.opacity = "0", 3500);
-  setTimeout(() => happy.style.opacity = "1", 4500);
-  setTimeout(() => happy.style.opacity = "0", 8500);
-  setTimeout(() => typeMessage("首先祝你生日快乐"), 10500);
-}
-
-function typeMessage(t) {
-  let i = 0;
-  message.style.opacity = "1";
-  const r = setInterval(() => {
-    message.innerHTML += t.charAt(i++);
-    typeSound.currentTime = 0;
-    typeSound.play();
-    if (i >= t.length) {
-      clearInterval(r);
-      closeHint.style.display = "block";
-    }
-  }, 200);
-}
-
-function closeBirthday() {
-  document.getElementById("birthday").style.display = "none";
-  goToNav();
-  localStorage.setItem("asked", "1");
-}
-
-/* ========= 时空驿站 ========= */
-function openPastModal() {
-  document.getElementById("pastModal").style.display = "flex";
-}
-
-function closePastModal() {
-  document.getElementById("pastModal").style.display = "none";
-}
-
-function confirmEnterPast() {
-  closePastModal();
-  enterPastSequence();
-}
-
-function enterPastSequence() {
-  const hint = document.getElementById("pastHint");
-  hint.classList.add("show");
-  setTimeout(() => {
-    hint.classList.remove("show");
-    goToPast();
-  }, 2000);
-}
-
-/* ========= 过去：滚轮 & 列表 ========= */
-function scrollDate(e) {
-  e.preventDefault();
-  if (isScrolling) return;
-  isScrolling = true;
-  setTimeout(() => isScrolling = false, 150);
-
-  if (e.deltaY > 0) {
-    currentIndex = Math.min(currentIndex + 1, pastDates.length - 1);
-  } else {
-    currentIndex = Math.max(currentIndex - 1, 0);
-  }
-  updateDateDisplay();
-}
-
-function updateDateDisplay() {
-  document.getElementById("dateDisplay").innerText = pastDates[currentIndex];
-}
-
-function confirmPast() {
-  const key = pastDates[currentIndex];
-  document.getElementById("keywordBox").innerText = pastData[key].keyword;
-  hideAll();
-  document.getElementById("keywordPage").style.display = "flex";
-}
-
-function openContent() {
-  const key = pastDates[currentIndex];
-  openModal(key, pastData[key].content);
-}
-
-/* 倒三角 & 空白关闭 */
-function toggleIndex() {
-  const list = document.getElementById("indexList");
-  list.style.display = list.style.display === "none" ? "flex" : "none";
-}
-
-function buildIndex() {
-  const list = document.getElementById("indexList");
-  list.innerHTML = "";
-  pastDates.forEach((k, i) => {
-    const d = document.createElement("div");
-    d.innerText = k;
-    d.onclick = () => {
-      currentIndex = i;
-      updateDateDisplay();
-      toggleIndex();
-    };
-    list.appendChild(d);
-  });
-}
-
-document.getElementById("past").addEventListener("click", function (e) {
-  const list = document.getElementById("indexList");
-  const toggle = document.getElementById("yearToggle");
-  if (
-    list.style.display === "flex" &&
-    !list.contains(e.target) &&
-    e.target !== toggle
-  ) {
-    list.style.display = "none";
-  }
-});
-
-renderTimeline();
-</script>
-</body>
-</html>
+function goToOther()
