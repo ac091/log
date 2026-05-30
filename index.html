@@ -1231,8 +1231,7 @@ input.key:focus {
   <div class="past-header" onclick="goToMain()">◀ BACK</div>
 
   <div id="yearToggle" onclick="toggleIndex()">▾</div>
-  <div id="indexList"></div>
-
+  <div id="indexList" onwheel="event.stopPropagation()"></div>
   <div class="picker-center" id="picker" onwheel="scrollDate(event)">
     <div>
       <div class="date-display" id="dateDisplay"></div>
