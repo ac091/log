@@ -506,7 +506,7 @@ input.key:focus {
   left: calc(50% + 30px);
 }
 
-/* ===== 左侧长条便利贴（浅灰 / 无日期） ===== */
+/* ===== 左侧长条便利贴（已右移 + 下移 ≥2cm） ===== */
 .sticky-area {
   position: fixed;
   left: 246px;   /* ✅ 向右 +76px（≈2cm） */
@@ -613,12 +613,13 @@ input.key:focus {
   z-index: 10;
 }
 
+/* ✅ 倒三角向上平移 1cm */
 #yearToggle {
   display: none;
   position: absolute;
-  top: 50%;
+  top: calc(50% - 38px);   /* ✅ 向上 1cm */
   left: 50%;
-  transform: translate(-240px, -68%);
+  transform: translate(-240px, 0);
   font-size: 28px;
   color: rgba(200,190,220,.5);
   cursor: pointer;
@@ -660,6 +661,7 @@ input.key:focus {
   z-index: 5;
 }
 
+/* ✅ 时间显示移到左边 */
 .date-display {
   font-size: 64px;
   font-weight: 800;
@@ -667,6 +669,9 @@ input.key:focus {
   letter-spacing: 4px;
   user-select: none;
   text-shadow: 0 0 18px rgba(167, 139, 250,.5);
+
+  position: relative;
+  left: -160px; /* ✅ 向左移动 */
 }
 
 .confirm-btn {
@@ -1189,7 +1194,7 @@ input.key:focus {
   </div>
 </div>
 
-<!-- =================== 主时间线 + 左侧便利贴 =================== -->
+<!-- =================== 主时间线 + 左侧便利贴 =================== */
 <div id="main">
   <div class="main-header">
     <span class="back-btn" onclick="goToNav()">◀ BACK</span>
@@ -1200,7 +1205,7 @@ input.key:focus {
 
   <div class="gate" onclick="openPastModal()"></div>
 
-  <!-- 左侧长条便利贴 -->
+  <!-- 左侧便利贴 -->
   <div class="sticky-area">
     <div class="sticky-note">
       <div class="sticky-text" id="stickyText">今天想对你说的话会写在这里。</div>
@@ -1212,7 +1217,7 @@ input.key:focus {
   </div>
 </div>
 
-<!-- ===== 过去时间段 ===== -->
+<!-- ===== 过去时间段 ===== */
 <div id="past">
   <div class="past-header" onclick="goToMain()">◀ BACK</div>
 
