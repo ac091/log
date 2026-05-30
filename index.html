@@ -641,6 +641,26 @@ input.key:focus {
   padding: 12px 16px;
   border-radius: 6px;
   border: 1px solid rgba(120,90,180,.25);
+
+  /* 新增：限制高度 + 开启滚动 */
+  max-height: 320px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+  /* 下拉列表滚动条美化 */
+#indexList::-webkit-scrollbar {
+  width: 5px;
+}
+#indexList::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.2);
+  border-radius: 3px;
+}
+#indexList::-webkit-scrollbar-thumb {
+  background: rgba(167, 139, 250, 0.4);
+  border-radius: 3px;
+}
+#indexList::-webkit-scrollbar-thumb:hover {
+  background: rgba(167, 139, 250, 0.6);
 }
 
 #indexList div {
