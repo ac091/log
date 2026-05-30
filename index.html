@@ -506,11 +506,11 @@ input.key:focus {
   left: calc(50% + 30px);
 }
 
-/* ===== 左侧长条便利贴（已右移 + 下移 ≥2cm） ===== */
+/* ===== 左侧长条便利贴（可编辑） ===== */
 .sticky-area {
   position: fixed;
-  left: 246px;   /* ✅ 向右 +76px（≈2cm） */
-  top: 176px;    /* ✅ 向下 +76px（≈2cm） */
+  left: 246px;
+  top: 176px;
   width: 280px;
   max-height: 420px;
   z-index: 5;
@@ -547,6 +547,8 @@ input.key:focus {
 
 .sticky-text {
   white-space: pre-line;
+  outline: none;
+  cursor: text;
 }
 
 .sticky-switch {
@@ -613,11 +615,10 @@ input.key:focus {
   z-index: 10;
 }
 
-/* ✅ 倒三角向上平移 1cm */
 #yearToggle {
   display: none;
   position: absolute;
-  top: calc(50% - 38px);   /* ✅ 向上 1cm */
+  top: calc(50% - 38px);
   left: 50%;
   transform: translate(-240px, 0);
   font-size: 28px;
@@ -661,7 +662,6 @@ input.key:focus {
   z-index: 5;
 }
 
-/* ✅ 时间显示移到左边 */
 .date-display {
   font-size: 64px;
   font-weight: 800;
@@ -669,9 +669,8 @@ input.key:focus {
   letter-spacing: 4px;
   user-select: none;
   text-shadow: 0 0 18px rgba(167, 139, 250,.5);
-
   position: relative;
-  left: -160px; /* ✅ 向左移动 */
+  left: -160px;
 }
 
 .confirm-btn {
@@ -1194,7 +1193,7 @@ input.key:focus {
   </div>
 </div>
 
-<!-- =================== 主时间线 + 左侧便利贴 =================== */
+<!-- =================== 主时间线 + 便利贴 =================== -->
 <div id="main">
   <div class="main-header">
     <span class="back-btn" onclick="goToNav()">◀ BACK</span>
@@ -1205,10 +1204,14 @@ input.key:focus {
 
   <div class="gate" onclick="openPastModal()"></div>
 
-  <!-- 左侧便利贴 -->
+  <!-- 左侧便利贴（可编辑） -->
   <div class="sticky-area">
     <div class="sticky-note">
-      <div class="sticky-text" id="stickyText">今天想对你说的话会写在这里。</div>
+      <div
+        class="sticky-text"
+        id="stickyText"
+        onclick="makeStickyEditable()"
+      ></div>
     </div>
     <div class="sticky-switch">
       <span onclick="prevSticky()">◀</span>
@@ -1217,7 +1220,7 @@ input.key:focus {
   </div>
 </div>
 
-<!-- ===== 过去时间段 ===== */
+<!-- ===== 过去时间段 ===== -->
 <div id="past">
   <div class="past-header" onclick="goToMain()">◀ BACK</div>
 
@@ -1298,34 +1301,59 @@ input.key:focus {
 </div>
 
 <script>
-/* ========= 便利贴数据 ========= */
-const stickyNotes = [
-  {
-    text: "今天风很轻，适合慢下来。\n\n别急着赶路，记得看看身边的光。"
-  },
-  {
-    text: "有些话不必一次说完。\n\n像日记一样，一点点留下来就好。"
-  },
-  {
-    text: "这个小空间，只属于我们。\n\n以后每天都会有一点新的东西。"
-  }
-];
-
+/* ========= 便利贴（可编辑 + 本地存储） ========= */
 let stickyIndex = 0;
 
+const defaultStickies = [
+  "今天想对你说的话会写在这里。",
+  "有些话不必一次说完。",
+  "这个小空间，只属于我们。"
+];
+
+function loadStickies() {
+  const saved = JSON.parse(localStorage.getItem("stickies"));
+  if (saved) return saved;
+  localStorage.setItem("stickies", JSON.stringify(defaultStickies));
+  return [...defaultStickies];
+}
+
+let stickies = loadStickies();
+
 function renderSticky() {
-  const s = stickyNotes[stickyIndex];
-  document.getElementById("stickyText").innerText = s.text;
+  const el = document.getElementById("stickyText");
+  el.innerText = stickies[stickyIndex];
+  el.contentEditable = "false";
+  el.style.outline = "none";
+}
+
+function makeStickyEditable() {
+  const el = document.getElementById("stickyText");
+  el.contentEditable = "true";
+  el.focus();
+
+  el.onblur = saveSticky;
+  el.onkeydown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      el.blur();
+    }
+  };
+}
+
+function saveSticky() {
+  const el = document.getElementById("stickyText");
+  stickies[stickyIndex] = el.innerText.trim();
+  localStorage.setItem("stickies", JSON.stringify(stickies));
 }
 
 function prevSticky() {
   stickyIndex =
-    (stickyIndex - 1 + stickyNotes.length) % stickyNotes.length;
+    (stickyIndex - 1 + stickies.length) % stickies.length;
   renderSticky();
 }
 
 function nextSticky() {
-  stickyIndex = (stickyIndex + 1) % stickyNotes.length;
+  stickyIndex = (stickyIndex + 1) % stickies.length;
   renderSticky();
 }
 
