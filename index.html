@@ -1127,6 +1127,32 @@ input.key:focus {
 #pastPwd:focus {
   border-color: #a78bfa;
 }
+ #calendarPanel {
+  position: absolute;
+  left: 40px;
+  bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+}
+
+.calendar-year {
+  color: #888;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.calendar-day {
+  color: #a78bfa;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.calendar-day:hover {
+  background: rgba(167,139,250,.15);
+} 
 </style>
 </head>
 
@@ -1232,6 +1258,7 @@ input.key:focus {
 
   <div id="yearToggle" onclick="toggleIndex()">▾</div>
   <div id="indexList" onwheel="event.stopPropagation()"></div>
+  <div id="calendarPanel"></div>
   
   <div class="picker-center" id="picker" onwheel="scrollDate(event)">
     <div>
@@ -1527,7 +1554,7 @@ function goToPast() {
   document.getElementById("past").style.display = "block";
   currentIndex = 0;
   updateDateDisplay();
-  buildIndex();
+  buildCalendar();
   document.getElementById("yearToggle").style.display = "block";
   document.getElementById("indexList").style.display = "none";
 }
@@ -1950,18 +1977,35 @@ function toggleIndex() {
   list.style.display = list.style.display === "none" ? "flex" : "none";
 }
 
-function buildIndex() {
-  const list = document.getElementById("indexList");
-  list.innerHTML = "";
-  pastDates.forEach((k, i) => {
-    const d = document.createElement("div");
-    d.innerText = k;
-    d.onclick = () => {
-      currentIndex = i;
+function buildCalendar() {
+  const panel = document.getElementById("calendarPanel");
+  panel.innerHTML = "";
+
+  const dates = Object.keys(pastData).sort();
+
+  let lastYear = null;
+
+  dates.forEach((d, i) => {
+    const [y, m, dd] = d.split("-");
+
+    if (y !== lastYear) {
+      const year = document.createElement("div");
+      year.className = "calendar-year";
+      year.innerText = y;
+      panel.appendChild(year);
+      lastYear = y;
+    }
+
+    const day = document.createElement("div");
+    day.className = "calendar-day";
+    day.innerText = `${m}-${dd}`;
+
+    day.onclick = () => {
+      currentIndex = dates.indexOf(d);
       updateDateDisplay();
-      toggleIndex();
     };
-    list.appendChild(d);
+
+    panel.appendChild(day);
   });
 }
 
