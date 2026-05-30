@@ -615,23 +615,25 @@ input.key:focus {
   z-index: 10;
 }
 
+/* ✅ 修改点 1：倒三角位置（上移 + 左对齐到数字2） */
 #yearToggle {
   display: none;
   position: absolute;
-  top: calc(50% - 38px);
+  top: calc(50% - 90px);   /* 向上移动约 1cm */
   left: 50%;
-  transform: translate(-240px, 0);
+  transform: translate(-320px, 0); /* 左移到数字2的左边 */
   font-size: 28px;
   color: rgba(200,190,220,.5);
   cursor: pointer;
   z-index: 15;
 }
 
+/* ✅ 修改点 2：日期列表左移，不挡数字 */
 #indexList {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-240px, 30px);
+  transform: translate(-320px, 30px); /* 与倒三角同一列 */
   display: none;
   flex-direction: column;
   gap: 8px;
