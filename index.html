@@ -506,49 +506,43 @@ input.key:focus {
   left: calc(50% + 30px);
 }
 
-/* ===== 左侧低调便利贴 ===== */
+/* ===== 左侧长条便利贴（浅灰 / 无日期） ===== */
 .sticky-area {
   position: fixed;
-  left: 40px;
-  top: 140px;
-  width: 220px;
+  left: 30px;
+  top: 120px;
+  width: 280px;
+  max-height: 520px;
   z-index: 5;
 }
 
 .sticky-note {
-  background: linear-gradient(135deg, #1f1f2a, #181820);
-  padding: 18px;
+  background: linear-gradient(160deg, #2a2a38, #232330);
+  padding: 26px 22px;
   border-radius: 6px;
   box-shadow:
-    2px 4px 12px rgba(0,0,0,.6),
-    inset 0 0 30px rgba(255,255,255,.03);
+    3px 6px 18px rgba(0,0,0,.7),
+    inset 0 0 40px rgba(255,255,255,.035);
   transform: rotate(-1deg);
   font-family: "ZCOOL XiaoWei", "Noto Serif SC", serif;
-  color: #b4b4c4;
-  font-size: 14px;
-  line-height: 1.9;
-  min-height: 160px;
+  color: #d6d6e2;
+  font-size: 15px;
+  line-height: 2.1;
+  min-height: 420px;
   position: relative;
-  border-left: 3px solid rgba(56,189,248,.4);
+  border-left: 4px solid rgba(56,189,248,.35);
 }
 
 .sticky-note::before {
   content: "";
   position: absolute;
-  top: -10px;
+  top: -12px;
   left: 50%;
   transform: translateX(-50%);
-  width: 40px;
-  height: 10px;
-  background: rgba(255,255,255,.06);
+  width: 60px;
+  height: 12px;
+  background: rgba(255,255,255,.08);
   border-radius: 2px;
-}
-
-.sticky-date {
-  font-size: 11px;
-  letter-spacing: 2px;
-  margin-bottom: 8px;
-  opacity: .45;
 }
 
 .sticky-text {
@@ -556,10 +550,10 @@ input.key:focus {
 }
 
 .sticky-switch {
-  margin-top: 12px;
+  margin-top: 16px;
   display: flex;
   justify-content: space-between;
-  font-size: 12px;
+  font-size: 13px;
   color: rgba(255,255,255,.35);
   cursor: pointer;
 }
@@ -1206,10 +1200,9 @@ input.key:focus {
 
   <div class="gate" onclick="openPastModal()"></div>
 
-  <!-- 左侧便利贴 -->
+  <!-- 左侧长条便利贴 -->
   <div class="sticky-area">
     <div class="sticky-note">
-      <div class="sticky-date" id="stickyDate">2026.05.30</div>
       <div class="sticky-text" id="stickyText">今天想对你说的话会写在这里。</div>
     </div>
     <div class="sticky-switch">
@@ -1303,15 +1296,12 @@ input.key:focus {
 /* ========= 便利贴数据 ========= */
 const stickyNotes = [
   {
-    date: "2026.05.30",
     text: "今天风很轻，适合慢下来。\n\n别急着赶路，记得看看身边的光。"
   },
   {
-    date: "2026.05.29",
     text: "有些话不必一次说完。\n\n像日记一样，一点点留下来就好。"
   },
   {
-    date: "2026.05.28",
     text: "这个小空间，只属于我们。\n\n以后每天都会有一点新的东西。"
   }
 ];
@@ -1320,7 +1310,6 @@ let stickyIndex = 0;
 
 function renderSticky() {
   const s = stickyNotes[stickyIndex];
-  document.getElementById("stickyDate").innerText = s.date;
   document.getElementById("stickyText").innerText = s.text;
 }
 
