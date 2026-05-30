@@ -1147,6 +1147,12 @@ input.key:focus {
 #pastPwd:focus {
   border-color: #a78bfa;
 }
+ /* 两行冠军对齐样式 */
+.cs-column .row {
+  line-height: 1.6;
+  letter-spacing: 2px;
+  text-align: center;
+} 
 </style>
 </head>
 
@@ -1275,9 +1281,12 @@ input.key:focus {
     <div class="cs-right">S</div>
   </div>
   <div class="cs-content">
-    <div class="cs-column">[ 冠军][月半狂想曲]</div>
-    <div class="cs-column">[ 葡萄成熟时 ]</div>
+  <div class="cs-column">
+    <div class="row">【冠军】 【冠军】</div>
+    <div class="row">【冠军】 【冠军】</div>
+    <div style="margin-top:10px">[月半狂想曲]</div>
   </div>
+  <div class="cs-column">[ 葡萄成熟时 ]</div>
 </div>
 
 <div id="other" class="page-placeholder">
