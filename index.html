@@ -134,7 +134,7 @@ input.key:focus {
   width: 100%;
 }
 
-/* ===== IDEA 二级导航页 ===== */
+/* ===== IDEA 二级导航 ===== */
 #idea {
   display: none;
   position: fixed;
@@ -213,7 +213,7 @@ input.key:focus {
   width: 100%;
 }
 
-/* ===== 日记页面 FRAGMENTS ===== */
+/* ===== 日记页面 ===== */
 #diaryPage {
   display: none;
   position: fixed;
@@ -294,7 +294,7 @@ input.key:focus {
   cursor: not-allowed;
 }
 
-/* ===== 相册页面 LENS ===== */
+/* ===== 相册页面 ===== */
 #lensPage {
   display: none;
   position: fixed;
@@ -359,7 +359,7 @@ input.key:focus {
   padding: 0 40px;
 }
 
-/* ====================== 【现在 - 主时间线】明亮青蓝 科技流光 ====================== */
+/* ====================== 现在时间段 ====================== */
 #main {
   display: none;
   position: fixed;
@@ -506,7 +506,69 @@ input.key:focus {
   left: calc(50% + 30px);
 }
 
-/* 右下角入口点 */
+/* ===== 左侧低调便利贴 ===== */
+.sticky-area {
+  position: fixed;
+  left: 40px;
+  top: 140px;
+  width: 220px;
+  z-index: 5;
+}
+
+.sticky-note {
+  background: linear-gradient(135deg, #1f1f2a, #181820);
+  padding: 18px;
+  border-radius: 6px;
+  box-shadow:
+    2px 4px 12px rgba(0,0,0,.6),
+    inset 0 0 30px rgba(255,255,255,.03);
+  transform: rotate(-1deg);
+  font-family: "ZCOOL XiaoWei", "Noto Serif SC", serif;
+  color: #b4b4c4;
+  font-size: 14px;
+  line-height: 1.9;
+  min-height: 160px;
+  position: relative;
+  border-left: 3px solid rgba(56,189,248,.4);
+}
+
+.sticky-note::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 10px;
+  background: rgba(255,255,255,.06);
+  border-radius: 2px;
+}
+
+.sticky-date {
+  font-size: 11px;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+  opacity: .45;
+}
+
+.sticky-text {
+  white-space: pre-line;
+}
+
+.sticky-switch {
+  margin-top: 12px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: rgba(255,255,255,.35);
+  cursor: pointer;
+}
+
+.sticky-switch span:hover {
+  color: #38bdf8;
+}
+
+/* 右下角入口 */
 #main .gate {
   position: fixed;
   bottom: 30px;
@@ -520,7 +582,7 @@ input.key:focus {
   box-shadow: 0 0 10px rgba(56,189,248,.6);
 }
 
-/* ====================== 【过去 - 时间选择】暗调紫黑 幽邃怀旧 ====================== */
+/* ===== 过去时间段 ===== */
 #past {
   display: none;
   position: fixed;
@@ -725,7 +787,7 @@ input.key:focus {
   font-size: 26px;
 }
 
-/* ===== 其余页面 ===== */
+/* ===== CS 页面 ===== */
 #csPage {
   display: none;
   position: fixed;
@@ -901,7 +963,7 @@ input.key:focus {
   50% { opacity: .7; }
 }
 
-/* ===== 生日页面 + 烟花画布 ===== */
+/* ===== 生日页面 ===== */
 #birthday {
   display: none;
   position: fixed;
@@ -972,7 +1034,7 @@ input.key:focus {
   z-index: 2;
 }
 
-/* ===== 时空驿站弹窗（修复版）===== */
+/* ===== 时空驿站弹窗 ===== */
 #pastModal {
   display: none;
   position: fixed;
@@ -990,7 +1052,6 @@ input.key:focus {
   padding: 20px;
   border-radius: 8px;
   border: 1px solid rgba(167, 139, 250,.25);
-  /* 关键：让密码框能被点击 */
   pointer-events: auto !important;
 }
 
@@ -1042,10 +1103,8 @@ input.key:focus {
   letter-spacing: 8px;
 }
 
-/* 时空驿站密码输入框样式（修复层级） */
 #pastPwdWrap {
   margin-top: 12px;
-  /* 关键：提高层级、允许点击 */
   position: relative;
   z-index: 1002;
   pointer-events: auto !important;
@@ -1103,7 +1162,7 @@ input.key:focus {
   </div>
 </div>
 
-<!-- 日记页面 FRAGMENTS -->
+<!-- 日记页面 -->
 <div id="diaryPage">
   <div class="diary-header">
     <div class="diary-back" onclick="goToIdea()">◀ BACK</div>
@@ -1121,7 +1180,7 @@ input.key:focus {
   </div>
 </div>
 
-<!-- 相册页面 LENS -->
+<!-- 相册页面 -->
 <div id="lensPage">
   <div class="lens-header">
     <div class="lens-back" onclick="goToIdea()">◀ BACK</div>
@@ -1136,13 +1195,28 @@ input.key:focus {
   </div>
 </div>
 
+<!-- =================== 主时间线 + 左侧便利贴 =================== -->
 <div id="main">
   <div class="main-header">
     <span class="back-btn" onclick="goToNav()">◀ BACK</span>
     <span>TIME CAPSULE</span>
   </div>
+
   <div class="timeline-now" id="timelineNow"></div>
+
   <div class="gate" onclick="openPastModal()"></div>
+
+  <!-- 左侧便利贴 -->
+  <div class="sticky-area">
+    <div class="sticky-note">
+      <div class="sticky-date" id="stickyDate">2026.05.30</div>
+      <div class="sticky-text" id="stickyText">今天想对你说的话会写在这里。</div>
+    </div>
+    <div class="sticky-switch">
+      <span onclick="prevSticky()">◀</span>
+      <span onclick="nextSticky()">▶</span>
+    </div>
+  </div>
 </div>
 
 <!-- ===== 过去时间段 ===== -->
@@ -1192,7 +1266,6 @@ input.key:focus {
   <div id="album-close" onclick="closeAlbum()">✕</div>
 </div>
 
-<!-- ✅ 内容页 -->
 <div class="modal" id="modal">
   <div class="modal-box">
     <div class="modal-back" onclick="closeModal()">◀ BACK</div>
@@ -1207,7 +1280,6 @@ input.key:focus {
       <div class="opt" onclick="confirmEnterPast()">进入</div>
       <div class="opt" onclick="closePastModal()">取消</div>
     </div>
-    <!-- 密码输入框（修复层级） -->
     <div id="pastPwdWrap">
       <input type="password" id="pastPwd" placeholder="请输入密码">
     </div>
@@ -1218,7 +1290,7 @@ input.key:focus {
   <div class="text">ENTERING TIME STATION</div>
 </div>
 
-<!-- 生日页面 + 烟花 -->
+<!-- 生日页面 -->
 <div id="birthday">
   <canvas id="fireworksCanvas"></canvas>
   <div id="cake">🎂</div>
@@ -1228,6 +1300,41 @@ input.key:focus {
 </div>
 
 <script>
+/* ========= 便利贴数据 ========= */
+const stickyNotes = [
+  {
+    date: "2026.05.30",
+    text: "今天风很轻，适合慢下来。\n\n别急着赶路，记得看看身边的光。"
+  },
+  {
+    date: "2026.05.29",
+    text: "有些话不必一次说完。\n\n像日记一样，一点点留下来就好。"
+  },
+  {
+    date: "2026.05.28",
+    text: "这个小空间，只属于我们。\n\n以后每天都会有一点新的东西。"
+  }
+];
+
+let stickyIndex = 0;
+
+function renderSticky() {
+  const s = stickyNotes[stickyIndex];
+  document.getElementById("stickyDate").innerText = s.date;
+  document.getElementById("stickyText").innerText = s.text;
+}
+
+function prevSticky() {
+  stickyIndex =
+    (stickyIndex - 1 + stickyNotes.length) % stickyNotes.length;
+  renderSticky();
+}
+
+function nextSticky() {
+  stickyIndex = (stickyIndex + 1) % stickyNotes.length;
+  renderSticky();
+}
+
 /* ========= 基础数据 ========= */
 const timelineData = [
   { date: "2026-06-04", content: "首先祝你生日快乐。" },
@@ -1240,7 +1347,6 @@ const pastData = {
   "2024-01-03": { keyword: "测试", content: "这是一个测试条目。<br><br>这里可以放很长很长的文字。<br>用来验证 Close 是否始终在底部。" }
 };
 
-// 日记内容（可自由增删、修改）
 const diaryData = [
   {
     date: "2026.05.28",
@@ -1254,13 +1360,12 @@ const diaryData = [
     date: "2026.05.20",
     text: "偶尔回望走过的路，有惊喜也有小遗憾，但所有经历都构成了现在的自己。学会和生活和解，接纳所有发生，带着温柔继续往前走。"
   },
-   {
+  {
     date: "2026.05.21",
     text: "偶尔回望走过的路，有惊喜也有小遗憾，但所有经历都构成了现在的自己。学会和生活和解，接纳所有发生，带着温柔继续往前走。"
   }
 ];
 
-// 相册图片列表（后续替换成你的图片链接即可）
 const photoData = [
   "https://picsum.photos/1200/800?random=1",
   "https://picsum.photos/1200/800?random=2",
@@ -1273,7 +1378,6 @@ let currentIndex = 0;
 let isScrolling = false;
 let modalSource = null;
 
-// 日记、相册分页全局变量
 let nowDiaryPage = 0;
 let nowPhotoPage = 0;
 
@@ -1284,7 +1388,7 @@ function hideAll() {
   });
 }
 
-/* ========= 页面跳转函数 ========= */
+/* ========= 页面跳转 ========= */
 function goToNav() {
   hideAll();
   document.getElementById("nav").style.display = "flex";
@@ -1293,6 +1397,7 @@ function goToNav() {
 function goToMain() {
   hideAll();
   document.getElementById("main").style.display = "block";
+  renderSticky();
 }
 
 function goToPast() {
@@ -1325,7 +1430,6 @@ function goToOther() {
   document.getElementById("other").style.display = "flex";
 }
 
-// 进入日记 FRAGMENTS
 function goToFragments(){
   hideAll();
   document.getElementById("diaryPage").style.display = "block";
@@ -1333,7 +1437,6 @@ function goToFragments(){
   renderDiary();
 }
 
-// 进入相册 LENS
 function goToLens(){
   hideAll();
   document.getElementById("lensPage").style.display = "block";
@@ -1341,7 +1444,7 @@ function goToLens(){
   renderPhoto();
 }
 
-/* ========= 日记渲染 & 翻页 ========= */
+/* ========= 日记 ========= */
 function renderDiary(){
   const total = diaryData.length;
   const item = diaryData[nowDiaryPage];
@@ -1349,10 +1452,8 @@ function renderDiary(){
   document.getElementById("diaryContent").innerText = item.text;
   document.getElementById("diaryPageNum").innerText = `PAGE ${nowDiaryPage + 1} / ${total}`;
 
-  const prevBtn = document.getElementById("diaryPrev");
-  const nextBtn = document.getElementById("diaryNext");
-  prevBtn.classList.toggle("disable", nowDiaryPage === 0);
-  nextBtn.classList.toggle("disable", nowDiaryPage === total - 1);
+  document.getElementById("diaryPrev").classList.toggle("disable", nowDiaryPage === 0);
+  document.getElementById("diaryNext").classList.toggle("disable", nowDiaryPage === total - 1);
 }
 
 function prevDiary(){
@@ -1369,16 +1470,14 @@ function nextDiary(){
   }
 }
 
-/* ========= 相册渲染 & 翻页 ========= */
+/* ========= 相册 ========= */
 function renderPhoto(){
   const total = photoData.length;
   document.getElementById("mainPhoto").src = photoData[nowPhotoPage];
   document.getElementById("photoPageNum").innerText = `${nowPhotoPage + 1} / ${total}`;
 
-  const prevBtn = document.getElementById("photoPrev");
-  const nextBtn = document.getElementById("photoNext");
-  prevBtn.classList.toggle("disable", nowPhotoPage === 0);
-  nextBtn.classList.toggle("disable", nowPhotoPage === total - 1);
+  document.getElementById("photoPrev").classList.toggle("disable", nowPhotoPage === 0);
+  document.getElementById("photoNext").classList.toggle("disable", nowPhotoPage === total - 1);
 }
 
 function prevPhoto(){
@@ -1395,7 +1494,7 @@ function nextPhoto(){
   }
 }
 
-/* ========= 登录逻辑 ========= */
+/* ========= 登录 ========= */
 const KEY = "56";
 const input = document.getElementById("key");
 const login = document.getElementById("login");
@@ -1458,7 +1557,7 @@ function eraseText(cb) {
   }, 70);
 }
 
-/* ========= 主时间线渲染 ========= */
+/* ========= 时间线 ========= */
 function renderTimeline() {
   const c = document.getElementById("timelineNow");
   c.innerHTML = "";
@@ -1477,13 +1576,6 @@ function renderTimeline() {
 function openModal(time, content) {
   modalSource = document.getElementById("main").style.display === "block" ? "main" : "past";
   document.getElementById("modal-content").innerHTML = content;
-  if (photosByDate[time]) {
-    const cam = document.createElement("div");
-    cam.className = "camera";
-    cam.innerHTML = "📷";
-    cam.onclick = () => openAlbum(photosByDate[time]);
-    document.getElementById("modal-content").appendChild(cam);
-  }
   document.getElementById("keywordPage").style.display = "none";
   document.getElementById("modal").style.display = "flex";
 }
@@ -1538,7 +1630,7 @@ function closeAlbum() {
   document.getElementById("album").style.display = "none";
 }
 
-/* ====================== 烟花 ====================== */
+/* ========= 烟花 ========= */
 const cake = document.getElementById("cake");
 const happy = document.getElementById("happy");
 const message = document.getElementById("message");
@@ -1656,25 +1748,22 @@ function closeBirthday() {
   localStorage.setItem("asked", "1");
 }
 
-/* ========= 时空驿站（密码校验修复） ========= */
+/* ========= 时空驿站 ========= */
 function openPastModal() {
   document.getElementById("pastModal").style.display = "flex";
 }
 
 function closePastModal() {
   document.getElementById("pastModal").style.display = "none";
-  // 清空密码框
   document.getElementById("pastPwd").value = "";
 }
 
-// 关键：加了密码判断（0912）
 function confirmEnterPast() {
   const pwd = document.getElementById("pastPwd").value.trim();
   if (pwd !== "0912") {
     alert("密码错误，无法进入");
     return;
   }
-  // 密码正确才进入
   closePastModal();
   enterPastSequence();
 }
@@ -1688,7 +1777,7 @@ function enterPastSequence() {
   }, 2000);
 }
 
-/* ========= 过去：滚轮 & 列表 ========= */
+/* ========= 过去时间选择 ========= */
 function scrollDate(e) {
   e.preventDefault();
   if (isScrolling) return;
@@ -1751,7 +1840,7 @@ document.getElementById("past").addEventListener("click", function (e) {
   }
 });
 
-// 初始化
+/* 初始化 */
 renderTimeline();
 </script>
 
