@@ -1341,18 +1341,46 @@ function makeStickyEditable() {
 
 function saveSticky() {
   const el = document.getElementById("stickyText");
-  stickies[stickyIndex] = el.innerText.trim();
+  let txt = el.innerText.trim();
+
+  // ✅ 如果全删了，给一个空格，保证还能编辑
+  if (txt === "") {
+    txt = " ";
+  }
+
+  stickies[stickyIndex] = txt;
   localStorage.setItem("stickies", JSON.stringify(stickies));
 }
 
 function prevSticky() {
-  stickyIndex =
+  let newIndex =
     (stickyIndex - 1 + stickies.length) % stickies.length;
+
+  // ✅ 跳过空便利贴
+  while (
+    newIndex !== stickyIndex &&
+    stickies[newIndex].trim() === ""
+  ) {
+    newIndex =
+      (newIndex - 1 + stickies.length) % stickies.length;
+  }
+
+  stickyIndex = newIndex;
   renderSticky();
 }
 
 function nextSticky() {
-  stickyIndex = (stickyIndex + 1) % stickies.length;
+  let newIndex = (stickyIndex + 1) % stickies.length;
+
+  // ✅ 跳过空便利贴
+  while (
+    newIndex !== stickyIndex &&
+    stickies[newIndex].trim() === ""
+  ) {
+    newIndex = (newIndex + 1) % stickies.length;
+  }
+
+  stickyIndex = newIndex;
   renderSticky();
 }
 
