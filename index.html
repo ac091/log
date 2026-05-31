@@ -1232,6 +1232,87 @@ input.key:focus {
   letter-spacing: 2px;
   white-space: nowrap;
 }
+  
+/* ========== PLAN 计划页面 多行多列居中布局 ========== */
+.plan-page {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: 
+    linear-gradient(150deg, #162b5c 0%, #0f1e42 40%, #081024 100%),
+    radial-gradient(circle at 15% 15%, rgba(96, 165, 250, 0.25) 0%, transparent 50%),
+    radial-gradient(circle at 85% 75%, rgba(56, 189, 248, 0.2) 0%, transparent 55%);
+  background-blend-mode: screen;
+  z-index: 10;
+  padding: 60px 40px;
+  overflow-y: auto;
+  flex-direction: column;
+  align-items: center;
+}
+
+.plan-page .back-btn {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  cursor: pointer;
+  color: #a0aec0;
+  font-size: 16px;
+  letter-spacing: 2px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: all .3s ease;
+}
+.plan-page .back-btn:hover {
+  color: #38bdf8;
+  background: rgba(56,189,248,.15);
+}
+
+.plan-title {
+  font-size: 14px;
+  letter-spacing: 10px;
+  color: rgba(255,255,255,.2);
+  margin: 40px 0 60px;
+}
+
+/* 容器：核心 多行多列、居中、自动换行 */
+.plan-container {
+  width: 90%;
+  max-width: 1000px;
+  display: flex;
+  flex-wrap: wrap;     /* 自动换行 = 多行 */
+  justify-content: center; /* 整体居中 */
+  gap: 24px 30px;      /* 上下间距 24px，左右间距 30px */
+}
+
+/* 单个条目样式 */
+.plan-item {
+  width: 220px;        /* 每个条目宽度，决定一列多宽 */
+  padding: 20px 16px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(56,189,248,.2);
+  border-radius: 8px;
+  color: #d1d5db;
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.plan-item:hover {
+  color: #38bdf8;
+  border-color: rgba(56,189,248,.6);
+  box-shadow: 0 0 15px rgba(56,189,248,.25);
+  transform: translateY(-4px);
+}
+
+/* 页面滚动条美化 */
+.plan-page::-webkit-scrollbar {
+  width: 6px;
+}
+.plan-page::-webkit-scrollbar-thumb {
+  background: rgba(56,189,248,.4);
+  border-radius: 3px;
+}
 </style>
 </head>
 
@@ -1428,9 +1509,20 @@ input.key:focus {
   <!-- 滚动容器结束 -->
 </div>
 
-<div id="other" class="page-placeholder">
+<!-- PLAN 计划页面（多行多列 居中布局） -->
+<div id="other" class="plan-page">
   <div class="back-btn" onclick="goToNav()">◀ BACK</div>
-  <div class="content">其 他</div>
+  <div class="plan-title">PLAN LIST</div>
+  <div class="plan-container">
+    <!-- ========== 在这里添加你的计划条目 ========== -->
+    <div class="plan-item">计划一 · 日常安排</div>
+    <div class="plan-item">计划二 · 学习目标</div>
+    <div class="plan-item">计划三 · 出行旅行</div>
+    <div class="plan-item">计划四 · 生活琐事</div>
+    <div class="plan-item">计划五 · 心愿清单</div>
+    <div class="plan-item">计划六 · 长期目标</div>
+    <!-- 继续往下复制 <div class="plan-item">内容</div> 即可新增 -->
+  </div>
 </div>
 
 <div id="album">
