@@ -824,13 +824,13 @@ input.key:focus {
   width: 100%;
   max-width: 900px;
   height: calc(100vh - 220px);
-  overflow-y: auto;
+  overflow-y: overlay;  /* 核心：滚动条悬浮，不占位置 */
   overflow-x: hidden;
   padding: 0 20px;
-  padding-right: 26px; /* 右边多补 6px，抵消滚动条宽度 */
+  box-sizing: border-box;
 }
- 
-/* 美化滚动条（和全站风格统一） */
+
+/* 保留滚动条样式 */
 .cs-scroll-wrap::-webkit-scrollbar {
   width: 6px;
 }
@@ -844,7 +844,7 @@ input.key:focus {
 }
 .cs-scroll-wrap::-webkit-scrollbar-thumb:hover {
   background: rgba(167, 139, 250, 0.6);
-}  
+}
 
 #csPage .back-btn {
   position: absolute;
