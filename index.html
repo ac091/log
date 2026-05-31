@@ -822,13 +822,14 @@ input.key:focus {
 /* SONG 歌曲列表滚动容器 */
 .cs-scroll-wrap {
   width: 100%;
-  max-width: 900px; /* 限制整体宽度，和原有布局匹配 */
-  height: calc(100vh - 220px); /* 可视高度，减去头部、边距 */
-  overflow-y: auto;    /* 垂直滚动 */
-  overflow-x: hidden;  /* 禁止横向滚动 */
+  max-width: 900px;
+  height: calc(100vh - 220px);
+  overflow-y: auto;
+  overflow-x: hidden;
   padding: 0 20px;
+  padding-right: 26px; /* 右边多补 6px，抵消滚动条宽度 */
 }
-
+ 
 /* 美化滚动条（和全站风格统一） */
 .cs-scroll-wrap::-webkit-scrollbar {
   width: 6px;
