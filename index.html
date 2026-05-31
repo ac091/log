@@ -865,48 +865,62 @@ input.key:focus {
   background: rgba(167, 139, 250,.1);
 }
 
-/* 顶部 C / S 标题栏 */
+/* 标题：C 左对齐、S 右对齐，和下面两列同宽 */
 .cs-header {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 120px;     /* 和下方两列间距一致 */
+  gap: 120px;    
   margin-bottom: 60px;
 }
 
-.cs-left, .cs-right {
-  width: 260px;    /* 和下方列宽完全一致 */
+.cs-left {
+  width: 260px;
   font-size: 72px;
   font-weight: 900;
   color: #b4b4c8;
   letter-spacing: 8px;
-  text-align: center; /* 标题居中，和列表对齐 */
+  text-align: left;  /* C 靠左 */
 }
-
+.cs-right {
+  width: 260px;
+  font-size: 72px;
+  font-weight: 900;
+  color: #b4b4c8;
+  letter-spacing: 8px;
+  text-align: right; /* S 靠右 */
+}
 .cs-divider {
   width: 1px;
   height: 60px;
   background: rgba(255,255,255,.15);
 }
 
-/* 内容容器：整体居中、两列固定间距 */
+/* 内容容器：居中，两列固定间距 */
 .cs-content {
   display: flex;
   justify-content: center;
-  gap: 120px;      /* 两列之间固定间距 */
+  gap: 120px;
   align-items: flex-start;
-  width: 100%;
 }
 
-/* 单列统一宽度、居中 */
-.cs-column {
+/* 左列：左对齐 */
+.cs-column.cs-col-c {
   width: 260px;
   color: #777799;
   font-size: 14px;
-  text-align: center;
+  text-align: left;
 }
 
-/* 每一行统一高度、行高、垂直居中，保证逐行对齐 */
+/* 右列：右对齐 */
+.cs-column.cs-col-s {
+  width: 260px;
+  color: #777799;
+  font-size: 14px;
+  text-align: right;
+}
+
+/* 每行统一高度，保证对齐 */
 .cs-column .row {
   display: block;
   height: 32px;
@@ -914,6 +928,32 @@ input.key:focus {
   letter-spacing: 2px;
   white-space: nowrap;
 }
+
+/* 滚动条不变 */
+.cs-scroll-wrap {
+  width: 100%;
+  max-width: 900px;
+  height: calc(100vh - 220px);
+  overflow-y: overlay;
+  overflow-x: hidden;
+  padding: 0 22px;
+  box-sizing: border-box;
+}
+.cs-scroll-wrap::-webkit-scrollbar {
+  width: 6px;
+}
+.cs-scroll-wrap::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.2);
+  border-radius: 3px;
+}
+.cs-scroll-wrap::-webkit-scrollbar-thumb {
+  background: rgba(167, 139, 250, 0.4);
+  border-radius: 3px;
+}
+.cs-scroll-wrap::-webkit-scrollbar-thumb:hover {
+  background: rgba(167, 139, 250, 0.6);
+}
+
 
 .page-placeholder {
   display: none;
@@ -1334,17 +1374,18 @@ input.key:focus {
 
 <div id="csPage">
   <div class="back-btn" onclick="goToNav()">◀ BACK</div>
+  
+  <!-- 标题：C 左、S 右，和下面两列对齐 -->
   <div class="cs-header">
     <div class="cs-left">C</div>
     <div class="cs-divider"></div>
     <div class="cs-right">S</div>
   </div>
  
-  <!-- 新增滚动外层容器 -->
   <div class="cs-scroll-wrap">
   <div class="cs-content">
-    <!-- C 列 -->
-    <div class="cs-column">
+    <!-- 左列：左对齐 -->
+    <div class="cs-column cs-col-c">
       <div class="row">[发迹] [Marry]</div>
       <div class="row">[记忆嗅觉] [皮囊]</div>
       <div class="row">[冠军] [Wish u never]</div> 
@@ -1374,8 +1415,9 @@ input.key:focus {
       <div class="row">[阴天快乐] [输了你赢了世界又如何]</div>
      <div class="row">......排名无先后</div>
     </div>
-    <!-- S 列 -->
-    <div class="cs-column">
+
+    <!-- 右列：右对齐 -->
+    <div class="cs-column cs-col-s">
       <div class="row">[ 圣诞结 ] [像你这样的朋友]</div>
       <div class="row">[Merry Christmas Mr.Lawrence] [十万毫升泪水]</div>
       <div class="row">[ Yellow ] [Spirits]</div>
