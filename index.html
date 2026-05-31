@@ -1111,6 +1111,22 @@ input.key:focus {
   padding: 20px;
 }
 
+  /* 生日文案区域 滚动条美化（匹配整体青蓝色调） */
+#message::-webkit-scrollbar {
+  width: 6px;
+}
+#message::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+#message::-webkit-scrollbar-thumb {
+  background: rgba(125, 211, 252, 0.4);
+  border-radius: 3px;
+}
+#message::-webkit-scrollbar-thumb:hover {
+  background: rgba(125, 211, 252, 0.6);
+}
+
 #closeHint {
   position: absolute;
   bottom: 80px;
