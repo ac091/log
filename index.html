@@ -1147,26 +1147,6 @@ input.key:focus {
 #pastPwd:focus {
   border-color: #a78bfa;
 }
-/* CS 页面 强制行列对齐 */
-.cs-content {
-  display: flex;
-  gap: 120px;
-  align-items: flex-start;
-}
-.cs-column {
-  width: 260px;
-  color: #777799;
-  font-size: 14px;
-  text-align: center;
-}
-/* 统一每一行高度、间距、占位，保证绝对对齐 */
-.cs-column .row {
-  display: block;
-  height: 32px;
-  line-height: 32px;
-  letter-spacing: 2px;
-  white-space: nowrap;
-}
 </style>
 </head>
 
@@ -1295,16 +1275,8 @@ input.key:focus {
     <div class="cs-right">S</div>
   </div>
   <div class="cs-content">
-    <div class="cs-column">
-      <div class="row">[要你管] [冠军]</div>
-      <div class="row">[冠军] [冠军]</div>
-      <div class="row">[冠军] [月下狂想曲]</div> 
-    </div>
-    <div class="cs-column">
-      <div class="row">[ 葡萄成熟时 ] [要你管]</div>
-      <div class="row">[我管你] [少管我]</div>
-      <div class="row"></div>
-    </div>
+    <div class="cs-column">[ 冠军 ]</div>
+    <div class="cs-column">[ S 歌单 ]</div>
   </div>
 </div>
 
