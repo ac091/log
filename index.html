@@ -859,36 +859,27 @@ input.key:focus {
   border-radius: 6px;
   transition: all .3s ease;
 }
-
 #csPage .back-btn:hover {
   color: #a78bfa;
   background: rgba(167, 139, 250,.1);
 }
 
-/* 标题：C 左对齐、S 右对齐，和下面两列同宽 */
+/* 标题整体居中，C、S 各自居中 */
 .cs-header {
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   gap: 120px;    
   margin-bottom: 60px;
 }
 
-.cs-left {
+.cs-left, .cs-right {
   width: 260px;
   font-size: 72px;
   font-weight: 900;
   color: #b4b4c8;
   letter-spacing: 8px;
-  text-align: left;  /* C 靠左 */
-}
-.cs-right {
-  width: 260px;
-  font-size: 72px;
-  font-weight: 900;
-  color: #b4b4c8;
-  letter-spacing: 8px;
-  text-align: right; /* S 靠右 */
+  text-align: center; /* 标题居中 */
 }
 .cs-divider {
   width: 1px;
@@ -896,7 +887,7 @@ input.key:focus {
   background: rgba(255,255,255,.15);
 }
 
-/* 内容容器：居中，两列固定间距 */
+/* 内容整体居中 */
 .cs-content {
   display: flex;
   justify-content: center;
@@ -904,32 +895,21 @@ input.key:focus {
   align-items: flex-start;
 }
 
-/* 左列：左对齐 */
-.cs-column.cs-col-c {
+/* 列表文字居中，对应上方标题 */
+.cs-column {
   width: 260px;
   color: #777799;
   font-size: 14px;
-  text-align: left;
+  text-align: center; /* 歌曲文字居中 */
 }
 
-/* 右列：右对齐 */
-.cs-column.cs-col-s {
-  width: 260px;
-  color: #777799;
-  font-size: 14px;
-  text-align: right;
-}
-
-/* 每行统一高度，保证对齐 */
 .cs-column .row {
-  display: block;
   height: 32px;
   line-height: 32px;
   letter-spacing: 2px;
   white-space: nowrap;
 }
 
-/* 滚动条不变 */
 .cs-scroll-wrap {
   width: 100%;
   max-width: 900px;
@@ -1375,7 +1355,6 @@ input.key:focus {
 <div id="csPage">
   <div class="back-btn" onclick="goToNav()">◀ BACK</div>
   
-  <!-- 标题：C 左、S 右，和下面两列对齐 -->
   <div class="cs-header">
     <div class="cs-left">C</div>
     <div class="cs-divider"></div>
@@ -1384,7 +1363,6 @@ input.key:focus {
  
   <div class="cs-scroll-wrap">
   <div class="cs-content">
-    <!-- 左列：左对齐 -->
     <div class="cs-column cs-col-c">
       <div class="row">[发迹] [Marry]</div>
       <div class="row">[记忆嗅觉] [皮囊]</div>
@@ -1416,7 +1394,6 @@ input.key:focus {
      <div class="row">......排名无先后</div>
     </div>
 
-    <!-- 右列：右对齐 -->
     <div class="cs-column cs-col-s">
       <div class="row">[ 圣诞结 ] [像你这样的朋友]</div>
       <div class="row">[Merry Christmas Mr.Lawrence] [十万毫升泪水]</div>
